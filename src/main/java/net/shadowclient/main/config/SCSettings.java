@@ -9,7 +9,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class SCSettings {
 
-    public static BooleanSetting VanillaSpoofing = new BooleanSetting("VanillaSpoof", true);
+    public static BooleanSetting VanillaSpoof = new BooleanSetting("Vanilla Spoof", true);
+    public static BooleanSetting WelcomeMessage = new BooleanSetting("Welcome Msg", true);
 
     public static @Nullable Setting getSetting(String name) {
         JsonObject settings = ConfigFiles.getSCSettings();

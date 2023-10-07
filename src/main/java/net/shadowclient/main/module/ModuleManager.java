@@ -6,7 +6,6 @@ import net.shadowclient.main.module.modules.movement.*;
 import net.shadowclient.main.module.modules.other.*;
 import net.shadowclient.main.module.modules.player.*;
 import net.shadowclient.main.module.modules.render.*;
-import net.shadowclient.main.module.modules.world.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,8 +45,7 @@ public class ModuleManager {
         register(new NoFireOverlay());
         register(new AutoCrystal());
         register(new BunnyHop());
-        register(new DisableHackUpdates());
-        register(new DisableWelcomeMessage());
+        register(new UpdatesDisabled());
         register(new NoWaterPush());
         register(new SaveData());
         register(new LoadData());

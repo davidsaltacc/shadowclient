@@ -53,8 +53,8 @@ public class ClickGUI extends Screen {
             hideframe.children.add(new ModuleButton("savedata", hideframe, 42));
             offset += 105;
 
-            settingsframe.children.add(new SCBoolSetting(SCSettings.VanillaSpoofing, settingsframe, 14));
-
+            settingsframe.children.add(new SCBoolSetting(SCSettings.VanillaSpoof, settingsframe, 14));
+            settingsframe.children.add(new SCBoolSetting(SCSettings.WelcomeMessage, settingsframe, 28));
 
             searchFrame = new Frame("Search", offset, 5, 120, 14);
             frames.add(searchFrame);

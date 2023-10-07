@@ -5,6 +5,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.shadowclient.main.annotations.ReceiveNoUpdates;
 import net.shadowclient.main.command.CommandManager;
 import net.shadowclient.main.config.ConfigFiles;
+import net.shadowclient.main.config.SCSettings;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.events.KeyPressEvent;
 import net.shadowclient.main.module.ModuleManager;
@@ -20,7 +21,7 @@ public class SCMain {
 
     public static final String ClientModId = "shadowclient";
     public static final String ClientName = "ShadowClient";
-    public static final String ClientVersion = "0.1.2";
+    public static final String ClientVersion = "0.1.3";
     public static final String ClientCommandPrefix = "sc/";
 
     public static ClickGUI clickGui;
@@ -56,7 +57,7 @@ public class SCMain {
                 }
             }
 
-            if (ModuleManager.getModule("disablehackupdates").enabled) {
+            if (ModuleManager.getModule("updatesdisabled").enabled) {
                 return;
             }
             ModuleManager.getAllModules().forEach((name, module) -> {
@@ -107,7 +108,7 @@ public class SCMain {
     }
 
     public static void onWorldJoined() {
-        if (ModuleManager.getModule("disablewelcomemessage").enabled) {
+        if (!SCSettings.getSetting("WelcomeMessage").booleanValue()) {
             return;
         }
         ChatUtils.sendMessageClient("§0§l§u" + ClientName + " §o" + ClientVersion + "§r\nType " + ClientCommandPrefix + "help for useful help.");

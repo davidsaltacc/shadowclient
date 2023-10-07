@@ -68,13 +68,13 @@ public class ConfigFiles {
             try {
                 Setting setting = (Setting) field.get(null);
                 if (setting instanceof BooleanSetting) {
-                    scsettings.addProperty(setting.name, setting.booleanValue());
+                    scsettings.addProperty(field.getName(), setting.booleanValue());
                 }
                 if (setting instanceof NumberSetting) {
-                    scsettings.addProperty(setting.name, setting.numberValue());
+                    scsettings.addProperty(field.getName(), setting.numberValue());
                 }
                 if (setting instanceof StringSetting) {
-                    scsettings.addProperty(setting.name, ((StringSetting) setting).stringValue());
+                    scsettings.addProperty(field.getName(), ((StringSetting) setting).stringValue());
                 }
             } catch (Exception ignored) {}
         });
@@ -176,9 +176,11 @@ public class ConfigFiles {
                     }
                 }
             });
-            if (!module.getClass().isAnnotationPresent(OneClick.class)) {
-                SCMain.setModuleEnabled(name, object.get("enabled").getAsBoolean(), false);
-            }
+            try {
+                if (!module.getClass().isAnnotationPresent(OneClick.class)) {
+                    SCMain.setModuleEnabled(name, object.get("enabled").getAsBoolean(), false);
+                }
+            } catch (Exception ignored) {}
         });
     }
 
