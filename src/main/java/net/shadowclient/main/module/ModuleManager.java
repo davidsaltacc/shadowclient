@@ -51,6 +51,8 @@ public class ModuleManager {
         register(new NoWaterPush());
         register(new SaveData());
         register(new LoadData());
+        register(new ShowSettings());
+        register(new HideSettings());
     }
 
     public static void register(Module module) {

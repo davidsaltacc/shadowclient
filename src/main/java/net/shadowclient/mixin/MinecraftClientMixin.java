@@ -9,10 +9,10 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ModStatus;
 import net.shadowclient.main.SCMain;
+import net.shadowclient.main.config.SCSettings;
 import net.shadowclient.main.event.events.PostTickEvent;
 import net.shadowclient.main.module.ModuleManager;
 import net.shadowclient.main.module.modules.render.EntitiesESP;
-import net.shadowclient.main.config.Settings;
 import net.shadowclient.main.event.events.UpdateEvent;
 import net.shadowclient.main.event.events.PreTickEvent;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,7 +30,7 @@ public abstract class MinecraftClientMixin {
      */
     @Overwrite
     public static ModStatus getModStatus() {
-        if (Settings.VanillaSpoofing) {
+        if (SCSettings.getSetting("VanillaSpoofing").booleanValue()) {
             return new ModStatus(ModStatus.Confidence.PROBABLY_NOT, "Client jar signature and brand is untouched");
         }
         return ModStatus.check("vanilla", ClientBrandRetriever::getClientModName, "Client", MinecraftClient.class);

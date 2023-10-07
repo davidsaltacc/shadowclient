@@ -3,7 +3,9 @@ package net.shadowclient.main.ui.clickgui;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
+import net.shadowclient.main.config.SCSettings;
 import net.shadowclient.main.module.ModuleCategory;
+import net.shadowclient.main.ui.clickgui.settings.scsettings.components.SCBoolSetting;
 import net.shadowclient.main.ui.clickgui.text.TextField;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,23 +18,48 @@ public class ClickGUI extends Screen {
     public boolean searching;
     public String searchingFor;
 
-    public ClickGUI() {
-        super(Text.of("ClickGUI"));
+    public ClickGUI(boolean main) {
+        super(Text.of(main ? "ClickGUI" : "ShadowClient Settings"));
+        if (main) {
 
-        frames = new ArrayList<>();
-        searching = false;
-        searchingFor = "";
+            frames = new ArrayList<>();
+            searching = false;
+            searchingFor = "";
 
-        int offset = 5;
-        for (ModuleCategory category : ModuleCategory.values()) {
-            frames.add(new Frame(category, offset, 5, 100, 14));
+            int offset = 5;
+            for (ModuleCategory category : ModuleCategory.values()) {
+                frames.add(new Frame(category, offset, 5, 100, 14));
+                offset += 105;
+            }
+
+            searchFrame = new Frame("Search", offset, 5, 120, 14);
+            frames.add(searchFrame);
+            searchFrame.children.add(new TextField(searchFrame, 14, "Find Module"));
+        } else {
+            frames = new ArrayList<>();
+            searching = false;
+            searchingFor = "";
+
+            int offset = 5;
+
+            Frame settingsframe = new Frame("Settings", offset, 5, 100, 14);
+            frames.add(settingsframe);
             offset += 105;
+
+            Frame hideframe = new Frame("Options", offset, 5, 100, 14);
+            frames.add(hideframe);
+            hideframe.children.add(new ModuleButton("hidesettings", hideframe, 14));
+            hideframe.children.add(new ModuleButton("loaddata", hideframe, 28));
+            hideframe.children.add(new ModuleButton("savedata", hideframe, 42));
+            offset += 105;
+
+            settingsframe.children.add(new SCBoolSetting(SCSettings.VanillaSpoofing, settingsframe, 14));
+
+
+            searchFrame = new Frame("Search", offset, 5, 120, 14);
+            frames.add(searchFrame);
+            searchFrame.children.add(new TextField(searchFrame, 14, "Find Setting")); // todo fix searching fro settings?  (wont let you type, doesnt even capture/intercept keypresses)
         }
-
-        searchFrame = new Frame("Search", offset, 5, 120, 14);
-        frames.add(searchFrame);
-        searchFrame.children.add(new TextField(searchFrame, 14, "Find Module"));
-
     }
 
     @Override

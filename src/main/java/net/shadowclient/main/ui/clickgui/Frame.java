@@ -5,14 +5,14 @@ import net.minecraft.client.gui.DrawContext;
 import net.shadowclient.main.annotations.Hidden;
 import net.shadowclient.main.module.ModuleCategory;
 import net.shadowclient.main.module.ModuleManager;
-import net.shadowclient.main.ui.clickgui.settings.SettingComponent;
+import net.shadowclient.main.ui.clickgui.settings.clickgui.SettingComponent;
 import net.shadowclient.main.ui.clickgui.text.TextField;
 import net.shadowclient.main.util.ColorUtils;
 import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Frame {
+public class Frame extends FrameChild {
 
     public int x;
     public int y;

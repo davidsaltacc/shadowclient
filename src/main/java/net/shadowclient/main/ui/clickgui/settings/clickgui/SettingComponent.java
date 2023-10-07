@@ -1,4 +1,4 @@
-package net.shadowclient.main.ui.clickgui.settings;
+package net.shadowclient.main.ui.clickgui.settings.clickgui;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;

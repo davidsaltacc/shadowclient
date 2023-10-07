@@ -24,34 +24,27 @@ public class SCMain {
     public static final String ClientCommandPrefix = "sc/";
 
     public static ClickGUI clickGui;
+    public static ClickGUI settingsGui;
 
     public static final MinecraftClient mc = MinecraftClient.getInstance();
-
-    public static final Logger ClientLogger = LoggerFactory.getLogger(ClientName);
+    public static final Logger logger = LoggerFactory.getLogger(ClientName);
 
     public static void init() {
         info("Starting " + ClientName + " " + ClientVersion);
-        info("Registering Chat Commands");
         CommandManager.registerCommands();
-        info("Registering Modules");
         ModuleManager.registerModules();
-        info("Creating ClickGUI");
-        clickGui = new ClickGUI();
-        info("Loading ConfigFiles");
+        clickGui = new ClickGUI(true);
+        settingsGui = new ClickGUI(false);
         ConfigFiles.loadConfig();
-        info("Fisnishing");
         Runtime.getRuntime().addShutdownHook(new Thread(SCMain::closed));
-        info("Finished " + ClientName + " initialization.");
+        info("Finished " + ClientName + " initialization");
     }
 
     public static void closed() {
-        info("Saving config");
         ConfigFiles.saveConfig();
-        info("Saved");
     }
 
     public static void OnEvent(Event evt) {
-
         try {
             if (evt instanceof KeyPressEvent) {
                 if (((KeyPressEvent) evt).keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT && ((KeyPressEvent) evt).action == 1) {
@@ -132,13 +125,13 @@ public class SCMain {
     }
 
     public static void info(String text) {
-        ClientLogger.info(text);
+        logger.info(text);
     }
     public static void warn(String text) {
-        ClientLogger.warn(text);
+        logger.warn(text);
     }
     public static void error(String text) {
-        ClientLogger.error(text);
+        logger.error(text);
     }
 
 }
