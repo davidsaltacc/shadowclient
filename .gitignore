@@ -23,5 +23,11 @@ gradle-app.setting
 gradle
 .idea
 bin
-build
 run
+
+build/classes
+build/devlibs
+build/generated
+build/loom-cache
+build/resources
+build/tmp
