@@ -44,7 +44,9 @@ public class Frame extends FrameChild {
             if (ModuleManager.getModule(modulename).getClass().isAnnotationPresent(Hidden.class)) {
                 continue;
             }
-            children.add(new ModuleButton(modulename, this, offset));
+            ModuleButton button = new ModuleButton(modulename, this, offset);
+            children.add(button);
+            ModuleManager.getModule(modulename).moduleButton = button;
             offset += height;
         }
 

@@ -13,7 +13,7 @@ public class SCSettings {
     public static BooleanSetting WelcomeMessage = new BooleanSetting("Welcome Msg", true);
 
     public static @Nullable Setting getSetting(String name) {
-        JsonObject settings = ConfigFiles.getSCSettings();
+        JsonObject settings = Config.getSCSettings();
         if (settings != null) {
             if (settings.has(name)) {
                 JsonPrimitive setting = settings.getAsJsonPrimitive(name);

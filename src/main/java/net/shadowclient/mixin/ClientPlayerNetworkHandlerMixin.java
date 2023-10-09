@@ -18,7 +18,7 @@ public abstract class ClientPlayerNetworkHandlerMixin {
     @Inject(method = "sendChatMessage", at = @At("HEAD"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
     public void sendMessage(String content, CallbackInfo ci) {
         if (SCMain.interceptMessage(content)) {
-            CommandManager.Execute(content);
+            CommandManager.execute(content);
             ci.cancel();
         }
     }

@@ -1,27 +1,35 @@
 package net.shadowclient.main.ui.clickgui;
 
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
+import net.shadowclient.main.module.ModuleCategory;
 import net.shadowclient.main.ui.clickgui.text.TextField;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClickGUI extends Screen {
+public class MainClickGUI extends ClickGUI {
 
     public final List<Frame> frames;
 
     public Frame searchFrame;
     public boolean searching;
     public String searchingFor;
-    public ClickGUI(String title) {
-        super(Text.of(title));
+
+    public MainClickGUI() {
+        super("ClickGUI");
 
         frames = new ArrayList<>();
         searching = false;
         searchingFor = "";
-        searchFrame = null;
 
+        int offset = 5;
+        for (ModuleCategory category : ModuleCategory.values()) {
+            frames.add(new Frame(category, offset, 5, 100, 14));
+            offset += 105;
+        }
+
+        searchFrame = new Frame("Search", offset, 5, 120, 14);
+        frames.add(searchFrame);
+        searchFrame.children.add(new TextField(searchFrame, 14, "Find Module"));
     }
 
     @Override

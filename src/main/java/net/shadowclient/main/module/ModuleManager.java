@@ -2,10 +2,16 @@ package net.shadowclient.main.module;
 
 import net.shadowclient.main.module.modules.combat.*;
 import net.shadowclient.main.module.modules.fun.*;
+import net.shadowclient.main.module.modules.menus.HideSettings;
+import net.shadowclient.main.module.modules.menus.ShowSettings;
 import net.shadowclient.main.module.modules.movement.*;
 import net.shadowclient.main.module.modules.other.*;
 import net.shadowclient.main.module.modules.player.*;
 import net.shadowclient.main.module.modules.render.*;
+import net.shadowclient.main.module.modules.settings.LoadData;
+import net.shadowclient.main.module.modules.settings.ResetData;
+import net.shadowclient.main.module.modules.settings.SaveData;
+import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,13 +57,14 @@ public class ModuleManager {
         register(new LoadData());
         register(new ShowSettings());
         register(new HideSettings());
+        register(new ResetData());
     }
 
     public static void register(Module module) {
         modules.put(module.ModuleName, module);
     }
 
-    public static Module getModule(String name) {
+    public static @Nullable Module getModule(String name) {
         return modules.get(name);
     }
 

@@ -3,8 +3,7 @@ package net.shadowclient.main.ui.clickgui.settings.scsettings;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.shadowclient.main.SCMain;
-import net.shadowclient.main.annotations.SearchTags;
-import net.shadowclient.main.config.ConfigFiles;
+import net.shadowclient.main.config.Config;
 import net.shadowclient.main.setting.Setting;
 import net.shadowclient.main.ui.clickgui.Colors;
 import net.shadowclient.main.ui.clickgui.Frame;
@@ -29,7 +28,7 @@ public class SCSettingComponent extends FrameChild {
     }
 
     public int getTextColor() {
-        if (SCMain.clickGui.searching && !isGettingSearchedFor()) {
+        if (SCMain.settingsGui.searching && !isGettingSearchedFor()) {
             return Colors.TEXT_DISABLED.color;
         }
         return Colors.TEXT_NORMAL.color;
@@ -41,7 +40,7 @@ public class SCSettingComponent extends FrameChild {
 
     public void mouseClicked(double mouseX, double mouseY, int button) {
         if (isHovered(mouseX, mouseY)) {
-            ConfigFiles.saveConfig();
+            Config.saveConfig();
         }
     }
 

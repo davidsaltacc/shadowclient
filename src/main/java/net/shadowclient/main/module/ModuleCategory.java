@@ -6,8 +6,9 @@ public enum ModuleCategory {
     MOVEMENT("Movement"),
     // WORLD("World"),
     RENDER("Render"),
+    FUN("Fun"),
     OTHER("Other"),
-    FUN("Fun");
+    MENUS("Menus");
 
     public final String name;
 
