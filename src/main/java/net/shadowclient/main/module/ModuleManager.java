@@ -58,6 +58,7 @@ public class ModuleManager {
         register(new ShowSettings());
         register(new HideSettings());
         register(new ResetData());
+        register(new KillAura());
     }
 
     public static void register(Module module) {
