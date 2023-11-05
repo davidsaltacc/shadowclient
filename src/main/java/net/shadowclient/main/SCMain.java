@@ -127,7 +127,7 @@ public class SCMain {
 
     public static String createHelp() {
         // we hate java
-        AtomicReference<String> help = new AtomicReference<>("§0§l§u" + ClientName + " §o" + ClientVersion + "§r help\nPress right shift for the MainClickGUI.\nRight Click a Part of the UI (Frame Title, Button) to expand it.\nAvailable chat commands:\n");
+        AtomicReference<String> help = new AtomicReference<>("§0§l§u" + ClientName + " §o" + ClientVersion + "§r help\nPress right shift for the ClickGUI.\nRight Click a Part of the UI (Frame Title, Button) to expand it.\nAvailable chat commands:\n");
 
         CommandManager.commands.forEach((name, cmd) -> help.set(help.get() + "  " + ClientCommandPrefix + name + "\n"));
         ModuleManager.getAllModules().forEach((name, module) -> help.set(help.get() + " " + ClientCommandPrefix + name + "\n"));
