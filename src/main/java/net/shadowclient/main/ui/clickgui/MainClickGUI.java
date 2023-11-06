@@ -2,6 +2,7 @@ package net.shadowclient.main.ui.clickgui;
 
 import net.minecraft.client.gui.DrawContext;
 import net.shadowclient.main.module.ModuleCategory;
+import net.shadowclient.main.ui.clickgui.settings.clickgui.components.TextSetting;
 import net.shadowclient.main.ui.clickgui.text.TextField;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,8 +85,8 @@ public class MainClickGUI extends ClickGUI {
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
-    public List<TextField> getAllTextFields() {
-        List<TextField> textFields = new ArrayList<>();
+    public List<FrameChild> getAllTextFields() {
+        List<FrameChild> textFields = new ArrayList<>();
         for (Frame frame : frames) {
             textFields.addAll(frame.getAllTextFields());
         }
@@ -93,10 +94,17 @@ public class MainClickGUI extends ClickGUI {
     }
 
     public boolean isAnyTextFieldCapturing() {
-        List<TextField> allTextFields = getAllTextFields();
-        for (TextField textField : allTextFields) {
-            if (textField.captureKeyPresses) {
-                return true;
+        List<FrameChild> allTextFields = getAllTextFields();
+        for (FrameChild textField : allTextFields) {
+            if (textField.getClass() == TextField.class) {
+                if (((TextField) textField).captureKeyPresses) {
+                    return true;
+                }
+            }
+            if (textField.getClass() == TextSetting.class) {
+                if (((TextSetting) textField).captureKeyPresses) {
+                    return true;
+                }
             }
         }
         return false;

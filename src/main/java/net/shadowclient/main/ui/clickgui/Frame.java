@@ -6,6 +6,7 @@ import net.shadowclient.main.annotations.Hidden;
 import net.shadowclient.main.module.ModuleCategory;
 import net.shadowclient.main.module.ModuleManager;
 import net.shadowclient.main.ui.clickgui.settings.clickgui.SettingComponent;
+import net.shadowclient.main.ui.clickgui.settings.clickgui.components.TextSetting;
 import net.shadowclient.main.ui.clickgui.text.TextField;
 import net.shadowclient.main.util.ColorUtils;
 import org.lwjgl.glfw.GLFW;
@@ -156,11 +157,22 @@ public class Frame extends FrameChild {
         }
     }
 
-    public List<TextField> getAllTextFields() {
-        List<TextField> textFields = new ArrayList<>();
+    public List<FrameChild> getAllTextFields() {
+        List<FrameChild> textFields = new ArrayList<>();
         for (FrameChild child : children) {
             if (child.getClass() == TextField.class) {
-                textFields.add((TextField) child);
+                textFields.add(child);
+            }
+            if (child.getClass() == ModuleButton.class) {
+                System.out.println(child);
+                ((ModuleButton) child).components.forEach((component) -> {
+                    System.out.println(component);
+                    if (component.getClass() == TextSetting.class) {
+                        System.out.println(component);
+                        System.out.println(component.parent);
+                        textFields.add(component);
+                    }
+                });
             }
         }
         return textFields;

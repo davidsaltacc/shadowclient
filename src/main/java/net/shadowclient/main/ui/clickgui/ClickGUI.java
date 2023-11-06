@@ -3,6 +3,7 @@ package net.shadowclient.main.ui.clickgui;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
+import net.shadowclient.main.ui.clickgui.settings.clickgui.components.TextSetting;
 import net.shadowclient.main.ui.clickgui.text.TextField;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,17 +68,11 @@ public class ClickGUI extends Screen {
             frame.keyPressed(keyCode, scanCode, modifiers);
         }
 
-        searching = ((TextField) searchFrame.children.get(0)).getText().length() != 0;
-
-        if (searching) {
-            searchingFor = ((TextField) searchFrame.children.get(0)).getText();
-        }
-
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
-    public List<TextField> getAllTextFields() {
-        List<TextField> textFields = new ArrayList<>();
+    public List<FrameChild> getAllTextFields() {
+        List<FrameChild> textFields = new ArrayList<>();
         for (Frame frame : frames) {
             textFields.addAll(frame.getAllTextFields());
         }
@@ -85,10 +80,17 @@ public class ClickGUI extends Screen {
     }
 
     public boolean isAnyTextFieldCapturing() {
-        List<TextField> allTextFields = getAllTextFields();
-        for (TextField textField : allTextFields) {
-            if (textField.captureKeyPresses) {
-                return true;
+        List<FrameChild> allTextFields = getAllTextFields();
+        for (FrameChild textField : allTextFields) {
+            if (textField.getClass() == TextField.class) {
+                if (((TextField) textField).captureKeyPresses) {
+                    return true;
+                }
+            }
+            if (textField.getClass() == TextSetting.class) {
+                if (((TextSetting) textField).captureKeyPresses) {
+                    return true;
+                }
             }
         }
         return false;

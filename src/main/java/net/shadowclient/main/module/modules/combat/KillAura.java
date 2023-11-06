@@ -19,6 +19,7 @@ public class KillAura extends Module {
 
     public KillAura() {
         super("killaura", "Kill Aura", ModuleCategory.COMBAT);
+        addSetting(LEGIT);
     }
 
     @Override

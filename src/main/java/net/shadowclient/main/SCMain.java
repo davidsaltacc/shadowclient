@@ -16,6 +16,7 @@ import net.shadowclient.main.ui.clickgui.ModuleButton;
 import net.shadowclient.main.ui.clickgui.settings.scsettings.components.SCBoolSetting;
 import net.shadowclient.main.ui.clickgui.text.TextField;
 import net.shadowclient.main.util.ChatUtils;
+import net.shadowclient.main.util.JavaUtils;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
@@ -39,15 +40,19 @@ public class SCMain {
     public static boolean configDeleted = false;
 
     public static void init() {
-        info("Starting " + ClientName + " " + ClientVersion);
-        CommandManager.registerCommands();
-        ModuleManager.registerModules();
-        clickGui = new MainClickGUI();
-        settingsGui = new ClickGUI("Settings");
-        initSettingsScreen(settingsGui);
-        Config.loadConfig();
-        Runtime.getRuntime().addShutdownHook(new Thread(SCMain::closed));
-        info("Finished " + ClientName + " initialization");
+        try {
+            info("Starting " + ClientName + " " + ClientVersion);
+            CommandManager.registerCommands();
+            ModuleManager.registerModules();
+            clickGui = new MainClickGUI();
+            settingsGui = new ClickGUI("Settings");
+            initSettingsScreen(settingsGui);
+                Config.loadConfig();
+            Runtime.getRuntime().addShutdownHook(new Thread(SCMain::closed));
+            info("Finished " + ClientName + " initialization");
+        } catch (Exception e) {
+            ChatUtils.sendMessageClient(JavaUtils.stackTraceFromThrowable(e));
+        }
     }
 
     public static void closed() {

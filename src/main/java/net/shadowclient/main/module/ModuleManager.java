@@ -59,6 +59,7 @@ public class ModuleManager {
         register(new HideSettings());
         register(new ResetData());
         register(new KillAura());
+        register(new PacketLogger());
     }
 
     public static void register(Module module) {

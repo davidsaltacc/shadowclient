@@ -19,6 +19,8 @@ public class LoadData extends Module {
 
     @Override
     public void OnEnable() {
-        Config.loadConfig();
+        try {
+            Config.loadConfig();
+        } catch (Exception ignored) {}
     }
 }

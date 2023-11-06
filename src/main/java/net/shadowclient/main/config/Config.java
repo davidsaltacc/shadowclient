@@ -58,8 +58,8 @@ public class Config {
                 }
                 if (setting instanceof EnumSetting<?>) {
                     Enum<?> value = ((EnumSetting<?>) setting).getEnumValue();
-                    settings.addProperty(setting.name, value.toString());
-                    settings.addProperty(setting.name + "_ENUMPATH", value.getClass().toString());
+                    settings.addProperty(((EnumSetting<?>) setting).getEnumValue().getClass().getSimpleName(), value.name());
+                    settings.addProperty(((EnumSetting<?>) setting).getEnumValue().getClass().getSimpleName() + "_ENUMPATH", value.getClass().toString());
                 }
             });
 
