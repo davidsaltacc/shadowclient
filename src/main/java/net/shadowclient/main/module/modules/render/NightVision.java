@@ -7,7 +7,7 @@ import net.shadowclient.main.module.ModuleCategory;
 
 @ReceiveNoUpdates
 @SearchTags({"nightvision", "night vision"})
-public class NightVision extends Module { // TODO TEST
+public class NightVision extends Module {
     public NightVision() {
         super("nightvision", "Night Vision", ModuleCategory.RENDER);
     }

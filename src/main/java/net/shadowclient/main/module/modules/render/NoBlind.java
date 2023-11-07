@@ -7,7 +7,7 @@ import net.shadowclient.main.module.ModuleCategory;
 
 @ReceiveNoUpdates
 @SearchTags({"no blind", "anti blind", "antiblind", "anti darkness", "anti warden"})
-public class NoBlind extends Module { // TODO TEST
+public class NoBlind extends Module {
     public NoBlind() {
         super("noblind", "No Blind", ModuleCategory.RENDER);
     }

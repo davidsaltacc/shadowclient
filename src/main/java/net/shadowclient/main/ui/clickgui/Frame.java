@@ -164,12 +164,8 @@ public class Frame extends FrameChild {
                 textFields.add(child);
             }
             if (child.getClass() == ModuleButton.class) {
-                System.out.println(child);
                 ((ModuleButton) child).components.forEach((component) -> {
-                    System.out.println(component);
                     if (component.getClass() == TextSetting.class) {
-                        System.out.println(component);
-                        System.out.println(component.parent);
                         textFields.add(component);
                     }
                 });
