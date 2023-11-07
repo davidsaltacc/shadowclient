@@ -8,7 +8,7 @@ import net.shadowclient.main.module.ModuleCategory;
 import net.shadowclient.main.setting.settings.NumberSetting;
 
 @SearchTags({"sneak spam", "sneak", "twerk"})
-public class SneakSpam extends Module { // TODO fix
+public class SneakSpam extends Module {
 
     public final NumberSetting SPEED = new NumberSetting("Speed", 1, 10, 5, 1);
 

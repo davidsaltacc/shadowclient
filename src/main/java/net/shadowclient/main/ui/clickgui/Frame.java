@@ -5,14 +5,15 @@ import net.minecraft.client.gui.DrawContext;
 import net.shadowclient.main.annotations.Hidden;
 import net.shadowclient.main.module.ModuleCategory;
 import net.shadowclient.main.module.ModuleManager;
-import net.shadowclient.main.ui.clickgui.settings.SettingComponent;
+import net.shadowclient.main.ui.clickgui.settings.clickgui.SettingComponent;
+import net.shadowclient.main.ui.clickgui.settings.clickgui.components.TextSetting;
 import net.shadowclient.main.ui.clickgui.text.TextField;
 import net.shadowclient.main.util.ColorUtils;
 import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Frame {
+public class Frame extends FrameChild {
 
     public int x;
     public int y;
@@ -44,7 +45,9 @@ public class Frame {
             if (ModuleManager.getModule(modulename).getClass().isAnnotationPresent(Hidden.class)) {
                 continue;
             }
-            children.add(new ModuleButton(modulename, this, offset));
+            ModuleButton button = new ModuleButton(modulename, this, offset);
+            children.add(button);
+            ModuleManager.getModule(modulename).moduleButton = button;
             offset += height;
         }
 
@@ -67,13 +70,13 @@ public class Frame {
         int textOffset = (height / 2 - mc.textRenderer.fontHeight / 2);
 
         int rainbowcolor = 0;
-        if (ModuleManager.getModule("rainbowgui").enabled) {
+        if (ModuleManager.RainbowGUIModule.enabled) {
             float[] rainbowF = ColorUtils.rainbowColor();
             int[] rainbowI = ColorUtils.RGBFloatToRGBInt(rainbowF[0], rainbowF[1], rainbowF[2]);
             rainbowcolor = ColorUtils.RGBA2int(rainbowI[0], rainbowI[1], rainbowI[2], 255);
         }
 
-        context.fill(x, y, x + width, y + height, ModuleManager.getModule("rainbowgui").enabled ? rainbowcolor : Colors.CATEGORY_FRAME.color);
+        context.fill(x, y, x + width, y + height, ModuleManager.RainbowGUIModule.enabled ? rainbowcolor : Colors.CATEGORY_FRAME.color);
         context.drawTextWithShadow(mc.textRenderer, name, x + textOffset, y + textOffset, Colors.TEXT_NORMAL.color);
         context.drawTextWithShadow(mc.textRenderer, extended ? "-" : "+", x + width - textOffset - mc.textRenderer.getWidth("+"), y + textOffset, Colors.TEXT_NORMAL.color);
 
@@ -146,7 +149,7 @@ public class Frame {
             offset += height;
             if (child.getClass().equals(ModuleButton.class)) {
                 if (((ModuleButton) child).extended) {
-                    for (SettingComponent component : ((ModuleButton) child).components) {
+                    for (SettingComponent ignored : ((ModuleButton) child).components) {
                         offset += height;
                     }
                 }
@@ -154,11 +157,18 @@ public class Frame {
         }
     }
 
-    public List<TextField> getAllTextFields() {
-        List<TextField> textFields = new ArrayList<>();
+    public List<FrameChild> getAllTextFields() {
+        List<FrameChild> textFields = new ArrayList<>();
         for (FrameChild child : children) {
             if (child.getClass() == TextField.class) {
-                textFields.add((TextField) child);
+                textFields.add(child);
+            }
+            if (child.getClass() == ModuleButton.class) {
+                ((ModuleButton) child).components.forEach((component) -> {
+                    if (component.getClass() == TextSetting.class) {
+                        textFields.add(component);
+                    }
+                });
             }
         }
         return textFields;

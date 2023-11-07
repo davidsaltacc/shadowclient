@@ -1,10 +1,10 @@
 package net.shadowclient.main.command;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.Text;
 import net.shadowclient.main.SCMain;
 import net.shadowclient.main.command.commands.HelpCommand;
 import net.shadowclient.main.command.commands.PanicCommand;
+import net.shadowclient.main.module.ModuleManager;
+import net.shadowclient.main.util.ChatUtils;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,19 +20,20 @@ public class CommandManager {
         commands.put(command.CommandName, command);
     }
 
-    public static void Execute(String chatMessage) {
+    public static void execute(String chatMessage) {
         String str = chatMessage.substring(SCMain.ClientCommandPrefix.length());
         String[] parts = str.split(" ");
 
-        boolean found = false;
-
         if (commands.get(parts[0]) != null) {
-            found = true;
             commands.get(parts[0]).OnExecute(parts);
+            return;
         }
 
-        if (!found) {
-            MinecraftClient.getInstance().player.sendMessage(Text.of("§4Unknown Command " + str));
+        if (ModuleManager.getModule(parts[0]) != null) {
+            SCMain.toggleModuleEnabled(parts[0]);
+            return;
         }
+
+        ChatUtils.sendMessageClient("§4Unknown Command: " + str);
     }
 }

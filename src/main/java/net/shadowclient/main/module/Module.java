@@ -4,6 +4,7 @@ import net.minecraft.client.MinecraftClient;
 import net.shadowclient.main.annotations.OneClick;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.setting.Setting;
+import net.shadowclient.main.ui.clickgui.ModuleButton;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,8 @@ public abstract class Module {
     public final ModuleCategory Category;
     public final String ModuleName;
     public final String FriendlyName;
+
+    public ModuleButton moduleButton = null;
 
     public boolean enabled;
 

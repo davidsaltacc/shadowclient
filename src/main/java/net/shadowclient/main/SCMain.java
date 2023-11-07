@@ -4,54 +4,87 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.shadowclient.main.annotations.ReceiveNoUpdates;
 import net.shadowclient.main.command.CommandManager;
-import net.shadowclient.main.config.ConfigFiles;
+import net.shadowclient.main.config.Config;
+import net.shadowclient.main.config.SCSettings;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.events.KeyPressEvent;
 import net.shadowclient.main.module.ModuleManager;
 import net.shadowclient.main.ui.clickgui.ClickGUI;
+import net.shadowclient.main.ui.clickgui.Frame;
+import net.shadowclient.main.ui.clickgui.MainClickGUI;
+import net.shadowclient.main.ui.clickgui.ModuleButton;
+import net.shadowclient.main.ui.clickgui.settings.scsettings.components.SCBoolSetting;
+import net.shadowclient.main.ui.clickgui.text.TextField;
 import net.shadowclient.main.util.ChatUtils;
+import net.shadowclient.main.util.JavaUtils;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.concurrent.atomic.AtomicReference;
 
 // TODO NoGravity hack, maybe Speed hack, other new hacks, ui settings, more settings
 public class SCMain {
 
     public static final String ClientModId = "shadowclient";
     public static final String ClientName = "ShadowClient";
-    public static final String ClientVersion = "0.1.2";
+    public static final String ClientVersion = "0.1.3";
     public static final String ClientCommandPrefix = "sc/";
 
-    public static ClickGUI clickGui;
+    public static MainClickGUI clickGui;
+    public static ClickGUI settingsGui;
 
     public static final MinecraftClient mc = MinecraftClient.getInstance();
+    public static final Logger logger = LoggerFactory.getLogger(ClientName);
 
-    public static final Logger ClientLogger = LoggerFactory.getLogger(ClientName);
+    public static boolean configDeleted = false;
 
     public static void init() {
-        info("Starting " + ClientName + " " + ClientVersion);
-        info("Registering Chat Commands");
-        CommandManager.registerCommands();
-        info("Registering Modules");
-        ModuleManager.registerModules();
-        info("Creating ClickGUI");
-        clickGui = new ClickGUI();
-        info("Loading ConfigFiles");
-        ConfigFiles.loadConfig();
-        info("Fisnishing");
-        Runtime.getRuntime().addShutdownHook(new Thread(SCMain::closed));
-        info("Finished " + ClientName + " initialization.");
+        try {
+            info("Starting " + ClientName + " " + ClientVersion);
+            CommandManager.registerCommands();
+            ModuleManager.registerModules();
+            clickGui = new MainClickGUI();
+            settingsGui = new ClickGUI("Settings");
+            initSettingsScreen(settingsGui);
+                Config.loadConfig();
+            Runtime.getRuntime().addShutdownHook(new Thread(SCMain::closed));
+            info("Finished " + ClientName + " initialization");
+        } catch (Exception e) {
+            error(JavaUtils.stackTraceFromThrowable(e));
+        }
     }
 
     public static void closed() {
-        info("Saving config");
-        ConfigFiles.saveConfig();
-        info("Saved");
+        if (!configDeleted) {
+            Config.saveConfig();
+        }
+    }
+
+    public static void initSettingsScreen(ClickGUI gui) {
+        int offset = 5;
+
+        Frame settingsframe = new Frame("Settings", offset, 5, 100, 14);
+        gui.frames.add(settingsframe);
+        offset += 105;
+
+        Frame hideframe = new Frame("Options", offset, 5, 100, 14);
+        gui.frames.add(hideframe);
+        hideframe.children.add(new ModuleButton("hidesettings", hideframe, 14));
+        hideframe.children.add(new ModuleButton("loaddata", hideframe, 28));
+        hideframe.children.add(new ModuleButton("savedata", hideframe, 42));
+        hideframe.children.add(new ModuleButton("resetdata", hideframe, 56));
+        offset += 105;
+
+        settingsframe.children.add(new SCBoolSetting(SCSettings.VanillaSpoof, settingsframe, 14));
+        settingsframe.children.add(new SCBoolSetting(SCSettings.WelcomeMessage, settingsframe, 28));
+
+        gui.searchFrame = new Frame("Search", offset, 5, 120, 14);
+        gui.frames.add(gui.searchFrame);
+        gui.searchFrame.children.add(new TextField(gui.searchFrame, 14, "Find Setting"));
     }
 
     public static void OnEvent(Event evt) {
-
         try {
             if (evt instanceof KeyPressEvent) {
                 if (((KeyPressEvent) evt).keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT && ((KeyPressEvent) evt).action == 1) {
@@ -63,7 +96,7 @@ public class SCMain {
                 }
             }
 
-            if (ModuleManager.getModule("disablehackupdates").enabled) {
+            if (ModuleManager.UpdatesDisableModule.enabled) {
                 return;
             }
             ModuleManager.getAllModules().forEach((name, module) -> {
@@ -98,11 +131,13 @@ public class SCMain {
     }
 
     public static String createHelp() {
-        final String[] help = {"§0§l§u" + ClientName + " §o" + ClientVersion + "§r help\nPress right shift for the ClickGUI.\nRight Click a Part of the UI (Frame Title, Button) to expand it.\nAvailable chat Commands:\n"};
+        // we hate java
+        AtomicReference<String> help = new AtomicReference<>("§0§l§u" + ClientName + " §o" + ClientVersion + "§r help\nPress right shift for the ClickGUI.\nRight Click a Part of the UI (Frame Title, Button) to expand it.\nAvailable chat commands:\n");
 
-        CommandManager.commands.forEach((name, cmd) -> help[0] += "  " + ClientCommandPrefix + name + "\n");
+        CommandManager.commands.forEach((name, cmd) -> help.set(help.get() + "  " + ClientCommandPrefix + name + "\n"));
+        ModuleManager.getAllModules().forEach((name, module) -> help.set(help.get() + " " + ClientCommandPrefix + name + "\n"));
 
-        return help[0];
+        return help.get();
     }
 
     public static String getWindowTitle() {
@@ -114,14 +149,14 @@ public class SCMain {
     }
 
     public static void onWorldJoined() {
-        if (ModuleManager.getModule("disablewelcomemessage").enabled) {
+        if (!SCSettings.getSetting("WelcomeMessage").booleanValue()) {
             return;
         }
         ChatUtils.sendMessageClient("§0§l§u" + ClientName + " §o" + ClientVersion + "§r\nType " + ClientCommandPrefix + "help for useful help.");
     }
 
     public static @Nullable Screen allowKeyPress(@Nullable Screen screen) {
-        if (screen instanceof ClickGUI && !clickGui.isAnyTextFieldCapturing()) {
+        if (screen instanceof ClickGUI && !clickGui.isAnyTextFieldCapturing() && !settingsGui.isAnyTextFieldCapturing()) {
             return null;
         }
         return screen;
@@ -132,13 +167,13 @@ public class SCMain {
     }
 
     public static void info(String text) {
-        ClientLogger.info(text);
+        logger.info(text);
     }
     public static void warn(String text) {
-        ClientLogger.warn(text);
+        logger.warn(text);
     }
     public static void error(String text) {
-        ClientLogger.error(text);
+        logger.error(text);
     }
 
 }

@@ -20,8 +20,8 @@ public abstract class FishingBobberEntityMixin {
 
     @Inject(method = "onTrackedDataSet", at = @At("TAIL"))
     private void injected(TrackedData<?> data, CallbackInfo ci) {
-        if (caughtFish && ModuleManager.getModule("autofish").enabled) {
-            ((AutoFish) ModuleManager.getModule("autofish")).setRecastRodCountdown(20);
+        if (caughtFish && ModuleManager.AutoFishModule.enabled) {
+            ModuleManager.AutoFishModule.setRecastRodCountdown(20);
             MinecraftClient mc = MinecraftClient.getInstance();
             mc.interactionManager.interactItem(mc.player, Hand.MAIN_HAND);
         }

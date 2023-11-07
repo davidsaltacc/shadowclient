@@ -1,11 +1,12 @@
-package net.shadowclient.main.ui.clickgui.settings;
+package net.shadowclient.main.ui.clickgui.settings.clickgui;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.shadowclient.main.setting.Setting;
+import net.shadowclient.main.ui.clickgui.FrameChild;
 import net.shadowclient.main.ui.clickgui.ModuleButton;
 
-public class SettingComponent {
+public class SettingComponent extends FrameChild {
 
     public final Setting setting;
     public final ModuleButton parent;
@@ -17,22 +18,6 @@ public class SettingComponent {
         this.setting = setting;
         this.parent = parent;
         this.offset = offset;
-    }
-
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-
-    }
-
-    public void mouseClicked(double mouseX, double mouseY, int button) {
-
-    }
-
-    public void mouseReleased(double mouseX, double mouseY, int button) {
-
-    }
-
-    public void keyPressed(int keyCode, int scanCode, int modifiers) {
-
     }
 
     public boolean isHovered(double mouseX, double mouseY) {

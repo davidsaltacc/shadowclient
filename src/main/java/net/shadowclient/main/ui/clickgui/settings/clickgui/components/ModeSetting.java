@@ -1,22 +1,22 @@
-package net.shadowclient.main.ui.clickgui.settings.components;
+package net.shadowclient.main.ui.clickgui.settings.clickgui.components;
 
 import net.minecraft.client.gui.DrawContext;
 import net.shadowclient.main.setting.Setting;
-import net.shadowclient.main.setting.settings.BooleanSetting;
+import net.shadowclient.main.setting.settings.EnumSetting;
 import net.shadowclient.main.ui.clickgui.Colors;
 import net.shadowclient.main.ui.clickgui.ModuleButton;
-import net.shadowclient.main.ui.clickgui.settings.SettingComponent;
+import net.shadowclient.main.ui.clickgui.settings.clickgui.SettingComponent;
 import org.lwjgl.glfw.GLFW;
 
-public class BoolSetting extends SettingComponent {
+public class ModeSetting extends SettingComponent {
 
-    private final BooleanSetting booleanSetting;
-    private final int offset;
+    private final EnumSetting enumSetting;
+    private int enumSettingIndex;
 
-    public BoolSetting(Setting setting, ModuleButton parent, int offset) {
+    public ModeSetting(Setting setting, ModuleButton parent, int offset) {
         super(setting, parent, offset);
-        this.booleanSetting = (BooleanSetting) setting;
-        this.offset = offset;
+        this.enumSetting = (EnumSetting) setting;
+        this.enumSettingIndex = 0;
     }
 
     @Override
@@ -28,15 +28,27 @@ public class BoolSetting extends SettingComponent {
         }
         int textOffset = (parent.parent.height / 2 - mc.textRenderer.fontHeight / 2);
 
-        context.drawTextWithShadow(mc.textRenderer, booleanSetting.name + ": " + booleanSetting.booleanValue(), parent.parent.x + textOffset, parent.parent.y + parent.offset + offset + textOffset, Colors.TEXT_NORMAL.color);
+        context.drawTextWithShadow(mc.textRenderer, enumSetting.name + ": " + enumSetting.getEnumValue().toString(), parent.parent.x + textOffset, parent.parent.y + parent.offset + offset + textOffset, Colors.TEXT_NORMAL.color);
 
         super.render(context, mouseX, mouseY, delta);
     }
 
     @Override
     public void mouseClicked(double mouseX, double mouseY, int button) {
+
         if (isHovered(mouseX, mouseY) && button == GLFW.GLFW_MOUSE_BUTTON_1) {
-            booleanSetting.setBooleanValue(!booleanSetting.booleanValue());
+
+            if (enumSetting.getEnumValue().getClass().getEnumConstants()[enumSettingIndex] == enumSetting.getEnumValue()) {
+                enumSettingIndex += 1;
+            }
+
+            enumSetting.setEnumValue(enumSetting.getEnumValue().getClass().getEnumConstants()[enumSettingIndex]);
+            enumSettingIndex += 1;
+
+            if (enumSettingIndex == enumSetting.getEnumValue().getClass().getEnumConstants().length) {
+                enumSettingIndex = 0;
+            }
+
         }
 
         super.mouseClicked(mouseX, mouseY, button);

@@ -1,6 +1,4 @@
 .gradle
-**/build/
-!src/**/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -23,5 +21,11 @@ gradle-app.setting
 gradle
 .idea
 bin
-build
 run
+
+build/classes
+build/devlibs
+build/generated
+build/loom-cache
+build/resources
+build/tmp

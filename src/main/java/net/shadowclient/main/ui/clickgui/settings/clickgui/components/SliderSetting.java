@@ -1,11 +1,11 @@
-package net.shadowclient.main.ui.clickgui.settings.components;
+package net.shadowclient.main.ui.clickgui.settings.clickgui.components;
 
 import net.minecraft.client.gui.DrawContext;
 import net.shadowclient.main.setting.Setting;
 import net.shadowclient.main.setting.settings.NumberSetting;
 import net.shadowclient.main.ui.clickgui.Colors;
 import net.shadowclient.main.ui.clickgui.ModuleButton;
-import net.shadowclient.main.ui.clickgui.settings.SettingComponent;
+import net.shadowclient.main.ui.clickgui.settings.clickgui.SettingComponent;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 

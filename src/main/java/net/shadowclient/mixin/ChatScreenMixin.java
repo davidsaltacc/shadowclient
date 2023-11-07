@@ -16,8 +16,6 @@ public abstract class ChatScreenMixin {
 
     @Inject(at = @At("TAIL"), method = "init()V")
     private void onInit(CallbackInfo ci) {
-        // if (ModuleManager.getModule("infinitechat").Enabled) {
-        //     chatField.setMaxLength(Integer.MAX_VALUE);
-        // }
+        // maybe IDK if this works, chatField.setMaxLength(Integer.MAX_VALUE);
     }
 }
