@@ -51,7 +51,7 @@ public class SCMain {
             Runtime.getRuntime().addShutdownHook(new Thread(SCMain::closed));
             info("Finished " + ClientName + " initialization");
         } catch (Exception e) {
-            ChatUtils.sendMessageClient(JavaUtils.stackTraceFromThrowable(e));
+            error(JavaUtils.stackTraceFromThrowable(e));
         }
     }
 

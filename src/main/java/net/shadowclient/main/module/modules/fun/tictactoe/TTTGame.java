@@ -166,7 +166,13 @@ public class TTTGame {
     }
 
     public static void drawBoard(String[][] board) {
-        ChatUtils.sendMessageClient("*board goes here*");
+        String text = "";
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                text += board[j][i] + " ";
+            }
+            text += " ";
+        }
     }
 
     public void played(int y, int x) { // TODO implement entire UI (chat) things to make this playable

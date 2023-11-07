@@ -11,24 +11,35 @@ import net.shadowclient.main.setting.settings.StringSetting;
 import net.shadowclient.main.util.ChatUtils;
 
 @SearchTags({"packet logger"})
-public class PacketLogger extends Module { // TODO log to ui instead of chat lol
+public class PacketLogger extends Module {
 
     public EnumSetting<Mode> MODE = new EnumSetting<>("Mode", Mode.ALL);
     public StringSetting FILTER = new StringSetting("Filter");
+    public EnumSetting<FMode> FMODE = new EnumSetting<>("Filter", FMode.WHITELIST);
 
     public PacketLogger() {
         super("packetlogger", "Packet Log", ModuleCategory.OTHER);
-        addSettings(MODE, FILTER);
+        addSettings(MODE, FILTER, FMODE);
     }
 
-    String cleanClassName(Class<?> cl) {
+    public String cleanClassName(Class<?> cl) {
         String[] namessplit = cl.getName().split("\\.");
         return namessplit[namessplit.length - 1].replace("SC2", "").replace("C2S", "");
     }
 
+    public boolean filter(String text) {
+        if (text.toLowerCase().contains(FILTER.stringValue().toLowerCase()) && FMODE.getEnumValue() == FMode.BLACKLIST) {
+            return true;
+        }
+        if (!text.toLowerCase().contains(FILTER.stringValue().toLowerCase()) && FMODE.getEnumValue() == FMode.WHITELIST) {
+            return true;
+        }
+        return false;
+    }
+
     public void send(String text) {
         if (FILTER.stringValue().length() != 0) {
-            if (!text.toLowerCase().contains(FILTER.stringValue().toLowerCase())) {
+            if (filter(text)) {
                 return;
             }
         }
@@ -66,6 +77,22 @@ public class PacketLogger extends Module { // TODO log to ui instead of chat lol
 
         final String name;
         Mode(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return this.name;
+        }
+    }
+
+    public enum FMode {
+        BLACKLIST("Blacklist"),
+        WHITELIST("Whitelist");
+
+
+        final String name;
+        FMode(String name) {
             this.name = name;
         }
 
