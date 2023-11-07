@@ -34,24 +34,6 @@ public class SCSettingComponent extends FrameChild {
         return Colors.TEXT_NORMAL.color;
     }
 
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-
-    }
-
-    public void mouseClicked(double mouseX, double mouseY, int button) {
-        if (isHovered(mouseX, mouseY)) {
-            Config.saveConfig();
-        }
-    }
-
-    public void mouseReleased(double mouseX, double mouseY, int button) {
-
-    }
-
-    public void keyPressed(int keyCode, int scanCode, int modifiers) {
-
-    }
-
     public boolean isHovered(double mouseX, double mouseY) {
         return mouseX > parent.x && mouseX < parent.x + parent.width && mouseY > parent.y + offset && mouseY < parent.y + offset + parent.height;
     }

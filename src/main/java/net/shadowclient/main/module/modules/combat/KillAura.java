@@ -15,7 +15,7 @@ import net.shadowclient.main.util.WorldUtils;
 @SearchTags({"killaura", "kill aura", "auto kill", "auto hit"})
 public class KillAura extends Module {
 
-    public BooleanSetting LEGIT = new BooleanSetting("Legit", true);
+    public final BooleanSetting LEGIT = new BooleanSetting("Legit", true);
 
     public KillAura() {
         super("killaura", "Kill Aura", ModuleCategory.COMBAT);

@@ -3,11 +3,12 @@ package net.shadowclient.main.module.modules.fun.tictactoe;
 import net.shadowclient.main.util.ChatUtils;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class TTTGame {
-    public String em = " ";
+    public final String em = " ";
     public String p1 = "X";
     public String p2 = "O";
 
@@ -24,7 +25,7 @@ public class TTTGame {
         {em, em, em}
     };
 
-    public List<int[]> allPositions = List.of(
+    public final List<int[]> allPositions = List.of(
         new int[]{0, 0},
         new int[]{0, 1},
         new int[]{0, 2},
@@ -35,7 +36,7 @@ public class TTTGame {
         new int[]{2, 1},
         new int[]{2, 2}
     );
-    public static List<List<int[]>> winningPos = List.of( // only noobs complain about java class names, i have different problems
+    public static final List<List<int[]>> winningPos = List.of( // only noobs complain about java class names, I have different problems
         List.of(new int[]{0, 0}, new int[]{1, 0}, new int[]{2, 0}),
         List.of(new int[]{0, 1}, new int[]{1, 1}, new int[]{2, 1}),
         List.of(new int[]{0, 2}, new int[]{1, 2}, new int[]{2, 2}),
@@ -64,7 +65,7 @@ public class TTTGame {
             String pl0 = board[pos.get(0)[0]][pos.get(0)[1]];
             String pl1 = board[pos.get(1)[0]][pos.get(1)[1]];
             String pl2 = board[pos.get(2)[0]][pos.get(2)[1]];
-            if (pl0 == pl1 && pl1 == pl2 && pl2 != em) {
+            if (pl0 == pl1 && Objects.equals(pl1, pl2) && !Objects.equals(pl2, em)) {
                 win.set(pl0);
             }
         });
@@ -74,8 +75,8 @@ public class TTTGame {
     public int minimax(String[][] board, int depth, boolean ismax) {
         String result = winner();
         ArrayList<int[]> empty = getEmpty();
-        if (result != "") {
-            return result == p1 ? 1 : -1;
+        if (!Objects.equals(result, "")) {
+            return Objects.equals(result, p1) ? 1 : -1;
         } else if (empty.isEmpty()) {
             return 0;
         }
@@ -91,7 +92,7 @@ public class TTTGame {
         } else {
             AtomicInteger bestscore = new AtomicInteger((int) 1e7);
             empty.forEach((pos) -> {
-                if (player == p1) {
+                if (Objects.equals(player, p1)) {
                     board[pos[1]][pos[0]] = p2;
                 } else {
                     board[pos[1]][pos[0]] = p1;
@@ -166,20 +167,21 @@ public class TTTGame {
     }
 
     public static void drawBoard(String[][] board) {
-        String text = "";
+        StringBuilder text = new StringBuilder();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                text += board[j][i] + " ";
+                text.append(board[j][i]).append(" ");
             }
-            text += " ";
+            text.append("\n");
         }
+        ChatUtils.sendMessageClient(text.toString());
     }
 
     public void played(int y, int x) { // TODO implement entire UI (chat) things to make this playable
         if (won) {
             return;
         }
-        if (board[y][x] != em) {
+        if (!Objects.equals(board[y][x], em)) {
             drawBoard(board);
             return;
         }
@@ -198,7 +200,7 @@ public class TTTGame {
             ondraw();
             return;
         }
-        if (player == p1) {
+        if (Objects.equals(player, p1)) {
             player = p2;
         } else {
             player = p1;
@@ -219,7 +221,7 @@ public class TTTGame {
             ondraw();
             return;
         }
-        if (player == p1) {
+        if (Objects.equals(player, p1)) {
             player = p2;
         } else {
             player = p1;

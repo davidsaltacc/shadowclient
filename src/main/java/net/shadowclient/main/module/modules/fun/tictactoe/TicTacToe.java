@@ -13,8 +13,8 @@ import net.shadowclient.main.setting.settings.NumberSetting;
 @SearchTags({"tic tac toe", "tictactoe", "game", "bored"})
 public class TicTacToe extends Module {
 
-    public BooleanSetting AI_STARTS = new BooleanSetting("AI Starts", false);
-    public NumberSetting DIFFICULTY = new NumberSetting("Difficulty", 0, 5, 5, 1);
+    public final BooleanSetting AI_STARTS = new BooleanSetting("AI Starts", false);
+    public final NumberSetting DIFFICULTY = new NumberSetting("Difficulty", 0, 5, 5, 1);
 
     public TicTacToe() {
         super("tictactoegame", "Start TicTacToe", ModuleCategory.FUN);

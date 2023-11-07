@@ -149,7 +149,7 @@ public class Frame extends FrameChild {
             offset += height;
             if (child.getClass().equals(ModuleButton.class)) {
                 if (((ModuleButton) child).extended) {
-                    for (SettingComponent component : ((ModuleButton) child).components) {
+                    for (SettingComponent ignored : ((ModuleButton) child).components) {
                         offset += height;
                     }
                 }

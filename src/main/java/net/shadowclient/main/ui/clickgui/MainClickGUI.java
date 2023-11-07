@@ -65,11 +65,6 @@ public class MainClickGUI extends ClickGUI {
     }
 
     @Override
-    public boolean shouldPause() {
-        return false;
-    }
-
-    @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 
         for (Frame frame : frames) {

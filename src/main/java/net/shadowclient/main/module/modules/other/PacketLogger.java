@@ -13,9 +13,9 @@ import net.shadowclient.main.util.ChatUtils;
 @SearchTags({"packet logger"})
 public class PacketLogger extends Module {
 
-    public EnumSetting<Mode> MODE = new EnumSetting<>("Mode", Mode.ALL);
-    public StringSetting FILTER = new StringSetting("Filter");
-    public EnumSetting<FMode> FMODE = new EnumSetting<>("Filter", FMode.WHITELIST);
+    public final EnumSetting<Mode> MODE = new EnumSetting<>("Mode", Mode.ALL);
+    public final StringSetting FILTER = new StringSetting("Filter");
+    public final EnumSetting<FMode> FMODE = new EnumSetting<>("Filter", FMode.WHITELIST);
 
     public PacketLogger() {
         super("packetlogger", "Packet Log", ModuleCategory.OTHER);
@@ -31,10 +31,7 @@ public class PacketLogger extends Module {
         if (text.toLowerCase().contains(FILTER.stringValue().toLowerCase()) && FMODE.getEnumValue() == FMode.BLACKLIST) {
             return true;
         }
-        if (!text.toLowerCase().contains(FILTER.stringValue().toLowerCase()) && FMODE.getEnumValue() == FMode.WHITELIST) {
-            return true;
-        }
-        return false;
+        return !text.toLowerCase().contains(FILTER.stringValue().toLowerCase()) && FMODE.getEnumValue() == FMode.WHITELIST;
     }
 
     public void send(String text) {

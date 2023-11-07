@@ -11,8 +11,6 @@ public class HelpCommand extends Command {
     @Override
     public void OnExecute(String... args_) {
 
-        List<String> args = Arrays.asList(args_);
-
         MinecraftClient.getInstance().player.sendMessage(Text.of(SCMain.createHelp()));
 
     }
