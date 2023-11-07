@@ -96,7 +96,7 @@ public class SCMain {
                 }
             }
 
-            if (ModuleManager.getModule("updatesdisabled").enabled) {
+            if (ModuleManager.UpdatesDisableModule.enabled) {
                 return;
             }
             ModuleManager.getAllModules().forEach((name, module) -> {

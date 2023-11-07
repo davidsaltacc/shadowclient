@@ -24,8 +24,8 @@ public abstract class EntityMixin implements IEntity {
 
     @Inject(method = "getTeamColorValue", at = @At("HEAD"), cancellable = true)
     private void injected(CallbackInfoReturnable<Integer> cir) {
-        if (ModuleManager.getModule("entitiesesp").enabled) {
-            int[] colors = ((EntitiesESP) ModuleManager.getModule("entitiesesp")).getColor((Entity) (Object) this);
+        if (ModuleManager.EntitiesESPModule.enabled) {
+            int[] colors = ModuleManager.EntitiesESPModule.getColor((Entity) (Object) this);
 
             int color = ColorUtils.RGB2int(colors[0], colors[1], colors[2]);
 

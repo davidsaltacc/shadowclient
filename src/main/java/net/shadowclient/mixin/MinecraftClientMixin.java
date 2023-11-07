@@ -55,7 +55,7 @@ public abstract class MinecraftClientMixin {
     @Inject(method = "hasOutline", at = @At(value = "HEAD"), cancellable = true)
     private void injected(Entity entity, CallbackInfoReturnable<Boolean> cir) {
 
-        EntitiesESP entitiesEspModule = (EntitiesESP) ModuleManager.getModule("entitiesesp");
+        EntitiesESP entitiesEspModule = ModuleManager.EntitiesESPModule;
 
         if (!entitiesEspModule.enabled) {
             cir.setReturnValue(cir.getReturnValue());

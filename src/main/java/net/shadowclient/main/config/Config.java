@@ -204,7 +204,7 @@ public class Config {
                             });
                         } else {
                             module.settings.forEach((settingobj) -> {
-                                if (settingobj.name.equals(setting)) {
+                                if (settingobj.name.equals(setting) && settingobj instanceof StringSetting) {
                                     ((StringSetting) settingobj).setStringValue(value);
                                 }
                             });

@@ -12,7 +12,7 @@ public abstract class CameraMixin {
 
     @Inject(at = @At("HEAD"), method = "clipToSpace(D)D", cancellable = true)
     private void onClipToSpace(double desiredCameraDistance, CallbackInfoReturnable<Double> cir) {
-        if (ModuleManager.getModule("cameranoclip").enabled) {
+        if (ModuleManager.CameraNoclipModule.enabled) {
             cir.setReturnValue(desiredCameraDistance);
         }
     }

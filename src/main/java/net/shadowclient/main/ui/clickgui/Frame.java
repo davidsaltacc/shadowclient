@@ -70,13 +70,13 @@ public class Frame extends FrameChild {
         int textOffset = (height / 2 - mc.textRenderer.fontHeight / 2);
 
         int rainbowcolor = 0;
-        if (ModuleManager.getModule("rainbowgui").enabled) {
+        if (ModuleManager.RainbowGUIModule.enabled) {
             float[] rainbowF = ColorUtils.rainbowColor();
             int[] rainbowI = ColorUtils.RGBFloatToRGBInt(rainbowF[0], rainbowF[1], rainbowF[2]);
             rainbowcolor = ColorUtils.RGBA2int(rainbowI[0], rainbowI[1], rainbowI[2], 255);
         }
 
-        context.fill(x, y, x + width, y + height, ModuleManager.getModule("rainbowgui").enabled ? rainbowcolor : Colors.CATEGORY_FRAME.color);
+        context.fill(x, y, x + width, y + height, ModuleManager.RainbowGUIModule.enabled ? rainbowcolor : Colors.CATEGORY_FRAME.color);
         context.drawTextWithShadow(mc.textRenderer, name, x + textOffset, y + textOffset, Colors.TEXT_NORMAL.color);
         context.drawTextWithShadow(mc.textRenderer, extended ? "-" : "+", x + width - textOffset - mc.textRenderer.getWidth("+"), y + textOffset, Colors.TEXT_NORMAL.color);
 

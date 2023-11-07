@@ -15,7 +15,7 @@ public abstract class PowderSnowBlockMixin {
     @Inject(at = @At("HEAD"), method = "canWalkOnPowderSnow", cancellable = true)
     private static void injected(Entity entity, CallbackInfoReturnable<Boolean> cir)
     {
-        if (!ModuleManager.getModule("powdersnowwalk").enabled) {
+        if (!ModuleManager.PowderSnowWalkModule.enabled) {
             return;
         }
 

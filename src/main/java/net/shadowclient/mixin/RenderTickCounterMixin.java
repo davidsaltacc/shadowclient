@@ -16,6 +16,6 @@ public abstract class RenderTickCounterMixin {
 
     @Inject(method = "beginRenderTick", at = @At(value = "FIELD", target = "Lnet/minecraft/client/render/RenderTickCounter;prevTimeMillis:J", opcode = Opcodes.PUTFIELD))
     private void onBeingRenderTick(long a, CallbackInfoReturnable<Integer> info) {
-        lastFrameDuration *= ((Timer) ModuleManager.getModule("timer")).getMultiplier();
+        lastFrameDuration *= ModuleManager.TimerModule.getMultiplier();
     }
 }
