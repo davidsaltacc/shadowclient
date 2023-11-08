@@ -7,5 +7,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(MinecraftClient.class)
 public interface IMinecraftClient {
     @Accessor("itemUseCooldown")
-    public void setItemUseCooldown(int itemUseCooldown);
+    void setItemUseCooldown(int itemUseCooldown);
+
 }

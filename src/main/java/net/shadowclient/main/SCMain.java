@@ -28,7 +28,7 @@ public class SCMain {
 
     public static final String ClientModId = "shadowclient";
     public static final String ClientName = "ShadowClient";
-    public static final String ClientVersion = "0.1.3";
+    public static final String ClientVersion = "0.1.3_1";
     public static final String ClientCommandPrefix = "sc/";
 
     public static MainClickGUI clickGui;
@@ -47,7 +47,7 @@ public class SCMain {
             clickGui = new MainClickGUI();
             settingsGui = new ClickGUI("Settings");
             initSettingsScreen(settingsGui);
-                Config.loadConfig();
+            Config.loadConfig();
             Runtime.getRuntime().addShutdownHook(new Thread(SCMain::closed));
             info("Finished " + ClientName + " initialization");
         } catch (Exception e) {

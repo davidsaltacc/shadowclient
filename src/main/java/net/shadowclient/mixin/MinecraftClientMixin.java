@@ -15,19 +15,21 @@ import net.shadowclient.main.module.ModuleManager;
 import net.shadowclient.main.module.modules.render.EntitiesESP;
 import net.shadowclient.main.event.events.UpdateEvent;
 import net.shadowclient.main.event.events.PreTickEvent;
+import net.shadowclient.mixininterface.IMinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MinecraftClient.class)
-public abstract class MinecraftClientMixin {
-    /** MIXIN STFU
-     * @author me
-     * @reason yes
-     */
+public abstract class MinecraftClientMixin implements IMinecraftClient {
+
+    @Shadow
+    private int itemUseCooldown;
+
     @Overwrite
     public static ModStatus getModStatus() {
         if (SCSettings.getSetting("VanillaSpoof").booleanValue()) {
@@ -76,5 +78,10 @@ public abstract class MinecraftClientMixin {
             cir.setReturnValue(cir.getReturnValue());
         }
 
+    }
+
+    @Override
+    public void setItemUseCooldown(int cooldown) {
+        this.itemUseCooldown = cooldown;
     }
 }

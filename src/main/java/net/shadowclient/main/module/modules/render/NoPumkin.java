@@ -8,7 +8,7 @@ import net.shadowclient.main.module.ModuleCategory;
 @ReceiveNoUpdates
 @SearchTags({"no pumpkin", "anti pumpkin", "no pumkin"})
 public class NoPumkin extends Module {
-    public NoPumkin() { // TODO test
+    public NoPumkin() {
         super("nopumpkin", "No Pumpkin", ModuleCategory.RENDER);
     }
 

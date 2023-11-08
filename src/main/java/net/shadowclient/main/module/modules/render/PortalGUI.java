@@ -7,7 +7,7 @@ import net.shadowclient.main.module.ModuleCategory;
 
 @ReceiveNoUpdates
 @SearchTags({"portal ui", "portal gui", "portalgui", "nether portal inventory"})
-public class PortalGUI extends Module { // TODO test
+public class PortalGUI extends Module {
     public PortalGUI() {
         super("portalgui", "Portal GUI", ModuleCategory.RENDER);
     }

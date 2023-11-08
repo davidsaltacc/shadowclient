@@ -8,7 +8,7 @@ import net.shadowclient.main.setting.settings.NumberSetting;
 
 @SearchTags({"extended camera distance", "extcamdistance", "cam distance", "bigger camera distance"})
 @ReceiveNoUpdates
-public class ExtendedCameraDistance extends Module { // TODO fix, maybe try modiying Camera.java line 58 instead?
+public class ExtendedCameraDistance extends Module {
 
     public NumberSetting DISTANCE = new NumberSetting("Distance", -5, 50, 10, 0.1);
 
