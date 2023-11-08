@@ -38,17 +38,17 @@ public abstract class MinecraftClientMixin {
 
     @Inject(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;startMonitor(ZLnet/minecraft/util/TickDurationMonitor;)Lnet/minecraft/util/profiler/Profiler;", shift = At.Shift.AFTER))
     private void injectedPreTick(CallbackInfo ci) {
-        SCMain.OnEvent(new UpdateEvent());
+        SCMain.fireEvent(new UpdateEvent());
         if (((MinecraftClient) (Object) this).world != null) {
-            SCMain.OnEvent(new PreTickEvent());
+            SCMain.fireEvent(new PreTickEvent());
         }
     }
 
     @Inject(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;endMonitor(ZLnet/minecraft/util/TickDurationMonitor;)V"))
     private void injectedPostTick(CallbackInfo ci) {
-        SCMain.OnEvent(new UpdateEvent());
+        SCMain.fireEvent(new UpdateEvent());
         if (((MinecraftClient) (Object) this).world != null) {
-            SCMain.OnEvent(new PostTickEvent());
+            SCMain.fireEvent(new PostTickEvent());
         }
     }
 

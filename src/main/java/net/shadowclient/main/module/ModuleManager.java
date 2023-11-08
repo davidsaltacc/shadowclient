@@ -11,6 +11,8 @@ import net.shadowclient.main.module.modules.render.*;
 import net.shadowclient.main.module.modules.settings.LoadData;
 import net.shadowclient.main.module.modules.settings.ResetData;
 import net.shadowclient.main.module.modules.settings.SaveData;
+import net.shadowclient.main.module.modules.world.NoEntityPush;
+import net.shadowclient.main.module.modules.world.NoWaterPush;
 import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,6 +66,9 @@ public class ModuleManager {
     public static NoLevitation NoLevitationModule;
     public static NoWobble NoWobbleModule;
     public static BoatFly BoatFlyModule;
+    public static NoEntityPush NoEntityPushModule;
+    public static AutoHotbarCycle AutoHotbarCycleModule;
+    public static ExtendedCameraDistance ExtendedCameraDistanceModule;
 
     public static void registerModules() {
         AutoSprintModule = (AutoSprint) register(new AutoSprint());
@@ -109,6 +114,9 @@ public class ModuleManager {
         NoLevitationModule = (NoLevitation) register(new NoLevitation());
         NoWobbleModule = (NoWobble) register(new NoWobble());
         BoatFlyModule = (BoatFly) register(new BoatFly());
+        NoEntityPushModule = (NoEntityPush) register(new NoEntityPush());
+        AutoHotbarCycleModule = (AutoHotbarCycle) register(new AutoHotbarCycle());
+        ExtendedCameraDistanceModule = (ExtendedCameraDistance) register(new ExtendedCameraDistance());
     }
 
     public static Module register(Module module) {

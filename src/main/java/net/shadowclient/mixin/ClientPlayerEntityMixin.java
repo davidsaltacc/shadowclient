@@ -20,7 +20,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     @Override
     public void setVelocityClient(double x, double y, double z) {
         KnockbackEvent event = new KnockbackEvent(x, y, z);
-        SCMain.OnEvent(event);
+        SCMain.fireEvent(event);
         super.setVelocityClient(event.x, event.y, event.z);
     }
 

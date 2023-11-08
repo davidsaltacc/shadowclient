@@ -13,10 +13,12 @@ import net.shadowclient.main.setting.settings.NumberSetting;
 @SearchTags({"boat fly", "boatfly", "fly hack", "flyhack"})
 public class BoatFly extends Module {
 
-    NumberSetting SPEED = new NumberSetting("Speed", 0.1f, 5, 2,  0.f);
+    NumberSetting SPEED = new NumberSetting("Speed", 0.1f, 10, 1,  0.f);
 
     public BoatFly() {
         super("boatfly", "Boat Fly", ModuleCategory.MOVEMENT);
+
+        addSetting(SPEED);
     }
 
     @Override

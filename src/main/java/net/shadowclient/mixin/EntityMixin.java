@@ -3,9 +3,9 @@ package net.shadowclient.mixin;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
 import net.shadowclient.main.SCMain;
+import net.shadowclient.main.event.events.VelocityFromEntityEvent;
 import net.shadowclient.main.event.events.VelocityFromFluidEvent;
 import net.shadowclient.main.module.ModuleManager;
-import net.shadowclient.main.module.modules.render.EntitiesESP;
 import net.shadowclient.main.util.ColorUtils;
 import net.shadowclient.mixininterface.IEntity;
 import org.objectweb.asm.Opcodes;
@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
@@ -42,10 +43,22 @@ public abstract class EntityMixin implements IEntity {
     private void setVelocityFromFluid(Entity entity, Vec3d velocity)
     {
         VelocityFromFluidEvent event = new VelocityFromFluidEvent((Entity) (Object) this);
-        SCMain.OnEvent(event);
+        SCMain.fireEvent(event);
 
         if (!event.cancelled) {
             entity.setVelocity(velocity);
+        }
+    }
+
+    @Inject(at = @At("HEAD"), method = "pushAwayFrom(Lnet/minecraft/entity/Entity;)V", cancellable = true)
+    private void onPushAwayFrom(Entity entity, CallbackInfo ci) {
+
+        VelocityFromEntityEvent evt = new VelocityFromEntityEvent((Entity) (Object) this);
+
+        SCMain.fireEvent(evt);
+
+        if (evt.cancelled) {
+            ci.cancel();
         }
     }
 }

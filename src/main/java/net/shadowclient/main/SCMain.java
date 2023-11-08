@@ -84,7 +84,7 @@ public class SCMain {
         gui.searchFrame.children.add(new TextField(gui.searchFrame, 14, "Find Setting"));
     }
 
-    public static void OnEvent(Event evt) {
+    public static void fireEvent(Event evt) {
         try {
             if (evt instanceof KeyPressEvent) {
                 if (((KeyPressEvent) evt).keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT && ((KeyPressEvent) evt).action == 1) {

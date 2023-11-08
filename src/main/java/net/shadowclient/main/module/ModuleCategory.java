@@ -4,7 +4,7 @@ public enum ModuleCategory {
     COMBAT("Combat"),
     PLAYER("Player"),
     MOVEMENT("Movement"),
-    // WORLD("World"),    // NO MODULES HERE, SO WE DON'T EVEN REGISTER IT
+    WORLD("World"),
     RENDER("Render"),
     FUN("Fun"),
     OTHER("Other"),

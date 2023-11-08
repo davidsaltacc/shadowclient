@@ -16,7 +16,7 @@ public class FabricInitializer implements ClientModInitializer {
 		SCMain.init();
 
 		WorldRenderEvents.END.register((WorldRenderContext context) -> { // im lazy
-			SCMain.OnEvent(new Render3DEvent(context.matrixStack(), context.tickDelta()));
+			SCMain.fireEvent(new Render3DEvent(context.matrixStack(), context.tickDelta()));
 		});
 	}
 }
