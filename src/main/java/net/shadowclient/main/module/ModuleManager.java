@@ -69,6 +69,10 @@ public class ModuleManager {
     public static NoEntityPush NoEntityPushModule;
     public static AutoHotbarCycle AutoHotbarCycleModule;
     public static ExtendedCameraDistance ExtendedCameraDistanceModule;
+    public static FastPlace FastPlaceModule;
+    public static NoPumkin NoPumkinModule;
+    public static PortalGUI PortalGUIModule;
+    public static SeeInvisibles SeeInvisiblesModule;
 
     public static void registerModules() {
         AutoSprintModule = (AutoSprint) register(new AutoSprint());
@@ -117,6 +121,10 @@ public class ModuleManager {
         NoEntityPushModule = (NoEntityPush) register(new NoEntityPush());
         AutoHotbarCycleModule = (AutoHotbarCycle) register(new AutoHotbarCycle());
         ExtendedCameraDistanceModule = (ExtendedCameraDistance) register(new ExtendedCameraDistance());
+        FastPlaceModule = (FastPlace) register(new FastPlace());
+        NoPumkinModule = (NoPumkin) register(new NoPumkin());
+        PortalGUIModule = (PortalGUI) register(new PortalGUI());
+        SeeInvisiblesModule = (SeeInvisibles) register(new SeeInvisibles());
     }
 
     public static Module register(Module module) {

@@ -8,6 +8,7 @@
   "client": [
     "CameraMixin",
     "ChatScreenMixin",
+    "ClientConnectionMixin",
     "ClientPlayerEntityMixin",
     "ClientPlayerNetworkHandlerMixin",
     "DeathScreenMixin",
@@ -15,12 +16,12 @@
     "FishingBobberEntityMixin",
     "GameMenuScreenMixin",
     "GameRendererMixin",
+    "IngameHudMixin",
     "InGameOverlayRendererMixin",
     "KeyboardMixin",
     "MinecraftClientMixin",
     "PowderSnowBlockMixin",
     "RenderTickCounterMixin",
-    "WindowMixin",
-    "ClientConnectionMixin"
+    "WindowMixin"
   ]
 }

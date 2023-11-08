@@ -1,6 +1,7 @@
 package net.shadowclient.mixin;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import net.shadowclient.main.SCMain;
 import net.shadowclient.main.event.events.VelocityFromEntityEvent;
@@ -59,6 +60,18 @@ public abstract class EntityMixin implements IEntity {
 
         if (evt.cancelled) {
             ci.cancel();
+        }
+    }
+
+
+    @Inject(at = @At("RETURN"), method = "isInvisibleTo(Lnet/minecraft/entity/player/PlayerEntity;)Z", cancellable = true)
+    private void onIsInvisibleTo(PlayerEntity player, CallbackInfoReturnable<Boolean> cir) {
+        if (!cir.getReturnValueZ()) {
+            return;
+        }
+
+        if (ModuleManager.SeeInvisiblesModule.visible((Entity) (Object) this)) {
+            cir.setReturnValue(false);
         }
     }
 }
