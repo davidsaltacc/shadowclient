@@ -109,4 +109,5 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     private void afterIsUsingItem(CallbackInfo ci) {
         hideItem = false;
     }
+
 }

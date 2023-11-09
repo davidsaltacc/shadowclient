@@ -78,6 +78,7 @@ public class ModuleManager {
     public static NoSlowdown NoSlowdownModule;
     public static Reach ReachModule;
     public static AdvancedHelp AdvancedHelpModule;
+    public static SafeWalk SafeWalkModule;
 
     public static void registerModules() {
         AutoSprintModule = (AutoSprint) register(new AutoSprint());
@@ -134,6 +135,7 @@ public class ModuleManager {
         NoSlowdownModule = (NoSlowdown) register(new NoSlowdown());
         ReachModule = (Reach) register(new Reach());
         AdvancedHelpModule = (AdvancedHelp) register(new AdvancedHelp());
+        SafeWalkModule = (SafeWalk) register(new SafeWalk());
     }
 
     public static Module register(Module module) {

@@ -27,5 +27,8 @@
         "SlimeBlockMixin",
         "SplashOverlayMixin",
         "WindowMixin"
+    ],
+    "mixins": [
+        "PlayerEntityMixin"
     ]
 }
