@@ -5,6 +5,7 @@ import net.shadowclient.main.annotations.ReceiveNoUpdates;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
+import net.shadowclient.main.util.JavaUtils;
 
 @ReceiveNoUpdates
 @OneClick
@@ -16,6 +17,6 @@ public class AdvancedHelp extends Module {
 
     @Override
     public void OnEnable() {
-        // TODO open browser and test
+        JavaUtils.openBrowser("https://davidsaltacc.github.io/pages/minecraft/shadowclient");
     }
 }
