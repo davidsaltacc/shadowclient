@@ -9,7 +9,7 @@ import net.shadowclient.main.module.ModuleCategory;
 @SearchTags({"fish", "autoswim", "auto swim", "automatically swim", "easy swim"})
 public class AutoSwim extends Module {
     public AutoSwim() {
-        super("autoswim", "Autoswim", ModuleCategory.MOVEMENT);
+        super("autoswim", "Autoswim", "Automatically swim when in water.", ModuleCategory.MOVEMENT);
     }
 
     @Override

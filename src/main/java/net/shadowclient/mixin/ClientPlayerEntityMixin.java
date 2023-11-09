@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ClientPlayerEntity.class)
 public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity {
@@ -30,6 +31,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     protected MinecraftClient client;
 
     public Screen crntScreen;
+    public boolean hideItem;
 
     @Override
     public void setVelocityClient(double x, double y, double z) {
@@ -79,5 +81,32 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 
         client.currentScreen = crntScreen;
         crntScreen = null;
+    }
+
+    @Override
+    protected float getJumpVelocity() {
+        return ModuleManager.HighJumpModule.increase(super.getJumpVelocity());
+    }
+
+    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingItem()Z", ordinal = 0), method = "tickMovement()V")
+    private void onTickMovementItemUse(CallbackInfo ci) {
+        if (ModuleManager.NoSlowdownModule.enabled) {
+            hideItem = true;
+        }
+    }
+
+    @Inject(at = @At("HEAD"), method = "isUsingItem", cancellable = true)
+    private void onIsUsingItem(CallbackInfoReturnable<Boolean> cir) {
+        if (!hideItem) {
+            return;
+        }
+
+        cir.setReturnValue(false);
+        hideItem = false;
+    }
+
+    @Inject(at = @At(value = "FIELD", target = "Lnet/minecraft/client/network/ClientPlayerEntity;ticksToNextAutojump:I", opcode = Opcodes.GETFIELD, ordinal = 0), method = "tickMovement()V")
+    private void afterIsUsingItem(CallbackInfo ci) {
+        hideItem = false;
     }
 }

@@ -9,7 +9,7 @@ import net.shadowclient.main.module.ModuleCategory;
 @SearchTags({"auto respawn", "autorespawn", "automatically respawn", "revive"})
 public class AutoRespawn extends Module {
     public AutoRespawn() {
-        super("autorespawn", "Auto Respawn", ModuleCategory.PLAYER);
+        super("autorespawn", "Auto Respawn", "Instantly respawn upon death.", ModuleCategory.PLAYER);
     }
 
     @Override

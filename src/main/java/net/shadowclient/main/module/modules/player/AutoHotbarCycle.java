@@ -11,7 +11,7 @@ import net.shadowclient.main.module.ModuleCategory;
 public class AutoHotbarCycle extends Module {
 
     public AutoHotbarCycle() {
-        super("autohotbarcycle", "Hotbar Cycle", ModuleCategory.PLAYER);
+        super("autohotbarcycle", "Hotbar Cycle", "Cycles through your hotbar extremely fast.", ModuleCategory.PLAYER);
     }
 
     @Override

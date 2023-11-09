@@ -12,7 +12,7 @@ import net.shadowclient.main.module.ModuleManager;
 @SearchTags({"panic", "disableall", "disable all", "stop all"})
 public class Panic extends Module {
     public Panic() {
-        super("panic", "Panic", ModuleCategory.OTHER);
+        super("panic", "Panic", "Disables all modules.", ModuleCategory.OTHER);
     }
 
     @Override

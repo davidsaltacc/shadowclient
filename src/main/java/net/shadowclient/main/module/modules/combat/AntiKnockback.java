@@ -13,7 +13,7 @@ public class AntiKnockback extends Module {
     public final NumberSetting STRENGTH = new NumberSetting("Strength", 0.01f, 1f, 1f, 0.01f);
 
     public AntiKnockback() {
-        super("antiknockback", "No Knockback", ModuleCategory.COMBAT);
+        super("antiknockback", "No Knockback", "Don't take any knockback from attacks.", ModuleCategory.COMBAT);
         addSetting(STRENGTH);
     }
 

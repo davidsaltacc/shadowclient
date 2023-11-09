@@ -1,4 +1,4 @@
-package net.shadowclient.main.module.modules.render;
+package net.shadowclient.main.module.modules.world;
 
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.module.Module;
@@ -11,7 +11,7 @@ public class Timer extends Module {
     public final NumberSetting MULTIPLIER = new NumberSetting("Multiplier", 1f, 10f, 2f, 0.1f);
 
     public Timer() {
-        super("timer", "Timer", ModuleCategory.RENDER);
+        super("timer", "Timer", "Your entire game just runs faster. SPEED!!", ModuleCategory.WORLD);
 
         addSetting(MULTIPLIER);
     }

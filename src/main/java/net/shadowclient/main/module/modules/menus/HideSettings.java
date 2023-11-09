@@ -14,7 +14,7 @@ import net.shadowclient.main.module.ModuleCategory;
 @SearchTags({"hide settings", "hide options menu"})
 public class HideSettings extends Module {
     public HideSettings() {
-        super("hidesettings", "Back", ModuleCategory.MENUS);
+        super("hidesettings", "Back", "Hides the hack client settings menu.", ModuleCategory.MENUS);
     }
 
     @Override

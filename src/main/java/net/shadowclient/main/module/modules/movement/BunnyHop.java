@@ -17,7 +17,7 @@ public class BunnyHop extends Module {
     public final NumberSetting MINVEL = new NumberSetting("Min. Velocity", 0f, 0.3f, 0.08f, 0.01f);
 
     public BunnyHop() {
-        super("bunnyhop", "Bunny Hopping", ModuleCategory.MOVEMENT);
+        super("bunnyhop", "Bunny Hopping", "Spam the jump key, basically.", ModuleCategory.MOVEMENT);
 
         addSettings(MODE, LEGIT, MINVEL);
     }

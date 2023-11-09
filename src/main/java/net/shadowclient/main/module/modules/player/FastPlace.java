@@ -9,8 +9,8 @@ import net.shadowclient.mixininterface.IMinecraftClient;
 
 @SearchTags({"fastplace", "fast placing", "fast place"})
 public class FastPlace extends Module {
-    public FastPlace() { // TODO test
-        super("fastplace", "Fast Place", ModuleCategory.PLAYER);
+    public FastPlace() {
+        super("fastplace", "Fast Place", "Removes the item use cooldown.", ModuleCategory.PLAYER);
     }
 
     @Override

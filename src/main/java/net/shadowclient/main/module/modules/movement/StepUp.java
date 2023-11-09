@@ -13,7 +13,7 @@ public class StepUp extends Module {
     public final NumberSetting HEIGHT = new NumberSetting("Height", 1, 10, 1, 1);
 
     public StepUp() {
-        super("stepup", "Stepup", ModuleCategory.MOVEMENT);
+        super("stepup", "Stepup", "Walk onto blocks without having to jump.", ModuleCategory.MOVEMENT);
 
         addSetting(HEIGHT);
     }

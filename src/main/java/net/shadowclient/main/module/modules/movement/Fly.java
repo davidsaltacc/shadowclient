@@ -17,7 +17,7 @@ public class Fly extends Module {
     public final NumberSetting SPEED = new NumberSetting("Speed", 0.1f, 5f, 1f, 0.1f);
 
     public Fly() {
-        super("fly", "Fly", ModuleCategory.MOVEMENT);
+        super("fly", "Fly", "Fly. Thats it. Its in the name.", ModuleCategory.MOVEMENT);
 
         addSetting(SPEED);
     }

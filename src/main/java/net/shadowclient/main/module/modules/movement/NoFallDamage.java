@@ -10,7 +10,7 @@ import net.shadowclient.main.module.ModuleCategory;
 @SearchTags({"anti fall damage", "no fall damage", "no fall dmg", "no falling damage"})
 public class NoFallDamage extends Module {
     public NoFallDamage() {
-        super("nofall", "No Fall", ModuleCategory.MOVEMENT);
+        super("nofall", "No Fall Damage", "You take no fall damage.", ModuleCategory.MOVEMENT);
     }
 
     @Override

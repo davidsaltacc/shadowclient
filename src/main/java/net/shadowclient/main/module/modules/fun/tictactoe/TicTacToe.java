@@ -17,7 +17,7 @@ public class TicTacToe extends Module {
     public final NumberSetting DIFFICULTY = new NumberSetting("Difficulty", 0, 5, 5, 1);
 
     public TicTacToe() {
-        super("tictactoegame", "Start TicTacToe", ModuleCategory.FUN);
+        super("tictactoegame", "Start TicTacToe", "Tic Tac Toe game against AI.", ModuleCategory.FUN);
 
         addSettings(AI_STARTS, DIFFICULTY);
     }

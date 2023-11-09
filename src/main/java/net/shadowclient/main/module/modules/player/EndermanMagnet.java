@@ -1,4 +1,4 @@
-package net.shadowclient.main.module.modules.other;
+package net.shadowclient.main.module.modules.player;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.EndermanEntity;
@@ -11,10 +11,10 @@ import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 
 @SearchTags({"enderman look", "endermen magnet", "enderman", "look at enderman", "look", "magnet", "enderman magnet", "look at endermen"})
-public class EndermanLook extends Module {
+public class EndermanMagnet extends Module {
 
-    public EndermanLook() {
-        super("endermanlook", "Endermen Magnet", ModuleCategory.OTHER);
+    public EndermanMagnet() {
+        super("endermanlook", "Endermen Magnet", "Looks at all endermen visible.", ModuleCategory.OTHER);
 
     }
 

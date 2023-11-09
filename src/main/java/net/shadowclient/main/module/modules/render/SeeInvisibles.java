@@ -23,7 +23,7 @@ public class SeeInvisibles extends Module {
     public final BooleanSetting SeeOtherEntities = new BooleanSetting("Others", false);
 
     public SeeInvisibles() {
-        super("seeinvisibles", "See Invisibles", ModuleCategory.RENDER);
+        super("seeinvisibles", "See Invisibles", "Renders invisible entities as ghosts.", ModuleCategory.RENDER);
 
         addSettings(SeePlayerEntities, SeeHostileEntities, SeePassiveEntities, SeeAmbientEntities, SeeOtherEntities);
     }

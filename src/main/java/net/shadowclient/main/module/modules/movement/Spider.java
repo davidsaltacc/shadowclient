@@ -11,7 +11,7 @@ import net.shadowclient.main.module.ModuleCategory;
 public class Spider extends Module {
 
     public Spider() {
-        super("spider", "Spider", ModuleCategory.MOVEMENT);
+        super("spider", "Spider", "Get the ability to climb up walls.", ModuleCategory.MOVEMENT);
     }
 
     @Override

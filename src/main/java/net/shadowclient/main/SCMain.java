@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.atomic.AtomicReference;
 
 // TODO NoGravity hack, maybe Speed hack, other new hacks, ui settings, more settings
+// TODO tooltips when hovering over things, for help
 public class SCMain {
 
     public static final String ClientModId = "shadowclient";
@@ -132,10 +133,9 @@ public class SCMain {
 
     public static String createHelp() {
         // we hate java
-        AtomicReference<String> help = new AtomicReference<>("§0§l§u" + ClientName + " §o" + ClientVersion + "§r help\nPress right shift for the ClickGUI.\nRight Click a Part of the UI (Frame Title, Button) to expand it.\nAvailable chat commands:\n");
+        AtomicReference<String> help = new AtomicReference<>("§0§l§u" + ClientName + " §o" + ClientVersion + "§r help\nPress right shift for the ClickGUI.\nRight Click a Part of the UI to expand it, Expand Module Buttons for its settings and additional help.\nAvailable chat commands:\n");
 
         CommandManager.commands.forEach((name, cmd) -> help.set(help.get() + "  " + ClientCommandPrefix + name + "\n"));
-        ModuleManager.getAllModules().forEach((name, module) -> help.set(help.get() + " " + ClientCommandPrefix + name + "\n"));
 
         return help.get();
     }

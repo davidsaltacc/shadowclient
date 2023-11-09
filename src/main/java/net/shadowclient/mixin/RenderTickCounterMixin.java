@@ -2,7 +2,6 @@ package net.shadowclient.mixin;
 
 import net.minecraft.client.render.RenderTickCounter;
 import net.shadowclient.main.module.ModuleManager;
-import net.shadowclient.main.module.modules.render.Timer;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

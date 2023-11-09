@@ -16,7 +16,7 @@ public class BoatFly extends Module {
     NumberSetting SPEED = new NumberSetting("Speed", 0.1f, 10, 1,  0.f);
 
     public BoatFly() {
-        super("boatfly", "Boat Fly", ModuleCategory.MOVEMENT);
+        super("boatfly", "Boat Fly", "Allows you to fly in boats.", ModuleCategory.MOVEMENT);
 
         addSetting(SPEED);
     }

@@ -15,7 +15,7 @@ import net.shadowclient.main.module.ModuleCategory;
 public class SaveData extends Module {
 
     public SaveData() {
-        super("savedata", "Save Settings", ModuleCategory.OTHER);
+        super("savedata", "Save Settings", "Saves the current configuration to the settings file.", ModuleCategory.OTHER);
     }
 
     @Override

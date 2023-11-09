@@ -9,7 +9,7 @@ import net.shadowclient.main.module.ModuleCategory;
 @SearchTags({"no entity push", "entity push", "anti entity push", "antientitypush"})
 public class NoEntityPush extends Module {
     public NoEntityPush() {
-        super("noentitypush", "No Entity Push", ModuleCategory.WORLD);
+        super("noentitypush", "No Entity Push", "Prevents you from getting pushed by entities.", ModuleCategory.WORLD);
     }
 
     @Override

@@ -9,7 +9,7 @@ import net.shadowclient.main.module.ModuleCategory;
 @SearchTags({"no water push", "water push", "anti water push", "antiwaterpush"})
 public class NoWaterPush extends Module {
     public NoWaterPush() {
-        super("nowaterpush", "No Water Push", ModuleCategory.WORLD);
+        super("nowaterpush", "No Water Push", "Prevents flowing water from pushing you.", ModuleCategory.WORLD);
     }
 
     @Override
