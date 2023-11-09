@@ -28,7 +28,7 @@ public class Tracers extends Module {
     public final float maxRange = Float.MAX_VALUE;
 
     public Tracers() {
-        super("tracers", "Tracers", ModuleCategory.RENDER);
+        super("tracers", "Tracers", "Draws a visible line to every loaded entity.", ModuleCategory.RENDER);
 
         addSettings(DrawPlayerEntityTracers, DrawHostileEntityTracers, DrawPassiveEntityTracers, DrawAmbientEntityTracers, DrawOtherEntityTracers);
     }

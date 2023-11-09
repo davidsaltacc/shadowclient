@@ -9,6 +9,6 @@ import net.shadowclient.main.module.ModuleCategory;
 @SearchTags({"cameranoclip", "camera noclip", "camera clip", "camera see through"})
 public class CameraNoclip extends Module {
     public CameraNoclip() {
-        super("cameranoclip", "Camera NoClip", ModuleCategory.RENDER);
+        super("cameranoclip", "Camera NoClip", "In third person, allows you to move your camera into walls.", ModuleCategory.RENDER);
     }
 }

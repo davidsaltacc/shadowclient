@@ -9,7 +9,7 @@ import net.shadowclient.main.module.ModuleCategory;
 @SearchTags({"airjump", "air jump", "jetpack"})
 public class AirJump extends Module {
     public AirJump() {
-        super("airjump", "Airjump", ModuleCategory.MOVEMENT);
+        super("airjump", "Airjump", "Allows you to jump in the air.", ModuleCategory.MOVEMENT);
     }
 
     @Override

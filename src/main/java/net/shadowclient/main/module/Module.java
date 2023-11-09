@@ -13,6 +13,7 @@ public abstract class Module {
     public final ModuleCategory Category;
     public final String ModuleName;
     public final String FriendlyName;
+    public final String Description;
 
     public ModuleButton moduleButton = null;
 
@@ -36,10 +37,11 @@ public abstract class Module {
 
     public final MinecraftClient mc = MinecraftClient.getInstance();
 
-    public Module(String name, String friendlyName, ModuleCategory category) {
+    public Module(String name, String friendlyName, String description, ModuleCategory category) {
         ModuleName = name;
         Category = category;
         FriendlyName =  friendlyName;
+        Description = description;
     }
 
     public void setEnabled() {

@@ -10,7 +10,7 @@ import net.shadowclient.main.module.ModuleCategory;
 @SearchTags({"fastclimb", "fast climbing", "climb fast", "speed climb"})
 public class FastClimb extends Module {
     public FastClimb() {
-        super("fastclimb", "Fast Climbing", ModuleCategory.MOVEMENT);
+        super("fastclimb", "Fast Climbing", "Allows you to climb ladders & etc. faster.", ModuleCategory.MOVEMENT);
     }
 
     @Override

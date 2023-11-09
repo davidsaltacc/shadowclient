@@ -271,9 +271,6 @@ public class Config {
         JsonObject json = (new Gson()).fromJson(text, JsonObject.class);
         JsonObject clientdata = json.getAsJsonObject("client");
         String version = clientdata.get("version").getAsString();
-        if (!version.equals(SCMain.ClientVersion)) {
-            SCMain.warn("Config version " + version + " does not match current version " + SCMain.ClientVersion);
-        }
         return json.getAsJsonObject("settings");
     }
 }

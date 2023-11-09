@@ -10,7 +10,7 @@ import net.shadowclient.main.module.ModuleCategory;
 @SearchTags({"automatically fish", "autofish", "auto fish", "fish", "auto fish hack"})
 public class AutoFish extends Module {
     public AutoFish() {
-        super("autofish", "Autofish", ModuleCategory.PLAYER);
+        super("autofish", "Autofish", "Automatically pull back and recast the fishing rod.", ModuleCategory.PLAYER);
     }
 
 

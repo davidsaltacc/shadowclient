@@ -9,6 +9,6 @@ import net.shadowclient.main.module.ModuleCategory;
 @SearchTags({"no levitation", "anti levitation", "anti shulker"})
 public class NoLevitation extends Module {
     public NoLevitation() {
-        super("nolevitation", "No Levitation", ModuleCategory.RENDER);
+        super("nolevitation", "No Levitation", "Stops levitation from working. ", ModuleCategory.RENDER);
     }
 }

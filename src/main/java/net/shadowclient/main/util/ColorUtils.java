@@ -12,6 +12,14 @@ public class ColorUtils {
         return ((a & 0xFF) << 24) | ((r & 0xFF) << 16) + ((g & 0xFF) << 8) | (b & 0xFF);
     }
 
+    public static int[] int2RGBA(int color) {
+        return new int[]{(color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, (color >> 24) & 0xFF};
+    }
+
+    public static int[] int2RGB(int color) {
+        return new int[]{(color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF};
+    }
+
     public static int[] RGBFloatToRGBInt(float r, float g, float b) {
         int[] color = new int[3];
 
@@ -20,6 +28,10 @@ public class ColorUtils {
         color[2] = Math.min(Math.max((int) (b * 255), 0), 255);
 
         return color;
+    }
+
+    public static float[] RGBIntToRGBFloat(int r, int g, int b) {
+        return new float[]{(float) r / 255, (float) g / 255, (float) b / 255};
     }
 
     public static float[] rainbowColor() {

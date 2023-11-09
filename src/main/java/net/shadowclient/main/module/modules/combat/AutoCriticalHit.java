@@ -14,7 +14,7 @@ import net.shadowclient.main.module.ModuleCategory;
 public class AutoCriticalHit extends Module {
 
     public AutoCriticalHit() {
-        super("autocrit", "Criticals", ModuleCategory.COMBAT);
+        super("autocrit", "Criticals", "Automatically land critical hits every time. ", ModuleCategory.COMBAT);
     }
 
     @Override

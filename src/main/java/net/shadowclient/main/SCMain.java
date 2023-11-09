@@ -24,11 +24,12 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.atomic.AtomicReference;
 
 // TODO NoGravity hack, maybe Speed hack, other new hacks, ui settings, more settings
+// TODO tooltips when hovering over things, for help
 public class SCMain {
 
     public static final String ClientModId = "shadowclient";
     public static final String ClientName = "ShadowClient";
-    public static final String ClientVersion = "0.1.3";
+    public static final String ClientVersion = "0.1.3_1";
     public static final String ClientCommandPrefix = "sc/";
 
     public static MainClickGUI clickGui;
@@ -47,7 +48,7 @@ public class SCMain {
             clickGui = new MainClickGUI();
             settingsGui = new ClickGUI("Settings");
             initSettingsScreen(settingsGui);
-                Config.loadConfig();
+            Config.loadConfig();
             Runtime.getRuntime().addShutdownHook(new Thread(SCMain::closed));
             info("Finished " + ClientName + " initialization");
         } catch (Exception e) {
@@ -84,7 +85,7 @@ public class SCMain {
         gui.searchFrame.children.add(new TextField(gui.searchFrame, 14, "Find Setting"));
     }
 
-    public static void OnEvent(Event evt) {
+    public static void fireEvent(Event evt) {
         try {
             if (evt instanceof KeyPressEvent) {
                 if (((KeyPressEvent) evt).keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT && ((KeyPressEvent) evt).action == 1) {
@@ -132,10 +133,9 @@ public class SCMain {
 
     public static String createHelp() {
         // we hate java
-        AtomicReference<String> help = new AtomicReference<>("§0§l§u" + ClientName + " §o" + ClientVersion + "§r help\nPress right shift for the ClickGUI.\nRight Click a Part of the UI (Frame Title, Button) to expand it.\nAvailable chat commands:\n");
+        AtomicReference<String> help = new AtomicReference<>("§0§l§u" + ClientName + " §o" + ClientVersion + "§r help\nPress right shift for the ClickGUI.\nRight Click a Part of the UI to expand it, Expand Module Buttons for its settings and additional help.\nAvailable chat commands:\n");
 
         CommandManager.commands.forEach((name, cmd) -> help.set(help.get() + "  " + ClientCommandPrefix + name + "\n"));
-        ModuleManager.getAllModules().forEach((name, module) -> help.set(help.get() + " " + ClientCommandPrefix + name + "\n"));
 
         return help.get();
     }

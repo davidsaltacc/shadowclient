@@ -14,7 +14,7 @@ import net.shadowclient.main.module.ModuleCategory;
 @SearchTags({"load data", "load settings"})
 public class LoadData extends Module {
     public LoadData() {
-        super("loaddata", "Load Settings", ModuleCategory.OTHER);
+        super("loaddata", "Load Settings", "Loads the saved configuration from the settings file.", ModuleCategory.OTHER);
     }
 
     @Override

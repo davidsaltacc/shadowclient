@@ -31,7 +31,7 @@ public abstract class ClientPlayerNetworkHandlerMixin {
     @Inject(method = "sendPacket(Lnet/minecraft/network/packet/Packet;)V", at = @At("HEAD"), cancellable = true)
     private void onPacketSent(Packet<?> packet, CallbackInfo ci) {
         PacketSentEvent event = new PacketSentEvent(packet);
-        SCMain.OnEvent(event);
+        SCMain.fireEvent(event);
         if (event.cancelled) {
             ci.cancel();
         }

@@ -1,4 +1,4 @@
-package net.shadowclient.main.module.modules.movement;
+package net.shadowclient.main.module.modules.world;
 
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
@@ -9,7 +9,7 @@ import net.shadowclient.main.module.ModuleCategory;
 @SearchTags({"no water push", "water push", "anti water push", "antiwaterpush"})
 public class NoWaterPush extends Module {
     public NoWaterPush() {
-        super("nowaterpush", "No Water Push", ModuleCategory.MOVEMENT);
+        super("nowaterpush", "No Water Push", "Prevents flowing water from pushing you.", ModuleCategory.WORLD);
     }
 
     @Override

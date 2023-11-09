@@ -10,7 +10,7 @@ import net.shadowclient.main.module.ModuleCategory;
 public class AutoSprint extends Module {
 
     public AutoSprint() {
-        super("autosprint", "Autosprint", ModuleCategory.MOVEMENT);
+        super("autosprint", "Autosprint", "Automatically sprint instead of walking.", ModuleCategory.MOVEMENT);
     }
 
     @Override

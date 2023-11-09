@@ -20,7 +20,7 @@ public class SecretShaders extends Module {
     public final EnumSetting<Shaders> SHADER = new EnumSetting<>("ID", Shaders.NONE);
 
     public SecretShaders() {
-        super("secretshaders", "Secret Shaders", ModuleCategory.FUN);
+        super("secretshaders", "Secret Shaders", "Shaders coded by Mojang made accessible.", ModuleCategory.FUN);
 
         addSetting(SHADER);
     }

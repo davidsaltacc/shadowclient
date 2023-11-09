@@ -11,6 +11,9 @@ import net.shadowclient.main.module.modules.render.*;
 import net.shadowclient.main.module.modules.settings.LoadData;
 import net.shadowclient.main.module.modules.settings.ResetData;
 import net.shadowclient.main.module.modules.settings.SaveData;
+import net.shadowclient.main.module.modules.world.NoEntityPush;
+import net.shadowclient.main.module.modules.world.NoWaterPush;
+import net.shadowclient.main.module.modules.world.Timer;
 import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +43,7 @@ public class ModuleManager {
     public static FastBlockBreak FastBlockBreakModule;
     public static Timer TimerModule;
     public static EntitiesESP EntitiesESPModule;
-    public static EndermanLook EndermanLookModule;
+    public static EndermanMagnet EndermanMagnetModule;
     public static SecretShaders SecretShadersModule;
     public static SneakSpam SneakSpamModule;
     public static Derpy DerpyModule;
@@ -64,6 +67,17 @@ public class ModuleManager {
     public static NoLevitation NoLevitationModule;
     public static NoWobble NoWobbleModule;
     public static BoatFly BoatFlyModule;
+    public static NoEntityPush NoEntityPushModule;
+    public static AutoHotbarCycle AutoHotbarCycleModule;
+    public static ExtendedCameraDistance ExtendedCameraDistanceModule;
+    public static FastPlace FastPlaceModule;
+    public static NoPumkin NoPumkinModule;
+    public static PortalGUI PortalGUIModule;
+    public static SeeInvisibles SeeInvisiblesModule;
+    public static HighJump HighJumpModule;
+    public static NoSlowdown NoSlowdownModule;
+    public static Reach ReachModule;
+    public static AdvancedHelp AdvancedHelpModule;
 
     public static void registerModules() {
         AutoSprintModule = (AutoSprint) register(new AutoSprint());
@@ -85,7 +99,7 @@ public class ModuleManager {
         FastBlockBreakModule = (FastBlockBreak) register(new FastBlockBreak());
         TimerModule = (Timer) register(new Timer());
         EntitiesESPModule = (EntitiesESP) register(new EntitiesESP());
-        EndermanLookModule = (EndermanLook) register(new EndermanLook());
+        EndermanMagnetModule = (EndermanMagnet) register(new EndermanMagnet());
         SecretShadersModule = (SecretShaders) register(new SecretShaders());
         SneakSpamModule = (SneakSpam) register(new SneakSpam());
         DerpyModule = (Derpy) register(new Derpy());
@@ -109,6 +123,17 @@ public class ModuleManager {
         NoLevitationModule = (NoLevitation) register(new NoLevitation());
         NoWobbleModule = (NoWobble) register(new NoWobble());
         BoatFlyModule = (BoatFly) register(new BoatFly());
+        NoEntityPushModule = (NoEntityPush) register(new NoEntityPush());
+        AutoHotbarCycleModule = (AutoHotbarCycle) register(new AutoHotbarCycle());
+        ExtendedCameraDistanceModule = (ExtendedCameraDistance) register(new ExtendedCameraDistance());
+        FastPlaceModule = (FastPlace) register(new FastPlace());
+        NoPumkinModule = (NoPumkin) register(new NoPumkin());
+        PortalGUIModule = (PortalGUI) register(new PortalGUI());
+        SeeInvisiblesModule = (SeeInvisibles) register(new SeeInvisibles());
+        HighJumpModule = (HighJump) register(new HighJump());
+        NoSlowdownModule = (NoSlowdown) register(new NoSlowdown());
+        ReachModule = (Reach) register(new Reach());
+        AdvancedHelpModule = (AdvancedHelp) register(new AdvancedHelp());
     }
 
     public static Module register(Module module) {

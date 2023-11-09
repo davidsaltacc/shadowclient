@@ -18,11 +18,11 @@ public class EntitiesESP extends Module {
     public final BooleanSetting DrawPlayerEntityOutlines = new BooleanSetting("Players", true);
     public final BooleanSetting DrawHostileEntityOutlines = new BooleanSetting("Hostiles", true);
     public final BooleanSetting DrawPassiveEntityOutlines = new BooleanSetting("Passives", false);
-    public final BooleanSetting DrawOtherEntityOutlines = new BooleanSetting("Ambients", false);
-    public final BooleanSetting DrawAmbientEntityOutlines = new BooleanSetting("Others", true);
+    public final BooleanSetting DrawOtherEntityOutlines = new BooleanSetting("Others", false);
+    public final BooleanSetting DrawAmbientEntityOutlines = new BooleanSetting("Ambient", true);
 
     public EntitiesESP() {
-        super("entitiesesp", "ESP", ModuleCategory.RENDER);
+        super("entitiesesp", "ESP", "Draws an outline around entities.", ModuleCategory.RENDER);
 
         addSettings(DrawPlayerEntityOutlines, DrawHostileEntityOutlines, DrawPassiveEntityOutlines, DrawOtherEntityOutlines, DrawAmbientEntityOutlines);
     }

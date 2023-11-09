@@ -13,6 +13,6 @@ public abstract class DeathScreenMixin {
     @Inject(at = @At(value = "TAIL"), method = "tick")
     private void injected(CallbackInfo ci)
     {
-        SCMain.OnEvent(new DeathEvent());
+        SCMain.fireEvent(new DeathEvent());
     }
 }

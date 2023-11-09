@@ -11,7 +11,7 @@ import net.shadowclient.main.module.ModuleCategory;
 @SearchTags({"fastblockbreak", "fastbreak", "fast block break", "fast break", "block break", "speed break"})
 public class FastBlockBreak extends Module {
     public FastBlockBreak() {
-        super("fastbreak", "Fast Break", ModuleCategory.PLAYER);
+        super("fastbreak", "Fast Break", "Allows you to break blocks faster. ", ModuleCategory.PLAYER);
     }
 
     @Override

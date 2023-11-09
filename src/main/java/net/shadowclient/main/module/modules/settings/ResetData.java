@@ -14,7 +14,7 @@ import net.shadowclient.main.module.ModuleCategory;
 @SearchTags({"delete data", "remove settings", "reset"})
 public class ResetData extends Module {
     public ResetData() {
-        super("resetdata", "Reset Settings", ModuleCategory.OTHER);
+        super("resetdata", "Reset Settings", "Erases all the settings.", ModuleCategory.OTHER);
     }
 
     @Override
