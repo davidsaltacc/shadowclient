@@ -30,6 +30,10 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
     @Shadow
     private int itemUseCooldown;
 
+    /** mixin won't shut. IDK why.
+     * @author ...
+     * @reason ...
+     */
     @Overwrite
     public static ModStatus getModStatus() {
         if (SCSettings.getSetting("VanillaSpoof").booleanValue()) {
