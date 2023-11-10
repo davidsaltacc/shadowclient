@@ -1,5 +1,6 @@
 package net.shadowclient.main.module.modules.movement;
 
+import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.events.PreTickEvent;
@@ -10,6 +11,7 @@ import net.shadowclient.main.setting.settings.EnumSetting;
 import net.shadowclient.main.setting.settings.NumberSetting;
 import net.shadowclient.main.util.EntityUtils;
 
+@EventListener({PreTickEvent.class})
 @SearchTags({"bunny hop", "bunnyhop", "auto jump", "sprint jump"})
 public class BunnyHop extends Module {
     public final EnumSetting<JumpWhen> MODE = new EnumSetting<>("When", JumpWhen.ALWAYS);
@@ -24,9 +26,6 @@ public class BunnyHop extends Module {
 
     @Override
     public void OnEvent(Event event) {
-        if (!(event instanceof PreTickEvent)) {
-            return;
-        }
 
         if (!mc.player.isOnGround() || mc.player.isSneaking() || (Math.abs(mc.player.getVelocity().x) + Math.abs(mc.player.getVelocity().z)) / 2f <= MINVEL.floatValue()) {
             return;

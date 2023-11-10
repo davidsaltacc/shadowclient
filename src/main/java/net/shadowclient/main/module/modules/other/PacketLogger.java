@@ -1,15 +1,18 @@
 package net.shadowclient.main.module.modules.other;
 
+import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.events.PacketRecievedEvent;
 import net.shadowclient.main.event.events.PacketSentEvent;
+import net.shadowclient.main.event.events.PreTickEvent;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 import net.shadowclient.main.setting.settings.EnumSetting;
 import net.shadowclient.main.setting.settings.StringSetting;
 import net.shadowclient.main.util.ChatUtils;
 
+@EventListener({PacketSentEvent.class, PacketRecievedEvent.class})
 @SearchTags({"packet logger"})
 public class PacketLogger extends Module {
 
@@ -45,9 +48,6 @@ public class PacketLogger extends Module {
 
     @Override
     public void OnEvent(Event event) {
-        if (!(event instanceof PacketSentEvent || event instanceof PacketRecievedEvent)) {
-            return;
-        }
 
         if (MODE.getEnumValue() == Mode.ALL) {
             if (event instanceof PacketRecievedEvent) {

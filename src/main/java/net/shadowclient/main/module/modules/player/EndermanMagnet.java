@@ -4,12 +4,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.math.MathHelper;
+import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.events.PreTickEvent;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 
+@EventListener({PreTickEvent.class})
 @SearchTags({"enderman look", "endermen magnet", "enderman", "look at enderman", "look", "magnet", "enderman magnet", "look at endermen"})
 public class EndermanMagnet extends Module {
 
@@ -20,9 +22,6 @@ public class EndermanMagnet extends Module {
 
     @Override
     public void OnEvent(Event event) {
-        if (!(event instanceof PreTickEvent)) {
-            return;
-        }
 
         for (Entity entity : mc.world.getEntities()) {
             if (!(entity instanceof EndermanEntity enderman)) {

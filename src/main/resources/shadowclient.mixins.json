@@ -13,6 +13,7 @@
         "ClientPlayerEntityMixin",
         "ClientPlayerInteractionManagerMixin",
         "ClientPlayerNetworkHandlerMixin",
+        "ClientWorldMixin",
         "DeathScreenMixin",
         "EntityMixin",
         "FishingBobberEntityMixin",
@@ -21,11 +22,15 @@
         "IngameHudMixin",
         "InGameOverlayRendererMixin",
         "KeyboardMixin",
+        "LivingEntityRendererMixin",
         "MinecraftClientMixin",
         "PowderSnowBlockMixin",
         "RenderTickCounterMixin",
         "SlimeBlockMixin",
         "SplashOverlayMixin",
         "WindowMixin"
+    ],
+    "mixins": [
+        "PlayerEntityMixin"
     ]
 }

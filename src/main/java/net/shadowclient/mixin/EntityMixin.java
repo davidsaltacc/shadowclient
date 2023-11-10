@@ -4,6 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import net.shadowclient.main.SCMain;
+import net.shadowclient.main.event.EventManager;
 import net.shadowclient.main.event.events.VelocityFromEntityEvent;
 import net.shadowclient.main.event.events.VelocityFromFluidEvent;
 import net.shadowclient.main.module.ModuleManager;
@@ -41,10 +42,9 @@ public abstract class EntityMixin implements IEntity {
     }
 
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setVelocity(Lnet/minecraft/util/math/Vec3d;)V", opcode = Opcodes.INVOKEVIRTUAL, ordinal = 0), method = "updateMovementInFluid(Lnet/minecraft/registry/tag/TagKey;D)Z")
-    private void setVelocityFromFluid(Entity entity, Vec3d velocity)
-    {
+    private void setVelocityFromFluid(Entity entity, Vec3d velocity) {
         VelocityFromFluidEvent event = new VelocityFromFluidEvent((Entity) (Object) this);
-        SCMain.fireEvent(event);
+        EventManager.fireEvent(event);
 
         if (!event.cancelled) {
             entity.setVelocity(velocity);
@@ -56,7 +56,7 @@ public abstract class EntityMixin implements IEntity {
 
         VelocityFromEntityEvent evt = new VelocityFromEntityEvent((Entity) (Object) this);
 
-        SCMain.fireEvent(evt);
+        EventManager.fireEvent(evt);
 
         if (evt.cancelled) {
             ci.cancel();

@@ -3,16 +3,13 @@ package net.shadowclient.main.module.modules.render;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.AmbientEntity;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.shadowclient.main.annotations.ReceiveNoUpdates;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 import net.shadowclient.main.setting.settings.BooleanSetting;
 
-@ReceiveNoUpdates
 @SearchTags({"see invisibles", "anti invisible", "seeinvisibles"})
 public class SeeInvisibles extends Module {
 

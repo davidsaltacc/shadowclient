@@ -2,12 +2,9 @@ package net.shadowclient.main;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.shadowclient.main.annotations.ReceiveNoUpdates;
 import net.shadowclient.main.command.CommandManager;
 import net.shadowclient.main.config.Config;
 import net.shadowclient.main.config.SCSettings;
-import net.shadowclient.main.event.Event;
-import net.shadowclient.main.event.events.KeyPressEvent;
 import net.shadowclient.main.module.ModuleManager;
 import net.shadowclient.main.ui.clickgui.ClickGUI;
 import net.shadowclient.main.ui.clickgui.Frame;
@@ -18,7 +15,6 @@ import net.shadowclient.main.ui.clickgui.text.TextField;
 import net.shadowclient.main.util.ChatUtils;
 import net.shadowclient.main.util.JavaUtils;
 import org.jetbrains.annotations.Nullable;
-import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.concurrent.atomic.AtomicReference;
@@ -29,7 +25,7 @@ public class SCMain {
 
     public static final String ClientModId = "shadowclient";
     public static final String ClientName = "ShadowClient";
-    public static final String ClientVersion = "0.1.3_1";
+    public static final String ClientVersion = "0.1.4";
     public static final String ClientCommandPrefix = "sc/";
 
     public static MainClickGUI clickGui;
@@ -83,32 +79,6 @@ public class SCMain {
         gui.searchFrame = new Frame("Search", offset, 5, 120, 14);
         gui.frames.add(gui.searchFrame);
         gui.searchFrame.children.add(new TextField(gui.searchFrame, 14, "Find Setting"));
-    }
-
-    public static void fireEvent(Event evt) {
-        try {
-            if (evt instanceof KeyPressEvent) {
-                if (((KeyPressEvent) evt).keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT && ((KeyPressEvent) evt).action == 1) {
-                    if (mc.currentScreen == null) {
-                        mc.setScreen(clickGui);
-                    } else if (mc.currentScreen instanceof ClickGUI) {
-                        mc.setScreen(null);
-                    }
-                }
-            }
-
-            if (ModuleManager.UpdatesDisableModule.enabled) {
-                return;
-            }
-            ModuleManager.getAllModules().forEach((name, module) -> {
-                if (module.enabled && !module.getClass().isAnnotationPresent(ReceiveNoUpdates.class)) {
-                    module.OnEvent(evt);
-                }
-            });
-        } catch (Exception e) {
-            error("Exception while handling event: " + evt.getClass().getName() + " - " + e);
-            e.printStackTrace();
-        }
     }
 
     public static void setModuleEnabled(String name, boolean enabled) {

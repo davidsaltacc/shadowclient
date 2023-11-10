@@ -3,6 +3,7 @@ package net.shadowclient.main.module.modules.combat;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Hand;
+import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.events.PreTickEvent;
@@ -12,6 +13,7 @@ import net.shadowclient.main.setting.settings.BooleanSetting;
 import net.shadowclient.main.util.RotationUtils;
 import net.shadowclient.main.util.WorldUtils;
 
+@EventListener({PreTickEvent.class})
 @SearchTags({"killaura", "kill aura", "auto kill", "auto hit"})
 public class KillAura extends Module {
 
@@ -24,9 +26,6 @@ public class KillAura extends Module {
 
     @Override
     public void OnEvent(Event event) {
-        if (!(event instanceof PreTickEvent)) {
-            return;
-        }
 
         mc.world.getEntities().forEach(entity -> {
             if (entity == mc.player) {

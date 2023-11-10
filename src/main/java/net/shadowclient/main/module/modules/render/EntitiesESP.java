@@ -5,13 +5,11 @@ import net.minecraft.entity.mob.AmbientEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.shadowclient.main.annotations.ReceiveNoUpdates;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 import net.shadowclient.main.setting.settings.BooleanSetting;
 
-@ReceiveNoUpdates
 @SearchTags({"entitiesesp", "esp", "entity esp", "entities esp", "wallhack", "wall hack"})
 public class EntitiesESP extends Module {
 

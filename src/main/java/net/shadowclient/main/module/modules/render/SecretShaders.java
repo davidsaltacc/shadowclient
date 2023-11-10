@@ -2,6 +2,7 @@ package net.shadowclient.main.module.modules.render;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.Identifier;
+import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.events.PreTickEvent;
@@ -11,6 +12,7 @@ import net.shadowclient.main.setting.settings.EnumSetting;
 import net.shadowclient.main.util.RenderUtils;
 import org.jetbrains.annotations.Nullable;
 
+@EventListener({PreTickEvent.class})
 @SearchTags({"shaders", "effects", "vfx", "special effects"})
 public class SecretShaders extends Module {
 
@@ -38,9 +40,6 @@ public class SecretShaders extends Module {
 
     @Override
     public void OnEvent(Event event) {
-        if (!(event instanceof PreTickEvent)) {
-            return;
-        }
         boolean newScreen = false;
 
         if (currentScreen != mc.currentScreen) {

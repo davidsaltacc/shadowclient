@@ -2,6 +2,7 @@ package net.shadowclient.main.module.modules.movement;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
+import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.events.PreTickEvent;
@@ -9,6 +10,7 @@ import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 import net.shadowclient.main.setting.settings.NumberSetting;
 
+@EventListener({PreTickEvent.class})
 @SearchTags({"flyhack", "fly", "flying"})
 public class Fly extends Module {
     private int toggle = 0;
@@ -24,9 +26,6 @@ public class Fly extends Module {
 
     @Override
     public void OnEvent(Event event) {
-        if (!(event instanceof PreTickEvent)) {
-            return;
-        }
         if (mc.player.isOnGround()) {
             acceleration = 0.2;
             return;

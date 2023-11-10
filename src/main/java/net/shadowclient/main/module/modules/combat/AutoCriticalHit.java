@@ -4,12 +4,14 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.events.PreTickEvent;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 
+@EventListener({PreTickEvent.class})
 @SearchTags({"autocrit", "criticals", "automatical crit", "auto critical hit"})
 public class AutoCriticalHit extends Module {
 
@@ -19,9 +21,6 @@ public class AutoCriticalHit extends Module {
 
     @Override
     public void OnEvent(Event event) {
-        if (!(event instanceof PreTickEvent)) {
-            return;
-        }
         if (!mc.options.attackKey.isPressed()) {
             return;
         }
