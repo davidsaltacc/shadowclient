@@ -3,6 +3,7 @@ package net.shadowclient.main.module.modules.movement;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.events.PreTickEvent;
@@ -10,6 +11,7 @@ import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 import net.shadowclient.main.setting.settings.NumberSetting;
 
+@EventListener({PreTickEvent.class})
 @SearchTags({"boat fly", "boatfly", "fly hack", "flyhack"})
 public class BoatFly extends Module {
 
@@ -23,10 +25,6 @@ public class BoatFly extends Module {
 
     @Override
     public void OnEvent(Event event) {
-        if (!(event instanceof PreTickEvent)) {
-            return;
-        }
-
         if (!mc.player.hasVehicle()) {
             return;
         }

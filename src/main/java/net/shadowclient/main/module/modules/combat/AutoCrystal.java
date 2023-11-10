@@ -4,6 +4,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.decoration.EndCrystalEntity;
 import net.minecraft.util.Hand;
+import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.events.PreTickEvent;
@@ -16,6 +17,7 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+@EventListener({PreTickEvent.class})
 @SearchTags({"auto crystal", "auto detonate", "crystal aura", "autocrystal"})
 public class AutoCrystal extends Module {
 
@@ -29,9 +31,6 @@ public class AutoCrystal extends Module {
 
     @Override
     public void OnEvent(Event event) {
-        if (!(event instanceof PreTickEvent)) {
-            return;
-        }
 
         ArrayList<Entity> crystals = getNearbyCrystals();
 

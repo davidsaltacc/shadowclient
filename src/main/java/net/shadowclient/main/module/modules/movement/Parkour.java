@@ -1,6 +1,7 @@
 package net.shadowclient.main.module.modules.movement;
 
 import net.minecraft.util.math.Box;
+import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.events.PreTickEvent;
@@ -10,6 +11,7 @@ import net.shadowclient.main.setting.settings.BooleanSetting;
 import net.shadowclient.main.setting.settings.NumberSetting;
 import net.shadowclient.main.util.EntityUtils;
 
+@EventListener({PreTickEvent.class})
 @SearchTags({"parkour", "autojump", "auto jump", "auto parkour"})
 public class Parkour extends Module {
 
@@ -24,9 +26,6 @@ public class Parkour extends Module {
 
     @Override
     public void OnEvent(Event event) {
-        if (!(event instanceof PreTickEvent)) {
-            return;
-        }
 
         if (!mc.player.isOnGround() || mc.options.jumpKey.isPressed()) {
             return;

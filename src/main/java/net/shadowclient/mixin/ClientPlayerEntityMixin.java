@@ -9,6 +9,7 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
 import net.shadowclient.main.SCMain;
+import net.shadowclient.main.event.EventManager;
 import net.shadowclient.main.event.events.KnockbackEvent;
 import net.shadowclient.main.module.ModuleManager;
 import org.objectweb.asm.Opcodes;
@@ -36,7 +37,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     @Override
     public void setVelocityClient(double x, double y, double z) {
         KnockbackEvent event = new KnockbackEvent(x, y, z);
-        SCMain.fireEvent(event);
+        EventManager.fireEvent(event);
         super.setVelocityClient(event.x, event.y, event.z);
     }
 

@@ -1,11 +1,9 @@
 package net.shadowclient.main.module.modules.fun;
 
-import net.shadowclient.main.annotations.ReceiveNoUpdates;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 
-@ReceiveNoUpdates
 @SearchTags({"dinnerbone all", "dinnerbonifyall", "grumm all", "flip upside down"})
 public class DinnerbonifyAll extends Module { // TODO test
     public DinnerbonifyAll() {

@@ -1,12 +1,15 @@
 package net.shadowclient.main.module.modules.movement;
 
+import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.events.PreTickEvent;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
+import net.shadowclient.main.module.ModuleManager;
 import net.shadowclient.main.setting.settings.NumberSetting;
 
+@EventListener({PreTickEvent.class})
 @SearchTags({"stepup", "step up", "step"})
 public class StepUp extends Module {
 
@@ -20,14 +23,16 @@ public class StepUp extends Module {
 
     @Override
     public void OnEvent(Event event) {
-        if (!(event instanceof PreTickEvent)) {
-            return;
-        }
 
         mc.player.setBoundingBox(mc.player.getBoundingBox().offset(0, HEIGHT.floatValue(), 0));
         mc.player.setStepHeight(HEIGHT.floatValue());
         mc.player.setBoundingBox(mc.player.getBoundingBox().offset(0, -HEIGHT.floatValue(), 0));
 
+    }
+
+    @Override
+    public void OnEnable() {
+        ModuleManager.SafeWalkModule.setDisabled(); // incompatible
     }
 
     @Override

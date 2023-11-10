@@ -6,6 +6,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.shadowclient.main.SCMain;
+import net.shadowclient.main.event.EventManager;
 import net.shadowclient.main.event.events.Render3DEvent;
 
 @Environment(EnvType.CLIENT)
@@ -16,7 +17,7 @@ public class FabricInitializer implements ClientModInitializer {
 		SCMain.init();
 
 		WorldRenderEvents.END.register((WorldRenderContext context) -> { // im lazy
-			SCMain.fireEvent(new Render3DEvent(context.matrixStack(), context.tickDelta()));
+			EventManager.fireEvent(new Render3DEvent(context.matrixStack(), context.tickDelta()));
 		});
 	}
 }

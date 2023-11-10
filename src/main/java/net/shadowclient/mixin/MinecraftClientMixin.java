@@ -10,10 +10,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ModStatus;
 import net.shadowclient.main.SCMain;
 import net.shadowclient.main.config.SCSettings;
+import net.shadowclient.main.event.EventManager;
 import net.shadowclient.main.event.events.PostTickEvent;
 import net.shadowclient.main.module.ModuleManager;
 import net.shadowclient.main.module.modules.render.EntitiesESP;
-import net.shadowclient.main.event.events.UpdateEvent;
 import net.shadowclient.main.event.events.PreTickEvent;
 import net.shadowclient.mixininterface.IMinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
@@ -44,17 +44,15 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
 
     @Inject(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;startMonitor(ZLnet/minecraft/util/TickDurationMonitor;)Lnet/minecraft/util/profiler/Profiler;", shift = At.Shift.AFTER))
     private void injectedPreTick(CallbackInfo ci) {
-        SCMain.fireEvent(new UpdateEvent());
         if (((MinecraftClient) (Object) this).world != null) {
-            SCMain.fireEvent(new PreTickEvent());
+            EventManager.fireEvent(new PreTickEvent());
         }
     }
 
     @Inject(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;endMonitor(ZLnet/minecraft/util/TickDurationMonitor;)V"))
     private void injectedPostTick(CallbackInfo ci) {
-        SCMain.fireEvent(new UpdateEvent());
         if (((MinecraftClient) (Object) this).world != null) {
-            SCMain.fireEvent(new PostTickEvent());
+            EventManager.fireEvent(new PostTickEvent());
         }
     }
 

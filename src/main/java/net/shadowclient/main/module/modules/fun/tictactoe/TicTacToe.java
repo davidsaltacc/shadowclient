@@ -1,7 +1,6 @@
 package net.shadowclient.main.module.modules.fun.tictactoe;
 
 import net.shadowclient.main.annotations.OneClick;
-import net.shadowclient.main.annotations.ReceiveNoUpdates;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
@@ -9,7 +8,6 @@ import net.shadowclient.main.setting.settings.BooleanSetting;
 import net.shadowclient.main.setting.settings.NumberSetting;
 
 @OneClick
-@ReceiveNoUpdates
 @SearchTags({"tic tac toe", "tictactoe", "game", "bored"})
 public class TicTacToe extends Module {
 

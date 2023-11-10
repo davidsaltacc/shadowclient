@@ -1,5 +1,8 @@
 package net.shadowclient.main.module;
 
+import net.shadowclient.main.annotations.EventListener;
+import net.shadowclient.main.event.Event;
+import net.shadowclient.main.event.EventManager;
 import net.shadowclient.main.module.modules.combat.*;
 import net.shadowclient.main.module.modules.fun.*;
 import net.shadowclient.main.module.modules.menus.*;
@@ -139,6 +142,11 @@ public class ModuleManager {
 
     public static Module register(Module module) {
         modules.put(module.ModuleName, module);
+        if (module.getClass().isAnnotationPresent(EventListener.class)) {
+            for (Class<? extends Event> evtcl : module.getClass().getAnnotation(EventListener.class).value()) {
+                EventManager.addModule(module, evtcl);
+            }
+        }
         return module;
     }
 

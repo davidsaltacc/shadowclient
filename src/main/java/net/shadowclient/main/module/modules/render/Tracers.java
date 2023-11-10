@@ -6,14 +6,17 @@ import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
+import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
+import net.shadowclient.main.event.events.PreTickEvent;
 import net.shadowclient.main.event.events.Render3DEvent;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 import net.shadowclient.main.setting.settings.BooleanSetting;
 import net.shadowclient.main.util.RenderUtils;
 
+@EventListener({Render3DEvent.class})
 @SearchTags({"tracers", "lines", "entity tracers"})
 public class Tracers extends Module {
 
@@ -51,10 +54,6 @@ public class Tracers extends Module {
 
     @Override
     public void OnEvent(Event event) {
-        if (!(event instanceof Render3DEvent)) {
-            return;
-        }
-
         for (Entity entity : mc.world.getEntities()) {
 
             if (entity == mc.player) {

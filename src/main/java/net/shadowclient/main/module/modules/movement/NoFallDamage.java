@@ -1,12 +1,14 @@
 package net.shadowclient.main.module.modules.movement;
 
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
+import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.events.PreTickEvent;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 
+@EventListener({PreTickEvent.class})
 @SearchTags({"anti fall damage", "no fall damage", "no fall dmg", "no falling damage"})
 public class NoFallDamage extends Module {
     public NoFallDamage() {
@@ -15,9 +17,7 @@ public class NoFallDamage extends Module {
 
     @Override
     public void OnEvent(Event event) {
-        if (!(event instanceof PreTickEvent)) {
-            return;
-        }
+
         if (mc.player.fallDistance <= (mc.player.isFallFlying() ? 1 : 2)) {
             return;
         }

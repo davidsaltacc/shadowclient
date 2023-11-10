@@ -1,12 +1,10 @@
 package net.shadowclient.main.module.modules.movement;
 
-import net.shadowclient.main.annotations.ReceiveNoUpdates;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 import net.shadowclient.main.setting.settings.NumberSetting;
 
-@ReceiveNoUpdates
 @SearchTags({"high jump", "super jump", "highjump"})
 public class HighJump extends Module {
 

@@ -5,6 +5,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.shadowclient.main.SCMain;
+import net.shadowclient.main.event.EventManager;
 import net.shadowclient.main.event.events.ClipAtLedgeEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,7 +25,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
 
         ClipAtLedgeEvent evt = new ClipAtLedgeEvent();
-        SCMain.fireEvent(evt);
+        EventManager.fireEvent(evt);
         if (evt.clip != 0) {
             cir.setReturnValue(evt.clip == 2);
         }
