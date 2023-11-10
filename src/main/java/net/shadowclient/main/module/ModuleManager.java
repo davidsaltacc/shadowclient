@@ -2,18 +2,13 @@ package net.shadowclient.main.module;
 
 import net.shadowclient.main.module.modules.combat.*;
 import net.shadowclient.main.module.modules.fun.*;
-import net.shadowclient.main.module.modules.menus.HideSettings;
-import net.shadowclient.main.module.modules.menus.ShowSettings;
+import net.shadowclient.main.module.modules.menus.*;
 import net.shadowclient.main.module.modules.movement.*;
 import net.shadowclient.main.module.modules.other.*;
 import net.shadowclient.main.module.modules.player.*;
 import net.shadowclient.main.module.modules.render.*;
-import net.shadowclient.main.module.modules.settings.LoadData;
-import net.shadowclient.main.module.modules.settings.ResetData;
-import net.shadowclient.main.module.modules.settings.SaveData;
-import net.shadowclient.main.module.modules.world.NoEntityPush;
-import net.shadowclient.main.module.modules.world.NoWaterPush;
-import net.shadowclient.main.module.modules.world.Timer;
+import net.shadowclient.main.module.modules.settings.*;
+import net.shadowclient.main.module.modules.world.*;
 import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -79,6 +74,8 @@ public class ModuleManager {
     public static Reach ReachModule;
     public static AdvancedHelp AdvancedHelpModule;
     public static SafeWalk SafeWalkModule;
+    public static DinnerbonifyAll DinnerbonifyAllModule;
+    public static RenderBarriers RenderBarriersModule;
 
     public static void registerModules() {
         AutoSprintModule = (AutoSprint) register(new AutoSprint());
@@ -136,6 +133,8 @@ public class ModuleManager {
         ReachModule = (Reach) register(new Reach());
         AdvancedHelpModule = (AdvancedHelp) register(new AdvancedHelp());
         SafeWalkModule = (SafeWalk) register(new SafeWalk());
+        DinnerbonifyAllModule = (DinnerbonifyAll) register(new DinnerbonifyAll());
+        RenderBarriersModule = (RenderBarriers) register(new RenderBarriers());
     }
 
     public static Module register(Module module) {
