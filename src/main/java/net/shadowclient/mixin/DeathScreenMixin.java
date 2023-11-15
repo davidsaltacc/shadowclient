@@ -13,6 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class DeathScreenMixin {
     @Inject(at = @At(value = "TAIL"), method = "tick")
     private void injected(CallbackInfo ci) {
-        EventManager.fireEvent(new DeathEvent());
+        EventManager.fireEvent(new DeathEvent(SCMain.mc.player == null ? null : SCMain.mc.player.getPos()));
     }
 }

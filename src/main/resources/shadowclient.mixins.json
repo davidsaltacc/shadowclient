@@ -24,6 +24,7 @@
         "KeyboardMixin",
         "LivingEntityRendererMixin",
         "MinecraftClientMixin",
+        "PlayerListHudMixin",
         "PowderSnowBlockMixin",
         "RenderTickCounterMixin",
         "SlimeBlockMixin",

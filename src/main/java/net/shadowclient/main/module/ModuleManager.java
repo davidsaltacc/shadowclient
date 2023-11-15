@@ -79,6 +79,8 @@ public class ModuleManager {
     public static SafeWalk SafeWalkModule;
     public static DinnerbonifyAll DinnerbonifyAllModule;
     public static RenderBarriers RenderBarriersModule;
+    public static BetterPingDisplay BetterPingDisplayModule;
+    public static DeathNotification DeathNotificationModule;
 
     public static void registerModules() {
         AutoSprintModule = (AutoSprint) register(new AutoSprint());
@@ -138,6 +140,8 @@ public class ModuleManager {
         SafeWalkModule = (SafeWalk) register(new SafeWalk());
         DinnerbonifyAllModule = (DinnerbonifyAll) register(new DinnerbonifyAll());
         RenderBarriersModule = (RenderBarriers) register(new RenderBarriers());
+        BetterPingDisplayModule = (BetterPingDisplay) register(new BetterPingDisplay());
+        DeathNotificationModule = (DeathNotification) register(new DeathNotification());
     }
 
     public static Module register(Module module) {
