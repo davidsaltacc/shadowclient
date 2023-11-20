@@ -2,6 +2,8 @@ package net.shadowclient.main;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
 import net.shadowclient.main.command.CommandManager;
 import net.shadowclient.main.config.Config;
 import net.shadowclient.main.config.SCSettings;
@@ -14,9 +16,15 @@ import net.shadowclient.main.ui.clickgui.settings.scsettings.components.SCBoolSe
 import net.shadowclient.main.ui.clickgui.text.TextField;
 import net.shadowclient.main.util.ChatUtils;
 import net.shadowclient.main.util.JavaUtils;
+import net.shadowclient.mixin.KeyBindingAccessor;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 // TODO NoGravity hack, maybe Speed hack, other new hacks, ui settings, more settings
@@ -36,6 +44,10 @@ public class SCMain {
 
     public static boolean configDeleted = false;
 
+    public static List<KeyBinding> keyBindings = new ArrayList<>();
+
+    public static KeyBinding ToggleGUIKeyBinding;
+
     public static void init() {
         try {
             info("Starting " + ClientName + " " + ClientVersion);
@@ -46,6 +58,13 @@ public class SCMain {
             initSettingsScreen(settingsGui);
             Config.loadConfig();
             Runtime.getRuntime().addShutdownHook(new Thread(SCMain::closed));
+            ToggleGUIKeyBinding = registerKeyBinding(
+                new KeyBinding(
+                    "key." + ClientModId + ".togglegui",
+                    InputUtil.Type.KEYSYM,
+                    GLFW.GLFW_KEY_RIGHT_SHIFT,
+                    "category." + ClientModId + ".clientcategory"
+                    ));
             info("Finished " + ClientName + " initialization");
         } catch (Exception e) {
             error(JavaUtils.stackTraceFromThrowable(e));
@@ -57,6 +76,23 @@ public class SCMain {
             Config.saveConfig();
         }
     }
+
+    public static KeyBinding registerKeyBinding(KeyBinding bind) {
+        keyBindings.add(bind);
+        addKeybindCategory(bind.getCategory());
+        return bind;
+    }
+
+    public static void addKeybindCategory(String category) {
+        Map<String, Integer> map = KeyBindingAccessor.getCategoryMap();
+        if (map.containsKey(category)) {
+            return;
+        }
+        Optional<Integer> largest = map.values().stream().max(Integer::compareTo);
+        int largestInt = largest.orElse(0);
+        map.put(category, largestInt + 1);
+    }
+
 
     public static void initSettingsScreen(ClickGUI gui) {
         int offset = 5;

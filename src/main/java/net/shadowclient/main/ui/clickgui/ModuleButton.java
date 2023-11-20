@@ -55,8 +55,11 @@ public class ModuleButton extends FrameChild {
     }
 
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+
+        boolean hovered = isHovered(mouseX, mouseY);
+
         int color = Colors.MODULE_BUTTON_NORMAL.color;
-        if (isHovered(mouseX, mouseY)) {
+        if (hovered) {
            color = Colors.MODULE_BUTTON_HOVERED.color;
         }
         context.fill(parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, color);
@@ -69,6 +72,20 @@ public class ModuleButton extends FrameChild {
                 component.render(context, mouseX, mouseY, delta);
             }
         }
+    }
+
+    public void renderDescription(DrawContext context, int mouseX, int mouseY) {
+        int color = Colors.MODULE_BUTTON_NORMAL.color;
+        if (isDescHovered(mouseX, mouseY)) {
+            color = Colors.MODULE_BUTTON_HOVERED.color;
+        }
+
+        int width = parent.mc.textRenderer.getWidth(module.Description);
+        int textOffset = (parent.height / 2 - parent.mc.textRenderer.fontHeight / 2);
+
+        context.fill(parent.x + parent.width, parent.y + offset, parent.x + parent.width + width + textOffset * 2, parent.y + offset + parent.height, color);
+
+        context.drawTextWithShadow(parent.mc.textRenderer, module.Description, parent.x + parent.width + textOffset, parent.y + offset + textOffset, Colors.TEXT_NORMAL.color);
     }
 
     public void mouseClicked(double mouseX, double mouseY, int button) {
@@ -106,6 +123,10 @@ public class ModuleButton extends FrameChild {
 
     public boolean isHovered(double mouseX, double mouseY) {
         return mouseX > parent.x && mouseX < parent.x + parent.width && mouseY > parent.y + offset && mouseY < parent.y + offset + parent.height;
+    }
+
+    public boolean isDescHovered(double mouseX, double mouseY) {
+        return false; // todo
     }
 
     public boolean isGettingSearchedFor() {
