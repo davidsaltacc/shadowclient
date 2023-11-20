@@ -3,7 +3,7 @@
 	"id": "shadowclient",
 	"version": "${version}",
 	"name": "ShadowClient",
-	"description": "hack client i made",
+	"description": "hack client",
 	"authors": [
 		"david30121"
 	],

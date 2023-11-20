@@ -1,8 +1,5 @@
 package net.shadowclient.main.module.modules.other;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.hud.PlayerListHud;
-import net.minecraft.client.network.PlayerListEntry;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;

@@ -81,6 +81,8 @@ public class ModuleManager {
     public static RenderBarriers RenderBarriersModule;
     public static BetterPingDisplay BetterPingDisplayModule;
     public static DeathNotification DeathNotificationModule;
+    public static Blink BlinkModule;
+    public static Trajectories TrajectoriesModule;
 
     public static void registerModules() {
         AutoSprintModule = (AutoSprint) register(new AutoSprint());
@@ -142,6 +144,8 @@ public class ModuleManager {
         RenderBarriersModule = (RenderBarriers) register(new RenderBarriers());
         BetterPingDisplayModule = (BetterPingDisplay) register(new BetterPingDisplay());
         DeathNotificationModule = (DeathNotification) register(new DeathNotification());
+        BlinkModule = (Blink) register(new Blink());
+        TrajectoriesModule = (Trajectories) register(new Trajectories());
     }
 
     public static Module register(Module module) {
