@@ -22,16 +22,17 @@
         "GameRendererMixin",
         "IngameHudMixin",
         "InGameOverlayRendererMixin",
+        "KeyBindingAccessor",
         "KeyboardMixin",
         "LivingEntityRendererMixin",
         "MinecraftClientMixin",
+        "PlayerEntityMixin",
         "PlayerListHudMixin",
         "PowderSnowBlockMixin",
         "RenderTickCounterMixin",
         "SlimeBlockMixin",
         "SplashOverlayMixin",
         "WindowMixin",
-        "PlayerEntityMixin",
-        "KeyBindingAccessor"
+        "WorldRendererMixin"
     ]
 }
