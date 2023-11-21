@@ -31,9 +31,7 @@ public class Blink extends Module { // TODO fix
         }
 
         if (packets.size() > 50) {
-            packets.forEach(packet -> {
-                mc.player.networkHandler.sendPacket(packet);
-            });
+            packets.forEach(packet -> mc.player.networkHandler.sendPacket(packet));
             packets.clear();
             return;
         }
