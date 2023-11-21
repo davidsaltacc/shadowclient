@@ -22,7 +22,7 @@ public class StepUp extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
 
         mc.player.setBoundingBox(mc.player.getBoundingBox().offset(0, HEIGHT.floatValue(), 0));
         mc.player.setStepHeight(HEIGHT.floatValue());
@@ -31,12 +31,12 @@ public class StepUp extends Module {
     }
 
     @Override
-    public void OnEnable() {
+    public void onEnable() {
         ModuleManager.SafeWalkModule.setDisabled(); // incompatible
     }
 
     @Override
-    public void OnDisable() {
+    public void onDisable() {
         mc.player.setStepHeight(0.6f);
     }
 }

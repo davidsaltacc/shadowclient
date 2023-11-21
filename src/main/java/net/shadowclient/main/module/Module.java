@@ -1,6 +1,8 @@
 package net.shadowclient.main.module;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.option.KeyBinding;
+import net.shadowclient.main.SCMain;
 import net.shadowclient.main.annotations.OneClick;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.setting.Setting;
@@ -10,10 +12,12 @@ import java.util.List;
 
 public abstract class Module {
 
-    public final ModuleCategory Category;
-    public final String ModuleName;
-    public final String FriendlyName;
-    public final String Description;
+    public final ModuleCategory category;
+    public final String moduleName;
+    public final String friendlyName;
+    public final String description;
+
+    public KeyBinding keybinding;
 
     public ModuleButton moduleButton = null;
 
@@ -38,42 +42,52 @@ public abstract class Module {
     public final MinecraftClient mc = MinecraftClient.getInstance();
 
     public Module(String name, String friendlyName, String description, ModuleCategory category) {
-        ModuleName = name;
-        Category = category;
-        FriendlyName =  friendlyName;
-        Description = description;
+        moduleName = name;
+        this.category = category;
+        this.friendlyName =  friendlyName;
+        this.description = description;
     }
 
     public void setEnabled() {
         this.enabled = true;
-        this.OnEnable();
+        this.onEnable();
         if (this.getClass().isAnnotationPresent(OneClick.class)) {
             setDisabled();
         }
     }
     public void setDisabled() {
         this.enabled = false;
-        this.OnDisable();
+        this.onDisable();
     }
 
     public void setEnabled(boolean event) {
         if (event) {
-            this.OnEnable();
+            this.onEnable();
         }
         this.enabled = true;
     }
     public void setDisabled(boolean event) {
         if (event) {
-            this.OnDisable();
+            this.onDisable();
         }
         this.enabled = false;
     }
 
-    public void OnEnable() {
+    public void toggle() {
+        if (enabled) {
+            setDisabled();
+            return;
+        }
+        setEnabled();
     }
-    public void OnDisable() {
+
+    public void onEnable() {
+        SCMain.moduleToggleChatMessage(friendlyName);
     }
-    public void OnEvent(Event event) {
+    public void onDisable() {
+        SCMain.moduleToggleChatMessage(friendlyName);
+    }
+    public void onEvent(Event event) {
     }
 
 }

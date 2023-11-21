@@ -37,7 +37,7 @@ public class Trajectories extends Module {
     public HitResult.Type trajHit;
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
         Render3DEvent evt = (Render3DEvent) event;
 
         evt.matrices.push();

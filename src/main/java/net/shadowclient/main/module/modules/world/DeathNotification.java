@@ -19,12 +19,12 @@ public class DeathNotification extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
         @Nullable Vec3d pos = ((DeathEvent) event).pos;
         if (pos == null) {
             ChatUtils.sendMessageClient("You died. Death Location could not be resolved.");
             return;
         }
-        ChatUtils.sendMessageClient("You died at " + new Vec3i((int) pos.x, (int) pos.y, (int) pos.z));
+        ChatUtils.sendMessageClient("You died at " + (int) pos.x + ", " + (int) pos.y + ", " + (int) pos.z + ".");
     }
 }

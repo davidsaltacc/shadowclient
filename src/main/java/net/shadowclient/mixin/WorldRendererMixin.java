@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(WorldRenderer.class)
-public class WorldRendererMixin {
+public abstract class WorldRendererMixin {
 
     @Unique private MatrixStack matrices = null;
     @Unique private float tickDelta = 0;

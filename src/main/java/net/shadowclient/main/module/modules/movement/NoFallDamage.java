@@ -16,7 +16,7 @@ public class NoFallDamage extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
 
         if (mc.player.fallDistance <= (mc.player.isFallFlying() ? 1 : 2)) {
             return;

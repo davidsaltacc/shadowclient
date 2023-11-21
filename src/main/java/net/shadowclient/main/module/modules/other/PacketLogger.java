@@ -47,7 +47,7 @@ public class PacketLogger extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
 
         if (MODE.getEnumValue() == Mode.ALL) {
             if (event instanceof PacketRecievedEvent) {

@@ -21,7 +21,7 @@ public class EndermanMagnet extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
 
         for (Entity entity : mc.world.getEntities()) {
             if (!(entity instanceof EndermanEntity enderman)) {

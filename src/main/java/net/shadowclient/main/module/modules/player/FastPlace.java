@@ -16,7 +16,7 @@ public class FastPlace extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
 
         ((IMinecraftClient) mc).setItemUseCooldown(0);
     }

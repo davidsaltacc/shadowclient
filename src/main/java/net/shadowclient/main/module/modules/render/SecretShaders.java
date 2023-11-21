@@ -28,18 +28,18 @@ public class SecretShaders extends Module {
     }
 
     @Override
-    public void OnEnable() {
+    public void onEnable() {
         currentShader = Shaders.NONE;
         currentScreen = mc.currentScreen;
     }
 
     @Override
-    public void OnDisable() {
+    public void onDisable() {
         RenderUtils.loadShader(null);
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
         boolean newScreen = false;
 
         if (currentScreen != mc.currentScreen) {

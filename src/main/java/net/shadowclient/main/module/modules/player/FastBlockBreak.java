@@ -17,7 +17,7 @@ public class FastBlockBreak extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
         if (!(event instanceof PreTickEvent)) {
             return;
         }
@@ -38,8 +38,8 @@ public class FastBlockBreak extends Module {
     }
 
     @Override
-    public void OnDisable() {
+    public void onDisable() {
         removeHaste();
-        super.OnDisable();
+        super.onDisable();
     }
 }

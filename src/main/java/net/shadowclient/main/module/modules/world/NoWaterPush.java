@@ -16,7 +16,7 @@ public class NoWaterPush extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
 
         if (((VelocityFromFluidEvent) event).entity == mc.player) {
             event.cancel();

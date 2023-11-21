@@ -53,7 +53,7 @@ public class Tracers extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
         for (Entity entity : mc.world.getEntities()) {
 
             if (entity == mc.player) {

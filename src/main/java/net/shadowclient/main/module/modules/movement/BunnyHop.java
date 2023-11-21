@@ -25,7 +25,7 @@ public class BunnyHop extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
 
         if (!mc.player.isOnGround() || mc.player.isSneaking() || (Math.abs(mc.player.getVelocity().x) + Math.abs(mc.player.getVelocity().z)) / 2f <= MINVEL.floatValue()) {
             return;

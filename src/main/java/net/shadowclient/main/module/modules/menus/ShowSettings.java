@@ -14,7 +14,7 @@ public class ShowSettings extends Module {
     }
 
     @Override
-    public void OnEnable() {
+    public void onEnable() {
         mc.setScreen(SCMain.settingsGui);
     }
 }

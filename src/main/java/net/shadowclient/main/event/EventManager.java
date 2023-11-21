@@ -1,6 +1,7 @@
 package net.shadowclient.main.event;
 
 import net.shadowclient.main.SCMain;
+import net.shadowclient.main.event.events.KeyPressEvent;
 import net.shadowclient.main.event.events.PostTickEvent;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleManager;
@@ -34,11 +35,19 @@ public class EventManager {
                 return;
             }
 
+            if (evt instanceof PostTickEvent) {
+                ModuleManager.modules.forEach((name, module) -> {
+                    if (module.keybinding.wasPressed()) {
+                        module.toggle();
+                    }
+                });
+            }
+
             List<Module> modules;
             if ((modules = listeners.get(evt.getClass())) != null) {
                 modules.forEach((module) -> {
                     if (module.enabled) {
-                        module.OnEvent(evt);
+                        module.onEvent(evt);
                     }
                 });
             }

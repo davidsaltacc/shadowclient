@@ -1,5 +1,8 @@
 package net.shadowclient.main.module;
 
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
+import net.shadowclient.main.SCMain;
 import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.EventManager;
@@ -83,6 +86,7 @@ public class ModuleManager {
     public static DeathNotification DeathNotificationModule;
     public static Blink BlinkModule;
     public static Trajectories TrajectoriesModule;
+    public static Freecam FreecamModule;
 
     public static void registerModules() {
         AutoSprintModule = (AutoSprint) register(new AutoSprint());
@@ -146,10 +150,17 @@ public class ModuleManager {
         DeathNotificationModule = (DeathNotification) register(new DeathNotification());
         BlinkModule = (Blink) register(new Blink());
         TrajectoriesModule = (Trajectories) register(new Trajectories());
+        FreecamModule = (Freecam) register(new Freecam());
     }
 
     public static Module register(Module module) {
-        modules.put(module.ModuleName, module);
+        modules.put(module.moduleName, module);
+        module.keybinding = SCMain.registerKeyBinding(new KeyBinding(
+            "key." + SCMain.ClientModId + "." + module.moduleName,
+            InputUtil.Type.KEYSYM,
+            InputUtil.UNKNOWN_KEY.getCode(),
+            "category." + SCMain.ClientModId + ".modulecategory"
+        ));
         if (module.getClass().isAnnotationPresent(EventListener.class)) {
             for (Class<? extends Event> evtcl : module.getClass().getAnnotation(EventListener.class).value()) {
                 EventManager.addModule(module, evtcl);
@@ -167,7 +178,7 @@ public class ModuleManager {
         List<String> categoryModules = new ArrayList<>();
 
         getAllModules().forEach((name, module) -> {
-            if (module.Category == category) {
+            if (module.category == category) {
                 categoryModules.add(name);
             }
         });

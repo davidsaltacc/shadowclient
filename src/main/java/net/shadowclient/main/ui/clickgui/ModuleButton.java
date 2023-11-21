@@ -65,7 +65,7 @@ public class ModuleButton extends FrameChild {
         context.fill(parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, color);
         int textOffset = (parent.height / 2 - parent.mc.textRenderer.fontHeight / 2);
 
-        context.drawTextWithShadow(parent.mc.textRenderer, module.FriendlyName, parent.x + textOffset, parent.y + offset + textOffset, getTextColor());
+        context.drawTextWithShadow(parent.mc.textRenderer, module.friendlyName, parent.x + textOffset, parent.y + offset + textOffset, getTextColor());
 
         if (extended) {
             for (SettingComponent component : components) {
@@ -80,18 +80,18 @@ public class ModuleButton extends FrameChild {
             color = Colors.MODULE_BUTTON_HOVERED.color;
         }
 
-        int width = parent.mc.textRenderer.getWidth(module.Description);
+        int width = parent.mc.textRenderer.getWidth(module.description);
         int textOffset = (parent.height / 2 - parent.mc.textRenderer.fontHeight / 2);
 
         context.fill(parent.x + parent.width, parent.y + offset, parent.x + parent.width + width + textOffset * 2, parent.y + offset + parent.height, color);
 
-        context.drawTextWithShadow(parent.mc.textRenderer, module.Description, parent.x + parent.width + textOffset, parent.y + offset + textOffset, Colors.TEXT_NORMAL.color);
+        context.drawTextWithShadow(parent.mc.textRenderer, module.description, parent.x + parent.width + textOffset, parent.y + offset + textOffset, Colors.TEXT_NORMAL.color);
     }
 
     public void mouseClicked(double mouseX, double mouseY, int button) {
         if (isHovered(mouseX, mouseY)) {
             if (button == GLFW.GLFW_MOUSE_BUTTON_1) {
-                SCMain.toggleModuleEnabled(module.ModuleName);
+                SCMain.toggleModuleEnabled(module.moduleName);
             } else if (button == GLFW.GLFW_MOUSE_BUTTON_2) {
                 extended = !extended;
                 parent.updateButtons();

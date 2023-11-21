@@ -3,6 +3,7 @@ package net.shadowclient.main.config;
 import com.google.gson.*;
 import net.fabricmc.loader.api.FabricLoader;
 import net.shadowclient.main.SCMain;
+import net.shadowclient.main.annotations.DontSaveState;
 import net.shadowclient.main.annotations.OneClick;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleManager;
@@ -35,36 +36,41 @@ public class Config {
 
         Map<String, Module> modules = ModuleManager.getAllModules();
         modules.forEach((name, module) -> {
-            JsonObject modulejson = new JsonObject();
 
-            modulejson.addProperty("enabled", module.enabled);
-            if (module.moduleButton != null) {
-                modulejson.addProperty("extended", module.moduleButton.extended);
-            } else {
-                modulejson.addProperty("extended", false);
+            if (!module.getClass().isAnnotationPresent(DontSaveState.class)) {
+
+                JsonObject modulejson = new JsonObject();
+
+                modulejson.addProperty("enabled", module.enabled);
+                if (module.moduleButton != null) {
+                    modulejson.addProperty("extended", module.moduleButton.extended);
+                } else {
+                    modulejson.addProperty("extended", false);
+                }
+
+                JsonObject settings = new JsonObject();
+
+                module.settings.forEach(setting -> {
+                    if (setting instanceof BooleanSetting) {
+                        settings.addProperty(setting.name, setting.booleanValue());
+                    }
+                    if (setting instanceof NumberSetting) {
+                        settings.addProperty(setting.name, setting.numberValue());
+                    }
+                    if (setting instanceof StringSetting) {
+                        settings.addProperty(setting.name, ((StringSetting) setting).stringValue());
+                    }
+                    if (setting instanceof EnumSetting<?>) {
+                        Enum<?> value = ((EnumSetting<?>) setting).getEnumValue();
+                        settings.addProperty(((EnumSetting<?>) setting).getEnumValue().getClass().getSimpleName(), value.name());
+                        settings.addProperty(((EnumSetting<?>) setting).getEnumValue().getClass().getSimpleName() + "_ENUMPATH", value.getClass().toString());
+                    }
+                });
+
+                modulejson.add("settings", settings);
+                modulescontainer.add(name, modulejson);
+
             }
-
-            JsonObject settings = new JsonObject();
-
-            module.settings.forEach(setting -> {
-                if (setting instanceof BooleanSetting) {
-                    settings.addProperty(setting.name, setting.booleanValue());
-                }
-                if (setting instanceof NumberSetting) {
-                    settings.addProperty(setting.name, setting.numberValue());
-                }
-                if (setting instanceof StringSetting) {
-                    settings.addProperty(setting.name, ((StringSetting) setting).stringValue());
-                }
-                if (setting instanceof EnumSetting<?>) {
-                    Enum<?> value = ((EnumSetting<?>) setting).getEnumValue();
-                    settings.addProperty(((EnumSetting<?>) setting).getEnumValue().getClass().getSimpleName(), value.name());
-                    settings.addProperty(((EnumSetting<?>) setting).getEnumValue().getClass().getSimpleName() + "_ENUMPATH", value.getClass().toString());
-                }
-            });
-
-            modulejson.add("settings", settings);
-            modulescontainer.add(name, modulejson);
         });
 
         clientdata.addProperty("version", SCMain.ClientVersion);

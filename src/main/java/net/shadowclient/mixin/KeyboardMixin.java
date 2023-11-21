@@ -16,9 +16,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Keyboard.class)
 public abstract class KeyboardMixin {
 
-    @Inject(at = @At("HEAD"), method = "onKey(JIIII)V")
+    @Inject(at = @At("HEAD"), method = "onKey(JIIII)V", cancellable = true)
     private void injected(long windowHandle, int keyCode, int scanCode, int action, int modifiers, CallbackInfo ci) {
-        EventManager.fireEvent(new KeyPressEvent(keyCode, scanCode, action, modifiers));
+
+        KeyPressEvent evt = new KeyPressEvent(keyCode, scanCode, action, modifiers);
+
+        EventManager.fireEvent(evt);
+
+        if (evt.cancelled) {
+            ci.cancel();
+        }
     }
 
     @Redirect(method = "onKey", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;", opcode = Opcodes.GETFIELD))

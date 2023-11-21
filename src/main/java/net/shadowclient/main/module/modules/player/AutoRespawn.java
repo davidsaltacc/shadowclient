@@ -16,7 +16,7 @@ public class AutoRespawn extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
 
         mc.player.requestRespawn();
         mc.setScreen(null);

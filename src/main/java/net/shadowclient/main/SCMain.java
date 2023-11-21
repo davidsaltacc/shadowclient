@@ -51,6 +51,13 @@ public class SCMain {
     public static void init() {
         try {
             info("Starting " + ClientName + " " + ClientVersion);
+            ToggleGUIKeyBinding = registerKeyBinding(
+                new KeyBinding(
+                    "key." + ClientModId + ".togglegui",
+                    InputUtil.Type.KEYSYM,
+                    GLFW.GLFW_KEY_RIGHT_SHIFT,
+                    "category." + ClientModId + ".clientcategory"
+                ));
             CommandManager.registerCommands();
             ModuleManager.registerModules();
             clickGui = new MainClickGUI();
@@ -58,13 +65,6 @@ public class SCMain {
             initSettingsScreen(settingsGui);
             Config.loadConfig();
             Runtime.getRuntime().addShutdownHook(new Thread(SCMain::closed));
-            ToggleGUIKeyBinding = registerKeyBinding(
-                new KeyBinding(
-                    "key." + ClientModId + ".togglegui",
-                    InputUtil.Type.KEYSYM,
-                    GLFW.GLFW_KEY_RIGHT_SHIFT,
-                    "category." + ClientModId + ".clientcategory"
-                    ));
             info("Finished " + ClientName + " initialization");
         } catch (Exception e) {
             error(JavaUtils.stackTraceFromThrowable(e));
@@ -139,7 +139,7 @@ public class SCMain {
 
     public static String createHelp() {
         // we hate java
-        AtomicReference<String> help = new AtomicReference<>("§0§l§u" + ClientName + " §o" + ClientVersion + "§r help\nPress right shift for the ClickGUI.\nRight Click a Part of the UI to expand it, Expand Module Buttons for its settings and additional help.\nAvailable chat commands:\n");
+        AtomicReference<String> help = new AtomicReference<>("§9§l§u" + ClientName + " §o" + ClientVersion + "§r help\nPress right shift for the ClickGUI.\nRight Click a Part of the UI to expand it, expand Module Buttons for its settings. Hover over Module Buttons for a short description. Go to Minecraft's Key Binding menu to set custom keybindings. \nAvailable chat commands:\n");
 
         CommandManager.commands.forEach((name, cmd) -> help.set(help.get() + "  " + ClientCommandPrefix + name + "\n"));
 
@@ -150,6 +150,10 @@ public class SCMain {
         return getFullClientName();
     }
 
+    public static void moduleToggleChatMessage(String moduleName) {
+        ChatUtils.sendMessageClient(ChatUtils.Colors.GRAY + "[" + ChatUtils.Colors.BLUE + "Shadow" + ChatUtils.Colors.GRAY + "] " + ChatUtils.Colors.GRAY + "Toggled " + ChatUtils.Colors.WHITE + moduleName + ChatUtils.Colors.GRAY + ".");
+    }
+
     public static boolean interceptMessage(String message) {
         return message.startsWith(ClientCommandPrefix);
     }
@@ -158,7 +162,7 @@ public class SCMain {
         if (!SCSettings.getSetting("WelcomeMessage").booleanValue()) {
             return;
         }
-        ChatUtils.sendMessageClient("§0§l§u" + ClientName + " §o" + ClientVersion + "§r\nType " + ClientCommandPrefix + "help for useful help.");
+        ChatUtils.sendMessageClient("§9§l§u" + ClientName + " §o" + ClientVersion + "§r\nType " + ClientCommandPrefix + "help for useful help.");
     }
 
     public static @Nullable Screen allowKeyPress(@Nullable Screen screen) {

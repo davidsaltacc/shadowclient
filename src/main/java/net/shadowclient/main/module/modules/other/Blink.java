@@ -22,7 +22,7 @@ public class Blink extends Module { // TODO fix
     public List<PlayerMoveC2SPacket> packets = new ArrayList<>();
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
         if (!(event instanceof PacketRecievedEvent)) {
             return;
         }

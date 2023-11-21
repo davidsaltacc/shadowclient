@@ -16,7 +16,7 @@ public class NoEntityPush extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
         if (((VelocityFromEntityEvent) event).entity == mc.player) {
             event.cancel();
         }

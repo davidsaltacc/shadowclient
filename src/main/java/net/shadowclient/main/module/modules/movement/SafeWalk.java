@@ -17,12 +17,12 @@ public class SafeWalk extends Module {
     }
 
     @Override
-    public void OnEnable() {
+    public void onEnable() {
         ModuleManager.StepUpModule.setDisabled(); // incompatible
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
         if (!(event instanceof ClipAtLedgeEvent evt)) {
             return;
         }
