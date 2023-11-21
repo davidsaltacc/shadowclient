@@ -3,7 +3,6 @@ package net.shadowclient.mixin;
 import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.packet.Packet;
-import net.shadowclient.main.SCMain;
 import net.shadowclient.main.event.EventManager;
 import net.shadowclient.main.event.events.PacketRecievedEvent;
 import org.spongepowered.asm.mixin.Mixin;

@@ -76,9 +76,6 @@ public class ModuleButton extends FrameChild {
 
     public void renderDescription(DrawContext context, int mouseX, int mouseY) {
         int color = Colors.MODULE_BUTTON_NORMAL.color;
-        if (isDescHovered(mouseX, mouseY)) {
-            color = Colors.MODULE_BUTTON_HOVERED.color;
-        }
 
         int width = parent.mc.textRenderer.getWidth(module.description);
         int textOffset = (parent.height / 2 - parent.mc.textRenderer.fontHeight / 2);
@@ -123,10 +120,6 @@ public class ModuleButton extends FrameChild {
 
     public boolean isHovered(double mouseX, double mouseY) {
         return mouseX > parent.x && mouseX < parent.x + parent.width && mouseY > parent.y + offset && mouseY < parent.y + offset + parent.height;
-    }
-
-    public boolean isDescHovered(double mouseX, double mouseY) {
-        return false; // todo
     }
 
     public boolean isGettingSearchedFor() {

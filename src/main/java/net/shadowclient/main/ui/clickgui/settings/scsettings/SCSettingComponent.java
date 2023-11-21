@@ -1,9 +1,7 @@
 package net.shadowclient.main.ui.clickgui.settings.scsettings;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
 import net.shadowclient.main.SCMain;
-import net.shadowclient.main.config.Config;
 import net.shadowclient.main.setting.Setting;
 import net.shadowclient.main.ui.clickgui.Colors;
 import net.shadowclient.main.ui.clickgui.Frame;

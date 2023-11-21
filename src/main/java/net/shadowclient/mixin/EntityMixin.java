@@ -3,7 +3,6 @@ package net.shadowclient.mixin;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
-import net.shadowclient.main.SCMain;
 import net.shadowclient.main.event.EventManager;
 import net.shadowclient.main.event.events.VelocityFromEntityEvent;
 import net.shadowclient.main.event.events.VelocityFromFluidEvent;

@@ -1,7 +1,6 @@
 package net.shadowclient.main.event;
 
 import net.shadowclient.main.SCMain;
-import net.shadowclient.main.event.events.KeyPressEvent;
 import net.shadowclient.main.event.events.PostTickEvent;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleManager;

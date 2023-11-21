@@ -5,7 +5,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.util.Hand;
 import net.shadowclient.main.module.ModuleManager;
-import net.shadowclient.main.module.modules.player.AutoFish;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;

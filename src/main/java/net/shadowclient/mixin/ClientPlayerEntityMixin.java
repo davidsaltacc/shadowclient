@@ -8,7 +8,6 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
-import net.shadowclient.main.SCMain;
 import net.shadowclient.main.event.EventManager;
 import net.shadowclient.main.event.events.KnockbackEvent;
 import net.shadowclient.main.module.ModuleManager;

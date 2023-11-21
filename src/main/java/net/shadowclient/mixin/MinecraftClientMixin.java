@@ -8,7 +8,6 @@ import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ModStatus;
-import net.shadowclient.main.SCMain;
 import net.shadowclient.main.config.SCSettings;
 import net.shadowclient.main.event.EventManager;
 import net.shadowclient.main.event.events.PostTickEvent;

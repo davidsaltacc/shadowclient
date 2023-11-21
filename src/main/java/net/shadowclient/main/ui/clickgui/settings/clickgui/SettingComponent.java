@@ -1,7 +1,6 @@
 package net.shadowclient.main.ui.clickgui.settings.clickgui;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
 import net.shadowclient.main.setting.Setting;
 import net.shadowclient.main.ui.clickgui.FrameChild;
 import net.shadowclient.main.ui.clickgui.ModuleButton;

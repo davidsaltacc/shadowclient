@@ -4,8 +4,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import net.shadowclient.main.SCMain;
 import net.shadowclient.main.command.Command;
-import java.util.Arrays;
-import java.util.List;
 
 public class HelpCommand extends Command {
     @Override
