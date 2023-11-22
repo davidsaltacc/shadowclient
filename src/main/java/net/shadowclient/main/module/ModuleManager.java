@@ -87,6 +87,7 @@ public class ModuleManager {
     public static Blink BlinkModule;
     public static Trajectories TrajectoriesModule;
     public static Freecam FreecamModule;
+    public static XRay XRayModule;
 
     public static void registerModules() {
         AutoSprintModule = (AutoSprint) register(new AutoSprint());
@@ -151,6 +152,7 @@ public class ModuleManager {
         BlinkModule = (Blink) register(new Blink());
         TrajectoriesModule = (Trajectories) register(new Trajectories());
         FreecamModule = (Freecam) register(new Freecam());
+        XRayModule = (XRay) register(new XRay());
     }
 
     public static Module register(Module module) {

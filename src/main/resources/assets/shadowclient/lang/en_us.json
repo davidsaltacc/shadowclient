@@ -64,5 +64,6 @@
     "key.shadowclient.deathnotification": "Death Notification",
     "key.shadowclient.blink": "Blink",
     "key.shadowclient.trajectories": "Trajectories",
-    "key.shadowclient.freecam": "Freecam"
+    "key.shadowclient.freecam": "Freecam",
+    "key.shadowclient.xray": "XRay"
 }

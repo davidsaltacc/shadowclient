@@ -6,9 +6,13 @@
         "defaultRequire": 1
     },
     "client": [
+        "AbstractBlockStateMixin",
+        "BasicBakedModelMixin",
+        "BlockEntityRenderDispatcherMixin",
         "BlockMixin",
         "CameraMixin",
         "ChatScreenMixin",
+        "ChunkOcclusionDataBuilderMixin",
         "ClientConnectionMixin",
         "ClientPlayerEntityMixin",
         "ClientPlayerInteractionManagerMixin",
@@ -31,6 +35,7 @@
         "PlayerListHudMixin",
         "PowderSnowBlockMixin",
         "RenderTickCounterMixin",
+        "SimpleOptionMixin",
         "SlimeBlockMixin",
         "SplashOverlayMixin",
         "WindowMixin",
