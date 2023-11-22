@@ -37,6 +37,7 @@
         "RenderTickCounterMixin",
         "SimpleOptionMixin",
         "SlimeBlockMixin",
+        "SodiumBlockOcclusionCacheMixin",
         "SplashOverlayMixin",
         "WindowMixin",
         "WorldRendererMixin"
