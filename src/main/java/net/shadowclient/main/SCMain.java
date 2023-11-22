@@ -1,5 +1,8 @@
 package net.shadowclient.main;
 
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.KeyBinding;
@@ -26,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Stream;
 
 // TODO NoGravity hack, maybe Speed hack, other new hacks, ui settings, more settings
 // TODO tooltips when hovering over things, for help
@@ -65,6 +69,12 @@ public class SCMain {
             initSettingsScreen(settingsGui);
             Config.loadConfig();
             Runtime.getRuntime().addShutdownHook(new Thread(SCMain::closed));
+            if (isOptifinePresent()) {
+                warn("Optifine is installed. Some modules may not work as intended.");
+            }
+            if (isSodiumPresent()) {
+                warn("Sodium is installed. Some modules may not work as intended.");
+            }
             info("Finished " + ClientName + " initialization");
         } catch (Exception e) {
             error(JavaUtils.stackTraceFromThrowable(e));
@@ -187,11 +197,13 @@ public class SCMain {
     }
 
     public static boolean isSodiumPresent() {
-        return false; // todo
+        Stream<String> mods = FabricLoader.getInstance().getAllMods().stream().map(ModContainer::getMetadata).map(ModMetadata::getId);
+        return mods.anyMatch(mod -> mod.contains("sodium"));
     }
 
     public static boolean isOptifinePresent() {
-        return false; // todo
+        Stream<String> mods = FabricLoader.getInstance().getAllMods().stream().map(ModContainer::getMetadata).map(ModMetadata::getId);
+        return mods.anyMatch(mod -> mod.contains("optifine") || mod.contains("optifabric"));
     }
 
 }
