@@ -19,6 +19,8 @@ public class XRay extends Module {
     public XRay() {
         super("xray", "XRay", "Only render ores.", ModuleCategory.RENDER);
     }
+    
+    public double gamma = 16.;
 
     public List<String> oresToRender = List.of(
         "minecraft:ancient_debris", "minecraft:chest",
@@ -40,10 +42,6 @@ public class XRay extends Module {
 
     @Override
     public void onEvent(Event event) {
-        if (event instanceof PreTickEvent) {
-            ISimpleOption.getFromOption(mc.options.getGamma()).forceSet(16.);
-            return;
-        }
         if (event instanceof SetOpaqueCubeEvent) {
             event.cancel();
             return;
@@ -62,6 +60,21 @@ public class XRay extends Module {
                 event.cancel();
             }
         }
+    }
+
+    @Override
+    public void onEnable() {
+        mc.worldRenderer.reload();
+        gamma = mc.options.getGamma().getValue();
+        ISimpleOption.getFromOption(mc.options.getGamma()).forceSet(16d);
+        super.onEnable();
+    }
+
+    @Override
+    public void onDisable() {
+        mc.worldRenderer.reload();
+        ISimpleOption.getFromOption(mc.options.getGamma()).forceSet(gamma);
+        super.onDisable();
     }
 
     public boolean visible(Block block, BlockPos pos) {
