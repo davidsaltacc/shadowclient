@@ -53,12 +53,12 @@ public class XRay extends Module {
             return;
         }
         if (event instanceof ShouldDrawSideEvent evt) {
-            evt.rendered = visible(evt.state.getBlock(), evt.pos);
+            evt.setRendered(visible(evt.state.getBlock(), evt.pos));
             return;
         }
         if (event instanceof RenderBlockEntityEvent evt) {
             BlockPos pos = evt.blockEntity.getPos();
-            if (visible(mc.world.getBlockState(pos).getBlock(), pos)) {
+            if (!visible(mc.world.getBlockState(pos).getBlock(), pos)) {
                 event.cancel();
             }
         }

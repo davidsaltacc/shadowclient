@@ -128,6 +128,7 @@ public class Config {
         FileUtils.writeFile(getConfigFile(), out);
     }
 
+    @SuppressWarnings("unchecked")
     public static void loadConfig() {
         String text;
         try {

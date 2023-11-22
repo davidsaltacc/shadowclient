@@ -186,4 +186,12 @@ public class SCMain {
         logger.error(text);
     }
 
+    public static boolean isSodiumPresent() {
+        return false; // todo
+    }
+
+    public static boolean isOptifinePresent() {
+        return false; // todo
+    }
+
 }
