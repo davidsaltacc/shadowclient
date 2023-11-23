@@ -89,7 +89,6 @@ public abstract class Module {
     public void onDisable() {
         SCMain.moduleToggleChatMessage(friendlyName);
     }
-    public void onEvent(Event event) {
-    }
+    public void onEvent(Event event) {}
 
 }
