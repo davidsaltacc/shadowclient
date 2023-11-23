@@ -20,6 +20,7 @@ import net.shadowclient.main.event.events.Render3DEvent;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 import net.shadowclient.main.util.PlayerUtils;
+import net.shadowclient.main.util.RenderUtils;
 import net.shadowclient.main.util.WorldUtils;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
@@ -35,6 +36,8 @@ public class Trajectories extends Module {
 
     public ArrayList<Vec3d> trajPath;
     public HitResult.Type trajHit;
+
+    public final Box endBox = new Box(0, 0, 0, 1, 1, 1);
 
     @Override
     public void onEvent(Event event) {
@@ -153,7 +156,13 @@ public class Trajectories extends Module {
 
         bufferBuilder.begin(VertexFormat.DrawMode.DEBUG_LINE_STRIP, VertexFormats.POSITION);
 
-        RenderSystem.setShaderColor(1f, 0.1f,  0.1f, 0.75F);
+        if (trajHit == HitResult.Type.MISS) {
+            RenderSystem.setShaderColor(1f, 1f, 1f, 0.5f);
+        } else if (trajHit == HitResult.Type.ENTITY) {
+            RenderSystem.setShaderColor(1f, 0.1f, 0.1f, 0.5f);
+        } else if (trajHit == HitResult.Type.BLOCK) {
+            RenderSystem.setShaderColor(0.1f, 0.3f, 1f, 0.5f);
+        }
 
         path.forEach(point -> bufferBuilder.vertex(matrix, (float) (point.x - camPos.x), (float) (point.y - camPos.y), (float) (point.z - camPos.z)).next());
 
@@ -162,7 +171,26 @@ public class Trajectories extends Module {
     }
 
     public void drawEnd(MatrixStack matrices, Vec3d pos) {
-        // todo
+        Vec3d camPos = mc.getBlockEntityRenderDispatcher().camera.getPos();
+        double renderX = pos.x - camPos.x;
+        double renderY = pos.y - camPos.y;
+        double renderZ = pos.z - camPos.z;
+
+        matrices.push();
+        matrices.translate(renderX - 0.5, renderY - 0.5, renderZ - 0.5);
+
+        if (trajHit == HitResult.Type.MISS) {
+            RenderSystem.setShaderColor(1f, 1f, 1f, 0.5f);
+        } else if (trajHit == HitResult.Type.ENTITY) {
+            RenderSystem.setShaderColor(1f, 0.1f, 0.1f, 0.5f);
+        } else if (trajHit == HitResult.Type.BLOCK) {
+            RenderSystem.setShaderColor(0.1f, 0.3f, 1f, 0.5f);
+        }
+
+        RenderUtils.drawOutlinedBox(endBox, matrices);
+
+        matrices.pop();
+
     }
 
 }
