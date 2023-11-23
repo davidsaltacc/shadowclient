@@ -3,6 +3,7 @@ package net.shadowclient.main.module.modules.render;
 import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.math.BlockPos;
+import net.shadowclient.main.annotations.DontSaveState;
 import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
@@ -14,7 +15,8 @@ import net.shadowclient.mixininterface.ISimpleOption;
 import java.util.Collections;
 import java.util.List;
 
-@SearchTags({"xray", "x ray", "ore render"})
+@DontSaveState // don't save state. don't ask why. headache.
+@SearchTags({"xray", "x ray", "ore render", "mine help", "finder"})
 @EventListener({SetOpaqueCubeEvent.class, GetAmbientOcclusionLightLevelEvent.class, ShouldDrawSideEvent.class, RenderBlockEntityEvent.class})
 public class XRay extends Module {
 
@@ -24,10 +26,13 @@ public class XRay extends Module {
         super("xray", "XRay", "Only render ores.", ModuleCategory.RENDER);
 
         addSetting(MODE);
+    }
 
+    @Override
+    public void postInit() {
         MODE.addChangeCallback(mc.worldRenderer::reload);
     }
-    
+
     public double gamma = 16.;
 
     @Override
