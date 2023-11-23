@@ -20,5 +20,6 @@ public class LoadData extends Module {
         try {
             Config.loadConfig();
         } catch (Exception ignored) {}
+        super.onEnable();
     }
 }

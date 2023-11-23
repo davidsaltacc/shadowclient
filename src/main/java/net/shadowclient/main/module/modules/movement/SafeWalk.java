@@ -18,6 +18,7 @@ public class SafeWalk extends Module {
     @Override
     public void onEnable() {
         ModuleManager.StepUpModule.setDisabled(); // incompatible
+        super.onEnable();
     }
 
     @Override

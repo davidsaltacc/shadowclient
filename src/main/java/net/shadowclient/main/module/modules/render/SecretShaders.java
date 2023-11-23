@@ -31,11 +31,13 @@ public class SecretShaders extends Module {
     public void onEnable() {
         currentShader = Shaders.NONE;
         currentScreen = mc.currentScreen;
+        super.onEnable();
     }
 
     @Override
     public void onDisable() {
         RenderUtils.loadShader(null);
+        super.onDisable();
     }
 
     @Override

@@ -20,5 +20,6 @@ public class Panic extends Module {
                 module.setDisabled();
             }
         });
+        super.onEnable();
     }
 }

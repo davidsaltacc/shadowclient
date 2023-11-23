@@ -27,5 +27,6 @@ public class TicTacToe extends Module {
         game.aistart = AI_STARTS.booleanValue();
         game.difficulty = DIFFICULTY.intValue();
         game.reset();
+        super.onEnable();
     }
 }
