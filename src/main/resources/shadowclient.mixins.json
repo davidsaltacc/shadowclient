@@ -35,6 +35,7 @@
         "PlayerListHudMixin",
         "PowderSnowBlockMixin",
         "RenderTickCounterMixin",
+        "ScreenMixin",
         "SimpleOptionMixin",
         "SlimeBlockMixin",
         "SodiumBlockOcclusionCacheMixin",
