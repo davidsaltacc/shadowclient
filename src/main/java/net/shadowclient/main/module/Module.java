@@ -87,8 +87,12 @@ public abstract class Module {
         }
     }
     public void onDisable() {
-        SCMain.moduleToggleChatMessage(friendlyName);
+        if (!this.getClass().isAnnotationPresent(OneClick.class)) {
+            SCMain.moduleToggleChatMessage(friendlyName);
+        }
     }
     public void onEvent(Event event) {}
+
+    public void postInit() {}
 
 }
