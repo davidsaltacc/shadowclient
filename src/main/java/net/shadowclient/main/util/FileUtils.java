@@ -31,7 +31,7 @@ public class FileUtils {
     public static @Nullable String readFile(Path path) {
         try {
             AtomicReference<String> contents = new AtomicReference<>(""); // i hate java
-            Files.readAllLines(path).forEach((line) -> contents.set(contents.get() + line));
+            Files.readAllLines(path).forEach((line) -> contents.set(contents.get() + line + "\n"));
             return contents.get();
         } catch (IOException e) {
             SCMain.error("Failed to read file: " + path + " " + e);
