@@ -21,7 +21,7 @@ public abstract class BasicBakedModelMixin {
     private void onGetQuads(@Nullable BlockState state, @Nullable Direction face,
         Random random, CallbackInfoReturnable<List<BakedQuad>> cir)
     {
-        if (face != null || state == null || !ModuleManager.XRayModule.enabled) {
+        if (face != null || state == null) {
             return;
         }
 
