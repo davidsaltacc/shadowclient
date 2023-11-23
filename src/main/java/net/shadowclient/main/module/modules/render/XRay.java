@@ -18,7 +18,7 @@ import java.util.List;
 @DontSaveState // don't save state. don't ask why. headache. saving the state will not update the gamma on game join, because onEnable isn't getting called, because it breaks for some modules, but I don't know for which, TODO debug and fix
 @SearchTags({"xray", "x ray", "ore render", "mine help", "finder"})
 @EventListener({SetOpaqueCubeEvent.class, GetAmbientOcclusionLightLevelEvent.class, ShouldDrawSideEvent.class, RenderBlockEntityEvent.class})
-public class XRay extends Module {
+public class XRay extends Module { // todo maybe render blocks translucently or something
 
     public EnumSetting<Mode> MODE = new EnumSetting<>("Mode", Mode.All);
 
