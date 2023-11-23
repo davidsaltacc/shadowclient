@@ -17,6 +17,8 @@ import net.shadowclient.main.ui.clickgui.MainClickGUI;
 import net.shadowclient.main.ui.clickgui.ModuleButton;
 import net.shadowclient.main.ui.clickgui.settings.scsettings.components.SCBoolSetting;
 import net.shadowclient.main.ui.clickgui.text.TextField;
+import net.shadowclient.main.ui.notifications.Notification;
+import net.shadowclient.main.ui.notifications.NotificationsManager;
 import net.shadowclient.main.util.ChatUtils;
 import net.shadowclient.main.util.JavaUtils;
 import net.shadowclient.mixin.KeyBindingAccessor;
@@ -191,15 +193,29 @@ public class SCMain {
         logger.error(text);
     }
 
+    public static void notification(String title, List<String> desc) {
+        NotificationsManager.addNotification(new Notification(title, desc));
+    }
+    public static void notification(String title, String desc) {
+        NotificationsManager.addNotification(new Notification(title, desc));
+    }
+
     public static void checkConflictingMods() {
+        String warningTitle = "Warning";
         if (isOptifinePresent()) {
-            warn("Optifine is installed. Some modules may not work as intended.");
+            String t = "Optifine is installed. Some modules might not work as intended.";
+            warn(t);
+            notification(warningTitle, t);
         }
         if (isSodiumPresent()) {
-            warn("Sodium is installed. Some modules may not work as intended.");
+            String t = "Sodium is installed. Some modules might not work as intended.";
+            warn(t);
+            notification(warningTitle, t);
         }
         if (isEntityCullPresent()) {
-            warn("Entity Culling is installed. Some entity-related modules may not work as intended.");
+            String t = "EntityCulling is installed. Some entity-related modules might not work as intended.";
+            warn(t);
+            notification(warningTitle, t);
         }
     }
 
