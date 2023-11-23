@@ -180,7 +180,9 @@ public class Config {
                     Number value = settingjson.getAsNumber();
                     module.settings.forEach((settingobj) -> {
                         if (settingobj.name.equals(setting)) {
+                            settingobj.shouldCallCallbacks(false);
                             settingobj.setNumberValue(value);
+                            settingobj.shouldCallCallbacks(true);
                         }
                     });
                 }
@@ -188,7 +190,9 @@ public class Config {
                     boolean value = settingjson.getAsBoolean();
                     module.settings.forEach((settingobj) -> {
                         if (settingobj.name.equals(setting)) {
+                            settingobj.shouldCallCallbacks(false);
                             settingobj.setBooleanValue(value);
+                            settingobj.shouldCallCallbacks(true);
                         }
                     });
                 }
@@ -203,7 +207,9 @@ public class Config {
                                     try {
                                         Class<?> enumClass = Class.forName(enumpath);
                                         Enum<?> enumConstant = Enum.valueOf((Class<Enum>) enumClass, enumvalue);
+                                        settingobj.shouldCallCallbacks(false);
                                         ((EnumSetting) settingobj).setEnumValue(enumConstant);
+                                        settingobj.shouldCallCallbacks(true);
                                     } catch (Exception e) {
                                         throw new RuntimeException(e);
                                     }
@@ -212,7 +218,9 @@ public class Config {
                         } else {
                             module.settings.forEach((settingobj) -> {
                                 if (settingobj.name.equals(setting) && settingobj instanceof StringSetting) {
+                                    settingobj.shouldCallCallbacks(false);
                                     ((StringSetting) settingobj).setStringValue(value);
+                                    settingobj.shouldCallCallbacks(true);
                                 }
                             });
                         }

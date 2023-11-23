@@ -126,10 +126,17 @@ public abstract class Setting {
     }
 
     public List<Runnable> callbacks = new ArrayList<>();
+    private boolean callCallbacks = true;
     public void addChangeCallback(Runnable cb) {
         callbacks.add(cb);
     }
     public void callCallbacks() {
-        callbacks.forEach(Runnable::run);
+        if (callCallbacks) {
+            callbacks.forEach(Runnable::run);
+        }
+    }
+    public void shouldCallCallbacks(boolean call) {
+        callCallbacks = call;
     }
 }
+
