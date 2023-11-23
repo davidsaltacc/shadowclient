@@ -76,6 +76,7 @@ public class SCMain {
     }
 
     public static void closed() {
+        Thread.currentThread().setName("ShadowClient Shutdown");
         if (!configDeleted) {
             Config.saveConfig();
         }
