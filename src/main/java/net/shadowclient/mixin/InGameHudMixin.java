@@ -29,7 +29,7 @@ public abstract class InGameHudMixin {
 
     @Inject(method = "render", at = @At("HEAD"))
     private void onRender(DrawContext context, float tickDelta, CallbackInfo ci) {
-        if (!SCMain.mc.options.debugEnabled) {
+        if (!SCMain.mc.options.debugEnabled && SCMain.mc.currentScreen == null) {
             HudRenderer.onHudRender(context, tickDelta);
         }
     }
