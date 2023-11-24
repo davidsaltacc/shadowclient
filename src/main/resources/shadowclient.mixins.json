@@ -24,7 +24,7 @@
         "GameMenuScreenMixin",
         "GameOptionsMixin",
         "GameRendererMixin",
-        "IngameHudMixin",
+        "InGameHudMixin",
         "InGameOverlayRendererMixin",
         "KeyBindingAccessor",
         "KeyboardMixin",
