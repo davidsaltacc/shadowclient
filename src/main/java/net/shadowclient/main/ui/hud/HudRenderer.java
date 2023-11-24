@@ -9,7 +9,12 @@ public class HudRenderer {
 
     public static List<HudElement> elements = new ArrayList<>();
 
+    private static boolean shouldRender = true;
+
     public static void onHudRender(DrawContext context, float tickDelta) {
+        if (!shouldRender) {
+            return;
+        }
         AtomicInteger offset = new AtomicInteger(); // todo different locations (bottom left, bottom right, top right)
         elements.forEach(hudElement -> {
             if (hudElement.shouldBeRendered) {
@@ -24,5 +29,9 @@ public class HudRenderer {
     }
     public static void removeElement(HudElement el) {
         elements.remove(el);
+    }
+
+    public static void shouldRender(boolean should) {
+        shouldRender = should;
     }
 }
