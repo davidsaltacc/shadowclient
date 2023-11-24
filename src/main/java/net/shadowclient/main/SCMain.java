@@ -69,8 +69,8 @@ public class SCMain {
             settingsGui = new ClickGUI("Settings");
             initSettingsScreen(settingsGui);
             Config.loadConfig();
-            Runtime.getRuntime().addShutdownHook(new Thread(SCMain::closed));
             checkConflictingMods();
+            Runtime.getRuntime().addShutdownHook(new Thread(SCMain::closed));
             info("Finished " + ClientName + " initialization");
         } catch (Exception e) {
             error(JavaUtils.stackTraceFromThrowable(e));
