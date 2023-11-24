@@ -88,6 +88,7 @@ public class ModuleManager {
     public static Trajectories TrajectoriesModule;
     public static Freecam FreecamModule;
     public static XRay XRayModule;
+    public static ShadowHud ShadowHudModule;
 
     public static void registerModules() {
         AutoSprintModule = (AutoSprint) register(new AutoSprint());
@@ -153,6 +154,7 @@ public class ModuleManager {
         TrajectoriesModule = (Trajectories) register(new Trajectories());
         FreecamModule = (Freecam) register(new Freecam());
         XRayModule = (XRay) register(new XRay());
+        ShadowHudModule = (ShadowHud) register(new ShadowHud());
     }
 
     public static Module register(Module module) {

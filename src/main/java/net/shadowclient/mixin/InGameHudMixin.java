@@ -6,6 +6,7 @@ import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.util.Identifier;
 import net.shadowclient.main.SCMain;
 import net.shadowclient.main.module.ModuleManager;
+import net.shadowclient.main.module.modules.other.ShadowHud;
 import net.shadowclient.main.ui.hud.HudRenderer;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,7 +30,7 @@ public abstract class InGameHudMixin {
 
     @Inject(method = "render", at = @At("HEAD"))
     private void onRender(DrawContext context, float tickDelta, CallbackInfo ci) {
-        if (!SCMain.mc.options.debugEnabled && SCMain.mc.currentScreen == null) {
+        if (SCMain.mc.currentScreen == null && ModuleManager.ShadowHudModule.enabled && !SCMain.mc.options.debugEnabled) {
             HudRenderer.onHudRender(context, tickDelta);
         }
     }
