@@ -48,12 +48,6 @@ public abstract class ClientPlayerNetworkHandlerMixin {
         }
     }
 
-    @Inject(method = "onChunkData", at = @At("HEAD"))
-    private void onChunkData(ChunkDataS2CPacket packet, CallbackInfo info) {
-        WorldChunk chunk = SCMain.mc.world.getChunk(packet.getX(), packet.getZ());
-        EventManager.fireEvent(new ChunkDataEvent(chunk));
-    }
-
     @Inject(method = "onChunkDeltaUpdate", at = @At("HEAD"))
     private void onChunkDeltaData(ChunkDeltaUpdateS2CPacket packet, CallbackInfo ci) {
         Map<BlockPos, BlockState> delta = new HashMap<>();
