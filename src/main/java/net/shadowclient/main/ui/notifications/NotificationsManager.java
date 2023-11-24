@@ -24,7 +24,7 @@ public class NotificationsManager {
     public static void renderNotifications(DrawContext context, int mouseX, int mouseY, float delta) {
         AtomicInteger offset = new AtomicInteger(5); // I hate java, once again
         notifications.forEach((n) -> {
-            n.render(context, mouseX, mouseY, delta, offset.get(), 5);
+            n.render(context, mouseX, mouseY, delta, 5, offset.get());
             offset.addAndGet(n.getHeight() + 5);
         });
     }
