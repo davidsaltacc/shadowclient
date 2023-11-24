@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
-public abstract class IngameHudMixin {
+public abstract class InGameHudMixin {
     @Inject(at = @At("HEAD"), method = "renderOverlay(Lnet/minecraft/client/gui/DrawContext;Lnet/minecraft/util/Identifier;F)V", cancellable = true)
     private void onRenderOverlay(DrawContext context, Identifier texture, float opacity, CallbackInfo ci) {
         if (texture == null || !"textures/misc/pumpkinblur.png".equals(texture.getPath())) {
