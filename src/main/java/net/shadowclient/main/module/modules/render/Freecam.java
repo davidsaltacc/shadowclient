@@ -81,8 +81,10 @@ public class Freecam extends Module {
         mc.options.getFovEffectScale().setValue(fovEffectScale);
         mc.options.getBobView().setValue(bobView);
 
-        fakePlayer.resetPlayerPosition();
-        fakePlayer.despawn();
+        if (fakePlayer != null) {
+            fakePlayer.resetPlayerPosition();
+            fakePlayer.despawn();
+        }
 
         super.onDisable();
     }

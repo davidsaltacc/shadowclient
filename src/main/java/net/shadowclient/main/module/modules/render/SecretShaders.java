@@ -36,7 +36,9 @@ public class SecretShaders extends Module {
 
     @Override
     public void onDisable() {
-        RenderUtils.loadShader(null);
+        if (mc.gameRenderer != null) {
+            RenderUtils.loadShader(null);
+        }
         super.onDisable();
     }
 

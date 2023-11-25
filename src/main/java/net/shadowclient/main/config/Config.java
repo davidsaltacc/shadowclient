@@ -14,6 +14,7 @@ import net.shadowclient.main.setting.settings.NumberSetting;
 import net.shadowclient.main.setting.settings.StringSetting;
 import net.shadowclient.main.ui.clickgui.Frame;
 import net.shadowclient.main.util.FileUtils;
+import net.shadowclient.main.util.JavaUtils;
 import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.util.*;
@@ -229,7 +230,7 @@ public class Config {
             });
             try {
                 if (!module.getClass().isAnnotationPresent(OneClick.class)) {
-                    SCMain.setModuleEnabled(name, object.get("enabled").getAsBoolean(), false);
+                    SCMain.setModuleEnabled(name, object.get("enabled").getAsBoolean(), true, false);
                 }
                 if (module.moduleButton != null) {
                     if (object.get("extended").getAsBoolean()) {
@@ -237,7 +238,9 @@ public class Config {
                         module.moduleButton.parent.updateButtons();
                     }
                 }
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                SCMain.error(JavaUtils.stackTraceFromThrowable(e));
+            }
         });
 
         if (uisettings != null) {

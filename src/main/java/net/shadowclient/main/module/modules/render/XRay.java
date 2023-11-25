@@ -3,7 +3,6 @@ package net.shadowclient.main.module.modules.render;
 import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.math.BlockPos;
-import net.shadowclient.main.annotations.DontSaveState;
 import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
@@ -15,10 +14,9 @@ import net.shadowclient.mixininterface.ISimpleOption;
 import java.util.Collections;
 import java.util.List;
 
-@DontSaveState // don't save state. don't ask why. headache. saving the state will not update the gamma on game join, because onEnable isn't getting called, because it breaks for some modules, but I don't know for which, TODO debug and fix
 @SearchTags({"xray", "x ray", "ore render", "mine help", "finder"})
 @EventListener({SetOpaqueCubeEvent.class, GetAmbientOcclusionLightLevelEvent.class, ShouldDrawSideEvent.class, RenderBlockEntityEvent.class})
-public class XRay extends Module { // todo maybe render blocks translucently or something
+public class XRay extends Module { // todo maybe add option to render blocks translucently or something
 
     public EnumSetting<Mode> MODE = new EnumSetting<>("Mode", Mode.All);
 
@@ -26,11 +24,6 @@ public class XRay extends Module { // todo maybe render blocks translucently or 
         super("xray", "XRay", "Only render ores.", ModuleCategory.RENDER);
 
         addSetting(MODE);
-    }
-
-    @Override
-    public void postInit() {
-        MODE.addChangeCallback(mc.worldRenderer::reload);
     }
 
     public double gamma = 16.;
@@ -59,18 +52,34 @@ public class XRay extends Module { // todo maybe render blocks translucently or 
 
     @Override
     public void onEnable() {
-        mc.worldRenderer.reload();
-        gamma = mc.options.getGamma().getValue();
-        ISimpleOption.getFromOption(mc.options.getGamma()).forceSet(16d);
+        if (mc.worldRenderer != null) {
+            mc.worldRenderer.reload();
+            gamma = mc.options.getGamma().getValue();
+            ISimpleOption.getFromOption(mc.options.getGamma()).forceSet(16d);
+        }
         super.onEnable();
     }
 
     @Override
     public void onDisable() {
-        mc.worldRenderer.reload();
-        ISimpleOption.getFromOption(mc.options.getGamma()).forceSet(gamma);
+        if (mc.worldRenderer != null) {
+            mc.worldRenderer.reload();
+            ISimpleOption.getFromOption(mc.options.getGamma()).forceSet(gamma);
+        }
         super.onDisable();
     }
+
+    @Override
+    public void postInit() {
+        MODE.addChangeCallback(mc.worldRenderer::reload);
+        if (enabled) {
+            gamma = mc.options.getGamma().getValue();
+            ISimpleOption.getFromOption(mc.options.getGamma()).forceSet(16d);
+        } else {
+            ISimpleOption.getFromOption(mc.options.getGamma()).forceSet(gamma);
+        }
+    }
+
 
     public boolean visible(Block block, BlockPos pos) {
         String n = Registries.BLOCK.getId(block).toString();

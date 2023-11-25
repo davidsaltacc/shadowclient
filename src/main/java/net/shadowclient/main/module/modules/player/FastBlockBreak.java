@@ -30,7 +30,6 @@ public class FastBlockBreak extends Module {
     }
 
     public void removeHaste() {
-
         StatusEffectInstance haste = mc.player.getStatusEffect(StatusEffects.HASTE);
         if (haste != null && !haste.shouldShowIcon()) {
             mc.player.removeStatusEffect(StatusEffects.HASTE);
@@ -39,7 +38,9 @@ public class FastBlockBreak extends Module {
 
     @Override
     public void onDisable() {
-        removeHaste();
+        if (mc.player != null) {
+            removeHaste();
+        }
         super.onDisable();
     }
 }
