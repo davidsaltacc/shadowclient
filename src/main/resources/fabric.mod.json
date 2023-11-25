@@ -13,9 +13,6 @@
 	"entrypoints": {
 		"client": [
 			"net.shadowclient.fabric.FabricInitializer"
-		],
-		"preLaunch": [
-			"net.shadowclient.fabric.FabricInitializerPrelaunch"
 		]
 	},
 	"mixins": [
