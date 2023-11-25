@@ -139,6 +139,13 @@ public class SCMain {
             ModuleManager.getModule(name).setDisabled(callevents);
         }
     }
+    public static void setModuleEnabled(String name, boolean enabled, boolean callevents, boolean message) {
+        if (enabled) {
+            ModuleManager.getModule(name).setEnabled(callevents, message);
+        } else {
+            ModuleManager.getModule(name).setDisabled(callevents, message);
+        }
+    }
 
     public static void toggleModuleEnabled(String name) {
         setModuleEnabled(name, !ModuleManager.getModule(name).enabled);

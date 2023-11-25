@@ -73,6 +73,27 @@ public abstract class Module {
         this.enabled = false;
     }
 
+    public boolean showMessage = true;
+
+    public void setEnabled(boolean event, boolean message) {
+        if (event) {
+            boolean msgOld = showMessage;
+            showMessage = message;
+            this.onEnable();
+            showMessage = msgOld;
+        }
+        this.enabled = true;
+    }
+    public void setDisabled(boolean event, boolean message) {
+        if (event) {
+            boolean msgOld = showMessage;
+            showMessage = message;
+            this.onDisable();
+            showMessage = msgOld;
+        }
+        this.enabled = false;
+    }
+
     public void toggle() {
         if (enabled) {
             setDisabled();
@@ -82,12 +103,12 @@ public abstract class Module {
     }
 
     public void onEnable() {
-        if (!this.getClass().isAnnotationPresent(OneClick.class)) {
+        if (showMessage && !this.getClass().isAnnotationPresent(OneClick.class)) {
             SCMain.moduleToggleChatMessage(friendlyName);
         }
     }
     public void onDisable() {
-        if (!this.getClass().isAnnotationPresent(OneClick.class)) {
+        if (showMessage && !this.getClass().isAnnotationPresent(OneClick.class)) {
             SCMain.moduleToggleChatMessage(friendlyName);
         }
     }
