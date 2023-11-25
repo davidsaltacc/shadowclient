@@ -35,17 +35,11 @@ public class BunnyHop extends Module {
         boolean sprinting = mc.player.isSprinting();
         boolean legit = LEGIT.booleanValue();
 
-        if (mode == JumpWhen.SPRINTING && sprinting) {
+        if ((mode == JumpWhen.SPRINTING && sprinting) || (mode == JumpWhen.WALKING && !sprinting) || (mode == JumpWhen.ALWAYS)) {
             mc.player.jump();
-        }
-        if (mode == JumpWhen.WALKING && !sprinting) {
-            mc.player.jump();
-        }
-        if (mode == JumpWhen.ALWAYS) {
-            mc.player.jump();
-        }
-        if (legit) {
-            EntityUtils.setOnGround(mc.player, false);
+            if (legit) {
+                EntityUtils.setOnGround(mc.player, false);
+            }
         }
     }
 
