@@ -28,7 +28,7 @@ public abstract class InGameHudMixin {
         }
     }
 
-    @Inject(method = "render", at = @At("HEAD"))
+    @Inject(method = "render", at = @At("TAIL"))
     private void onRender(DrawContext context, float tickDelta, CallbackInfo ci) {
         if (SCMain.mc.currentScreen == null && ModuleManager.ShadowHudModule.enabled && !SCMain.mc.options.debugEnabled) {
             HudRenderer.onHudRender(context, tickDelta);
