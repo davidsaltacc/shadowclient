@@ -6,9 +6,11 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
 import net.shadowclient.main.event.EventManager;
+import net.shadowclient.main.event.events.DamageEvent;
 import net.shadowclient.main.event.events.KnockbackEvent;
 import net.shadowclient.main.module.ModuleManager;
 import org.objectweb.asm.Opcodes;
@@ -109,6 +111,14 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     @Inject(at = @At(value = "FIELD", target = "Lnet/minecraft/client/network/ClientPlayerEntity;ticksToNextAutojump:I", opcode = Opcodes.GETFIELD, ordinal = 0), method = "tickMovement()V")
     private void afterIsUsingItem(CallbackInfo ci) {
         hideItem = false;
+    }
+
+    @Inject(method = "damage", at = @At("HEAD"))
+    private void onDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> info) {
+        if (getWorld().isClient && canTakeDamage()) {
+            DamageEvent evt = new DamageEvent(source, amount);
+            EventManager.fireEvent(evt);
+        }
     }
 
 }
