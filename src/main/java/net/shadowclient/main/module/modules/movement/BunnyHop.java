@@ -56,10 +56,10 @@ public class BunnyHop extends Module {
         super.onDisable();
     }
 
-    private enum JumpWhen {
+    public enum JumpWhen {
         ALWAYS("Always"), SPRINTING("Sprinting"), WALKING("Walking");
 
-        public String name;
+        public final String name;
         JumpWhen(String name) {
             this.name = name;
         }
