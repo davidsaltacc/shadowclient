@@ -1,5 +1,6 @@
 package net.shadowclient.main.module.modules.other;
 
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
@@ -54,7 +55,7 @@ public class ShadowHud extends Module { // todo add to this
     public void onEvent(Event event) {
         if (COORDINATES.booleanValue()) {
             Vec3d pos = mc.player.getPos();
-            COORDINATES_ELEMENT.setTextContent((int) pos.x + ", " + (int) pos.y + ", " + (int) pos.z);
+            COORDINATES_ELEMENT.setTextContent("Position: " + (int) pos.x + ", " + (int) pos.y + ", " + (int) pos.z);
         }
         if (PING.booleanValue()) {
             PING_ELEMENT.setTextContent("Ping: " +  mc.player.networkHandler.getPlayerListEntry(mc.player.getUuid()).getLatency());
@@ -63,7 +64,7 @@ public class ShadowHud extends Module { // todo add to this
             SATURATION_ELEMENT.setTextContent("Saturation: " + mc.player.getHungerManager().getSaturationLevel() + " / 20.0");
         }
         if (ROTATION.booleanValue()) {
-            ROTATION_ELEMENT.setTextContent("Rotation: " + mc.player.getYaw() + ", " + mc.player.getPitch());
+            ROTATION_ELEMENT.setTextContent("Rotation: " + MathHelper.wrapDegrees(mc.player.getYaw()) + ", " + MathHelper.wrapDegrees(mc.player.getPitch()));
         }
         if (FRAMES.booleanValue()) {
             FRAMES_ELEMENT.setTextContent(mc.getCurrentFps() + " fps");
