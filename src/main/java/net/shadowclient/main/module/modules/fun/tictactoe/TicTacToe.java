@@ -12,7 +12,7 @@ import net.shadowclient.main.setting.settings.NumberSetting;
 public class TicTacToe extends Module {
 
     public final BooleanSetting AI_STARTS = new BooleanSetting("AI Starts", false);
-    public final NumberSetting DIFFICULTY = new NumberSetting("Difficulty", 0, 5, 5, 1);
+    public final NumberSetting DIFFICULTY = new NumberSetting("Difficulty", 0, 5, 5, 0);
 
     public TicTacToe() {
         super("tictactoegame", "Start TicTacToe", "Tic Tac Toe game against AI.", ModuleCategory.FUN);

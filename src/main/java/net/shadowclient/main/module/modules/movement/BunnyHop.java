@@ -15,41 +15,57 @@ import net.shadowclient.main.util.EntityUtils;
 @SearchTags({"bunny hop", "bunnyhop", "auto jump", "sprint jump"})
 public class BunnyHop extends Module {
     public final EnumSetting<JumpWhen> MODE = new EnumSetting<>("When", JumpWhen.ALWAYS);
-    public final BooleanSetting LEGIT = new BooleanSetting("Legit", true);
-    public final NumberSetting MINVEL = new NumberSetting("Min. Velocity", 0f, 0.3f, 0.08f, 0.01f);
+    public final NumberSetting MINVEL = new NumberSetting("Min. Velocity", 0f, 0.3f, 0.075f, 3);
+
+    public boolean pressed = false;
 
     public BunnyHop() {
         super("bunnyhop", "Bunny Hopping", "Spam the jump key, basically.", ModuleCategory.MOVEMENT);
 
-        addSettings(MODE, LEGIT, MINVEL);
+        addSettings(MODE, MINVEL);
     }
 
     @Override
     public void onEvent(Event event) {
 
-        if (!mc.player.isOnGround() || mc.player.isSneaking() || (Math.abs(mc.player.getVelocity().x) + Math.abs(mc.player.getVelocity().z)) / 2f <= MINVEL.floatValue()) {
+        if (!mc.player.isOnGround() || mc.player.isSneaking()) {
+            if (pressed) {
+                mc.options.jumpKey.setPressed(false);
+                pressed = false;
+            }
+            return;
+        }
+        if ((Math.abs(mc.player.getVelocity().x) + Math.abs(mc.player.getVelocity().z)) / 2f <= MINVEL.floatValue()) {
             return;
         }
 
         JumpWhen mode = MODE.getEnumValue();
         boolean sprinting = mc.player.isSprinting();
-        boolean legit = LEGIT.booleanValue();
 
-        if (mode == JumpWhen.SPRINTING && sprinting) {
-            mc.player.jump();
-        }
-        if (mode == JumpWhen.WALKING && !sprinting) {
-            mc.player.jump();
-        }
-        if (mode == JumpWhen.ALWAYS) {
-            mc.player.jump();
-        }
-        if (legit) {
-            EntityUtils.setOnGround(mc.player, false);
-        }
+        boolean press = (mode == JumpWhen.SPRINTING && sprinting) || (mode == JumpWhen.WALKING && !sprinting) || (mode == JumpWhen.ALWAYS);
+        mc.options.jumpKey.setPressed(press);
+        pressed = press;
     }
 
-    private enum JumpWhen {
-        ALWAYS, SPRINTING, WALKING
+    @Override
+    public void onDisable() {
+        if (pressed) {
+            mc.options.jumpKey.setPressed(false);
+            pressed = false;
+        }
+        super.onDisable();
+    }
+
+    public enum JumpWhen {
+        ALWAYS("Always"), SPRINTING("Sprinting"), WALKING("Walking");
+
+        public final String name;
+        JumpWhen(String name) {
+            this.name = name;
+        }
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 }

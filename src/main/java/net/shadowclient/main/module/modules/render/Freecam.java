@@ -8,22 +8,24 @@ import net.shadowclient.main.annotations.DontSaveState;
 import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
+import net.shadowclient.main.event.events.DamageEvent;
 import net.shadowclient.main.event.events.KeyPressEvent;
 import net.shadowclient.main.event.events.PreTickEvent;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 import net.shadowclient.main.setting.settings.NumberSetting;
 import net.shadowclient.main.ui.clickgui.ClickGUI;
+import net.shadowclient.main.util.ChatUtils;
 import net.shadowclient.main.util.FakePlayerEntity;
 import org.joml.Vector2d;
 import org.joml.Vector3d;
 
 @DontSaveState
 @SearchTags({"freecam", "camera fly", "free cam"})
-@EventListener({PreTickEvent.class, KeyPressEvent.class})
+@EventListener({PreTickEvent.class, KeyPressEvent.class, DamageEvent.class})
 public class Freecam extends Module {
 
-    public NumberSetting SPEED = new NumberSetting("Speed", 0.1, 2, 0.5, 0.1);
+    public NumberSetting SPEED = new NumberSetting("Speed", 0.1, 2, 0.5, 1);
 
     public Freecam() {
         super("freecam", "Freecam", "Fly the camera.", ModuleCategory.RENDER);
@@ -136,6 +138,12 @@ public class Freecam extends Module {
                     event.cancel();
                 }
             }
+            return;
+        }
+
+        if (event instanceof DamageEvent) {
+            setDisabled(true, false);
+            ChatUtils.sendMessageClient("Toggled freecam because you took damage.");
             return;
         }
 

@@ -4,10 +4,10 @@ import net.shadowclient.main.setting.Setting;
 
 public class NumberSetting extends Setting {
 
-    public final Number increment;
+    public final int decimalPlaces;
 
-    public NumberSetting(String name, Number min, Number max, Number defaultValue, Number increment) {
+    public NumberSetting(String name, Number min, Number max, Number defaultValue, int decimalPlaces) {
         super(name, min, max, defaultValue);
-        this.increment = increment;
+        this.decimalPlaces = decimalPlaces;
     }
 }

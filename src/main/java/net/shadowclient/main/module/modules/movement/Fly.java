@@ -16,7 +16,7 @@ public class Fly extends Module {
     private int toggle = 0;
     private double acceleration = 0.2;
 
-    public final NumberSetting SPEED = new NumberSetting("Speed", 0.1f, 5f, 1f, 0.1f);
+    public final NumberSetting SPEED = new NumberSetting("Speed", 0.1f, 5f, 1f, 1);
 
     public Fly() {
         super("fly", "Fly", "Fly. Thats it. Its in the name.", ModuleCategory.MOVEMENT);

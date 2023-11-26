@@ -8,7 +8,7 @@ import net.shadowclient.main.setting.settings.NumberSetting;
 @SearchTags({"high jump", "super jump", "highjump"})
 public class HighJump extends Module {
 
-    NumberSetting HEIGHT = new NumberSetting("Height", 0, 10, 2, 0.1);
+    NumberSetting HEIGHT = new NumberSetting("Height", 0, 10, 2, 1);
 
     public HighJump() {
         super("highjump", "High Jump", "You jump higher.", ModuleCategory.MOVEMENT);

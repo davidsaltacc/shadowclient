@@ -63,8 +63,8 @@ public class Config {
                     }
                     if (setting instanceof EnumSetting<?>) {
                         Enum<?> value = ((EnumSetting<?>) setting).getEnumValue();
-                        settings.addProperty(((EnumSetting<?>) setting).getEnumValue().getClass().getSimpleName(), value.name());
-                        settings.addProperty(((EnumSetting<?>) setting).getEnumValue().getClass().getSimpleName() + "_ENUMPATH", value.getClass().toString());
+                        settings.addProperty(setting.name, value.name());
+                        settings.addProperty(setting.name + "_ENUMPATH", value.getClass().toString());
                     }
                 });
 
@@ -150,7 +150,7 @@ public class Config {
         json = json.getAsJsonObject("modules");
 
         Map<String, JsonObject> modules = new HashMap<>();
-        JsonObject finalJson = json; // i hate java
+        JsonObject finalJson = json;
         json.keySet().forEach((name) -> modules.put(name, finalJson.get(name).getAsJsonObject()));
 
         if (scsettings != null) {
