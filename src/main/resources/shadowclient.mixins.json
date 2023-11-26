@@ -21,7 +21,6 @@
         "DeathScreenMixin",
         "EntityMixin",
         "FishingBobberEntityMixin",
-        "FluidRendererMixin",
         "GameMenuScreenMixin",
         "GameOptionsMixin",
         "GameRendererMixin",
@@ -40,7 +39,6 @@
         "SimpleOptionMixin",
         "SlimeBlockMixin",
         "SodiumBlockOcclusionCacheMixin",
-        "SodiumFluidRendererMixin",
         "SplashOverlayMixin",
         "WindowMixin",
         "WorldRendererMixin"
