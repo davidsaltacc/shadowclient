@@ -14,11 +14,12 @@ public class Panic extends Module {
     }
 
     @Override
-    public void OnEnable() {
+    public void onEnable() {
         ModuleManager.getAllModules().forEach((name, module) -> {
             if (!name.equals("panic")) {
-                module.setDisabled();
+                module.setDisabled(true, false);
             }
         });
+        super.onEnable();
     }
 }

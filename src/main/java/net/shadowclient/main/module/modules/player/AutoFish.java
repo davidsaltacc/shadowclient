@@ -19,7 +19,7 @@ public class AutoFish extends Module {
     public int recastRodCountdown = -1;
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
 
         if (recastRodCountdown > 0) {
             recastRodCountdown--;

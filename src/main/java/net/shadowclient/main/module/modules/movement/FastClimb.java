@@ -16,7 +16,7 @@ public class FastClimb extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
 
         if (!mc.player.isClimbing() || !mc.player.horizontalCollision) {
             return;

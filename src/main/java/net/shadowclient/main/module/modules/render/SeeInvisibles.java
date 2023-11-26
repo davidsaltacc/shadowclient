@@ -41,9 +41,6 @@ public class SeeInvisibles extends Module {
         if (entity instanceof AmbientEntity && SeeAmbientEntities.booleanValue()) {
             return true;
         }
-        if (SeeOtherEntities.booleanValue()) {
-            return true;
-        }
-        return false;
+        return SeeOtherEntities.booleanValue();
     }
 }

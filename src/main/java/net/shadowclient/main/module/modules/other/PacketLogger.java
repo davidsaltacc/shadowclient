@@ -5,7 +5,6 @@ import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.events.PacketRecievedEvent;
 import net.shadowclient.main.event.events.PacketSentEvent;
-import net.shadowclient.main.event.events.PreTickEvent;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 import net.shadowclient.main.setting.settings.EnumSetting;
@@ -47,7 +46,7 @@ public class PacketLogger extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
 
         if (MODE.getEnumValue() == Mode.ALL) {
             if (event instanceof PacketRecievedEvent) {

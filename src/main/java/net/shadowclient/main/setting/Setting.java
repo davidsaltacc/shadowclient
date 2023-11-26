@@ -1,5 +1,8 @@
 package net.shadowclient.main.setting;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Setting {
 
     public final String name;
@@ -53,6 +56,7 @@ public abstract class Setting {
             return;
         }
         this.value = value;
+        callCallbacks();
     }
     public void setIntValue(int value) {
         if (value > (int) maxValue) {
@@ -64,6 +68,7 @@ public abstract class Setting {
             return;
         }
         this.value = value;
+        callCallbacks();
     }
     public void setLongValue(long value) {
         if (value > (long) maxValue) {
@@ -75,6 +80,7 @@ public abstract class Setting {
             return;
         }
         this.value = value;
+        callCallbacks();
     }
     public void setFloatValue(float value) {
         if (value > (float) maxValue) {
@@ -86,6 +92,7 @@ public abstract class Setting {
             return;
         }
         this.value = value;
+        callCallbacks();
     }
     public void setDoubleValue(double value) {
         if (value > (double) maxValue) {
@@ -97,9 +104,11 @@ public abstract class Setting {
             return;
         }
         this.value = value;
+        callCallbacks();
     }
     public void setBooleanValue(boolean value) {
         this.boolValue = value;
+        callCallbacks();
     }
 
     public Setting(String name, Number min, Number max, Number defaultValue) {
@@ -115,4 +124,19 @@ public abstract class Setting {
     public Setting(String name) {
         this.name = name;
     }
+
+    public List<Runnable> callbacks = new ArrayList<>();
+    private boolean callCallbacks = true;
+    public void addChangeCallback(Runnable cb) {
+        callbacks.add(cb);
+    }
+    public void callCallbacks() {
+        if (callCallbacks) {
+            callbacks.forEach(Runnable::run);
+        }
+    }
+    public void shouldCallCallbacks(boolean call) {
+        callCallbacks = call;
+    }
 }
+

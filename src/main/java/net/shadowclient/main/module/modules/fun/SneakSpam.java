@@ -23,7 +23,7 @@ public class SneakSpam extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
         timer++;
 
         if (timer < 10 - SPEED.doubleValue()) {

@@ -29,6 +29,8 @@ public class Frame extends FrameChild {
 
     public final List<FrameChild> children;
 
+
+
     public Frame(ModuleCategory category, int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
@@ -84,6 +86,13 @@ public class Frame extends FrameChild {
         if (extended) {
             for (FrameChild child : children) {
                 child.render(context, mouseX, mouseY, delta);
+            }
+            for (FrameChild child : children) {
+                if (child instanceof ModuleButton) {
+                    if (((ModuleButton) child).isHovered(mouseX, mouseY)) {
+                        ((ModuleButton) child).renderDescription(context, mouseX, mouseY);
+                    }
+                }
             }
         }
     }

@@ -30,7 +30,7 @@ public class AutoCrystal extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
 
         ArrayList<Entity> crystals = getNearbyCrystals();
 

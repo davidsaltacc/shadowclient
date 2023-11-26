@@ -33,6 +33,8 @@ public class ModeSetting extends SettingComponent {
         super.render(context, mouseX, mouseY, delta);
     }
 
+
+    @SuppressWarnings("unchecked")
     @Override
     public void mouseClicked(double mouseX, double mouseY, int button) {
 

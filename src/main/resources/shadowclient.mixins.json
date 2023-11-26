@@ -1,14 +1,18 @@
 {
-    "required": true,
+    "required": false,
     "package": "net.shadowclient.mixin",
     "compatibilityLevel": "JAVA_17",
     "injectors": {
         "defaultRequire": 1
     },
     "client": [
+        "AbstractBlockStateMixin",
+        "BasicBakedModelMixin",
+        "BlockEntityRenderDispatcherMixin",
         "BlockMixin",
         "CameraMixin",
         "ChatScreenMixin",
+        "ChunkOcclusionDataBuilderMixin",
         "ClientConnectionMixin",
         "ClientPlayerEntityMixin",
         "ClientPlayerInteractionManagerMixin",
@@ -18,19 +22,25 @@
         "EntityMixin",
         "FishingBobberEntityMixin",
         "GameMenuScreenMixin",
+        "GameOptionsMixin",
         "GameRendererMixin",
-        "IngameHudMixin",
+        "InGameHudMixin",
         "InGameOverlayRendererMixin",
+        "KeyBindingAccessor",
         "KeyboardMixin",
         "LivingEntityRendererMixin",
         "MinecraftClientMixin",
+        "MouseMixin",
+        "PlayerEntityMixin",
+        "PlayerListHudMixin",
         "PowderSnowBlockMixin",
         "RenderTickCounterMixin",
+        "ScreenMixin",
+        "SimpleOptionMixin",
         "SlimeBlockMixin",
+        "SodiumBlockOcclusionCacheMixin",
         "SplashOverlayMixin",
-        "WindowMixin"
-    ],
-    "mixins": [
-        "PlayerEntityMixin"
+        "WindowMixin",
+        "WorldRendererMixin"
     ]
 }

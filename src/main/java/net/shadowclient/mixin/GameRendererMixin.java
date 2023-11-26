@@ -1,5 +1,6 @@
 package net.shadowclient.mixin;
 
+import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
@@ -52,6 +53,13 @@ public abstract class GameRendererMixin implements IGameRenderer {
     private static void onGetNightVisionStrength(LivingEntity entity, float tickDelta, CallbackInfoReturnable<Float> cir) {
         if (ModuleManager.NightVisionModule.enabled) {
             cir.setReturnValue(1f);
+        }
+    }
+
+    @Inject(method = "renderHand", at = @At("HEAD"), cancellable = true)
+    private void renderHand(MatrixStack matrices, Camera camera, float tickDelta, CallbackInfo ci) {
+        if (ModuleManager.FreecamModule.enabled) {
+            ci.cancel();
         }
     }
 }

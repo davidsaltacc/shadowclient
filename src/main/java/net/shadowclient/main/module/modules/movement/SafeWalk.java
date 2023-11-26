@@ -4,7 +4,6 @@ import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.events.ClipAtLedgeEvent;
-import net.shadowclient.main.event.events.PreTickEvent;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 import net.shadowclient.main.module.ModuleManager;
@@ -17,12 +16,13 @@ public class SafeWalk extends Module {
     }
 
     @Override
-    public void OnEnable() {
-        ModuleManager.StepUpModule.setDisabled(); // incompatible
+    public void onEnable() {
+        ModuleManager.StepUpModule.setDisabled(true, false); // incompatible
+        super.onEnable();
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
         if (!(event instanceof ClipAtLedgeEvent evt)) {
             return;
         }

@@ -8,7 +8,6 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
-import net.shadowclient.main.SCMain;
 import net.shadowclient.main.event.EventManager;
 import net.shadowclient.main.event.events.KnockbackEvent;
 import net.shadowclient.main.module.ModuleManager;
@@ -16,6 +15,7 @@ import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -31,8 +31,8 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     @Final
     protected MinecraftClient client;
 
-    public Screen crntScreen;
-    public boolean hideItem;
+    @Unique public Screen crntScreen;
+    @Unique public boolean hideItem;
 
     @Override
     public void setVelocityClient(double x, double y, double z) {

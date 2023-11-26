@@ -8,7 +8,5 @@ import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
 public class FabricInitializerPrelaunch implements PreLaunchEntrypoint {
 
     @Override
-    public void onPreLaunch() {
-        // unused meh
-    }
+    public void onPreLaunch() {}
 }

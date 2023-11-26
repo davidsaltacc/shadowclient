@@ -1,6 +1,7 @@
 package net.shadowclient.main.util;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
@@ -19,5 +20,10 @@ public class WorldUtils {
     }
     public static boolean lineOfSight(Entity from, Entity to) {
         return lineOfSight(from.getEyePos(), to.getEyePos());
+    }
+
+    public static BlockHitResult raycast(Vec3d from, Vec3d to) {
+        RaycastContext context = new RaycastContext(from, to, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, SCMain.mc.player);
+        return SCMain.mc.world.raycast(context);
     }
 }

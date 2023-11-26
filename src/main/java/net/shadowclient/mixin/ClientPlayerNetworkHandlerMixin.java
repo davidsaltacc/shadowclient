@@ -1,17 +1,23 @@
 package net.shadowclient.mixin;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.s2c.play.ChunkDeltaUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
+import net.minecraft.util.math.BlockPos;
 import net.shadowclient.main.SCMain;
 import net.shadowclient.main.command.CommandManager;
 import net.shadowclient.main.event.EventManager;
+import net.shadowclient.main.event.events.ChunkDeltaUpdateEvent;
 import net.shadowclient.main.event.events.PacketSentEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import java.util.HashMap;
+import java.util.Map;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public abstract class ClientPlayerNetworkHandlerMixin {
@@ -36,6 +42,13 @@ public abstract class ClientPlayerNetworkHandlerMixin {
         if (event.cancelled) {
             ci.cancel();
         }
+    }
+
+    @Inject(method = "onChunkDeltaUpdate", at = @At("HEAD"))
+    private void onChunkDeltaData(ChunkDeltaUpdateS2CPacket packet, CallbackInfo ci) {
+        Map<BlockPos, BlockState> delta = new HashMap<>();
+        packet.visitUpdates(delta::put);
+        EventManager.fireEvent(new ChunkDeltaUpdateEvent(delta));
     }
 
 }

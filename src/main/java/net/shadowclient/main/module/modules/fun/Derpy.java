@@ -20,7 +20,7 @@ public class Derpy extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
 
         float yaw = mc.player.getYaw() + random.nextFloat() * 360F - 180F;
         float pitch = random.nextFloat() * 180F - 90F;

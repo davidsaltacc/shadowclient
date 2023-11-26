@@ -25,7 +25,7 @@ public class KillAura extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
 
         mc.world.getEntities().forEach(entity -> {
             if (entity == mc.player) {

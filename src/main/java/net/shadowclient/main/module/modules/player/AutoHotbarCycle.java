@@ -17,7 +17,7 @@ public class AutoHotbarCycle extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
         PlayerInventory inv = mc.player.getInventory();
 
         if (inv.selectedSlot == 8) {

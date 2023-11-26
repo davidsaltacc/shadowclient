@@ -2,13 +2,15 @@ package net.shadowclient.mixin;
 
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.RunArgs;
+import net.minecraft.client.realms.RealmsClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.AmbientEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.resource.ResourceReload;
 import net.minecraft.util.ModStatus;
-import net.shadowclient.main.SCMain;
 import net.shadowclient.main.config.SCSettings;
 import net.shadowclient.main.event.EventManager;
 import net.shadowclient.main.event.events.PostTickEvent;
@@ -85,5 +87,10 @@ public abstract class MinecraftClientMixin implements IMinecraftClient {
     @Override
     public void setItemUseCooldown(int cooldown) {
         this.itemUseCooldown = cooldown;
+    }
+
+    @Inject(method = "onInitFinished", at = @At("HEAD"))
+    private void onInitFinished(RealmsClient realms, ResourceReload reload, RunArgs.QuickPlay quickPlay, CallbackInfo ci) {
+        ModuleManager.getAllModules().forEach((n, m) -> m.postInit());
     }
 }

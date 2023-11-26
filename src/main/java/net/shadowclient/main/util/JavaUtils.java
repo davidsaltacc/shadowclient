@@ -1,10 +1,8 @@
 package net.shadowclient.main.util;
 
 import net.shadowclient.main.SCMain;
-import java.awt.*;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.net.URI;
 
 public class JavaUtils {
     public static String stackTraceFromThrowable(Throwable e) {

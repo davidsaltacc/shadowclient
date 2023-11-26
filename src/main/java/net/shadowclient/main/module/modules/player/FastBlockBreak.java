@@ -17,7 +17,7 @@ public class FastBlockBreak extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
         if (!(event instanceof PreTickEvent)) {
             return;
         }
@@ -30,7 +30,6 @@ public class FastBlockBreak extends Module {
     }
 
     public void removeHaste() {
-
         StatusEffectInstance haste = mc.player.getStatusEffect(StatusEffects.HASTE);
         if (haste != null && !haste.shouldShowIcon()) {
             mc.player.removeStatusEffect(StatusEffects.HASTE);
@@ -38,8 +37,10 @@ public class FastBlockBreak extends Module {
     }
 
     @Override
-    public void OnDisable() {
-        removeHaste();
-        super.OnDisable();
+    public void onDisable() {
+        if (mc.player != null) {
+            removeHaste();
+        }
+        super.onDisable();
     }
 }

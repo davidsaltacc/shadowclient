@@ -25,7 +25,7 @@ public class Parkour extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
 
         if (!mc.player.isOnGround() || mc.options.jumpKey.isPressed()) {
             return;

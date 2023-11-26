@@ -1,11 +1,10 @@
 package net.shadowclient.main.event;
 
 import net.shadowclient.main.SCMain;
-import net.shadowclient.main.event.events.KeyPressEvent;
+import net.shadowclient.main.event.events.PostTickEvent;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleManager;
 import net.shadowclient.main.ui.clickgui.ClickGUI;
-import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,8 +21,8 @@ public class EventManager {
 
     public static void fireEvent(Event evt) {
         try {
-            if (evt instanceof KeyPressEvent) {
-                if (((KeyPressEvent) evt).keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT && ((KeyPressEvent) evt).action == 1) {
+            if (evt instanceof PostTickEvent) {
+                if (SCMain.ToggleGUIKeyBinding.wasPressed()) {
                     if (SCMain.mc.currentScreen == null) {
                         SCMain.mc.setScreen(SCMain.clickGui);
                     } else if (SCMain.mc.currentScreen instanceof ClickGUI) {
@@ -35,11 +34,19 @@ public class EventManager {
                 return;
             }
 
+            if (evt instanceof PostTickEvent) {
+                ModuleManager.modules.forEach((name, module) -> {
+                    if (module.keybinding.wasPressed()) {
+                        module.toggle();
+                    }
+                });
+            }
+
             List<Module> modules;
             if ((modules = listeners.get(evt.getClass())) != null) {
                 modules.forEach((module) -> {
                     if (module.enabled) {
-                        module.OnEvent(evt);
+                        module.onEvent(evt);
                     }
                 });
             }

@@ -3,7 +3,6 @@ package net.shadowclient.mixin;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
-import net.shadowclient.main.SCMain;
 import net.shadowclient.main.event.EventManager;
 import net.shadowclient.main.event.events.VelocityFromEntityEvent;
 import net.shadowclient.main.event.events.VelocityFromFluidEvent;
@@ -11,6 +10,7 @@ import net.shadowclient.main.module.ModuleManager;
 import net.shadowclient.main.util.ColorUtils;
 import net.shadowclient.mixininterface.IEntity;
 import org.objectweb.asm.Opcodes;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,12 +18,17 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin implements IEntity {
 
     @Shadow
     private boolean onGround;
+
+    @Final
+    @Shadow
+    private static AtomicInteger CURRENT_ID;
 
     @Inject(method = "getTeamColorValue", at = @At("HEAD"), cancellable = true)
     private void injected(CallbackInfoReturnable<Integer> cir) {
@@ -73,5 +78,9 @@ public abstract class EntityMixin implements IEntity {
         if (ModuleManager.SeeInvisiblesModule.visible((Entity) (Object) this)) {
             cir.setReturnValue(false);
         }
+    }
+
+    public AtomicInteger getCurrentId() {
+        return CURRENT_ID;
     }
 }

@@ -3,6 +3,7 @@ package net.shadowclient.main.config;
 import com.google.gson.*;
 import net.fabricmc.loader.api.FabricLoader;
 import net.shadowclient.main.SCMain;
+import net.shadowclient.main.annotations.DontSaveState;
 import net.shadowclient.main.annotations.OneClick;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleManager;
@@ -13,6 +14,7 @@ import net.shadowclient.main.setting.settings.NumberSetting;
 import net.shadowclient.main.setting.settings.StringSetting;
 import net.shadowclient.main.ui.clickgui.Frame;
 import net.shadowclient.main.util.FileUtils;
+import net.shadowclient.main.util.JavaUtils;
 import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.util.*;
@@ -35,36 +37,41 @@ public class Config {
 
         Map<String, Module> modules = ModuleManager.getAllModules();
         modules.forEach((name, module) -> {
-            JsonObject modulejson = new JsonObject();
 
-            modulejson.addProperty("enabled", module.enabled);
-            if (module.moduleButton != null) {
-                modulejson.addProperty("extended", module.moduleButton.extended);
-            } else {
-                modulejson.addProperty("extended", false);
+            if (!module.getClass().isAnnotationPresent(DontSaveState.class)) {
+
+                JsonObject modulejson = new JsonObject();
+
+                modulejson.addProperty("enabled", module.enabled);
+                if (module.moduleButton != null) {
+                    modulejson.addProperty("extended", module.moduleButton.extended);
+                } else {
+                    modulejson.addProperty("extended", false);
+                }
+
+                JsonObject settings = new JsonObject();
+
+                module.settings.forEach(setting -> {
+                    if (setting instanceof BooleanSetting) {
+                        settings.addProperty(setting.name, setting.booleanValue());
+                    }
+                    if (setting instanceof NumberSetting) {
+                        settings.addProperty(setting.name, setting.numberValue());
+                    }
+                    if (setting instanceof StringSetting) {
+                        settings.addProperty(setting.name, ((StringSetting) setting).stringValue());
+                    }
+                    if (setting instanceof EnumSetting<?>) {
+                        Enum<?> value = ((EnumSetting<?>) setting).getEnumValue();
+                        settings.addProperty(((EnumSetting<?>) setting).getEnumValue().getClass().getSimpleName(), value.name());
+                        settings.addProperty(((EnumSetting<?>) setting).getEnumValue().getClass().getSimpleName() + "_ENUMPATH", value.getClass().toString());
+                    }
+                });
+
+                modulejson.add("settings", settings);
+                modulescontainer.add(name, modulejson);
+
             }
-
-            JsonObject settings = new JsonObject();
-
-            module.settings.forEach(setting -> {
-                if (setting instanceof BooleanSetting) {
-                    settings.addProperty(setting.name, setting.booleanValue());
-                }
-                if (setting instanceof NumberSetting) {
-                    settings.addProperty(setting.name, setting.numberValue());
-                }
-                if (setting instanceof StringSetting) {
-                    settings.addProperty(setting.name, ((StringSetting) setting).stringValue());
-                }
-                if (setting instanceof EnumSetting<?>) {
-                    Enum<?> value = ((EnumSetting<?>) setting).getEnumValue();
-                    settings.addProperty(((EnumSetting<?>) setting).getEnumValue().getClass().getSimpleName(), value.name());
-                    settings.addProperty(((EnumSetting<?>) setting).getEnumValue().getClass().getSimpleName() + "_ENUMPATH", value.getClass().toString());
-                }
-            });
-
-            modulejson.add("settings", settings);
-            modulescontainer.add(name, modulejson);
         });
 
         clientdata.addProperty("version", SCMain.ClientVersion);
@@ -122,6 +129,7 @@ public class Config {
         FileUtils.writeFile(getConfigFile(), out);
     }
 
+    @SuppressWarnings("unchecked")
     public static void loadConfig() {
         String text;
         try {
@@ -173,7 +181,9 @@ public class Config {
                     Number value = settingjson.getAsNumber();
                     module.settings.forEach((settingobj) -> {
                         if (settingobj.name.equals(setting)) {
+                            settingobj.shouldCallCallbacks(false);
                             settingobj.setNumberValue(value);
+                            settingobj.shouldCallCallbacks(true);
                         }
                     });
                 }
@@ -181,7 +191,9 @@ public class Config {
                     boolean value = settingjson.getAsBoolean();
                     module.settings.forEach((settingobj) -> {
                         if (settingobj.name.equals(setting)) {
+                            settingobj.shouldCallCallbacks(false);
                             settingobj.setBooleanValue(value);
+                            settingobj.shouldCallCallbacks(true);
                         }
                     });
                 }
@@ -196,7 +208,9 @@ public class Config {
                                     try {
                                         Class<?> enumClass = Class.forName(enumpath);
                                         Enum<?> enumConstant = Enum.valueOf((Class<Enum>) enumClass, enumvalue);
+                                        settingobj.shouldCallCallbacks(false);
                                         ((EnumSetting) settingobj).setEnumValue(enumConstant);
+                                        settingobj.shouldCallCallbacks(true);
                                     } catch (Exception e) {
                                         throw new RuntimeException(e);
                                     }
@@ -205,7 +219,9 @@ public class Config {
                         } else {
                             module.settings.forEach((settingobj) -> {
                                 if (settingobj.name.equals(setting) && settingobj instanceof StringSetting) {
+                                    settingobj.shouldCallCallbacks(false);
                                     ((StringSetting) settingobj).setStringValue(value);
+                                    settingobj.shouldCallCallbacks(true);
                                 }
                             });
                         }
@@ -214,7 +230,7 @@ public class Config {
             });
             try {
                 if (!module.getClass().isAnnotationPresent(OneClick.class)) {
-                    SCMain.setModuleEnabled(name, object.get("enabled").getAsBoolean(), false);
+                    SCMain.setModuleEnabled(name, object.get("enabled").getAsBoolean(), true, false);
                 }
                 if (module.moduleButton != null) {
                     if (object.get("extended").getAsBoolean()) {
@@ -222,7 +238,9 @@ public class Config {
                         module.moduleButton.parent.updateButtons();
                     }
                 }
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                SCMain.error(JavaUtils.stackTraceFromThrowable(e));
+            }
         });
 
         if (uisettings != null) {

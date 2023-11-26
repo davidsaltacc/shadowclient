@@ -1,6 +1,12 @@
 package net.shadowclient.mixin;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
+import net.shadowclient.main.event.EventManager;
+import net.shadowclient.main.event.events.ShouldDrawSideEvent;
 import net.shadowclient.main.module.ModuleManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,6 +23,17 @@ public abstract class BlockMixin {
 
         if (cir.getReturnValueF() < 1) {
             cir.setReturnValue(1f);
+        }
+    }
+
+    @Inject(at = @At("HEAD"), method = "shouldDrawSide", cancellable = true, remap = false)
+    private static void shouldDrawSide(BlockState state, BlockView world, BlockPos pos, Direction side, BlockPos otherPos, CallbackInfoReturnable<Boolean> cir) {
+        ShouldDrawSideEvent event = new ShouldDrawSideEvent(state, pos);
+
+        EventManager.fireEvent(event);
+
+        if (event.renderedSet) {
+            cir.setReturnValue(event.rendered);
         }
     }
 }

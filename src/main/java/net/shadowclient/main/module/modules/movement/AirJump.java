@@ -15,7 +15,7 @@ public class AirJump extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
 
         if (mc.options.jumpKey.isPressed()) {
             mc.player.jump();

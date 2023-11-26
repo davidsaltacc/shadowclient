@@ -16,7 +16,8 @@ public class HideSettings extends Module {
     }
 
     @Override
-    public void OnEnable() {
+    public void onEnable() {
         mc.setScreen(SCMain.clickGui);
+        super.onEnable();
     }
 }

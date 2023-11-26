@@ -17,5 +17,6 @@ public class StringSetting extends Setting {
 
     public void setStringValue(String stringValue) {
         this.stringValue = stringValue;
+        callCallbacks();
     }
 }

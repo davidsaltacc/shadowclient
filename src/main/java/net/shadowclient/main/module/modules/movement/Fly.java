@@ -25,7 +25,7 @@ public class Fly extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
         if (mc.player.isOnGround()) {
             acceleration = 0.2;
             return;

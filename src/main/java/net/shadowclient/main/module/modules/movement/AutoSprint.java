@@ -16,7 +16,7 @@ public class AutoSprint extends Module {
     }
 
     @Override
-    public void OnEvent(Event event) {
+    public void onEvent(Event event) {
         if (mc.options.forwardKey.isPressed()) {
             mc.player.setSprinting(true);
         }
