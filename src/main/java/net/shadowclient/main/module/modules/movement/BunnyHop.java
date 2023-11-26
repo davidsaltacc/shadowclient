@@ -15,7 +15,7 @@ import net.shadowclient.main.util.EntityUtils;
 @SearchTags({"bunny hop", "bunnyhop", "auto jump", "sprint jump"})
 public class BunnyHop extends Module {
     public final EnumSetting<JumpWhen> MODE = new EnumSetting<>("When", JumpWhen.ALWAYS);
-    public final NumberSetting MINVEL = new NumberSetting("Min. Velocity", 0f, 0.3f, 0.075f, 2);
+    public final NumberSetting MINVEL = new NumberSetting("Min. Velocity", 0f, 0.3f, 0.075f, 3);
 
     public boolean pressed = false;
 
