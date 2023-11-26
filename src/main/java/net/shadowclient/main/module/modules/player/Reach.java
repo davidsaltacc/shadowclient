@@ -8,7 +8,7 @@ import net.shadowclient.main.setting.settings.NumberSetting;
 @SearchTags({"reach", "reachhack", "reach hack"})
 public class Reach extends Module {
 
-    NumberSetting RANGE = new NumberSetting("Range", 1, 50, 10, 0.1);
+    NumberSetting RANGE = new NumberSetting("Range", 1, 50, 10, 1);
 
     public Reach() {
         super("reach", "Reach", "Extended reach.", ModuleCategory.PLAYER);

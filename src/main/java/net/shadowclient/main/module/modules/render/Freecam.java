@@ -25,7 +25,7 @@ import org.joml.Vector3d;
 @EventListener({PreTickEvent.class, KeyPressEvent.class, DamageEvent.class})
 public class Freecam extends Module {
 
-    public NumberSetting SPEED = new NumberSetting("Speed", 0.1, 2, 0.5, 0.1);
+    public NumberSetting SPEED = new NumberSetting("Speed", 0.1, 2, 0.5, 1);
 
     public Freecam() {
         super("freecam", "Freecam", "Fly the camera.", ModuleCategory.RENDER);

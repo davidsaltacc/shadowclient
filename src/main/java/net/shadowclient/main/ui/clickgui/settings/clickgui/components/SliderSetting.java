@@ -37,7 +37,7 @@ public class SliderSetting extends SettingComponent {
             if (diff == 0) {
                 numberSetting.setNumberValue(numberSetting.getMinValue());
             } else {
-                numberSetting.setNumberValue(roundToPlace((diff / parent.parent.width) * (numberSetting.getMaxValue().floatValue() - numberSetting.getMinValue().floatValue()) + numberSetting.getMinValue().floatValue(), 3));
+                numberSetting.setNumberValue(roundToPlace((diff / parent.parent.width) * (numberSetting.getMaxValue().floatValue() - numberSetting.getMinValue().floatValue()) + numberSetting.getMinValue().floatValue(), numberSetting.decimalPlaces));
             }
         }
 

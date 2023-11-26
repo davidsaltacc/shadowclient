@@ -15,7 +15,7 @@ import net.shadowclient.main.util.EntityUtils;
 @SearchTags({"parkour", "autojump", "auto jump", "auto parkour"})
 public class Parkour extends Module {
 
-    public final NumberSetting EDGE_DIST = new NumberSetting("Edge Distance", 0.001f, 0.25f, 0.001f, 0.001f);
+    public final NumberSetting EDGE_DIST = new NumberSetting("Edge Distance", 0.001f, 0.25f, 0.001f, 3);
     public final BooleanSetting LEGIT = new BooleanSetting("Legit", true);
 
     public Parkour() {

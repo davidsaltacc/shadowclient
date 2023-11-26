@@ -10,7 +10,7 @@ import net.shadowclient.main.setting.settings.NumberSetting;
 @SearchTags({"timer", "timer hack", "timerhack", "speedup", "speed up"})
 public class Timer extends Module {
 
-    public final NumberSetting MULTIPLIER = new NumberSetting("Multiplier", 0.1f, 10f, 2f, 0.1f);
+    public final NumberSetting MULTIPLIER = new NumberSetting("Multiplier", 0.1f, 10f, 2f, 1);
 
     public Timer() {
         super("timer", "Timer", "Your entire game just runs faster. SPEED!!", ModuleCategory.WORLD);
