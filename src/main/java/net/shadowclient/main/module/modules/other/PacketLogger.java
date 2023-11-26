@@ -17,7 +17,7 @@ public class PacketLogger extends Module {
 
     public final EnumSetting<Mode> MODE = new EnumSetting<>("Mode", Mode.ALL);
     public final StringSetting FILTER = new StringSetting("Filter");
-    public final EnumSetting<FMode> FMODE = new EnumSetting<>("Filter", FMode.WHITELIST);
+    public final EnumSetting<FMode> FMODE = new EnumSetting<>("Filter Mode", FMode.WHITELIST);
 
     public PacketLogger() {
         super("packetlogger", "Packet Log", "See what packets are being sent between you and the server. ", ModuleCategory.OTHER);
