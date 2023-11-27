@@ -89,6 +89,7 @@ public class ModuleManager {
     public static Freecam FreecamModule;
     public static XRay XRayModule;
     public static ShadowHud ShadowHudModule;
+    public static NoOverlay NoOverlayModule;
 
     public static void registerModules() {
         AutoSprintModule = (AutoSprint) register(new AutoSprint());
@@ -155,6 +156,7 @@ public class ModuleManager {
         FreecamModule = (Freecam) register(new Freecam());
         XRayModule = (XRay) register(new XRay());
         ShadowHudModule = (ShadowHud) register(new ShadowHud());
+        NoOverlayModule = (NoOverlay) register(new NoOverlay());
     }
 
     public static Module register(Module module) {

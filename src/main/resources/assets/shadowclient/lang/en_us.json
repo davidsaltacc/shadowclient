@@ -66,5 +66,6 @@
     "key.shadowclient.trajectories": "Trajectories",
     "key.shadowclient.freecam": "Freecam",
     "key.shadowclient.xray": "XRay",
-    "key.shadowclient.shadowhud": "ShadowHud"
+    "key.shadowclient.shadowhud": "ShadowHud",
+    "key.shadowclient.nooverlay": "NoOverlay"
 }

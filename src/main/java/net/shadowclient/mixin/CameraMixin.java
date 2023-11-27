@@ -1,6 +1,7 @@
 package net.shadowclient.mixin;
 
 import net.minecraft.client.render.Camera;
+import net.minecraft.client.render.CameraSubmersionType;
 import net.shadowclient.main.module.ModuleManager;
 import net.shadowclient.main.module.modules.render.ExtendedCameraDistance;
 import net.shadowclient.main.module.modules.render.Freecam;
@@ -12,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Mixin(Camera.class)
 public abstract class CameraMixin {
 
-    @Inject(at = @At("HEAD"), method = "clipToSpace(D)D", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "clipToSpace", cancellable = true)
     private void onClipToSpace(double desiredCameraDistance, CallbackInfoReturnable<Double> cir) {
         if (ModuleManager.CameraNoclipModule.enabled) {
             cir.setReturnValue(desiredCameraDistance);
@@ -46,6 +47,13 @@ public abstract class CameraMixin {
         if (freecam.enabled) {
             args.set(0, (float) freecam.getYaw());
             args.set(1, (float) freecam.getPitch());
+        }
+    }
+
+    @Inject(method = "getSubmersionType", at = @At("HEAD"), cancellable = true)
+    private void onGetSubmersionType(CallbackInfoReturnable<CameraSubmersionType> cir) {
+        if (ModuleManager.NoOverlayModule.enabled) {
+            cir.setReturnValue(CameraSubmersionType.NONE);
         }
     }
 }
