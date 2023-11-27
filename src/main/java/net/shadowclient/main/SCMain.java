@@ -38,7 +38,7 @@ public class SCMain {
 
     public static final String ClientModId = "shadowclient";
     public static final String ClientName = "ShadowClient";
-    public static final String ClientVersion = "0.2.0";
+    public static final String ClientVersion = "0.3.0";
     public static final String ClientCommandPrefix = "sc/";
 
     public static MainClickGUI clickGui;
