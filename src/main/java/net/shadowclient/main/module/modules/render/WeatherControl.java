@@ -18,6 +18,8 @@ public class WeatherControl extends Module {
 
     public WeatherControl() {
         super("weathercontrol", "Weather Control", "Lets you change things about the weather and daytime.", ModuleCategory.RENDER);
+
+        addSettings(DISABLE_RAIN, CHANGE_TIME, CHANGE_MOON, TIME, MOON);
     }
 
     public boolean rainDisabled() {

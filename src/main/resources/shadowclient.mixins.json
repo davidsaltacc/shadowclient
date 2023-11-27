@@ -43,7 +43,6 @@
         "SodiumBlockOcclusionCacheMixin",
         "SplashOverlayMixin",
         "WindowMixin",
-        "WorldMixin",
         "WorldRendererMixin"
     ]
 }
