@@ -92,6 +92,7 @@ public class ModuleManager {
     public static ShadowHud ShadowHudModule;
     public static NoOverlay NoOverlayModule;
     public static ChestSteal ChestStealModule;
+    public static AllModules AllModulesModule;
 
     public static void registerModules() {
         AutoSprintModule = (AutoSprint) register(new AutoSprint());
@@ -160,6 +161,7 @@ public class ModuleManager {
         ShadowHudModule = (ShadowHud) register(new ShadowHud());
         NoOverlayModule = (NoOverlay) register(new NoOverlay());
         ChestStealModule = (ChestSteal) register(new ChestSteal());
+        AllModulesModule = (AllModules) register(new AllModules());
     }
 
     public static Module register(Module module) {
