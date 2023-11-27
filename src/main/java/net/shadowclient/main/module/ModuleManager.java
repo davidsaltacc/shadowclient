@@ -12,6 +12,7 @@ import net.shadowclient.main.module.modules.menus.*;
 import net.shadowclient.main.module.modules.movement.*;
 import net.shadowclient.main.module.modules.other.*;
 import net.shadowclient.main.module.modules.player.*;
+import net.shadowclient.main.module.modules.player.cheststeal.ChestSteal;
 import net.shadowclient.main.module.modules.render.*;
 import net.shadowclient.main.module.modules.settings.*;
 import net.shadowclient.main.module.modules.world.*;
@@ -90,6 +91,7 @@ public class ModuleManager {
     public static XRay XRayModule;
     public static ShadowHud ShadowHudModule;
     public static NoOverlay NoOverlayModule;
+    public static ChestSteal ChestStealModule;
 
     public static void registerModules() {
         AutoSprintModule = (AutoSprint) register(new AutoSprint());
@@ -157,6 +159,7 @@ public class ModuleManager {
         XRayModule = (XRay) register(new XRay());
         ShadowHudModule = (ShadowHud) register(new ShadowHud());
         NoOverlayModule = (NoOverlay) register(new NoOverlay());
+        ChestStealModule = (ChestSteal) register(new ChestSteal());
     }
 
     public static Module register(Module module) {
