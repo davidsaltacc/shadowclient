@@ -69,5 +69,6 @@
     "key.shadowclient.shadowhud": "ShadowHud",
     "key.shadowclient.nooverlay": "NoOverlay",
     "key.shadowclient.cheststeal": "Chest Steal",
-    "key.shadowclient.allmodules": "All Modules"
+    "key.shadowclient.allmodules": "All Modules",
+    "key.shadowclient.weathercontrol": "Weather Control"
 }
