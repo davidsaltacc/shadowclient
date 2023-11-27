@@ -52,6 +52,17 @@ public class ShadowHud extends Module { // todo add to this
     }
 
     @Override
+    public void onEnable() {
+        COORDINATES_ELEMENT.shouldBeRendered(COORDINATES.booleanValue());
+        PING_ELEMENT.shouldBeRendered(PING.booleanValue());
+        SATURATION_ELEMENT.shouldBeRendered(SATURATION.booleanValue());
+        ROTATION_ELEMENT.shouldBeRendered(ROTATION.booleanValue());
+        FRAMES_ELEMENT.shouldBeRendered(FRAMES.booleanValue());
+        ENTITIES_ELEMENT.shouldBeRendered(ENTITIES.booleanValue());
+        super.onEnable();
+    }
+
+    @Override
     public void onEvent(Event event) {
         if (COORDINATES.booleanValue()) {
             Vec3d pos = mc.player.getPos();
