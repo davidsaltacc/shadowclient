@@ -23,3 +23,5 @@ gradle
 bin
 run
 build
+
+changelog.md
