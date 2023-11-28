@@ -34,7 +34,6 @@ public class ModuleManager {
     public static AutoFish AutoFishModule;
     public static AutoCriticalHit AutoCriticalHitModule;
     public static AntiKnockback AntiKnockbackModule;
-    public static AutoRespawn AutoRespawnModule;
     public static CameraNoclip CameraNoclipModule;
     public static FastClimb FastClimbModule;
     public static AirJump AirJumpModule;
@@ -104,7 +103,6 @@ public class ModuleManager {
         AutoFishModule = (AutoFish) register(new AutoFish());
         AutoCriticalHitModule = (AutoCriticalHit) register(new AutoCriticalHit());
         AntiKnockbackModule = (AntiKnockback) register(new AntiKnockback());
-        AutoRespawnModule = (AutoRespawn) register(new AutoRespawn());
         CameraNoclipModule = (CameraNoclip) register(new CameraNoclip());
         FastClimbModule = (FastClimb) register(new FastClimb());
         AirJumpModule = (AirJump) register(new AirJump());
