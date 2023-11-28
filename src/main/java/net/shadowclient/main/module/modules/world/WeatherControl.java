@@ -1,4 +1,4 @@
-package net.shadowclient.main.module.modules.render;
+package net.shadowclient.main.module.modules.world;
 
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.module.Module;
@@ -17,7 +17,7 @@ public class WeatherControl extends Module {
 
 
     public WeatherControl() {
-        super("weathercontrol", "Weather Control", "Lets you change things about the weather and daytime.", ModuleCategory.RENDER);
+        super("weathercontrol", "Weather Control", "Lets you change things about the weather and daytime.", ModuleCategory.WORLD);
 
         addSettings(DISABLE_RAIN, CHANGE_TIME, CHANGE_MOON, TIME, MOON);
     }

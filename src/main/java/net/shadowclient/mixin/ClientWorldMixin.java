@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.dimension.DimensionType;
 import net.shadowclient.main.module.ModuleManager;
-import net.shadowclient.main.module.modules.render.WeatherControl;
+import net.shadowclient.main.module.modules.world.WeatherControl;
 import net.shadowclient.mixininterface.IClientWorld;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
