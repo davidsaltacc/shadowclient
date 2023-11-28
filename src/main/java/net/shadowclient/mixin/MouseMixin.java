@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-@Mixin(Mouse.class)
+@Mixin(value = Mouse.class, priority = 1001) // one higher than default, don't ask
 public abstract class MouseMixin {
     @Redirect(method = "updateMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;changeLookDirection(DD)V"))
     private void onLookDirection(ClientPlayerEntity player, double cursorDeltaX, double cursorDeltaY) {
