@@ -2,9 +2,7 @@ package net.shadowclient.mixin;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.world.ClientEntityManager;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -15,21 +13,14 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.dimension.DimensionType;
 import net.shadowclient.main.module.ModuleManager;
 import net.shadowclient.main.module.modules.world.WeatherControl;
-import net.shadowclient.mixininterface.IClientWorld;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.function.Supplier;
 
 @Mixin(ClientWorld.class)
-public abstract class ClientWorldMixin extends World implements IClientWorld, WorldAccess {
-
-    @Final
-    @Shadow
-    private ClientEntityManager<Entity> entityManager;
+public abstract class ClientWorldMixin extends World implements WorldAccess {
 
     protected ClientWorldMixin(MutableWorldProperties properties, RegistryKey<World> registryRef, DynamicRegistryManager registryManager, RegistryEntry<DimensionType> dimensionEntry, Supplier<Profiler> profiler, boolean isClient, boolean debugWorld, long biomeAccess, int maxChainedNeighborUpdates) {
         super(properties, registryRef, registryManager, dimensionEntry, profiler, isClient, debugWorld, biomeAccess, maxChainedNeighborUpdates);
@@ -40,10 +31,6 @@ public abstract class ClientWorldMixin extends World implements IClientWorld, Wo
         if (ModuleManager.RenderBarriersModule.enabled) {
             cir.setReturnValue(Blocks.BARRIER);
         }
-    }
-
-    public ClientEntityManager<Entity> getEntityManager() {
-        return entityManager;
     }
 
     @Override

@@ -6,10 +6,8 @@ import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.events.PreTickEvent;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
-import net.shadowclient.main.setting.settings.BooleanSetting;
 import net.shadowclient.main.setting.settings.EnumSetting;
 import net.shadowclient.main.setting.settings.NumberSetting;
-import net.shadowclient.main.util.EntityUtils;
 
 @EventListener({PreTickEvent.class})
 @SearchTags({"bunny hop", "bunnyhop", "auto jump", "sprint jump"})

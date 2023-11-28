@@ -8,7 +8,7 @@ import net.shadowclient.main.ui.clickgui.Colors;
 public class HudElement {
     public boolean shouldBeRendered;
     private String textContent;
-    private MinecraftClient mc = SCMain.mc;
+    private final MinecraftClient mc = SCMain.mc;
 
     public HudElement(boolean rendered, String text) {
         this.shouldBeRendered = rendered;

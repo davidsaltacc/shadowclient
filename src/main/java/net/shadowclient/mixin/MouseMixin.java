@@ -27,6 +27,7 @@ public abstract class MouseMixin {
         }
     }
 
+    @SuppressWarnings("InvalidInjectorMethodSignature")
     @Inject(method = "onMouseButton", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/Screen;applyMousePressScrollNarratorDelay()V"), locals = LocalCapture.CAPTURE_FAILSOFT)
     private void onMouseClickedCalled(long window, int button, int action, int mods, CallbackInfo ci, boolean bl, int i, boolean[] bls, double d, double e, Screen screen) { // apparently this is incorrect. but if I change it, it breaks.
         NotificationsManager.mouseClicked(d, e, button);

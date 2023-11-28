@@ -19,6 +19,7 @@
         "ClientPlayerNetworkHandlerMixin",
         "ClientWorldMixin",
         "DeathScreenMixin",
+        "EntityAccessor",
         "EntityMixin",
         "FishingBobberEntityMixin",
         "GameMenuScreenMixin",
@@ -30,6 +31,7 @@
         "KeyBindingAccessor",
         "KeyboardMixin",
         "LivingEntityRendererMixin",
+        "MinecraftClientAccessor",
         "MinecraftClientMixin",
         "MouseMixin",
         "PlayerEntityMixin",
@@ -43,6 +45,7 @@
         "SodiumBlockOcclusionCacheMixin",
         "SplashOverlayMixin",
         "WindowMixin",
+        "WorldRendererAccessor",
         "WorldRendererMixin"
     ]
 }

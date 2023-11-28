@@ -229,13 +229,15 @@ public class Config {
                 }
             });
             try {
-                if (!module.getClass().isAnnotationPresent(OneClick.class)) {
-                    SCMain.setModuleEnabled(name, object.get("enabled").getAsBoolean(), true, false);
-                }
-                if (module.moduleButton != null) {
-                    if (object.get("extended").getAsBoolean()) {
-                        module.moduleButton.extended = true;
-                        module.moduleButton.parent.updateButtons();
+                if (module != null) {
+                    if (!module.getClass().isAnnotationPresent(OneClick.class)) {
+                        SCMain.setModuleEnabled(name, object.get("enabled").getAsBoolean(), true, false);
+                    }
+                    if (module.moduleButton != null) {
+                        if (object.get("extended").getAsBoolean()) {
+                            module.moduleButton.extended = true;
+                            module.moduleButton.parent.updateButtons();
+                        }
                     }
                 }
             } catch (Exception e) {

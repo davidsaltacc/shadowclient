@@ -7,7 +7,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.shadowclient.main.event.EventManager;
 import net.shadowclient.main.event.events.ShouldDrawSideEvent;
-import net.shadowclient.main.module.ModuleManager;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

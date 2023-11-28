@@ -24,6 +24,7 @@ public abstract class GameRendererMixin implements IGameRenderer {
     void loadPostProcessor(Identifier id) {
     }
 
+    @SuppressWarnings("AddedMixinMembersNamePattern")
     @Override
     public void loadShader(@Nullable Identifier id) {
         if (id != null) {

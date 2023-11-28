@@ -1,16 +1,12 @@
 package net.shadowclient.mixin;
 
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.hud.DebugHud;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.util.Identifier;
 import net.shadowclient.main.SCMain;
 import net.shadowclient.main.module.ModuleManager;
-import net.shadowclient.main.module.modules.other.ShadowHud;
 import net.shadowclient.main.ui.hud.HudRenderer;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;

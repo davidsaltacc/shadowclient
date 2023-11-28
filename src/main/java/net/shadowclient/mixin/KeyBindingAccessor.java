@@ -7,6 +7,7 @@ import java.util.Map;
 
 @Mixin(KeyBinding.class)
 public interface KeyBindingAccessor {
+    @SuppressWarnings("SameReturnValue")
     @Accessor("CATEGORY_ORDER_MAP")
     static Map<String, Integer> getCategoryMap() {
         return null;

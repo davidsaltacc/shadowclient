@@ -19,6 +19,7 @@ public abstract class SimpleOptionMixin<T> implements ISimpleOption<T> {
     @Final
     private Consumer<T> changeCallback;
 
+    @SuppressWarnings("AddedMixinMembersNamePattern")
     @Override
     public void forceSet(T newValue) {
         if (!SCMain.mc.isRunning()) {

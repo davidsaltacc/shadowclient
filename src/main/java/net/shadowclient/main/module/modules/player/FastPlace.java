@@ -6,7 +6,7 @@ import net.shadowclient.main.event.Event;
 import net.shadowclient.main.event.events.PreTickEvent;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
-import net.shadowclient.mixininterface.IMinecraftClient;
+import net.shadowclient.mixin.MinecraftClientAccessor;
 
 @EventListener({PreTickEvent.class})
 @SearchTags({"fastplace", "fast placing", "fast place"})
@@ -17,7 +17,6 @@ public class FastPlace extends Module {
 
     @Override
     public void onEvent(Event event) {
-
-        ((IMinecraftClient) mc).setItemUseCooldown(0);
+        ((MinecraftClientAccessor) mc).setItemUseCooldown(0);
     }
 }

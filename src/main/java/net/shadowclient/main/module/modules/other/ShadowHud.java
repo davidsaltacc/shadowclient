@@ -11,7 +11,7 @@ import net.shadowclient.main.module.ModuleCategory;
 import net.shadowclient.main.setting.settings.BooleanSetting;
 import net.shadowclient.main.ui.hud.HudElement;
 import net.shadowclient.main.ui.hud.HudRenderer;
-import net.shadowclient.mixininterface.IWorldRenderer;
+import net.shadowclient.mixin.WorldRendererAccessor;
 
 @SearchTags({"shadowhud", "shadow hud", "minihud", "hud", "coordinates", "coords"})
 @EventListener({PreTickEvent.class})
@@ -81,7 +81,7 @@ public class ShadowHud extends Module { // todo add to this
             FRAMES_ELEMENT.setTextContent(mc.getCurrentFps() + " fps");
         }
         if (ENTITIES.booleanValue()) {
-            ENTITIES_ELEMENT.setTextContent(((IWorldRenderer) mc.worldRenderer).getRegularEntityCount() + " entities rendered, " + mc.world.getRegularEntityCount() + " loaded");
+            ENTITIES_ELEMENT.setTextContent(((WorldRendererAccessor) mc.worldRenderer).getRegularEntityCount() + " entities rendered, " + mc.world.getRegularEntityCount() + " loaded");
         }
     }
 }

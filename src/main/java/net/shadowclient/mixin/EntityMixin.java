@@ -41,11 +41,6 @@ public abstract class EntityMixin implements IEntity {
         }
     }
 
-    @Override
-    public void setOnGround(boolean onGround) {
-        this.onGround = onGround;
-    }
-
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setVelocity(Lnet/minecraft/util/math/Vec3d;)V", opcode = Opcodes.INVOKEVIRTUAL, ordinal = 0), method = "updateMovementInFluid(Lnet/minecraft/registry/tag/TagKey;D)Z")
     private void setVelocityFromFluid(Entity entity, Vec3d velocity) {
         VelocityFromFluidEvent event = new VelocityFromFluidEvent((Entity) (Object) this);
@@ -80,6 +75,7 @@ public abstract class EntityMixin implements IEntity {
         }
     }
 
+    @SuppressWarnings("AddedMixinMembersNamePattern")
     public AtomicInteger getCurrentId() {
         return CURRENT_ID;
     }
