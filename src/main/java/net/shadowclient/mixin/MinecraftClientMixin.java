@@ -28,9 +28,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin {
 
-    @Shadow
-    private int itemUseCooldown;
-
     /** mixin won't shut. IDK why.
      * @author ...
      * @reason ...

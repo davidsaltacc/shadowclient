@@ -289,8 +289,6 @@ public class Config {
             return null;
         }
         JsonObject json = (new Gson()).fromJson(text, JsonObject.class);
-        JsonObject clientdata = json.getAsJsonObject("client");
-        String version = clientdata.get("version").getAsString();
         return json.getAsJsonObject("settings");
     }
 }

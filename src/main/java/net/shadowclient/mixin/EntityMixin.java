@@ -23,9 +23,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Mixin(Entity.class)
 public abstract class EntityMixin implements IEntity {
 
-    @Shadow
-    private boolean onGround;
-
     @Final
     @Shadow
     private static AtomicInteger CURRENT_ID;
