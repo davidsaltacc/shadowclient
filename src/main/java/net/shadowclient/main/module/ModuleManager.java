@@ -93,6 +93,7 @@ public class ModuleManager {
     public static ChestSteal ChestStealModule;
     public static AllModules AllModulesModule;
     public static WeatherControl WeatherControlModule;
+    public static FlatItems FlatItemsModule;
 
     public static void registerModules() {
         AutoSprintModule = (AutoSprint) register(new AutoSprint());
@@ -162,6 +163,7 @@ public class ModuleManager {
         ChestStealModule = (ChestSteal) register(new ChestSteal());
         AllModulesModule = (AllModules) register(new AllModules());
         WeatherControlModule = (WeatherControl) register(new WeatherControl());
+        FlatItemsModule = (FlatItems) register(new FlatItems());
     }
 
     public static Module register(Module module) {
