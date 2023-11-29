@@ -28,7 +28,7 @@ public class BoolSetting extends SettingComponent {
         }
         int textOffset = (parent.parent.height / 2 - mc.textRenderer.fontHeight / 2);
 
-        context.drawTextWithShadow(mc.textRenderer, booleanSetting.name + ": " + booleanSetting.booleanValue(), parent.parent.x + textOffset, parent.parent.y + parent.offset + offset + textOffset, Colors.TEXT_NORMAL.color);
+        context.drawTextWithShadow(mc.textRenderer, booleanSetting.name + ": " + (booleanSetting.booleanValue() ? "yes" : "no"), parent.parent.x + textOffset, parent.parent.y + parent.offset + offset + textOffset, Colors.TEXT_NORMAL.color);
 
         super.render(context, mouseX, mouseY, delta);
     }
