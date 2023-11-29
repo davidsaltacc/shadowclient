@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ChunkOcclusionDataBuilder.class)
 public abstract class ChunkOcclusionDataBuilderMixin {
-    @Inject(at = @At("HEAD"), method = "markClosed(Lnet/minecraft/util/math/BlockPos;)V", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "markClosed", cancellable = true)
     private void onMarkClosed(BlockPos pos, CallbackInfo ci) {
         SetOpaqueCubeEvent event = new SetOpaqueCubeEvent();
         EventManager.fireEvent(event);

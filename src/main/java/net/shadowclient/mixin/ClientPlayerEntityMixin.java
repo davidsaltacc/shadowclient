@@ -66,7 +66,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         return super.hasStatusEffect(effect);
     }
 
-    @Inject(at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;", opcode = Opcodes.GETFIELD, ordinal = 0), method = "updateNausea()V")
+    @Inject(at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;", opcode = Opcodes.GETFIELD, ordinal = 0), method = "updateNausea")
     private void beforeUpdateNausea(CallbackInfo ci) {
         if (!ModuleManager.PortalGUIModule.enabled) {
             return;
@@ -76,7 +76,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         client.currentScreen = null;
     }
 
-    @Inject(at = @At(value = "FIELD", target = "Lnet/minecraft/client/network/ClientPlayerEntity;nauseaIntensity:F", opcode = Opcodes.GETFIELD, ordinal = 1), method = "updateNausea()V")
+    @Inject(at = @At(value = "FIELD", target = "Lnet/minecraft/client/network/ClientPlayerEntity;nauseaIntensity:F", opcode = Opcodes.GETFIELD, ordinal = 1), method = "updateNausea")
     private void afterUpdateNausea(CallbackInfo ci) {
         if (crntScreen == null) {
             return;
@@ -91,7 +91,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         return ModuleManager.HighJumpModule.increase(super.getJumpVelocity());
     }
 
-    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingItem()Z", ordinal = 0), method = "tickMovement()V")
+    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingItem()Z", ordinal = 0), method = "tickMovement")
     private void onTickMovementItemUse(CallbackInfo ci) {
         if (ModuleManager.NoSlowdownModule.enabled) {
             hideItem = true;
@@ -108,7 +108,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         hideItem = false;
     }
 
-    @Inject(at = @At(value = "FIELD", target = "Lnet/minecraft/client/network/ClientPlayerEntity;ticksToNextAutojump:I", opcode = Opcodes.GETFIELD, ordinal = 0), method = "tickMovement()V")
+    @Inject(at = @At(value = "FIELD", target = "Lnet/minecraft/client/network/ClientPlayerEntity;ticksToNextAutojump:I", opcode = Opcodes.GETFIELD, ordinal = 0), method = "tickMovement")
     private void afterIsUsingItem(CallbackInfo ci) {
         hideItem = false;
     }

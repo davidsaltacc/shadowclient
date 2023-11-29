@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractBlock.AbstractBlockState.class)
 public abstract class AbstractBlockStateMixin {
-    @Inject(at = @At("HEAD"), method = "getAmbientOcclusionLightLevel(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)F", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "getAmbientOcclusionLightLevel", cancellable = true)
     private void onGetAmbientOcclusionLightLevel(BlockView blockView, BlockPos blockPos, CallbackInfoReturnable<Float> cir) {
         GetAmbientOcclusionLightLevelEvent event = new GetAmbientOcclusionLightLevelEvent();
 

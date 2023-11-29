@@ -14,6 +14,7 @@ public abstract class ItemEntityMixin implements IItemEntity {
     @Final
     public float uniqueOffset;
 
+    @SuppressWarnings("AddedMixinMembersNamePattern")
     @Override
     public void setUniqueOffset(float offset) {
         uniqueOffset = offset;
