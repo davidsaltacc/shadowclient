@@ -6,6 +6,7 @@ import net.shadowclient.main.setting.settings.NumberSetting;
 import net.shadowclient.main.ui.clickgui.Colors;
 import net.shadowclient.main.ui.clickgui.ModuleButton;
 import net.shadowclient.main.ui.clickgui.settings.clickgui.SettingComponent;
+import net.shadowclient.main.util.MathUtils;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -37,13 +38,13 @@ public class SliderSetting extends SettingComponent {
             if (diff == 0) {
                 numberSetting.setNumberValue(numberSetting.getMinValue());
             } else {
-                numberSetting.setNumberValue(roundToPlace((diff / parent.parent.width) * (numberSetting.getMaxValue().floatValue() - numberSetting.getMinValue().floatValue()) + numberSetting.getMinValue().floatValue(), numberSetting.decimalPlaces));
+                numberSetting.setNumberValue(MathUtils.roundToPlace((diff / parent.parent.width) * (numberSetting.getMaxValue().floatValue() - numberSetting.getMinValue().floatValue()) + numberSetting.getMinValue().floatValue(), numberSetting.decimalPlaces));
             }
         }
 
         int textOffset = (parent.parent.height / 2 - mc.textRenderer.fontHeight / 2);
 
-        context.drawTextWithShadow(mc.textRenderer, numberSetting.name + ": " + roundToPlace(numberSetting.numberValue().floatValue(), 3), parent.parent.x + textOffset, parent.parent.y + parent.offset + offset + textOffset, Colors.TEXT_NORMAL.color);
+        context.drawTextWithShadow(mc.textRenderer, numberSetting.name + ": " + MathUtils.roundToPlace(numberSetting.numberValue().floatValue(), 3), parent.parent.x + textOffset, parent.parent.y + parent.offset + offset + textOffset, Colors.TEXT_NORMAL.color);
 
         super.render(context, mouseX, mouseY, delta);
     }
@@ -66,12 +67,4 @@ public class SliderSetting extends SettingComponent {
         super.mouseReleased(mouseX, mouseY, button);
     }
 
-    private double roundToPlace(double value, int place) {
-        if (place < 0) {
-            return value;
-        }
-        BigDecimal bdec = new BigDecimal(value);
-        bdec = bdec.setScale(place, RoundingMode.HALF_UP);
-        return bdec.doubleValue();
-    }
 }

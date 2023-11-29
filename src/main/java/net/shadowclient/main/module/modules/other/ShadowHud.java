@@ -9,13 +9,17 @@ import net.shadowclient.main.event.events.PreTickEvent;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 import net.shadowclient.main.setting.settings.BooleanSetting;
+import net.shadowclient.main.setting.settings.EnumSetting;
 import net.shadowclient.main.ui.hud.HudElement;
 import net.shadowclient.main.ui.hud.HudRenderer;
+import net.shadowclient.main.util.MathUtils;
 import net.shadowclient.mixin.WorldRendererAccessor;
 
 @SearchTags({"shadowhud", "shadow hud", "minihud", "hud", "coordinates", "coords"})
 @EventListener({PreTickEvent.class})
 public class ShadowHud extends Module { // todo add to this
+
+    public EnumSetting<HudRenderer.Corner> CORNER = new EnumSetting<>("Corner", HudRenderer.Corner.Top_Left);
 
     public BooleanSetting COORDINATES = new BooleanSetting("Coords", true);
     public BooleanSetting PING = new BooleanSetting("Ping", true);
@@ -34,7 +38,9 @@ public class ShadowHud extends Module { // todo add to this
     public ShadowHud() {
         super("shadowhud", "ShadowHud", "Renders a minimalistic hud showing useful info.", ModuleCategory.OTHER);
 
-        addSettings(COORDINATES, PING, SATURATION, ROTATION, FRAMES, ENTITIES);
+        addSettings(CORNER, COORDINATES, PING, SATURATION, ROTATION, FRAMES, ENTITIES);
+
+        CORNER.addChangeCallback(() -> HudRenderer.setCorner(CORNER.getEnumValue()));
 
         COORDINATES.addChangeCallback(() -> COORDINATES_ELEMENT.shouldBeRendered(COORDINATES.booleanValue()));
         PING.addChangeCallback(() -> PING_ELEMENT.shouldBeRendered(PING.booleanValue()));
@@ -53,12 +59,15 @@ public class ShadowHud extends Module { // todo add to this
 
     @Override
     public void onEnable() {
+        HudRenderer.setCorner(CORNER.getEnumValue());
+
         COORDINATES_ELEMENT.shouldBeRendered(COORDINATES.booleanValue());
         PING_ELEMENT.shouldBeRendered(PING.booleanValue());
         SATURATION_ELEMENT.shouldBeRendered(SATURATION.booleanValue());
         ROTATION_ELEMENT.shouldBeRendered(ROTATION.booleanValue());
         FRAMES_ELEMENT.shouldBeRendered(FRAMES.booleanValue());
         ENTITIES_ELEMENT.shouldBeRendered(ENTITIES.booleanValue());
+
         super.onEnable();
     }
 
@@ -75,7 +84,7 @@ public class ShadowHud extends Module { // todo add to this
             SATURATION_ELEMENT.setTextContent("Saturation: " + mc.player.getHungerManager().getSaturationLevel() + " / 20.0");
         }
         if (ROTATION.booleanValue()) {
-            ROTATION_ELEMENT.setTextContent("Rotation: " + MathHelper.wrapDegrees(mc.player.getYaw()) + ", " + MathHelper.wrapDegrees(mc.player.getPitch()));
+            ROTATION_ELEMENT.setTextContent("Rotation: " + MathUtils.roundToPlace(MathHelper.wrapDegrees(mc.player.getYaw()), 2) + ", " + MathUtils.roundToPlace(MathHelper.wrapDegrees(mc.player.getPitch()), 2));
         }
         if (FRAMES.booleanValue()) {
             FRAMES_ELEMENT.setTextContent(mc.getCurrentFps() + " fps");
@@ -84,4 +93,5 @@ public class ShadowHud extends Module { // todo add to this
             ENTITIES_ELEMENT.setTextContent(((WorldRendererAccessor) mc.worldRenderer).getRegularEntityCount() + " entities rendered, " + mc.world.getRegularEntityCount() + " loaded");
         }
     }
+
 }

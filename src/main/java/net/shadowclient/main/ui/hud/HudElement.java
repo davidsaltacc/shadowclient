@@ -23,8 +23,18 @@ public class HudElement {
     }
 
     public void render(DrawContext context, float tickDelta, int offset) {
-        context.fill(2, 2 + offset, mc.textRenderer.getWidth(this.textContent), 2 + offset + getHeight(), Colors.HUD_ELEMENT_BACKGROUND.color);
-        context.drawText(mc.textRenderer, this.textContent, 2, 2 + offset, Colors.HUD_ELEMENT_TEXT.color, false);
+        context.fill(2, 2 + offset, 3 + mc.textRenderer.getWidth(this.textContent), 2 + offset + getHeight(), Colors.HUD_ELEMENT_BACKGROUND.color);
+        context.drawText(mc.textRenderer, this.textContent, 3, 3 + offset, Colors.HUD_ELEMENT_TEXT.color, false);
+    }
+
+    public void render(DrawContext context, float tickDelta, int offset, boolean rightSide) {
+        if (!rightSide) {
+            render(context, tickDelta, offset);
+            return;
+        }
+        int width = context.getScaledWindowWidth();
+        context.fill(width - 3 - mc.textRenderer.getWidth(this.textContent), 2 + offset, width - 2, 2 + offset + getHeight(), Colors.HUD_ELEMENT_BACKGROUND.color);
+        context.drawText(mc.textRenderer, this.textContent, width - mc.textRenderer.getWidth(this.textContent) - 2, 3 + offset, Colors.HUD_ELEMENT_TEXT.color, false);
     }
 
     public int getHeight() {
