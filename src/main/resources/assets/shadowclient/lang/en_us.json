@@ -70,5 +70,6 @@
     "key.shadowclient.cheststeal": "Chest Steal",
     "key.shadowclient.allmodules": "All Modules",
     "key.shadowclient.weathercontrol": "Weather Control",
-    "key.shadowclient.flatitems": "Flat Items"
+    "key.shadowclient.flatitems": "Flat Items",
+	"key.shadowclient.clicktp": "ClickTP"
 }
