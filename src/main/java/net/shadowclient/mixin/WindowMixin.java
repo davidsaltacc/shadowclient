@@ -13,7 +13,7 @@ public abstract class WindowMixin {
      * @reason e
      */
     @Overwrite
-    public void setTitle(String title) { // todo
+    public void setTitle(String title) {
         GLFW.glfwSetWindowTitle(((Window) (Object) this).getHandle(), SCMain.getWindowTitle() + " | " + title);
     }
 }

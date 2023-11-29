@@ -97,8 +97,6 @@ public class Freecam extends Module {
         if (event instanceof KeyPressEvent) {
             if (mc.currentScreen == null || mc.currentScreen instanceof ClickGUI) {
 
-                // TODO mouse click events + (cancel too here)
-
                 int keyCode = ((KeyPressEvent) event).keyCode;
 
                 boolean cancel = false;
