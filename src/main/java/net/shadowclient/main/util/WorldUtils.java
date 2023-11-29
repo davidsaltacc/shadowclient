@@ -22,7 +22,7 @@ public class WorldUtils {
         return lineOfSight(from.getEyePos(), to.getEyePos());
     }
 
-    public static BlockHitResult raycast(Vec3d from, Vec3d to) {
+    public static HitResult raycast(Vec3d from, Vec3d to) {
         RaycastContext context = new RaycastContext(from, to, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, SCMain.mc.player);
         return SCMain.mc.world.raycast(context);
     }

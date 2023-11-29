@@ -125,7 +125,7 @@ public class Trajectories extends Module {
 
             Vec3d lastPos = trajPath.size() > 1 ? trajPath.get(trajPath.size() - 2) : mc.player.getEyePos();
 
-            BlockHitResult result = WorldUtils.raycast(lastPos, arrawPos);
+            HitResult result = WorldUtils.raycast(lastPos, arrawPos);
 
             if (result.getType() != HitResult.Type.MISS) {
                 trajHit = HitResult.Type.BLOCK;
