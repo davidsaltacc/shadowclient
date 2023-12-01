@@ -104,12 +104,12 @@ public abstract class Module {
 
     public void onEnable() {
         if (showMessage && !this.getClass().isAnnotationPresent(OneClick.class)) {
-            SCMain.moduleToggleChatMessage(friendlyName);
+            SCMain.moduleToggleChatMessage(friendlyName, true);
         }
     }
     public void onDisable() {
         if (showMessage && !this.getClass().isAnnotationPresent(OneClick.class)) {
-            SCMain.moduleToggleChatMessage(friendlyName);
+            SCMain.moduleToggleChatMessage(friendlyName, false);
         }
     }
     public void onEvent(Event event) {}

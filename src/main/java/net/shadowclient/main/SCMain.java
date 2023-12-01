@@ -166,8 +166,8 @@ public class SCMain {
         return getFullClientName();
     }
 
-    public static void moduleToggleChatMessage(String moduleName) {
-        ChatUtils.sendMessageClient(ChatUtils.Colors.GRAY + "[" + ChatUtils.Colors.BLUE + "Shadow" + ChatUtils.Colors.GRAY + "] " + ChatUtils.Colors.GRAY + "Toggled " + ChatUtils.Colors.WHITE + moduleName + ChatUtils.Colors.GRAY + ".");
+    public static void moduleToggleChatMessage(String moduleName, boolean enabled) {
+        ChatUtils.sendMessageClient(ChatUtils.Colors.GRAY + "[" + ChatUtils.Colors.BLUE + "Shadow" + ChatUtils.Colors.GRAY + "] " + ChatUtils.Colors.GRAY + (enabled ? "Enabled " : "Disabled ") + ChatUtils.Colors.WHITE + moduleName + ChatUtils.Colors.GRAY + ".");
     }
 
     public static boolean interceptMessage(String message) {
