@@ -9,8 +9,7 @@ import net.shadowclient.main.SCMain;
 
 public class WorldUtils {
     public static boolean lineOfSight(Vec3d from, Vec3d to) {
-        RaycastContext context = new RaycastContext(from, to, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, SCMain.mc.player);
-        return SCMain.mc.world.raycast(context).getType() == HitResult.Type.MISS;
+        return raycast(from, to).getType() == HitResult.Type.MISS;
     }
     public static boolean lineOfSight(Entity from, Vec3d to) {
         return lineOfSight(from.getEyePos(), to);
