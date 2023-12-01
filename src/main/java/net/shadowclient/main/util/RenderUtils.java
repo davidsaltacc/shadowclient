@@ -27,7 +27,7 @@ public class RenderUtils {
         return new Vec3d(e.getX() - MathHelper.lerp(tickDelta, e.lastRenderX, e.getX()), e.getY() - MathHelper.lerp(tickDelta, e.lastRenderY, e.getY()), e.getZ() - MathHelper.lerp(tickDelta, e.lastRenderZ, e.getZ()));
     }
 
-    public static void drawLine(double x1, double y1, double z1, double x2, double y2, double z2, float[] color, float width) {
+    public static void drawLine(double x1, double y1, double z1, double x2, double y2, double z2, float[] color, float width, boolean depthTest) {
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
@@ -37,7 +37,11 @@ public class RenderUtils {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
 
-        RenderSystem.disableDepthTest();
+        if (depthTest) {
+            RenderSystem.enableDepthTest();
+        } else {
+            RenderSystem.disableDepthTest();
+        }
         RenderSystem.disableCull();
         RenderSystem.setShader(GameRenderer::getRenderTypeLinesProgram);
         RenderSystem.lineWidth(width);
@@ -49,6 +53,10 @@ public class RenderUtils {
         RenderSystem.enableCull();
         RenderSystem.enableDepthTest();
         RenderSystem.disableBlend();
+    }
+
+    public static void drawLine(double x1, double y1, double z1, double x2, double y2, double z2, float[] color, float width) {
+        drawLine(x1, y1, z1, x2, y2, z2, color, width, false);
     }
 
     public static void vertexLine(MatrixStack matrices, VertexConsumer vertexConsumer, float x1, float y1, float z1, float x2, float y2, float z2, float[] lineColor) {

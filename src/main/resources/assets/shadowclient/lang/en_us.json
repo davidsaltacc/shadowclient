@@ -71,5 +71,6 @@
     "key.shadowclient.allmodules": "All Modules",
     "key.shadowclient.weathercontrol": "Weather Control",
     "key.shadowclient.flatitems": "Flat Items",
-	"key.shadowclient.clicktp": "ClickTP"
+	"key.shadowclient.clicktp": "ClickTP",
+	"key.shadowclient.lightoverlay": "Light Overlay"
 }

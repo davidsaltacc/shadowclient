@@ -95,6 +95,7 @@ public class ModuleManager {
     public static WeatherControl WeatherControlModule;
     public static FlatItems FlatItemsModule;
     public static ClickTP ClickTPModule;
+    public static LightOverlay LightOverlayModule;
 
     public static void registerModules() {
         AutoSprintModule = (AutoSprint) register(new AutoSprint());
@@ -166,6 +167,7 @@ public class ModuleManager {
         WeatherControlModule = (WeatherControl) register(new WeatherControl());
         FlatItemsModule = (FlatItems) register(new FlatItems());
         ClickTPModule = (ClickTP) register(new ClickTP());
+        LightOverlayModule = (LightOverlay) register(new LightOverlay());
     }
 
     public static Module register(Module module) {
