@@ -9,7 +9,7 @@ import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 
 @EventListener({PreTickEvent.class})
-@SearchTags({"anti fall damage", "no fall damage", "no fall dmg", "no falling damage"})
+@SearchTags({"anti fall damage", "no fall damage", "no fall dmg", "no falling damage", "nofalldamage"})
 public class NoFallDamage extends Module {
     public NoFallDamage() {
         super("nofall", "No Fall Damage", "You take no fall damage.", ModuleCategory.MOVEMENT);
@@ -18,10 +18,13 @@ public class NoFallDamage extends Module {
     @Override
     public void onEvent(Event event) {
 
-        if (mc.player.fallDistance <= (mc.player.isFallFlying() ? 1 : 2)) {
+        if (mc.player.isFallFlying()) {
             return;
         }
-        if (mc.player.isFallFlying() && mc.player.isSneaking() && !(mc.player.getVelocity().y < -0.5)) {
+        if (mc.player.fallDistance <= 2) {
+            return;
+        }
+        if (mc.player.getVelocity().y > -0.5) {
             return;
         }
 
