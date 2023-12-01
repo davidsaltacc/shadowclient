@@ -3,10 +3,12 @@ package net.shadowclient.main;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModMetadata;
+import net.minecraft.Bootstrap;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.util.hit.HitResult;
 import net.shadowclient.main.command.CommandManager;
 import net.shadowclient.main.config.Config;
 import net.shadowclient.main.config.SCSettings;
@@ -208,7 +210,7 @@ public class SCMain {
     }
 
     public static void checkConflictingMods() {
-        String warningTitle = "Warning";
+        String warningTitle = "ShadowClient Warning";
         if (isOptifinePresent()) {
             String t = "Optifine is installed. Some modules might not work as intended.";
             warn(t);
@@ -239,5 +241,9 @@ public class SCMain {
     public static boolean isModPresent(Predicate<String> search) {
         Stream<String> mods = FabricLoader.getInstance().getAllMods().stream().map(ModContainer::getMetadata).map(ModMetadata::getId);
         return mods.anyMatch(search);
+    }
+
+    public static void println(Object object) {
+        Bootstrap.println(String.valueOf(object));
     }
 }
