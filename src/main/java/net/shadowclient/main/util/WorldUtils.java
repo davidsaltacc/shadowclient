@@ -1,7 +1,6 @@
 package net.shadowclient.main.util;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;

@@ -6,7 +6,6 @@ import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleManager;
 import net.shadowclient.main.ui.clickgui.ClickGUI;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

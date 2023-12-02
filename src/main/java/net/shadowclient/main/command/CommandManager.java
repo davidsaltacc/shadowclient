@@ -5,7 +5,6 @@ import net.shadowclient.main.command.commands.HelpCommand;
 import net.shadowclient.main.command.commands.PanicCommand;
 import net.shadowclient.main.module.ModuleManager;
 import net.shadowclient.main.util.ChatUtils;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 

@@ -8,7 +8,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.util.hit.HitResult;
 import net.shadowclient.main.command.CommandManager;
 import net.shadowclient.main.config.Config;
 import net.shadowclient.main.config.SCSettings;

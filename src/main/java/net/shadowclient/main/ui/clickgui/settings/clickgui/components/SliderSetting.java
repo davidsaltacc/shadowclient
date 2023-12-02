@@ -7,8 +7,6 @@ import net.shadowclient.main.ui.clickgui.Colors;
 import net.shadowclient.main.ui.clickgui.ModuleButton;
 import net.shadowclient.main.ui.clickgui.settings.clickgui.SettingComponent;
 import net.shadowclient.main.util.MathUtils;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class SliderSetting extends SettingComponent {
 
