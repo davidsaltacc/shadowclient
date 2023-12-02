@@ -88,9 +88,9 @@ public class LightOverlay extends Module {
                 return -1;
             }
         }
-        if (mc.world.getLightLevel(pos, 0) <= 7) {
+        if (mc.world.getLightLevel(pos, 0) <= 0) {
             return 2;
-        } else if (mc.world.getLightLevel(LightType.BLOCK, pos) <= 7) {
+        } else if (mc.world.getLightLevel(LightType.BLOCK, pos) <= 0) {
             return 1;
         }
         return 0;
