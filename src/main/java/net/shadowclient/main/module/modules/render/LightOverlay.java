@@ -20,11 +20,12 @@ import net.shadowclient.main.util.RenderUtils;
 public class LightOverlay extends Module {
 
     public NumberSetting RADIUS = new NumberSetting("Radius", 1, 25, 10, 0);
+    public NumberSetting VRADIUS = new NumberSetting("Vertical Radius", 1, 25, 1, 0);
 
     public LightOverlay() {
         super("lightoverlay", "Light Overlay", "Renders an overlay on blocks indicating if mobs can/will spawn.", ModuleCategory.RENDER);
 
-        addSetting(RADIUS);
+        addSettings(RADIUS, VRADIUS);
     }
 
     @Override
@@ -34,13 +35,14 @@ public class LightOverlay extends Module {
         int plz = mc.player.getBlockZ();
 
         int radius = RADIUS.intValue();
+        int vradius = VRADIUS.intValue();
 
         int minX = plx - radius;
         int maxX = plx + radius;
         int minZ = plz - radius;
         int maxZ = plz + radius;
-        int minY = Math.max(mc.world.getBottomY(), ply - radius);
-        int maxY = Math.min(ply + radius, mc.world.getTopY());
+        int minY = Math.max(mc.world.getBottomY(), ply - vradius);
+        int maxY = Math.min(ply + vradius, mc.world.getTopY());
 
         for (int y = minY; y <= maxY; y++) {
             for (int x = minX; x <= maxX; x++) {
