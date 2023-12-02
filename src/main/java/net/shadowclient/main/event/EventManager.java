@@ -9,10 +9,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class EventManager {
 
-    public static Map<Class<? extends Event>, List<Module>> listeners = new HashMap<>();
+    public static Map<Class<? extends Event>, List<Module>> listeners = new ConcurrentHashMap<>();
 
     public static void addModule(Module module, Class<? extends Event> event) {
         listeners.computeIfAbsent(event, k -> new ArrayList<>());

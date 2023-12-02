@@ -7,9 +7,10 @@ import net.shadowclient.main.module.ModuleManager;
 import net.shadowclient.main.util.ChatUtils;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class CommandManager {
-    public static final Map<String, Command> commands = new HashMap<>();
+    public static final Map<String, Command> commands = new ConcurrentHashMap<>();
 
     public static void registerCommands() {
         registerCommand(new HelpCommand());

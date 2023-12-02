@@ -18,6 +18,7 @@ import net.shadowclient.main.util.JavaUtils;
 import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Config {
 
@@ -149,7 +150,7 @@ public class Config {
 
         json = json.getAsJsonObject("modules");
 
-        Map<String, JsonObject> modules = new HashMap<>();
+        Map<String, JsonObject> modules = new ConcurrentHashMap<>();
         JsonObject finalJson = json;
         json.keySet().forEach((name) -> modules.put(name, finalJson.get(name).getAsJsonObject()));
 

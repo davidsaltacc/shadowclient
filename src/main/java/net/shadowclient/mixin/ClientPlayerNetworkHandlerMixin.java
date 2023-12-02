@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public abstract class ClientPlayerNetworkHandlerMixin {
@@ -46,7 +47,7 @@ public abstract class ClientPlayerNetworkHandlerMixin {
 
     @Inject(method = "onChunkDeltaUpdate", at = @At("HEAD"))
     private void onChunkDeltaData(ChunkDeltaUpdateS2CPacket packet, CallbackInfo ci) {
-        Map<BlockPos, BlockState> delta = new HashMap<>();
+        Map<BlockPos, BlockState> delta = new ConcurrentHashMap<>();
         packet.visitUpdates(delta::put);
         EventManager.fireEvent(new ChunkDeltaUpdateEvent(delta));
     }

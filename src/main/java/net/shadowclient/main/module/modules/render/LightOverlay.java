@@ -29,22 +29,29 @@ public class LightOverlay extends Module {
 
     @Override
     public void onEvent(Event event) {
-       int plx = mc.player.getBlockX();
-       int ply = mc.player.getBlockY();
-       int plz = mc.player.getBlockZ();
+        int plx = mc.player.getBlockX();
+        int ply = mc.player.getBlockY();
+        int plz = mc.player.getBlockZ();
 
-       int radius = RADIUS.intValue();
+        int radius = RADIUS.intValue();
 
-       for (int x = plx - radius; x <= plx + radius; x++) { // todo optimize, sometimes causes lots of lag
-           for (int z = plz - radius; z <= plz + radius; z++) {
-               for (int y = Math.max(mc.world.getBottomY(), ply - radius); y <= Math.min(ply + radius, mc.world.getTopY()); y++) {
-                   BlockPos pos = new BlockPos(x, y, z);
-                   BlockState state = mc.world.getBlockState(pos);
-                   int spawnPossible = spawnPossible(pos, state);
-                   renderBlockOverlay(pos, spawnPossible);
-               }
-           }
-       }
+        int minX = plx - radius;
+        int maxX = plx + radius;
+        int minZ = plz - radius;
+        int maxZ = plz + radius;
+        int minY = Math.max(mc.world.getBottomY(), ply - radius);
+        int maxY = Math.min(ply + radius, mc.world.getTopY());
+
+        for (int y = minY; y <= maxY; y++) {
+            for (int x = minX; x <= maxX; x++) {
+                for (int z = minZ; z <= maxZ; z++) {
+                    BlockPos pos = new BlockPos(x, y, z);
+                    BlockState state = mc.world.getBlockState(pos);
+                    int spawnPossible = spawnPossible(pos, state);
+                    renderBlockOverlay(pos, spawnPossible);
+                }
+            }
+        }
     }
 
     public void renderBlockOverlay(BlockPos pos, int level) { // todo maybe render text showing light level somehow?

@@ -21,10 +21,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ModuleManager {
 
-    public static final Map<String, Module> modules = new HashMap<>();
+    public static final Map<String, Module> modules = new ConcurrentHashMap<>();
 
     public static AutoSprint AutoSprintModule;
     public static Spider SpiderModule;
