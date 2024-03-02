@@ -2,6 +2,7 @@ package net.shadowclient.main.module.modules.player;
 
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.shadowclient.main.annotations.DontSaveState;
 import net.shadowclient.main.annotations.EventListener;
 import net.shadowclient.main.annotations.SearchTags;
 import net.shadowclient.main.event.Event;
@@ -9,6 +10,7 @@ import net.shadowclient.main.event.events.PreTickEvent;
 import net.shadowclient.main.module.Module;
 import net.shadowclient.main.module.ModuleCategory;
 
+@DontSaveState
 @EventListener({PreTickEvent.class})
 @SearchTags({"fastblockbreak", "fastbreak", "fast block break", "fast break", "block break", "speed break"})
 public class FastBlockBreak extends Module {
