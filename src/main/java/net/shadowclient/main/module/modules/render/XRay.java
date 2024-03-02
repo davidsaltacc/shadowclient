@@ -48,6 +48,22 @@ public class XRay extends Module { // todo maybe add option to render blocks tra
         }
     }
 
+    @Override
+    public void onEnable() {
+        if (mc.worldRenderer != null) {
+            mc.worldRenderer.reload();
+        }
+        super.onEnable();
+    }
+
+    @Override
+    public void onDisable() {
+        if (mc.worldRenderer != null) {
+            mc.worldRenderer.reload();
+        }
+        super.onDisable();
+    }
+
 
     public boolean visible(Block block, BlockPos pos) {
         String n = Registries.BLOCK.getId(block).toString();
