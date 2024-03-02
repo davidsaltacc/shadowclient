@@ -42,7 +42,7 @@ public abstract class GameRendererMixin implements IGameRenderer {
     }
 
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F", ordinal = 0), method = "renderWorld(FJLnet/minecraft/client/util/math/MatrixStack;)V")
-    private float wurstNauseaLerp(float delta, float start, float end) {
+    private float nauseaLerp(float delta, float start, float end) {
         if (ModuleManager.NoWobbleModule.enabled) {
             return 0;
         }
