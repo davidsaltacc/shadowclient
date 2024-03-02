@@ -52,7 +52,7 @@ public abstract class GameRendererMixin implements IGameRenderer {
 
     @Inject(at = @At("HEAD"), method = "getNightVisionStrength(Lnet/minecraft/entity/LivingEntity;F)F", cancellable = true)
     private static void onGetNightVisionStrength(LivingEntity entity, float tickDelta, CallbackInfoReturnable<Float> cir) {
-        if (ModuleManager.NightVisionModule.enabled) {
+        if (ModuleManager.NightVisionModule.enabled || ModuleManager.XRayModule.enabled) {
             cir.setReturnValue(1f);
         }
     }

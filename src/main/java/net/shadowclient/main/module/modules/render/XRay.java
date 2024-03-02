@@ -26,8 +26,6 @@ public class XRay extends Module { // todo maybe add option to render blocks tra
         addSetting(MODE);
     }
 
-    public double gamma = 16.;
-
     @Override
     public void onEvent(Event event) {
         if (event instanceof SetOpaqueCubeEvent) {
@@ -47,36 +45,6 @@ public class XRay extends Module { // todo maybe add option to render blocks tra
             if (!visible(mc.world.getBlockState(pos).getBlock(), pos)) {
                 event.cancel();
             }
-        }
-    }
-
-    @Override
-    public void onEnable() {
-        if (mc.worldRenderer != null) {
-            mc.worldRenderer.reload();
-            gamma = mc.options.getGamma().getValue();
-            ISimpleOption.getFromOption(mc.options.getGamma()).forceSet(16d);
-        }
-        super.onEnable();
-    }
-
-    @Override
-    public void onDisable() {
-        if (mc.worldRenderer != null) {
-            mc.worldRenderer.reload();
-            ISimpleOption.getFromOption(mc.options.getGamma()).forceSet(gamma);
-        }
-        super.onDisable();
-    }
-
-    @Override
-    public void postInit() {
-        MODE.addChangeCallback(mc.worldRenderer::reload);
-        if (enabled) {
-            gamma = mc.options.getGamma().getValue();
-            ISimpleOption.getFromOption(mc.options.getGamma()).forceSet(16d);
-        } else {
-            ISimpleOption.getFromOption(mc.options.getGamma()).forceSet(gamma);
         }
     }
 
