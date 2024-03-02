@@ -1,0 +1,54 @@
+package net.justacoder.shadowclient.main.module.modules.movement;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.justacoder.shadowclient.main.annotations.EventListener;
+import net.justacoder.shadowclient.main.annotations.SearchTags;
+import net.justacoder.shadowclient.main.event.Event;
+import net.justacoder.shadowclient.main.event.events.PreTickEvent;
+import net.justacoder.shadowclient.main.module.Module;
+import net.justacoder.shadowclient.main.module.ModuleCategory;
+import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
+
+@EventListener({PreTickEvent.class})
+@SearchTags({"boat fly", "boatfly", "fly hack", "flyhack"})
+public class BoatFly extends Module {
+
+    NumberSetting SPEED = new NumberSetting("Speed", 0.1f, 10, 1,  1);
+
+    public BoatFly() {
+        super("boatfly", "Boat Fly", "Allows you to fly in boats and other vehicles.", ModuleCategory.MOVEMENT);
+
+        addSetting(SPEED);
+    }
+
+    @Override
+    public void onEvent(Event event) {
+        if (!mc.player.hasVehicle()) {
+            return;
+        }
+
+        float speed = SPEED.floatValue();
+
+        Entity entity = mc.player.getVehicle();
+        Vec3d vel = entity.getVelocity();
+        double x = vel.x;
+        double y = 0;
+        double z = vel.z;
+        if (mc.options.jumpKey.isPressed()) {
+            y = speed;
+        } else if (mc.options.sprintKey.isPressed()) {
+            y = vel.y;
+        }
+
+        if (mc.options.forwardKey.isPressed()) {
+            float yr = entity.getYaw() * MathHelper.RADIANS_PER_DEGREE;
+
+            x = MathHelper.sin(-yr) * speed;
+            z = MathHelper.cos(yr) * speed;
+        }
+
+        entity.setVelocity(x, y, z);
+    }
+}

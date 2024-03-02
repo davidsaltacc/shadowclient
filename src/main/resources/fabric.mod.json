@@ -12,7 +12,7 @@
 	"environment": "*",
 	"entrypoints": {
 		"client": [
-			"net.shadowclient.fabric.FabricInitializer"
+			"net.justacoder.shadowclient.fabric.FabricInitializer"
 		]
 	},
 	"mixins": [
