@@ -118,7 +118,7 @@ public class SCMain {
         offset += 105;
 
         settingsframe.children.add(new SCBoolSetting(SCSettings.VanillaSpoof, settingsframe, 14));
-        settingsframe.children.add(new SCBoolSetting(SCSettings.WelcomeMessage, settingsframe, 28));
+        settingsframe.children.add(new SCBoolSetting(SCSettings.ChatMessages, settingsframe, 28));
 
         gui.searchFrame = new Frame("Search", offset, 5, 120, 14);
         gui.frames.add(gui.searchFrame);
@@ -166,6 +166,9 @@ public class SCMain {
     }
 
     public static void moduleToggleChatMessage(String moduleName, boolean enabled) {
+        if (!SCSettings.ChatMessages.booleanValue()) {
+            return;
+        }
         ChatUtils.sendMessageClient(ChatUtils.Colors.GRAY + "[" + ChatUtils.Colors.BLUE + "Shadow" + ChatUtils.Colors.GRAY + "] " + ChatUtils.Colors.GRAY + (enabled ? "Enabled " : "Disabled ") + ChatUtils.Colors.WHITE + moduleName + ChatUtils.Colors.GRAY + ".");
     }
 

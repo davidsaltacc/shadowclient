@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 public class SCSettings {
 
     public static final BooleanSetting VanillaSpoof = new BooleanSetting("Vanilla Spoof", true);
-    public static final BooleanSetting WelcomeMessage = new BooleanSetting("Welcome Msg", true);
+    public static final BooleanSetting ChatMessages = new BooleanSetting("Chat Messages", true);
 
     public static final int LOADING_SCREEN_BGND_COLOR = -16316644; // TODO make configurable maybe
 
