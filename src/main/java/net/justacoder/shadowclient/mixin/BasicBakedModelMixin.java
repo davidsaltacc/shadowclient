@@ -17,9 +17,7 @@ import java.util.List;
 @Mixin(BasicBakedModel.class)
 public abstract class BasicBakedModelMixin {
     @Inject(at = @At("HEAD"), method = "getQuads", cancellable = true)
-    private void onGetQuads(@Nullable BlockState state, @Nullable Direction face,
-        Random random, CallbackInfoReturnable<List<BakedQuad>> cir)
-    {
+    private void onGetQuads(@Nullable BlockState state, @Nullable Direction face, Random random, CallbackInfoReturnable<List<BakedQuad>> cir) {
         if (face != null || state == null) {
             return;
         }
