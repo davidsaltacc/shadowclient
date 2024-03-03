@@ -1,8 +1,10 @@
 package net.justacoder.shadowclient.mixin;
 
+import net.justacoder.shadowclient.main.event.EventManager;
+import net.justacoder.shadowclient.main.event.events.ShouldDrawSideEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockRenderView;
-import net.justacoder.shadowclient.main.module.ModuleManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,8 +21,14 @@ public abstract class SodiumFluidRendererMixin {
     @SuppressWarnings("UnresolvedMixinReference")
     @Inject(method = "isSideExposed", at = @At("HEAD"), cancellable = true)
     private void modifyIsSideExposed(BlockRenderView world, int x, int y, int z, Direction dir, float height, CallbackInfoReturnable<Boolean> cir) {
-        if (ModuleManager.XRayModule.enabled) {
-            cir.setReturnValue(true);
+
+        BlockPos pos = new BlockPos(x, y, z);
+        ShouldDrawSideEvent evt = new ShouldDrawSideEvent(world.getBlockState(pos), pos);
+
+        EventManager.fireEvent(evt);
+
+        if (evt.renderedSet) {
+            cir.setReturnValue(evt.rendered);
         }
     }
 

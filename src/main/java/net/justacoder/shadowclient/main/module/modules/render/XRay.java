@@ -100,7 +100,21 @@ public class XRay extends Module { // todo maybe add option to render blocks tra
                 "minecraft:large_amethyst_bud", "minecraft:amethyst_cluster",
                 "minecraft:budding_amethyst", "minecraft:respawn_anchor",
                 "minecraft:mossy_stone_bricks", "minecraft:spawner",
-                "minecraft:mob_spawner", "minecraft:nether_bricks"
+                "minecraft:mob_spawner", "minecraft:nether_bricks",
+                "minecraft:obsidian", "minecraft:stone_bricks",
+                "minecraft:cracked_stone_bricks", "minecraft:mossy_stone_bricks",
+                "minecraft:chiseled_stone_bricks", "minecraft:infested_stone",
+                "minecraft:infested_cobblestone", "minecraft:infested_stone_bricks",
+                "minecraft:infested_cracked_stone_bricks", "minecraft:infested_mossy_stone_bricks",
+                "minecraft:infested_chiseled_stone_bricks", "minecraft:infested_deepslate",
+                "minecraft:oak_log", "minecraft:spruce_log", "minecraft:birch_log",
+                "minecraft:jungle_log", "minecraft:acacia_log", "minecraft:dark_oak_log",
+                "minecraft:mangrove_log", "minecraft:cherry_log", "minecraft:crimson_stem",
+                "minecraft:warped_stem", "minecraft:oak_planks", "minecraft:spruce_planks",
+                "minecraft:birch_planks", "minecraft:jungle_planks", "minecraft:acacia_planks",
+                "minecraft:dark_oak_planks", "minecraft:mangrove_planks", "minecraft:cherry_planks",
+                "minecraft:bamboo_planks", "minecraft:crimson_planks", "minecraft:warped_planks",
+                "minecraft:bamboo"
             )
         ), Ores(
             List.of(
@@ -139,7 +153,18 @@ public class XRay extends Module { // todo maybe add option to render blocks tra
                 "minecraft:small_amethyst_bud", "minecraft:medium_amethyst_bud",
                 "minecraft:large_amethyst_bud", "minecraft:amethyst_cluster",
                 "minecraft:budding_amethyst", "minecraft:mossy_stone_bricks", "minecraft:spawner",
-                "minecraft:mob_spawner", "minecraft:nether_bricks"
+                "minecraft:mob_spawner", "minecraft:nether_bricks", "minecraft:obsidian", "minecraft:stone_bricks",
+                "minecraft:cracked_stone_bricks", "minecraft:mossy_stone_bricks",
+                "minecraft:chiseled_stone_bricks", "minecraft:infested_stone",
+                "minecraft:infested_cobblestone", "minecraft:infested_stone_bricks",
+                "minecraft:infested_cracked_stone_bricks", "minecraft:infested_mossy_stone_bricks",
+                "minecraft:infested_chiseled_stone_bricks", "minecraft:infested_deepslate",
+                "minecraft:oak_log", "minecraft:spruce_log", "minecraft:birch_log",
+                "minecraft:jungle_log", "minecraft:acacia_log", "minecraft:dark_oak_log",
+                "minecraft:mangrove_log", "minecraft:cherry_log", "minecraft:crimson_stem",
+                "minecraft:warped_stem", "minecraft:oak_planks", "minecraft:spruce_planks",
+                "minecraft:birch_planks", "minecraft:jungle_planks", "minecraft:acacia_planks",
+                "minecraft:dark_oak_planks"
             )
         );
 
