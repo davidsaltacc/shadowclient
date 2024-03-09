@@ -28,6 +28,7 @@
         "GameOptionsMixin",
         "GameRendererMixin",
         "GenericContainerScreenMixin",
+        "HeldItemRendererMixin",
         "InGameHudMixin",
         "InGameOverlayRendererMixin",
         "ItemEntityMixin",

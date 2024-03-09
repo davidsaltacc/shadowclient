@@ -97,6 +97,7 @@ public class ModuleManager {
     public static ClickTP ClickTPModule;
     public static LightOverlay LightOverlayModule;
     public static UnfocusedFPS UnfocusedFPSModule;
+    public static HideShield HideShieldModule;
 
     public static void registerModules() {
         AutoSprintModule = (AutoSprint) register(new AutoSprint());
@@ -170,6 +171,7 @@ public class ModuleManager {
         ClickTPModule = (ClickTP) register(new ClickTP());
         LightOverlayModule = (LightOverlay) register(new LightOverlay());
         UnfocusedFPSModule = (UnfocusedFPS) register(new UnfocusedFPS());
+        HideShieldModule = (HideShield) register(new HideShield());
     }
 
     public static Module register(Module module) {
