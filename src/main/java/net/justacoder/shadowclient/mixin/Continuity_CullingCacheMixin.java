@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
     targets = {"me.pepperbell.continuity.client.model.CullingCache"},
     remap = false
 )
-public abstract class ContinuityCullingCacheMixin {
+public abstract class Continuity_CullingCacheMixin {
 
     @SuppressWarnings("UnresolvedMixinReference")
     @Inject(method = "shouldCull(Lnet/minecraft/world/BlockRenderView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/Direction;)Z", at = @At("HEAD"), cancellable = true)

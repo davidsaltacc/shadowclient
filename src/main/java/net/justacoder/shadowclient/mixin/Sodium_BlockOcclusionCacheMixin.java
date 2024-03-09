@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
     "me.jellysquid.mods.sodium.client.render.chunk.compile.pipeline.BlockOcclusionCache", // > 5.0.0
     "me.jellysquid.mods.sodium.client.render.occlusion.BlockOcclusionCache"}, // < 5.0.0
     remap = false)
-public abstract class SodiumBlockOcclusionCacheMixin {
+public abstract class Sodium_BlockOcclusionCacheMixin {
     @SuppressWarnings("UnresolvedMixinReference")
     @Inject(at = @At("HEAD"), method = "shouldDrawSide", cancellable = true, remap = false)
     private void shouldDrawSide(BlockState state, BlockView reader, BlockPos pos, Direction face, CallbackInfoReturnable<Boolean> cir) {

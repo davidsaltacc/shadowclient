@@ -46,14 +46,14 @@
         "ShulkerBoxScreenMixin",
         "SimpleOptionMixin",
         "SlimeBlockMixin",
-        "SodiumBlockOcclusionCacheMixin",
-        "SodiumFluidRendererMixin",
+        "Sodium_BlockOcclusionCacheMixin",
+        "Sodium_FluidRendererMixin",
         "SplashOverlayMixin",
         "WindowMixin",
         "WorldRendererAccessor",
         "WorldRendererMixin"
     ],
     "mixins": [
-        "ContinuityCullingCacheMixin"
+        "Continuity_CullingCacheMixin"
     ]
 }

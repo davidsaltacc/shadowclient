@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
     targets = {"me.jellysquid.mods.sodium.client.render.chunk.compile.pipeline.FluidRenderer"},
     remap = false
 )
-public abstract class SodiumFluidRendererMixin {
+public abstract class Sodium_FluidRendererMixin {
 
     @SuppressWarnings("UnresolvedMixinReference")
     @Inject(method = "isSideExposed", at = @At("HEAD"), cancellable = true)
