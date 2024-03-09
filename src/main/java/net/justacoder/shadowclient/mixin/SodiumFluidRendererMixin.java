@@ -23,7 +23,7 @@ public abstract class SodiumFluidRendererMixin {
     private void modifyIsSideExposed(BlockRenderView world, int x, int y, int z, Direction dir, float height, CallbackInfoReturnable<Boolean> cir) {
 
         BlockPos pos = new BlockPos(x, y, z);
-        ShouldDrawSideEvent evt = new ShouldDrawSideEvent(world.getBlockState(pos), pos);
+        ShouldDrawSideEvent evt = new ShouldDrawSideEvent(world.getBlockState(pos));
 
         EventManager.fireEvent(evt);
 

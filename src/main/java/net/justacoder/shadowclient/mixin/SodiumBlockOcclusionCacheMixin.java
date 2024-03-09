@@ -21,7 +21,7 @@ public abstract class SodiumBlockOcclusionCacheMixin {
     @SuppressWarnings("UnresolvedMixinReference")
     @Inject(at = @At("HEAD"), method = "shouldDrawSide", cancellable = true, remap = false)
     private void shouldDrawSide(BlockState state, BlockView reader, BlockPos pos, Direction face, CallbackInfoReturnable<Boolean> cir) {
-        ShouldDrawSideEvent event = new ShouldDrawSideEvent(state, pos);
+        ShouldDrawSideEvent event = new ShouldDrawSideEvent(state);
 
         EventManager.fireEvent(event);
 

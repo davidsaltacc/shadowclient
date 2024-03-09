@@ -22,7 +22,7 @@ public abstract class BasicBakedModelMixin {
             return;
         }
 
-        ShouldDrawSideEvent event = new ShouldDrawSideEvent(state, null);
+        ShouldDrawSideEvent event = new ShouldDrawSideEvent(state);
         EventManager.fireEvent(event);
 
         if (!event.rendered && event.renderedSet) {

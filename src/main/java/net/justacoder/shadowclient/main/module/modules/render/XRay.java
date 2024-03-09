@@ -36,12 +36,12 @@ public class XRay extends Module { // todo maybe add option to render blocks tra
             return;
         }
         if (event instanceof ShouldDrawSideEvent evt) {
-            evt.setRendered(visible(evt.state.getBlock(), evt.pos));
+            evt.setRendered(visible(evt.state.getBlock()));
             return;
         }
         if (event instanceof RenderBlockEntityEvent evt) {
             BlockPos pos = evt.blockEntity.getPos();
-            if (!visible(mc.world.getBlockState(pos).getBlock(), pos)) {
+            if (!visible(mc.world.getBlockState(pos).getBlock())) {
                 event.cancel();
             }
         }
@@ -64,7 +64,7 @@ public class XRay extends Module { // todo maybe add option to render blocks tra
     }
 
 
-    public boolean visible(Block block, BlockPos pos) {
+    public boolean visible(Block block) {
         String n = Registries.BLOCK.getId(block).toString();
         int i = Collections.binarySearch(MODE.getEnumValue().blocks, n);
         return i >= 0;

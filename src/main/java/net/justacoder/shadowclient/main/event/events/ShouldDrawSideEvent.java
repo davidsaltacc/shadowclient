@@ -9,11 +9,9 @@ public class ShouldDrawSideEvent extends Event {
     public boolean rendered;
 
     public BlockState state;
-    public BlockPos pos;
 
-    public ShouldDrawSideEvent(BlockState s, BlockPos p) {
+    public ShouldDrawSideEvent(BlockState s) {
         state = s;
-        pos = p;
     }
 
     public void setRendered(boolean r) {

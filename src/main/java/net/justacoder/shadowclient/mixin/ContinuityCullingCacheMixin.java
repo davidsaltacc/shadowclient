@@ -23,7 +23,7 @@ public abstract class ContinuityCullingCacheMixin {
     @Inject(method = "shouldCull(Lnet/minecraft/world/BlockRenderView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/Direction;)Z", at = @At("HEAD"), cancellable = true)
     private void shouldCull(BlockRenderView blockView, BlockPos pos, BlockState state, Direction cullFace, CallbackInfoReturnable<Boolean> cir) {
 
-        ShouldDrawSideEvent evt = new ShouldDrawSideEvent(state, pos);
+        ShouldDrawSideEvent evt = new ShouldDrawSideEvent(state);
 
         EventManager.fireEvent(evt);
 
