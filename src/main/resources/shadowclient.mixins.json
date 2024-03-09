@@ -52,5 +52,8 @@
         "WindowMixin",
         "WorldRendererAccessor",
         "WorldRendererMixin"
+    ],
+    "mixins": [
+        "ContinuityCullingCacheMixin"
     ]
 }
