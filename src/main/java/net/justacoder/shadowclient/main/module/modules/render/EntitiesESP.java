@@ -1,5 +1,7 @@
 package net.justacoder.shadowclient.main.module.modules.render;
 
+import net.justacoder.shadowclient.main.annotations.DontSaveState;
+import net.justacoder.shadowclient.main.util.EntityCullingFix;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.AmbientEntity;
 import net.minecraft.entity.mob.Monster;
@@ -10,6 +12,7 @@ import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 
+@DontSaveState
 @SearchTags({"entitiesesp", "esp", "entity esp", "entities esp", "wallhack", "wall hack"})
 public class EntitiesESP extends Module {
 
@@ -39,5 +42,21 @@ public class EntitiesESP extends Module {
             color = new int[]{0, 255, 255};
         }
         return color;
+    }
+
+    @Override
+    public void onEnable() {
+
+        EntityCullingFix.disableCull();
+
+        super.onEnable();
+    }
+
+    @Override
+    public void onDisable() {
+
+        EntityCullingFix.enableCull();
+
+        super.onDisable();
     }
 }
