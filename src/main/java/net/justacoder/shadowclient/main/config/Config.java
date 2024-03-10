@@ -39,11 +39,13 @@ public class Config {
         Map<String, Module> modules = ModuleManager.getAllModules();
         modules.forEach((name, module) -> {
 
-            if (!module.getClass().isAnnotationPresent(DontSaveState.class)) {
 
                 JsonObject modulejson = new JsonObject();
 
-                modulejson.addProperty("enabled", module.enabled);
+                if (!module.getClass().isAnnotationPresent(DontSaveState.class)) {
+                    modulejson.addProperty("enabled", module.enabled);
+                }
+
                 if (module.moduleButton != null) {
                     modulejson.addProperty("extended", module.moduleButton.extended);
                 } else {
@@ -72,7 +74,7 @@ public class Config {
                 modulejson.add("settings", settings);
                 modulescontainer.add(name, modulejson);
 
-            }
+
         });
 
         clientdata.addProperty("version", SCMain.ClientVersion);
