@@ -238,7 +238,7 @@ public class Config {
             });
             try {
                 if (module != null) {
-                    if (!module.getClass().isAnnotationPresent(OneClick.class)) {
+                    if (!module.getClass().isAnnotationPresent(OneClick.class) && !module.getClass().isAnnotationPresent(DontSaveState.class)) {
                         SCMain.setModuleEnabled(name, object.get("enabled").getAsBoolean(), true, false);
                     }
                     if (module.moduleButton != null) {
