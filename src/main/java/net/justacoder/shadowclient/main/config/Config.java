@@ -142,7 +142,7 @@ public class Config {
 
         // config breaks when changing from 0.2.0 to 0.3.0
         text = text.replace("net.shadowclient", "net.justacoder.shadowclient");
-        text = text.replace("Welcome Msg", "Chat Messages");
+        text = text.replace("WelcomeMsg", "ChatMessages");
 
         JsonObject json = (new Gson()).fromJson(text, JsonObject.class);
         JsonObject clientdata = json.getAsJsonObject("client");

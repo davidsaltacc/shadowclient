@@ -177,7 +177,7 @@ public class SCMain {
     }
 
     public static void onWorldJoined() {
-        if (!SCSettings.getSetting("Chat Messages").booleanValue()) {
+        if (!SCSettings.getSetting("ChatMessages").booleanValue()) {
             return;
         }
         ChatUtils.sendMessageClient("§9§l§u" + ClientName + " §o" + ClientVersion + "§r\nType " + ClientCommandPrefix + "help for useful help.");
