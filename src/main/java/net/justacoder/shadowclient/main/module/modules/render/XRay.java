@@ -134,7 +134,13 @@ public class XRay extends Module { // todo maybe add option to render blocks tra
                 "minecraft:birch_planks", "minecraft:jungle_planks", "minecraft:acacia_planks",
                 "minecraft:dark_oak_planks", "minecraft:mangrove_planks", "minecraft:cherry_planks",
                 "minecraft:bamboo_planks", "minecraft:crimson_planks", "minecraft:warped_planks",
-                "minecraft:bamboo"
+                "minecraft:bamboo", "minecraft:slime_block", "minecraft:glass", "minecraft:glass_pane",
+                "minecraft:ladder", "minecraft:bed", "minecraft:white_bed", "minecraft:orange_bed",
+                "minecraft:magenta_bed", "minecraft:light_blue_bed", "minecraft:yellow_bed",
+                "minecraft:lime_bed", "minecraft:pink_bed", "minecraft:gray_bed",
+                "minecraft:light_gray_bed", "minecraft:cyan_bed", "minecraft:purple_bed",
+                "minecraft:blue_bed", "minecraft:brown_bed", "minecraft:green_bed",
+                "minecraft:red_bed", "minecraft:black_bed"
             ))
         ), Ores(
             new ArrayList<>(List.of(
@@ -163,12 +169,19 @@ public class XRay extends Module { // todo maybe add option to render blocks tra
                 "minecraft:enchanting_table", "minecraft:command_block",
                 "minecraft:chain_command_block", "minecraft:repeating_command_block",
                 "minecraft:item_frame", "minecraft:glow_item_frame", "minecraft:respawn_anchor",
-                "minecraft:spawner", "minecraft:mob_spawner"
+                "minecraft:spawner", "minecraft:mob_spawner", "minecraft:slime_block",
+                "minecraft:ladder", "minecraft:bed", "minecraft:white_bed", "minecraft:orange_bed",
+                "minecraft:magenta_bed", "minecraft:light_blue_bed", "minecraft:yellow_bed",
+                "minecraft:lime_bed", "minecraft:pink_bed", "minecraft:gray_bed",
+                "minecraft:light_gray_bed", "minecraft:cyan_bed", "minecraft:purple_bed",
+                "minecraft:blue_bed", "minecraft:brown_bed", "minecraft:green_bed",
+                "minecraft:red_bed", "minecraft:black_bed"
             ))
         ), NaturallySpawning(
             new ArrayList<>(List.of(
                 "minecraft:chest", "minecraft:glowstone", "minecraft:end_portal_frame",
-                "minecraft:suspicious_gravel", "minecraft:suspicious_sand",
+                "minecraft:suspicious_gravel", "minecraft:suspicious_sand", "minecraft:anvil",
+                "minecraft:chipped_anvil", "minecraft:damaged_anvil",
                 "minecraft:sculk", "minecraft:sculk_sensor", "minecraft:sculk_shrieker",
                 "minecraft:small_amethyst_bud", "minecraft:medium_amethyst_bud",
                 "minecraft:large_amethyst_bud", "minecraft:amethyst_cluster",
@@ -184,7 +197,13 @@ public class XRay extends Module { // todo maybe add option to render blocks tra
                 "minecraft:mangrove_log", "minecraft:cherry_log", "minecraft:crimson_stem",
                 "minecraft:warped_stem", "minecraft:oak_planks", "minecraft:spruce_planks",
                 "minecraft:birch_planks", "minecraft:jungle_planks", "minecraft:acacia_planks",
-                "minecraft:dark_oak_planks"
+                "minecraft:dark_oak_planks", "minecraft:glass", "minecraft:glass_pane",
+                "minecraft:ladder", "minecraft:bed", "minecraft:white_bed", "minecraft:orange_bed",
+                "minecraft:magenta_bed", "minecraft:light_blue_bed", "minecraft:yellow_bed",
+                "minecraft:lime_bed", "minecraft:pink_bed", "minecraft:gray_bed",
+                "minecraft:light_gray_bed", "minecraft:cyan_bed", "minecraft:purple_bed",
+                "minecraft:blue_bed", "minecraft:brown_bed", "minecraft:green_bed",
+                "minecraft:red_bed", "minecraft:black_bed"
             ))
         );
 
