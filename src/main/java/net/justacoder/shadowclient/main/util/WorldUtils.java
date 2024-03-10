@@ -6,7 +6,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.justacoder.shadowclient.main.SCMain;
 
-public class WorldUtils {
+public abstract class WorldUtils {
     public static boolean lineOfSight(Vec3d from, Vec3d to) {
         return raycast(from, to).getType() == HitResult.Type.MISS;
     }

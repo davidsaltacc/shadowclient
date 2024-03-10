@@ -2,7 +2,7 @@ package net.justacoder.shadowclient.main.util;
 
 import net.minecraft.util.math.MathHelper;
 
-public class ColorUtils {
+public abstract class ColorUtils {
 
     public static int RGB2int(int r, int g, int b) {
         return ((r & 0xFF) << 16) | ((g & 0xFF) << 8) + (b & 0xFF);

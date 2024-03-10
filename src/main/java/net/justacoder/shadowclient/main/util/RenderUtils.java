@@ -16,7 +16,7 @@ import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-public class RenderUtils {
+public abstract class RenderUtils {
 
     public static Vec3d getInterpolationOffset(Entity e) {
         if (MinecraftClient.getInstance().isPaused()) {

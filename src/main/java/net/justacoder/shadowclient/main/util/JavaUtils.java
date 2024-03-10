@@ -4,7 +4,7 @@ import net.justacoder.shadowclient.main.SCMain;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-public class JavaUtils {
+public abstract class JavaUtils {
     public static String stackTraceFromThrowable(Throwable e) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw, true);

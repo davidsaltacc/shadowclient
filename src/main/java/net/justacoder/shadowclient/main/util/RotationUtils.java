@@ -6,7 +6,7 @@ import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
-public class RotationUtils {
+public abstract class RotationUtils {
 
     private static final MinecraftClient mc = MinecraftClient.getInstance();
 

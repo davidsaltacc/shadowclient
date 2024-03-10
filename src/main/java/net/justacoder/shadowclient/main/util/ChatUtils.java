@@ -3,7 +3,7 @@ package net.justacoder.shadowclient.main.util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 
-public class ChatUtils {
+public abstract class ChatUtils {
     public static void sendMessageClient(String text) {
         MinecraftClient.getInstance().player.sendMessage(Text.of(text));
     }

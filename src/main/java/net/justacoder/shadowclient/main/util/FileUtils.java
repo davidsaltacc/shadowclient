@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class FileUtils {
+public abstract class FileUtils {
     public static boolean writeFile(Path path, String contents) {
         try {
             Files.writeString(path, contents);

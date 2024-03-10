@@ -5,7 +5,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.justacoder.shadowclient.main.SCMain;
 
-public class PlayerUtils {
+public abstract class PlayerUtils {
     public static Vec3d getHandOffset(Hand hand, double yaw) {
         Arm arm = SCMain.mc.options.getMainArm().getValue();
 
