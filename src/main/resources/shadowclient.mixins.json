@@ -18,6 +18,7 @@
         "ClientPlayerInteractionManagerMixin",
         "ClientPlayerNetworkHandlerMixin",
         "ClientWorldMixin",
+        "Continuity_CullingCacheMixin",
         "DeathScreenMixin",
         "EntityAccessor",
         "EntityMixin",
@@ -53,8 +54,5 @@
         "WindowMixin",
         "WorldRendererAccessor",
         "WorldRendererMixin"
-    ],
-    "mixins": [
-        "Continuity_CullingCacheMixin"
     ]
 }
