@@ -62,7 +62,7 @@ public abstract class JavaUtils {
             SCMain.error("Operating System not found, could not open web browser.");
 
         } catch (Exception e) {
-            SCMain.error(JavaUtils.stackTraceFromThrowable(e));
+            SCMain.error("Error opening web browser: \n" + JavaUtils.stackTraceFromThrowable(e));
         }
     }
 }
