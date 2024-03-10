@@ -56,6 +56,7 @@ public class SCMain {
 
     public static void init() {
         try {
+
             info("Starting " + ClientName + " " + ClientVersion);
             ToggleGUIKeyBinding = registerKeyBinding(
                 new KeyBinding(
@@ -73,8 +74,9 @@ public class SCMain {
             checkConflictingMods();
             Runtime.getRuntime().addShutdownHook(new Thread(SCMain::closed));
             info("Finished " + ClientName + " initialization");
+
         } catch (Exception e) {
-            error(JavaUtils.stackTraceFromThrowable(e));
+            error("Error starting client: \n" + JavaUtils.stackTraceFromThrowable(e));
         }
     }
 
