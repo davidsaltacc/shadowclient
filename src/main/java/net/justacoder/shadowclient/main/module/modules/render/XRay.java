@@ -17,19 +17,33 @@ import java.util.List;
 
 @DontSaveState
 @SearchTags({"xray", "x ray", "ore render", "mine help", "finder"})
-@EventListener({SetOpaqueCubeEvent.class, GetAmbientOcclusionLightLevelEvent.class, ShouldDrawSideEvent.class, RenderBlockEntityEvent.class})
+@EventListener({SetOpaqueCubeEvent.class, GetAmbientOcclusionLightLevelEvent.class, ShouldDrawSideEvent.class, RenderBlockEntityEvent.class, PreTickEvent.class})
 public class XRay extends Module { // todo maybe add option to render blocks translucently or something
 
     public EnumSetting<Mode> MODE = new EnumSetting<>("Mode", Mode.All);
 
+    private int lastMode = MODE.getEnumValue().hashCode();
+
     public XRay() {
         super("xray", "XRay", "Only render ores.", ModuleCategory.RENDER);
+
+        Collections.sort(Mode.All.blocks);
+        Collections.sort(Mode.Ores.blocks);
+        Collections.sort(Mode.Functional.blocks);
+        Collections.sort(Mode.NaturallySpawning.blocks);
 
         addSetting(MODE);
     }
 
     @Override
     public void onEvent(Event event) {
+        if (event instanceof PreTickEvent) {
+            if (lastMode != MODE.getEnumValue().hashCode()) {
+                lastMode = MODE.getEnumValue().hashCode();
+                mc.worldRenderer.reload();
+            }
+            return;
+        }
         if (event instanceof SetOpaqueCubeEvent) {
             event.cancel();
             return;
@@ -70,9 +84,7 @@ public class XRay extends Module { // todo maybe add option to render blocks tra
 
 
     public boolean visible(Block block) {
-        String n = Registries.BLOCK.getId(block).toString();
-        int i = Collections.binarySearch(MODE.getEnumValue().blocks, n);
-        return i >= 0;
+        return Collections.binarySearch(MODE.getEnumValue().blocks, Registries.BLOCK.getId(block).toString()) >= 0;
     }
 
     public enum Mode {
