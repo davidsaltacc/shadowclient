@@ -12,6 +12,7 @@ import net.justacoder.shadowclient.main.event.events.*;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.EnumSetting;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,6 +32,8 @@ public class XRay extends Module { // todo maybe add option to render blocks tra
         Collections.sort(Mode.Ores.blocks);
         Collections.sort(Mode.Functional.blocks);
         Collections.sort(Mode.NaturallySpawning.blocks);
+
+
 
         addSetting(MODE);
     }
@@ -89,7 +92,7 @@ public class XRay extends Module { // todo maybe add option to render blocks tra
 
     public enum Mode {
         All(
-            List.of(
+            new ArrayList<>(List.of(
                 "minecraft:ancient_debris", "minecraft:chest",
                 "minecraft:coal_block", "minecraft:coal_ore",
                 "minecraft:copper_ore", "minecraft:deepslate_coal_ore",
@@ -132,9 +135,9 @@ public class XRay extends Module { // todo maybe add option to render blocks tra
                 "minecraft:dark_oak_planks", "minecraft:mangrove_planks", "minecraft:cherry_planks",
                 "minecraft:bamboo_planks", "minecraft:crimson_planks", "minecraft:warped_planks",
                 "minecraft:bamboo"
-            )
+            ))
         ), Ores(
-            List.of(
+            new ArrayList<>(List.of(
                 "minecraft:ancient_debris", "minecraft:coal_block", "minecraft:coal_ore",
                 "minecraft:copper_ore", "minecraft:deepslate_coal_ore",
                 "minecraft:deepslate_copper_ore", "minecraft:deepslate_diamond_ore",
@@ -148,10 +151,10 @@ public class XRay extends Module { // todo maybe add option to render blocks tra
                 "minecraft:raw_copper_block", "minecraft:raw_gold_block", "minecraft:raw_iron_block",
                 "minecraft:redstone_block", "minecraft:redstone_ore", "minecraft:suspicious_gravel",
                 "minecraft:suspicious_sand"
-            )
+            ))
         ), Functional(
-            List.of(
-                "minecraft:chest", "minecraft:glowstone",  "minecraft:nether_portal",
+            new ArrayList<>(List.of(
+                "minecraft:chest", "minecraft:glowstone", "minecraft:nether_portal",
                 "minecraft:tnt", "minecraft:water", "minecraft:lava",
                 "minecraft:brewing_stand", "minecraft:crafting_table", "minecraft:furnace",
                 "minecraft:blast_furnace", "minecraft:smoker", "minecraft:anvil",
@@ -161,9 +164,9 @@ public class XRay extends Module { // todo maybe add option to render blocks tra
                 "minecraft:chain_command_block", "minecraft:repeating_command_block",
                 "minecraft:item_frame", "minecraft:glow_item_frame", "minecraft:respawn_anchor",
                 "minecraft:spawner", "minecraft:mob_spawner"
-            )
+            ))
         ), NaturallySpawning(
-            List.of(
+            new ArrayList<>(List.of(
                 "minecraft:chest", "minecraft:glowstone", "minecraft:end_portal_frame",
                 "minecraft:suspicious_gravel", "minecraft:suspicious_sand",
                 "minecraft:sculk", "minecraft:sculk_sensor", "minecraft:sculk_shrieker",
@@ -182,7 +185,7 @@ public class XRay extends Module { // todo maybe add option to render blocks tra
                 "minecraft:warped_stem", "minecraft:oak_planks", "minecraft:spruce_planks",
                 "minecraft:birch_planks", "minecraft:jungle_planks", "minecraft:acacia_planks",
                 "minecraft:dark_oak_planks"
-            )
+            ))
         );
 
         public final List<String> blocks;
