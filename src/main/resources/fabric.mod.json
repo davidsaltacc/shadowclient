@@ -9,7 +9,7 @@
 	],
 	"license": "MIT License",
 	"icon": "assets/shadowclient/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
 		"client": [
 			"net.justacoder.shadowclient.fabric.FabricInitializer"
