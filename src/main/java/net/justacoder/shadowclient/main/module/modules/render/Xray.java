@@ -19,14 +19,14 @@ import java.util.List;
 @DontSaveState
 @SearchTags({"xray", "x ray", "ore render", "mine help", "finder"})
 @EventListener({SetOpaqueCubeEvent.class, GetAmbientOcclusionLightLevelEvent.class, ShouldDrawSideEvent.class, RenderBlockEntityEvent.class, PreTickEvent.class})
-public class XRay extends Module { // todo maybe add option to render blocks translucently or something
+public class Xray extends Module { // todo maybe add option to render blocks translucently or something
 
     public EnumSetting<Mode> MODE = new EnumSetting<>("Mode", Mode.All);
 
     private int lastMode = MODE.getEnumValue().hashCode();
 
-    public XRay() {
-        super("xray", "XRay", "Only render ores.", ModuleCategory.RENDER);
+    public Xray() {
+        super("xray", "Xray", "Only render ores.", ModuleCategory.RENDER);
 
         Collections.sort(Mode.All.blocks);
         Collections.sort(Mode.Ores.blocks);

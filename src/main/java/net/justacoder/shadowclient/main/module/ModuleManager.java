@@ -87,7 +87,7 @@ public class ModuleManager {
     public static Blink BlinkModule;
     public static Trajectories TrajectoriesModule;
     public static Freecam FreecamModule;
-    public static XRay XRayModule;
+    public static Xray XrayModule;
     public static ShadowHud ShadowHudModule;
     public static NoOverlay NoOverlayModule;
     public static ChestSteal ChestStealModule;
@@ -161,7 +161,7 @@ public class ModuleManager {
         BlinkModule = (Blink) register(new Blink());
         TrajectoriesModule = (Trajectories) register(new Trajectories());
         FreecamModule = (Freecam) register(new Freecam());
-        XRayModule = (XRay) register(new XRay());
+        XrayModule = (Xray) register(new Xray());
         ShadowHudModule = (ShadowHud) register(new ShadowHud());
         NoOverlayModule = (NoOverlay) register(new NoOverlay());
         ChestStealModule = (ChestSteal) register(new ChestSteal());

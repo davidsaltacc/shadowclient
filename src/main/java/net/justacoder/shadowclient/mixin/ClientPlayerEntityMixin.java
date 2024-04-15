@@ -46,7 +46,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     @Override
     public boolean hasStatusEffect(StatusEffect effect) {
 
-        if (effect == StatusEffects.NIGHT_VISION && (ModuleManager.NightVisionModule.enabled || ModuleManager.XRayModule.enabled)) {
+        if (effect == StatusEffects.NIGHT_VISION && (ModuleManager.NightVisionModule.enabled || ModuleManager.XrayModule.enabled)) {
             return true;
         }
 
