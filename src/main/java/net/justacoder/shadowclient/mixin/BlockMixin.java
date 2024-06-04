@@ -26,7 +26,7 @@ public abstract class BlockMixin {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "shouldDrawSide", cancellable = true, remap = false)
+    @Inject(at = @At("HEAD"), method = "shouldDrawSide", cancellable = true)
     private static void shouldDrawSide(BlockState state, BlockView world, BlockPos pos, Direction side, BlockPos otherPos, CallbackInfoReturnable<Boolean> cir) {
         ShouldDrawSideEvent event = new ShouldDrawSideEvent(state);
 

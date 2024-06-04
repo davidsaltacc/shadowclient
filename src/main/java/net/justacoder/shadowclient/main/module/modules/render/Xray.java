@@ -12,12 +12,11 @@ import net.justacoder.shadowclient.main.event.events.*;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.EnumSetting;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @DontSaveState
-@SearchTags({"xray", "x ray", "ore render", "mine help", "finder"})
+@SearchTags({"xray", "x ray", "ore render", "mine help", "finder", "ore vision"})
 @EventListener({SetOpaqueCubeEvent.class, GetAmbientOcclusionLightLevelEvent.class, ShouldDrawSideEvent.class, RenderBlockEntityEvent.class, PreTickEvent.class})
 public class Xray extends Module { // todo maybe add option to render blocks translucently or something
 
@@ -32,8 +31,6 @@ public class Xray extends Module { // todo maybe add option to render blocks tra
         Collections.sort(Mode.Ores.blocks);
         Collections.sort(Mode.Functional.blocks);
         Collections.sort(Mode.NaturallySpawning.blocks);
-
-
 
         addSetting(MODE);
     }
@@ -87,6 +84,15 @@ public class Xray extends Module { // todo maybe add option to render blocks tra
 
 
     public boolean visible(Block block) {
+        if (MODE.getEnumValue() == Mode.No_GroundBlocks) {
+            AtomicBoolean found = new AtomicBoolean(false);
+            List.of("minecraft:dirt", "minecraft:stone", "minecraft:deepslate", "minecraft:netherrack", "minecraft:endstone", "minecraft:diorite", "minecraft:granite", "minecraft:andesite").forEach(stoneType -> {
+                if (Objects.equals(Registries.BLOCK.getId(block).toString(), stoneType)) {
+                    found.set(true);
+                }
+            });
+            return !found.get();
+        }
         return Collections.binarySearch(MODE.getEnumValue().blocks, Registries.BLOCK.getId(block).toString()) >= 0;
     }
 
@@ -205,6 +211,9 @@ public class Xray extends Module { // todo maybe add option to render blocks tra
                 "minecraft:blue_bed", "minecraft:brown_bed", "minecraft:green_bed",
                 "minecraft:red_bed", "minecraft:black_bed"
             ))
+        ),
+        No_GroundBlocks(
+            new ArrayList<>()
         );
 
         public final List<String> blocks;

@@ -1,2 +1,2 @@
-# shadowclient
-hack client for minecraft
+# Shadowclient
+Hack & Utility client for Minecraft.

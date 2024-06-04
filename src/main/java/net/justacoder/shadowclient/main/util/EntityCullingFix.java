@@ -6,18 +6,15 @@ import java.lang.reflect.Field;
 public abstract class EntityCullingFix {
 
     private static void setShouldCull(boolean cull) {
-
         try {
-
             Class<?> configClass = Class.forName("dev.tr7zw.entityculling.EntityCullingModBase");
             Field enabledField = configClass.getDeclaredField("enabled");
             enabledField.setBoolean(null, cull);
-
         } catch (ClassNotFoundException ignored) { // entityCulling not installed
+            SCMain.info("EntityCulling not installed. Skipping force " + (cull ? "enable" : "disable"));
         } catch (Exception e) {
-            SCMain.error("Error force enabling/disabling Entity Culling: \n" + JavaUtils.stackTraceFromThrowable(e));
+            SCMain.error("Error force " + (cull ? "enabling" : "disabling") + " Entity Culling: \n" + JavaUtils.stackTraceFromThrowable(e));
         }
-
     }
 
     private static int enable; // 0: enable 1+: don't

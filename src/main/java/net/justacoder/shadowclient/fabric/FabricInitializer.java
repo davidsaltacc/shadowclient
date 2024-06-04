@@ -9,7 +9,6 @@ import net.justacoder.shadowclient.main.SCMain;
 public class FabricInitializer implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-
 		SCMain.init();
 	}
 }
