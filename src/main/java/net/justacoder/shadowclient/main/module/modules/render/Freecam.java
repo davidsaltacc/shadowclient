@@ -88,6 +88,13 @@ public class Freecam extends Module {
             fakePlayer.despawn();
         }
 
+        forward = false;
+        backward = false;
+        left = false;
+        right = false;
+        up = false;
+        down = false;
+
         super.onDisable();
     }
 
