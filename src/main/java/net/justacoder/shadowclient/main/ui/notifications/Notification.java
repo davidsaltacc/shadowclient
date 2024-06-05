@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.ui.notifications;
 
+import net.justacoder.shadowclient.main.ui.CustomFont;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.SCMain;
@@ -36,30 +37,30 @@ public class Notification {
         offY = offsetY;
         boolean hovered = isHovered(mouseX, mouseY, offsetX, offsetY);
         context.fill(offsetX, offsetY, offsetX + getWidth(), offsetY + getHeight(), hovered ? Colors.NOTIFICATION_HOVERED.color : Colors.NOTIFICATION_NORMAL.color);
-        context.drawTextWithShadow(mc.textRenderer, title, offsetX + 5, offsetY + 5, Colors.TEXT_NORMAL.color);
-        context.drawHorizontalLine(offsetX + 5, offsetX + getWidth() - 5, offsetY + 10 + mc.textRenderer.fontHeight, Colors.HORIZONTAL_LINE.color);
-        AtomicInteger offset = new AtomicInteger(15 + mc.textRenderer.fontHeight); // java this is annoying
+        context.drawTextWithShadow(CustomFont.renderer, title, offsetX + 5, offsetY + 5, Colors.TEXT_NORMAL.color);
+        context.drawHorizontalLine(offsetX + 5, offsetX + getWidth() - 5, offsetY + 10 + CustomFont.renderer.fontHeight, Colors.HORIZONTAL_LINE.color);
+        AtomicInteger offset = new AtomicInteger(15 + CustomFont.renderer.fontHeight); // java this is annoying
         desc.forEach((line) -> {
-            context.drawTextWithShadow(mc.textRenderer, line, offsetX + 5, offsetY + offset.get(), Colors.TEXT_NORMAL.color);
-            offset.addAndGet(5 + mc.textRenderer.fontHeight);
+            context.drawTextWithShadow(CustomFont.renderer, line, offsetX + 5, offsetY + offset.get(), Colors.TEXT_NORMAL.color);
+            offset.addAndGet(5 + CustomFont.renderer.fontHeight);
         });
         context.drawHorizontalLine(offsetX + 5, offsetX + getWidth() - 5, offsetY + offset.get(), Colors.HORIZONTAL_LINE.color);
-        context.drawTextWithShadow(mc.textRenderer, "Click to Dismiss.", offsetX + 5, offsetY + offset.get() + 5, Colors.TEXT_DISABLED.color);
+        context.drawTextWithShadow(CustomFont.renderer, "Click to Dismiss.", offsetX + 5, offsetY + offset.get() + 5, Colors.TEXT_DISABLED.color);
     }
 
     public int getHeight() {
         if (height == -999) {
-            height = mc.textRenderer.fontHeight + 10 +          // title
-                (mc.textRenderer.fontHeight + 5) * (desc.size() // desc
-                + 1) + 10;                                       // dismiss text
+            height = CustomFont.renderer.fontHeight + 10 +          // title
+                (CustomFont.renderer.fontHeight + 5) * (desc.size() // desc
+                + 1) + 10;                                          // dismiss text
         }
         return height;
     }
     public int getWidth() {
         if (width == -999) {
-            int[] longest = {0}; // java, why
+            int[] longest = {0};
             desc.forEach((line) -> {
-                int w = mc.textRenderer.getWidth(line);
+                int w = CustomFont.renderer.getWidth(line);
                 if (w > longest[0]) {
                     longest[0] = w;
                 }

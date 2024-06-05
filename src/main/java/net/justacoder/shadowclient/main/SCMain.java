@@ -56,7 +56,6 @@ public class SCMain {
 
     public static void init() {
         try {
-
             info("Starting " + ClientName + " " + ClientVersion);
             ToggleGUIKeyBinding = registerKeyBinding(
                 new KeyBinding(

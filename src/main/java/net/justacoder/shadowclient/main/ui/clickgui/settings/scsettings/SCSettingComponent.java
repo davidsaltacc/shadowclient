@@ -7,7 +7,7 @@ import net.justacoder.shadowclient.main.ui.clickgui.Colors;
 import net.justacoder.shadowclient.main.ui.clickgui.Frame;
 import net.justacoder.shadowclient.main.ui.clickgui.FrameChild;
 
-public class SCSettingComponent extends FrameChild {
+public abstract class SCSettingComponent extends FrameChild {
 
     public final Setting setting;
     public final Frame parent;

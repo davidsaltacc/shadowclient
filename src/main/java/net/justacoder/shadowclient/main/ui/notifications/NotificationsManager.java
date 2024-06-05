@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class NotificationsManager {
+public abstract class NotificationsManager {
 
     public static List<Notification> notifications = new ArrayList<>();
 

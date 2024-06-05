@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.ui.clickgui.settings.scsettings.components;
 
+import net.justacoder.shadowclient.main.ui.CustomFont;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
@@ -26,9 +27,9 @@ public class SCBoolSetting extends SCSettingComponent {
         } else {
             context.fill(parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, Colors.SETTING_COMPONENT_NORMAL.color);
         }
-        int textOffset = (parent.height / 2 - mc.textRenderer.fontHeight / 2);
+        int textOffset = (parent.height / 2 - CustomFont.renderer.fontHeight / 2);
 
-        context.drawTextWithShadow(mc.textRenderer, booleanSetting.name + ": " + booleanSetting.booleanValue(), parent.x + textOffset, parent.y + offset + textOffset, getTextColor());
+        context.drawTextWithShadow(CustomFont.renderer, booleanSetting.name + ": " + booleanSetting.booleanValue(), parent.x + textOffset, parent.y + offset + textOffset, getTextColor());
 
         super.render(context, mouseX, mouseY, delta);
     }

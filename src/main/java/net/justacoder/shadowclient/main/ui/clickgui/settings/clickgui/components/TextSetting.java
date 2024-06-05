@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components;
 
+import net.justacoder.shadowclient.main.ui.CustomFont;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.settings.StringSetting;
@@ -34,8 +35,8 @@ public class TextSetting extends SettingComponent {
         } else {
             context.fill(parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, Colors.MODULE_BUTTON_NORMAL.color);
         }
-        int textOffset = (parent.parent.height / 2 - parent.parent.mc.textRenderer.fontHeight / 2);
-        context.drawTextWithShadow(mc.textRenderer, stringSetting.stringValue().length() == 0 ? placeholder :  stringSetting.stringValue().toLowerCase(), parent.parent.x + textOffset, parent.parent.y + parent.offset + offset + textOffset, stringSetting.stringValue().length() == 0 ? Colors.TEXT_DISABLED.color : Colors.TEXT_NORMAL.color);
+        int textOffset = (parent.parent.height / 2 - CustomFont.renderer.fontHeight / 2);
+        context.drawTextWithShadow(CustomFont.renderer, stringSetting.stringValue().length() == 0 ? placeholder :  stringSetting.stringValue().toLowerCase(), parent.parent.x + textOffset, parent.parent.y + parent.offset + offset + textOffset, stringSetting.stringValue().length() == 0 ? Colors.TEXT_DISABLED.color : Colors.TEXT_NORMAL.color);
     }
 
     public void mouseClicked(double mouseX, double mouseY, int button) {
