@@ -1,6 +1,5 @@
 package net.justacoder.shadowclient.main.ui;
 
-import net.justacoder.shadowclient.main.SCMain;
 import net.justacoder.shadowclient.mixin.FontManagerAccessor;
 import net.justacoder.shadowclient.mixin.MinecraftClientAccessor;
 import net.minecraft.client.MinecraftClient;
@@ -28,10 +27,11 @@ public abstract class CustomFont {
     }
 
     public static void initTextRenderer() {
-        Pair<TextRenderer, Boolean> textRendererAndDefault = getTextRenderer();
-        renderer = textRendererAndDefault.getLeft();
-        if (textRendererAndDefault.getRight()) {
-            SCMain.error("Error initializing TTF renderer, defaulting to minecraft font");
-        }
+        renderer = mc.textRenderer;
+        //Pair<TextRenderer, Boolean> textRendererAndDefault = getTextRenderer();
+        //renderer = textRendererAndDefault.getLeft();
+        //if (textRendererAndDefault.getRight()) {
+        //    SCMain.error("Error initializing TTF renderer, defaulting to minecraft font");
+        //}
     }
 }
