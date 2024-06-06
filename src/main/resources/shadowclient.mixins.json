@@ -26,7 +26,6 @@
         "FishingBobberEntityMixin",
         "FluidRendererMixin",
         "FontManagerAccessor",
-        "FontManagerMixin",
         "GameMenuScreenMixin",
         "GameOptionsMixin",
         "GameRendererMixin",

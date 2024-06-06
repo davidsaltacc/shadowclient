@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.mixin;
 
+import net.justacoder.shadowclient.main.ui.CustomFont;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
@@ -91,11 +92,16 @@ public abstract class MinecraftClientMixin {
         ModuleManager.getAllModules().forEach((n, m) -> m.postInit());
     }
 
-   @Inject(method = "getFramerateLimit", at = @At("HEAD"), cancellable = true)
-   private void onGetFramerateLimit(CallbackInfoReturnable<Integer> cir) {
-       UnfocusedFPS ufps = ModuleManager.UnfocusedFPSModule;
-       if (ufps.enabled && !isWindowFocused()) {
-           cir.setReturnValue(Math.min(ufps.getFps(), options.getMaxFps().getValue()));
-       }
-   }
+    @Inject(method = "getFramerateLimit", at = @At("HEAD"), cancellable = true)
+    private void onGetFramerateLimit(CallbackInfoReturnable<Integer> cir) {
+        UnfocusedFPS ufps = ModuleManager.UnfocusedFPSModule;
+        if (ufps.enabled && !isWindowFocused()) {
+            cir.setReturnValue(Math.min(ufps.getFps(), options.getMaxFps().getValue()));
+        }
+    }
+
+    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;initFont(Z)V", shift = At.Shift.AFTER))
+    private void createTTFRenderer(RunArgs args, CallbackInfo ci) {
+        CustomFont.initTextRenderer();
+    }
 }
