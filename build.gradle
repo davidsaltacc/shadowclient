@@ -38,8 +38,8 @@ tasks.withType(JavaCompile).configureEach {
 	it.options.release = 17
 	it.options.compilerArgs << "-Xlint:deprecation"
 	it.options.compilerArgs << "-Xlint:unchecked"
+	options.fork = true
 }
-
 
 java {
 	withSourcesJar()
