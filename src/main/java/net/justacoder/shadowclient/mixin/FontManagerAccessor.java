@@ -11,9 +11,9 @@ import java.util.Map;
 public interface FontManagerAccessor {
 
     @Accessor("fontStorages")
-    public Map<Identifier, FontStorage> getFontStorages();
+    Map<Identifier, FontStorage> getFontStorages();
 
     @Accessor("missingStorage")
-    public FontStorage getMissingStorage();
+    FontStorage getMissingStorage();
 
 }

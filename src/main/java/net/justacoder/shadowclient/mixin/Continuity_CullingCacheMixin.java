@@ -1,7 +1,5 @@
 package net.justacoder.shadowclient.mixin;
 
-import net.justacoder.shadowclient.main.event.EventManager;
-import net.justacoder.shadowclient.main.event.events.ShouldDrawSideEvent;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
