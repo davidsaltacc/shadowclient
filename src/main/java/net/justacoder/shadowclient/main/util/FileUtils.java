@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -33,6 +34,9 @@ public abstract class FileUtils {
             AtomicReference<String> contents = new AtomicReference<>(""); // i hate java
             Files.readAllLines(path).forEach((line) -> contents.set(contents.get() + line + "\n"));
             return contents.get();
+        } catch (NoSuchFileException e) {
+            SCMain.error("Tried to read nonexistent file " + path);
+            return null;
         } catch (IOException e) {
             SCMain.error("Failed to read file: " + path + " " + e);
             e.printStackTrace();
