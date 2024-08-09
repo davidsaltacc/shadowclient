@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.main.ui.notifications;
 
-import net.justacoder.shadowclient.main.ui.CustomFont;
+import net.justacoder.shadowclient.main.ui.font.SCFont;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.SCMain;
@@ -37,22 +37,23 @@ public class Notification {
         offY = offsetY;
         boolean hovered = isHovered(mouseX, mouseY, offsetX, offsetY);
         context.fill(offsetX, offsetY, offsetX + getWidth(), offsetY + getHeight(), hovered ? Colors.NOTIFICATION_HOVERED.color : Colors.NOTIFICATION_NORMAL.color);
-        context.drawTextWithShadow(CustomFont.renderer, title, offsetX + 5, offsetY + 5, Colors.TEXT_NORMAL.color);
-        context.drawHorizontalLine(offsetX + 5, offsetX + getWidth() - 5, offsetY + 10 + CustomFont.renderer.fontHeight, Colors.HORIZONTAL_LINE.color);
-        AtomicInteger offset = new AtomicInteger(15 + CustomFont.renderer.fontHeight); // java this is annoying
+        SCFont.renderString(context, title, offsetX + 5, offsetY + 5, Colors.TEXT_NORMAL.color);
+        context.drawHorizontalLine(offsetX + 5, offsetX + getWidth() - 5, offsetY + 10 + (int) SCFont.getHeight(), Colors.HORIZONTAL_LINE.color);
+        AtomicInteger offset = new AtomicInteger(15 + (int) SCFont.getHeight()); // java this is annoying
         desc.forEach((line) -> {
-            context.drawTextWithShadow(CustomFont.renderer, line, offsetX + 5, offsetY + offset.get(), Colors.TEXT_NORMAL.color);
-            offset.addAndGet(5 + CustomFont.renderer.fontHeight);
+            SCFont.renderString(context, line, offsetX + 5, offsetY + offset.get(), Colors.TEXT_NORMAL.color);
+            offset.addAndGet(5 + (int) SCFont.getHeight());
         });
         context.drawHorizontalLine(offsetX + 5, offsetX + getWidth() - 5, offsetY + offset.get(), Colors.HORIZONTAL_LINE.color);
-        context.drawTextWithShadow(CustomFont.renderer, "Click to Dismiss.", offsetX + 5, offsetY + offset.get() + 5, Colors.TEXT_DISABLED.color);
+        SCFont.renderString(context, "Click to Dismiss.", offsetX + 5, offsetY + offset.get() + 5, Colors.TEXT_DISABLED.color);
+
     }
 
     public int getHeight() {
         if (height == -999) {
-            height = CustomFont.renderer.fontHeight + 10 +          // title
-                (CustomFont.renderer.fontHeight + 5) * (desc.size() // desc
-                + 1) + 10;                                          // dismiss text
+            height = (int) SCFont.getHeight() + 10 +          // title
+                ((int) SCFont.getHeight() + 5) * (desc.size() // desc
+                + 1) + 10;                                    // dismiss text
         }
         return height;
     }
@@ -60,7 +61,7 @@ public class Notification {
         if (width == -999) {
             int[] longest = {0};
             desc.forEach((line) -> {
-                int w = CustomFont.renderer.getWidth(line);
+                int w = (int) SCFont.getWidth(line);
                 if (w > longest[0]) {
                     longest[0] = w;
                 }

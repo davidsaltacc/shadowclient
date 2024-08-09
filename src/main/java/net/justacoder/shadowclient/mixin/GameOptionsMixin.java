@@ -1,6 +1,7 @@
 package net.justacoder.shadowclient.mixin;
 
 import com.google.common.collect.Lists;
+import net.justacoder.shadowclient.main.ui.font.SCFont;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.KeyBinding;
 import net.justacoder.shadowclient.main.SCMain;
@@ -15,15 +16,17 @@ import java.util.List;
 
 @Mixin(GameOptions.class)
 public abstract class GameOptionsMixin {
+
     @Mutable
     @Final
     @Shadow
     public KeyBinding[] allKeys;
 
-    @Inject(at = @At("HEAD"), method = "load()V")
+    @Inject(method = "load", at = @At("HEAD"))
     public void onLoad(CallbackInfo info) {
         List<KeyBinding> binds = Lists.newArrayList(allKeys);
         binds.addAll(SCMain.keyBindings);
         allKeys = binds.toArray(new KeyBinding[0]);
     }
+
 }

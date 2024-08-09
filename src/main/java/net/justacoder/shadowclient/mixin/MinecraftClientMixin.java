@@ -1,6 +1,7 @@
 package net.justacoder.shadowclient.mixin;
 
-import net.justacoder.shadowclient.main.ui.CustomFont;
+import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ui.font.SCFont;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
@@ -35,7 +36,7 @@ public abstract class MinecraftClientMixin {
     @Shadow public abstract boolean isWindowFocused();
     @Shadow @Final public GameOptions options;
 
-    /** mixin won't shut. IDK why.
+    /**
      * @author ...
      * @reason ...
      */
@@ -101,7 +102,8 @@ public abstract class MinecraftClientMixin {
     }
 
     @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;initFont(Z)V", shift = At.Shift.AFTER))
-    private void createTTFRenderer(RunArgs args, CallbackInfo ci) {
-        CustomFont.initTextRenderer();
+    private void initCustomFont(RunArgs args, CallbackInfo ci) {
+        SCMain.guiScaleOption = SCMain.mc.options.getGuiScale();
+        SCFont.initializeFont();
     }
 }

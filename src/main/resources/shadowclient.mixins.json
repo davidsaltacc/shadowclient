@@ -45,6 +45,7 @@
         "PlayerEntityMixin",
         "PlayerListHudMixin",
         "PowderSnowBlockMixin",
+        "RenderSystemAccessor",
         "RenderTickCounterMixin",
         "ScreenMixin",
         "ShulkerBoxScreenMixin",

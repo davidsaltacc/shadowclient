@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
-import net.justacoder.shadowclient.main.ui.CustomFont;
+import net.justacoder.shadowclient.main.ui.font.SCFont;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.SCMain;
 import net.justacoder.shadowclient.main.annotations.Hidden;
@@ -64,9 +64,9 @@ public class ModuleButton extends FrameChild {
            color = Colors.MODULE_BUTTON_HOVERED.color;
         }
         context.fill(parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, color);
-        int textOffset = (parent.height / 2 - CustomFont.renderer.fontHeight / 2);
+        int textOffset = (int) ((float) parent.height / 2 - SCFont.getHeight() / 2);
 
-        context.drawTextWithShadow(CustomFont.renderer, module.friendlyName, parent.x + textOffset, parent.y + offset + textOffset, getTextColor());
+        SCFont.renderString(context, module.friendlyName, parent.x + textOffset, parent.y + offset + textOffset, getTextColor());
 
         if (extended) {
             for (SettingComponent component : components) {
@@ -78,12 +78,12 @@ public class ModuleButton extends FrameChild {
     public void renderDescription(DrawContext context, int mouseX, int mouseY) {
         int color = Colors.MODULE_BUTTON_NORMAL.color;
 
-        int width = CustomFont.renderer.getWidth(module.description);
-        int textOffset = (parent.height / 2 - CustomFont.renderer.fontHeight / 2);
+        int width = (int) SCFont.getWidth(module.description);
+        int textOffset = (int) ((float) parent.height / 2 - SCFont.getHeight() / 2);
 
         context.fill(parent.x + parent.width, parent.y + offset, parent.x + parent.width + width + textOffset * 2, parent.y + offset + parent.height, color);
 
-        context.drawTextWithShadow(CustomFont.renderer, module.description, parent.x + parent.width + textOffset, parent.y + offset + textOffset, Colors.TEXT_NORMAL.color);
+        SCFont.renderString(context, module.description, parent.x + parent.width + textOffset, parent.y + offset + textOffset, Colors.TEXT_NORMAL.color);
     }
 
     public void mouseClicked(double mouseX, double mouseY, int button) {

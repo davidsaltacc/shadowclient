@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components;
 
-import net.justacoder.shadowclient.main.ui.CustomFont;
+import net.justacoder.shadowclient.main.ui.font.SCFont;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
@@ -41,9 +41,9 @@ public class SliderSetting extends SettingComponent {
             }
         }
 
-        int textOffset = (parent.parent.height / 2 - CustomFont.renderer.fontHeight / 2);
+        int textOffset = (int) ((float) parent.parent.height / 2 - SCFont.getHeight() / 2);
 
-        context.drawTextWithShadow(CustomFont.renderer, numberSetting.name + ": " + MathUtils.roundToPlace(numberSetting.numberValue().floatValue(), 3), parent.parent.x + textOffset, parent.parent.y + parent.offset + offset + textOffset, Colors.TEXT_NORMAL.color);
+        SCFont.renderString(context, numberSetting.name + ": " + MathUtils.roundToPlace(numberSetting.numberValue().floatValue(), 3), parent.parent.x + textOffset, parent.parent.y + parent.offset + offset + textOffset, Colors.TEXT_NORMAL.color);
 
         super.render(context, mouseX, mouseY, delta);
     }

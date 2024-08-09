@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main;
 
+import com.google.gson.internal.LinkedTreeMap;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModMetadata;
@@ -7,6 +8,7 @@ import net.minecraft.Bootstrap;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.option.SimpleOption;
 import net.minecraft.client.util.InputUtil;
 import net.justacoder.shadowclient.main.command.CommandManager;
 import net.justacoder.shadowclient.main.config.Config;
@@ -27,10 +29,7 @@ import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -53,6 +52,7 @@ public class SCMain {
     public static List<KeyBinding> keyBindings = new ArrayList<>();
 
     public static KeyBinding ToggleGUIKeyBinding;
+    public static SimpleOption<Integer> guiScaleOption;
 
     public static void init() {
         try {
@@ -101,7 +101,6 @@ public class SCMain {
         int largestInt = largest.orElse(0);
         map.put(category, largestInt + 1);
     }
-
 
     public static void initSettingsScreen(ClickGUI gui) {
         int offset = 5;

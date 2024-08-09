@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.main.ui.clickgui.text;
 
-import net.justacoder.shadowclient.main.ui.CustomFont;
+import net.justacoder.shadowclient.main.ui.font.SCFont;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.ui.clickgui.Colors;
 import net.justacoder.shadowclient.main.ui.clickgui.Frame;
@@ -38,8 +38,8 @@ public class TextField extends FrameChild {
         } else {
             context.fill(getParentFrame().x, getParentFrame().y + offset, getParentFrame().x + getParentFrame().width, getParentFrame().y + offset + getParentFrame().height, Colors.MODULE_BUTTON_NORMAL.color);
         }
-        int textOffset = (getParentFrame().height / 2 - CustomFont.renderer.fontHeight / 2);
-        context.drawTextWithShadow(CustomFont.renderer, text.length() == 0 ? placeholder : text.toLowerCase(), getParentFrame().x + textOffset, getParentFrame().y + offset + textOffset, text.length() == 0 ? Colors.TEXT_DISABLED.color : Colors.TEXT_NORMAL.color);
+        int textOffset = (int) ((float) getParentFrame().height / 2 - SCFont.getHeight() / 2);
+        SCFont.renderString(context, text.isEmpty() ? placeholder : text.toLowerCase(), getParentFrame().x + textOffset, getParentFrame().y + offset + textOffset, text.isEmpty() ? Colors.TEXT_DISABLED.color : Colors.TEXT_NORMAL.color);
     }
 
     public void mouseClicked(double mouseX, double mouseY, int button) {
