@@ -20,7 +20,7 @@ public abstract class WindowMixin {
         ci.cancel();
     }
 
-    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lorg/lwjgl/glfw/GLFW;glfwMakeContextCurrent(J)V", shift = At.Shift.AFTER))
+    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lorg/lwjgl/glfw/GLFW;glfwMakeContextCurrent(J)V", shift = At.Shift.AFTER, remap = false))
     private void onceGLFWContextCurrent(WindowEventHandler eventHandler, MonitorTracker monitorTracker, WindowSettings settings, String videoMode, String title, CallbackInfo ci) {
         SCMain.clickGui.repositionFramesProperly();
     }

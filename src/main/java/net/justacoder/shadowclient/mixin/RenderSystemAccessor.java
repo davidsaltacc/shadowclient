@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(RenderSystem.class)
 public interface RenderSystemAccessor {
 
-    @Accessor("shaderTextures")
+    @Accessor(value = "shaderTextures", remap = false)
     static int[] getShaderTextures() { return new int[1]; }
 
 }
