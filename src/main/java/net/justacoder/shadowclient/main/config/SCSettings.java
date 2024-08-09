@@ -12,7 +12,7 @@ public class SCSettings {
     public static final BooleanSetting VanillaSpoof = new BooleanSetting("Vanilla Spoof", true);
     public static final BooleanSetting ChatMessages = new BooleanSetting("Chat Messages", true);
 
-    public static final int LOADING_SCREEN_BGND_COLOR = -16316644; // TODO make configurable maybe
+    public static final int LOADING_SCREEN_BGND_COLOR = -14997957; // TODO make configurable maybe
 
     public static @Nullable Setting getSetting(String name) {
         JsonObject settings = Config.getSCSettings();
