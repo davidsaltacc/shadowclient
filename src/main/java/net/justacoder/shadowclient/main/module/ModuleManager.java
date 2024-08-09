@@ -1,8 +1,8 @@
 package net.justacoder.shadowclient.main.module;
 
+import net.justacoder.shadowclient.main.SCMain;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.justacoder.shadowclient.main.SCMain;
 import net.justacoder.shadowclient.main.annotations.EventListener;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.EventManager;
@@ -98,6 +98,7 @@ public class ModuleManager {
     public static LightOverlay LightOverlayModule;
     public static UnfocusedFPS UnfocusedFPSModule;
     public static HideShield HideShieldModule;
+    public static ConfigureKeybindings ConfigureKeybindingsModule;
 
     public static void registerModules() {
         AutoSprintModule = (AutoSprint) register(new AutoSprint());
@@ -172,10 +173,12 @@ public class ModuleManager {
         LightOverlayModule = (LightOverlay) register(new LightOverlay());
         UnfocusedFPSModule = (UnfocusedFPS) register(new UnfocusedFPS());
         HideShieldModule = (HideShield) register(new HideShield());
+        ConfigureKeybindingsModule = (ConfigureKeybindings) register(new ConfigureKeybindings());
     }
 
     public static Module register(Module module) {
         modules.put(module.moduleName, module);
+        module.keyBinding = new KeyBinding("module.shadowclient." + module.moduleName, InputUtil.UNKNOWN_KEY.getCode(), "category.shadowclient.modulecategory");
         if (module.getClass().isAnnotationPresent(EventListener.class)) {
             for (Class<? extends Event> evtcl : module.getClass().getAnnotation(EventListener.class).value()) {
                 EventManager.addModule(module, evtcl);
@@ -205,4 +208,9 @@ public class ModuleManager {
         return modules;
     }
 
+    public static void startKeybindConfiguration() {
+    }
+
+    public static void endKeybindConfiguration() {
+    }
 }

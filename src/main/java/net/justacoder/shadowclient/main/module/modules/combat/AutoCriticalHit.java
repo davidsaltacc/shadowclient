@@ -16,7 +16,7 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 public class AutoCriticalHit extends Module {
 
     public AutoCriticalHit() {
-        super("autocrit", "Criticals", "Automatically land critical hits every time. ", ModuleCategory.COMBAT);
+        super("autocrit", "Automatically land critical hits every time. ", ModuleCategory.COMBAT);
     }
 
     @Override

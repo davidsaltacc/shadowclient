@@ -7,6 +7,6 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 @SearchTags({"no levitation", "anti levitation", "anti shulker"})
 public class NoLevitation extends Module {
     public NoLevitation() {
-        super("nolevitation", "No Levitation", "Stops levitation from working. ", ModuleCategory.RENDER);
+        super("nolevitation", "Stops levitation from working. ", ModuleCategory.RENDER);
     }
 }

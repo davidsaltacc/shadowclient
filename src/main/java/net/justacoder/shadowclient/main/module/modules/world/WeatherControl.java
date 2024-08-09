@@ -17,7 +17,7 @@ public class WeatherControl extends Module {
 
 
     public WeatherControl() {
-        super("weathercontrol", "Weather Control", "Lets you change things about the weather and daytime.", ModuleCategory.WORLD);
+        super("weathercontrol", "Lets you change things about the weather and daytime.", ModuleCategory.WORLD);
 
         addSettings(DISABLE_RAIN, CHANGE_TIME, CHANGE_MOON, TIME, MOON);
     }

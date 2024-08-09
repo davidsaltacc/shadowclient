@@ -23,7 +23,7 @@ public class PacketLogger extends Module {
     public final EnumSetting<FMode> FMODE = new EnumSetting<>("Filter Mode", FMode.WHITELIST);
 
     public PacketLogger() {
-        super("packetlogger", "Packet Log", "See what packets are being sent between you and the server. ", ModuleCategory.OTHER);
+        super("packetlogger", "See what packets are being sent between you and the server. ", ModuleCategory.OTHER);
         addSettings(MODE, FILTER, FMODE);
     }
 

@@ -8,7 +8,7 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 public class Reach extends Module {
 
     public Reach() {
-        super("reach", "Reach", "Extended reach.", ModuleCategory.PLAYER);
+        super("reach", "Extended reach.", ModuleCategory.PLAYER);
     }
 
     public float distance() {

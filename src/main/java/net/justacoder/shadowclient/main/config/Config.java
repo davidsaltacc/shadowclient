@@ -3,7 +3,7 @@ package net.justacoder.shadowclient.main.config;
 import com.google.gson.*;
 import net.fabricmc.loader.api.FabricLoader;
 import net.justacoder.shadowclient.main.SCMain;
-import net.justacoder.shadowclient.main.annotations.DontSaveState;
+import net.justacoder.shadowclient.main.annotations.DoNotSaveState;
 import net.justacoder.shadowclient.main.annotations.OneClick;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleManager;
@@ -42,7 +42,7 @@ public class Config {
 
                 JsonObject modulejson = new JsonObject();
 
-                if (!module.getClass().isAnnotationPresent(DontSaveState.class)) {
+                if (!module.getClass().isAnnotationPresent(DoNotSaveState.class)) {
                     modulejson.addProperty("enabled", module.enabled);
                 }
 
@@ -242,7 +242,7 @@ public class Config {
             });
             try {
                 if (module != null) {
-                    if (!module.getClass().isAnnotationPresent(OneClick.class) && !module.getClass().isAnnotationPresent(DontSaveState.class)) {
+                    if (!module.getClass().isAnnotationPresent(OneClick.class) && !module.getClass().isAnnotationPresent(DoNotSaveState.class)) {
                         SCMain.setModuleEnabled(name, object.get("enabled").getAsBoolean(), true, false);
                     }
                     if (module.moduleButton != null) {

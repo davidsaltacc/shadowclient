@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 @SearchTags({"death coords", "death notification", "death coordinates"})
 public class DeathNotification extends Module {
     public DeathNotification() {
-        super("deathnotification", "Death Notification", "Tells you the coordinates of your death.", ModuleCategory.WORLD);
+        super("deathnotification", "Tells you the coordinates of your death.", ModuleCategory.WORLD);
     }
 
     @Override

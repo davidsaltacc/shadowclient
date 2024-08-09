@@ -7,7 +7,7 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 @SearchTags({"better ping display", "betterpingdisplay", "ms ping"})
 public class BetterPingDisplay extends Module {
     public BetterPingDisplay() {
-        super("betterpingdisplay", "Better Ping Display", "Shows the ping in MS.", ModuleCategory.OTHER);
+        super("betterpingdisplay", "Shows the ping in MS.", ModuleCategory.OTHER);
     }
 
 }

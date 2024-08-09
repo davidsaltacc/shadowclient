@@ -13,7 +13,7 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 public class AutoHotbarCycle extends Module {
 
     public AutoHotbarCycle() {
-        super("autohotbarcycle", "Hotbar Cycle", "Cycles through your hotbar extremely fast.", ModuleCategory.PLAYER);
+        super("autohotbarcycle", "Cycles through your hotbar extremely fast.", ModuleCategory.PLAYER);
     }
 
     @Override

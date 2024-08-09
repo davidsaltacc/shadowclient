@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.render;
 
-import net.justacoder.shadowclient.main.annotations.DontSaveState;
+import net.justacoder.shadowclient.main.annotations.DoNotSaveState;
 import net.justacoder.shadowclient.main.util.EntityCullingFix;
 import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
@@ -15,7 +15,7 @@ import net.justacoder.shadowclient.main.setting.settings.EnumSetting;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-@DontSaveState
+@DoNotSaveState
 @SearchTags({"xray", "x ray", "ore render", "mine help", "finder", "ore vision"})
 @EventListener({SetOpaqueCubeEvent.class, GetAmbientOcclusionLightLevelEvent.class, ShouldDrawSideEvent.class, RenderBlockEntityEvent.class, PreTickEvent.class})
 public class Xray extends Module { // todo maybe add option to render blocks translucently or something
@@ -25,7 +25,7 @@ public class Xray extends Module { // todo maybe add option to render blocks tra
     private int lastMode = MODE.getEnumValue().hashCode();
 
     public Xray() {
-        super("xray", "Xray", "Only render ores.", ModuleCategory.RENDER);
+        super("xray", "Only render ores.", ModuleCategory.RENDER);
 
         Collections.sort(Mode.All.blocks);
         Collections.sort(Mode.Ores.blocks);

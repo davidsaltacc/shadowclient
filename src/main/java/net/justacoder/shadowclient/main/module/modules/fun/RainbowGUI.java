@@ -7,6 +7,6 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 @SearchTags({"rainbow gui", "rainbowgui", "rainbow ui", "jeb_ ui"})
 public class RainbowGUI extends Module {
     public RainbowGUI() {
-        super("rainbowgui", "Rainbow GUI", "Makes the UI instead of being black, go to rainbow.", ModuleCategory.FUN);
+        super("rainbowgui", "Makes the UI instead of being black, go to rainbow.", ModuleCategory.FUN);
     }
 }

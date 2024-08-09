@@ -16,7 +16,7 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 public class EndermanMagnet extends Module {
 
     public EndermanMagnet() {
-        super("endermanlook", "Endermen Magnet", "Looks at all endermen visible.", ModuleCategory.OTHER);
+        super("endermanlook", "Looks at all endermen visible.", ModuleCategory.OTHER);
 
     }
 

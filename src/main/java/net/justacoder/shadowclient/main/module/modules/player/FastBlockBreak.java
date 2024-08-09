@@ -2,7 +2,7 @@ package net.justacoder.shadowclient.main.module.modules.player;
 
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.justacoder.shadowclient.main.annotations.DontSaveState;
+import net.justacoder.shadowclient.main.annotations.DoNotSaveState;
 import net.justacoder.shadowclient.main.annotations.EventListener;
 import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
@@ -10,12 +10,12 @@ import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 
-@DontSaveState
+@DoNotSaveState
 @EventListener({PreTickEvent.class})
 @SearchTags({"fastblockbreak", "fastbreak", "fast block break", "fast break", "block break", "speed break"})
 public class FastBlockBreak extends Module {
     public FastBlockBreak() {
-        super("fastbreak", "Fast Break", "Allows you to break blocks faster. ", ModuleCategory.PLAYER);
+        super("fastbreak", "Allows you to break blocks faster. ", ModuleCategory.PLAYER);
     }
 
     @Override

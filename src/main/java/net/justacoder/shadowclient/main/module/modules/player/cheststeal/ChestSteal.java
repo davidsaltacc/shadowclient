@@ -11,7 +11,7 @@ public class ChestSteal extends Module {
     public NumberSetting DELAY = new NumberSetting("Delay", 0, 200, 10, 0);
 
     public ChestSteal() {
-        super("cheststeal", "Chest Steal", "Adds a button to the chest UI to steal all contents. ", ModuleCategory.PLAYER);
+        super("cheststeal", "Adds a button to the chest UI to steal all contents. ", ModuleCategory.PLAYER);
 
         addSetting(DELAY);
     }

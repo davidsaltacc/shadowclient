@@ -10,7 +10,7 @@ import net.justacoder.shadowclient.main.module.ModuleManager;
 @SearchTags({"all hacks", "allhacks", "all modules", "allmodules"})
 public class AllModules extends Module {
     public AllModules() {
-        super("allmodules", "All Modules", "Enables all modules.", ModuleCategory.FUN);
+        super("allmodules", "Enables all modules.", ModuleCategory.FUN);
     }
 
     @Override

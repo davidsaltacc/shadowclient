@@ -11,7 +11,7 @@ public class UnfocusedFPS extends Module {
     public NumberSetting TARGET_FPS = new NumberSetting("Target FPS", 1, 30, 1, 0);
 
     public UnfocusedFPS() {
-        super("unfocusedfps", "UnfocusedFPS", "Decreases the FPS when the game is unfocused.", ModuleCategory.OTHER);
+        super("unfocusedfps", "Decreases the FPS when the game is unfocused.", ModuleCategory.OTHER);
     }
 
     public int getFps() {

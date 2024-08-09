@@ -7,6 +7,6 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 @SearchTags({"portal ui", "portal gui", "portalgui", "nether portal inventory"})
 public class PortalGUI extends Module {
     public PortalGUI() {
-        super("portalgui", "Portal GUI", "Allows you to open your inventory while in portals.", ModuleCategory.RENDER);
+        super("portalgui", "Allows you to open your inventory while in portals.", ModuleCategory.RENDER);
     }
 }

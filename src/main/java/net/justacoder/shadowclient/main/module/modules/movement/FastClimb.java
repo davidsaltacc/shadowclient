@@ -12,7 +12,7 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 @SearchTags({"fastclimb", "fast climbing", "climb fast", "speed climb"})
 public class FastClimb extends Module {
     public FastClimb() {
-        super("fastclimb", "Fast Climbing", "Allows you to climb ladders & etc. faster.", ModuleCategory.MOVEMENT);
+        super("fastclimb", "Allows you to climb ladders & etc. faster.", ModuleCategory.MOVEMENT);
     }
 
     @Override

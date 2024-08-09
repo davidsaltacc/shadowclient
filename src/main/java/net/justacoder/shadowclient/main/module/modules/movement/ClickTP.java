@@ -20,7 +20,7 @@ public class ClickTP extends Module {
     public NumberSetting MAX_DISTANCE = new NumberSetting("Max Distance: ", 1, 100, 10, 2);
 
     public ClickTP() {
-        super("clicktp", "ClickTP", "Teleports you to wherever you click (sprint key + use key).", ModuleCategory.MOVEMENT);
+        super("clicktp", "Teleports you to wherever you click (sprint key + use key).", ModuleCategory.MOVEMENT);
     }
 
     @Override

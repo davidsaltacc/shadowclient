@@ -7,6 +7,9 @@ import net.justacoder.shadowclient.main.annotations.OneClick;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.ui.clickgui.ModuleButton;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.text.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +17,12 @@ public abstract class Module {
 
     public final ModuleCategory category;
     public final String moduleName;
-    public final String friendlyName;
+    public String friendlyName;
     public final String description;
 
     public ModuleButton moduleButton = null;
+
+    public KeyBinding keyBinding;
 
     public boolean enabled;
 
@@ -39,10 +44,10 @@ public abstract class Module {
 
     public final MinecraftClient mc = MinecraftClient.getInstance();
 
-    public Module(String name, String friendlyName, String description, ModuleCategory category) {
-        moduleName = name;
+    public Module(String name, String description, ModuleCategory category) {
+        this.moduleName = name;
         this.category = category;
-        this.friendlyName =  friendlyName;
+        this.friendlyName = "";
         this.description = description;
     }
 
@@ -113,5 +118,9 @@ public abstract class Module {
     public void onEvent(Event event) {}
 
     public void postInit() {}
+
+    public void reloadTranslations() {
+        this.friendlyName = I18n.translate("module.shadowclient." + this.moduleName);
+    }
 
 }

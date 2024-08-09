@@ -12,7 +12,7 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 @SearchTags({"delete data", "remove settings", "reset"})
 public class ResetData extends Module {
     public ResetData() {
-        super("resetdata", "Reset Settings", "Erases all the settings.", ModuleCategory.OTHER);
+        super("resetdata", "Erases all the settings.", ModuleCategory.OTHER);
     }
 
     @Override

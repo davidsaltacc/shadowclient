@@ -18,7 +18,7 @@ public class BunnyHop extends Module {
     public boolean pressed = false;
 
     public BunnyHop() {
-        super("bunnyhop", "Bunny Hopping", "Spam the jump key, basically.", ModuleCategory.MOVEMENT);
+        super("bunnyhop", "Spam the jump key, basically.", ModuleCategory.MOVEMENT);
 
         addSettings(MODE, MINVEL);
     }

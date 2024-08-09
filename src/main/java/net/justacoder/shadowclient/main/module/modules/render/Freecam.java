@@ -4,7 +4,7 @@ import net.minecraft.client.option.Perspective;
 import net.minecraft.client.render.Camera;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.justacoder.shadowclient.main.annotations.DontSaveState;
+import net.justacoder.shadowclient.main.annotations.DoNotSaveState;
 import net.justacoder.shadowclient.main.annotations.EventListener;
 import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
@@ -20,7 +20,7 @@ import net.justacoder.shadowclient.main.util.FakePlayerEntity;
 import org.joml.Vector2d;
 import org.joml.Vector3d;
 
-@DontSaveState
+@DoNotSaveState
 @SearchTags({"freecam", "camera fly", "free cam"})
 @EventListener({PreTickEvent.class, KeyPressEvent.class, DamageEvent.class})
 public class Freecam extends Module {
@@ -28,7 +28,7 @@ public class Freecam extends Module {
     public NumberSetting SPEED = new NumberSetting("Speed", 0.1, 2, 0.5, 1);
 
     public Freecam() {
-        super("freecam", "Freecam", "Fly the camera.", ModuleCategory.RENDER);
+        super("freecam", "Fly the camera.", ModuleCategory.RENDER);
 
         addSetting(SPEED);
     }

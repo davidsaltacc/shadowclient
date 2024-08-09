@@ -10,7 +10,7 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 @SearchTags({"show settings", "options menu"})
 public class ShowSettings extends Module {
     public ShowSettings() {
-        super("showsettings", "Settings Menu", "Shows the hack client settings menu.", ModuleCategory.MENUS);
+        super("showsettings", "Shows the hack client settings menu.", ModuleCategory.MENUS);
     }
 
     @Override

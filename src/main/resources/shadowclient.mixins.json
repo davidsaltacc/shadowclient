@@ -37,6 +37,7 @@
         "ItemEntityRendererMixin",
         "KeyBindingAccessor",
         "KeyboardMixin",
+        "LanguageManagerMixin",
         "LivingEntityRendererMixin",
         "MinecraftClientAccessor",
         "MinecraftClientMixin",

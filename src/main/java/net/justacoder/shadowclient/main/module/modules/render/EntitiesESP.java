@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.render;
 
-import net.justacoder.shadowclient.main.annotations.DontSaveState;
+import net.justacoder.shadowclient.main.annotations.DoNotSaveState;
 import net.justacoder.shadowclient.main.util.EntityCullingFix;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.AmbientEntity;
@@ -12,7 +12,7 @@ import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 
-@DontSaveState
+@DoNotSaveState
 @SearchTags({"entitiesesp", "esp", "entity esp", "entities esp", "wallhack", "wall hack"})
 public class EntitiesESP extends Module {
 
@@ -23,7 +23,7 @@ public class EntitiesESP extends Module {
     public final BooleanSetting DrawAmbientEntityOutlines = new BooleanSetting("Ambient", true);
 
     public EntitiesESP() {
-        super("entitiesesp", "ESP", "Draws an outline around entities.", ModuleCategory.RENDER);
+        super("entitiesesp", "Draws an outline around entities.", ModuleCategory.RENDER);
 
         addSettings(DrawPlayerEntityOutlines, DrawHostileEntityOutlines, DrawPassiveEntityOutlines, DrawOtherEntityOutlines, DrawAmbientEntityOutlines);
     }

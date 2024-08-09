@@ -14,7 +14,7 @@ public class FlatItems extends Module {
     public BooleanSetting FACE_PLAYER = new BooleanSetting("Items Face you", false);
 
     public FlatItems() {
-        super("flatitems", "Flat Items", "Items lay down flat on the floor.", ModuleCategory.FUN);
+        super("flatitems", "Items lay down flat on the floor.", ModuleCategory.FUN);
 
         addSetting(FACE_PLAYER);
     }
