@@ -5,6 +5,8 @@ import net.justacoder.shadowclient.main.event.events.PostTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.ui.clickgui.ClickGUI;
+import net.justacoder.shadowclient.main.util.JavaUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +37,7 @@ public class EventManager {
             }
 
             if (evt instanceof PostTickEvent) {
-                ModuleManager.modules.forEach((name, module) -> {
+                ModuleManager.getAllModules().forEach((name, module) -> {
                     if (module.keybinding.wasPressed()) {
                         module.toggle();
                     }
@@ -51,8 +53,8 @@ public class EventManager {
                 });
             }
         } catch (Exception e) {
-            SCMain.error("Exception while handling event: " + evt.getClass().getName() + " - " + e);
-            e.printStackTrace();
+            SCMain.error("Exception while handling event: " + evt.getClass().getName());
+            SCMain.error(JavaUtils.stackTraceFromThrowable(e));
         }
     }
 }

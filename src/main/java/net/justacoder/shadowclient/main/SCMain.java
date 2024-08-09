@@ -1,6 +1,5 @@
 package net.justacoder.shadowclient.main;
 
-import com.google.gson.internal.LinkedTreeMap;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModMetadata;

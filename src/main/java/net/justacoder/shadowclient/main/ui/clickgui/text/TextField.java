@@ -49,7 +49,7 @@ public class TextField extends FrameChild {
     public void keyPressed(int keyCode, int scanCode, int modifiers) {
         if (captureKeyPresses) {
             if (keyCode == GLFW.GLFW_KEY_BACKSPACE) {
-                if (text.length() > 0) {
+                if (!text.isEmpty()) {
                     text = text.substring(0, text.length() - 1);
                 }
                 return;

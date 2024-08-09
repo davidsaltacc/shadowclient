@@ -71,7 +71,7 @@ public class MainClickGUI extends ClickGUI {
             frame.keyPressed(keyCode, scanCode, modifiers);
         }
 
-        searching = ((TextField) searchFrame.children.get(0)).getText().length() != 0;
+        searching = !((TextField) searchFrame.children.get(0)).getText().isEmpty();
 
         if (searching) {
             searchingFor = ((TextField) searchFrame.children.get(0)).getText();

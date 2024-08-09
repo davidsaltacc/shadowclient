@@ -39,7 +39,7 @@ public class PacketLogger extends Module {
     }
 
     public void send(String text) {
-        if (FILTER.stringValue().length() != 0) {
+        if (!FILTER.stringValue().isEmpty()) {
             if (filter(text)) {
                 return;
             }

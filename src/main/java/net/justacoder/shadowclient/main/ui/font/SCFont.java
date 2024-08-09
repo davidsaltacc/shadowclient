@@ -29,7 +29,7 @@ public abstract class SCFont {
     public static String FONT_PATH = "/assets/shadowclient/font/roboto-regular.ttf";
     public static float FONT_SIZE = 9f;
 
-    private static Map<Integer, CharacterData[]> characterDatas = new HashMap<>();
+    private static final Map<Integer, CharacterData[]> characterDatas = new HashMap<>();
 
     public static void initializeFont() {
         SCMain.info("Initializing Font Renderer");
@@ -47,7 +47,7 @@ public abstract class SCFont {
         return SCMain.mc.options.getGuiScale().getValue();
     }
 
-    public static CharacterData[] initializeFont(int guiScale) {
+    private static CharacterData[] initializeFont(int guiScale) {
 
         try {
 

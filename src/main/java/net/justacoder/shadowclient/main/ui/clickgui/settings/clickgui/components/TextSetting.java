@@ -46,7 +46,7 @@ public class TextSetting extends SettingComponent {
     public void keyPressed(int keyCode, int scanCode, int modifiers) {
         if (captureKeyPresses) {
             if (keyCode == GLFW.GLFW_KEY_BACKSPACE) {
-                if (stringSetting.stringValue().length() > 0) {
+                if (!stringSetting.stringValue().isEmpty()) {
                     stringSetting.setStringValue(stringSetting.stringValue().substring(0, stringSetting.stringValue().length() - 1));
                 }
                 return;

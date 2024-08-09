@@ -15,8 +15,8 @@ public abstract class FileUtils {
             Files.writeString(path, contents);
             return true;
         } catch (IOException e) {
-            SCMain.error("Failed to write file: " + path + " " + e);
-            e.printStackTrace();
+            SCMain.error("Failed to write file: " + path + " ");
+            SCMain.error(JavaUtils.stackTraceFromThrowable(e));
             return false;
         }
     }
@@ -38,8 +38,8 @@ public abstract class FileUtils {
             SCMain.error("Tried to read nonexistent file " + path);
             return null;
         } catch (IOException e) {
-            SCMain.error("Failed to read file: " + path + " " + e);
-            e.printStackTrace();
+            SCMain.error("Failed to read file: " + path + " ");
+            SCMain.error(JavaUtils.stackTraceFromThrowable(e));
             return null;
         }
     }

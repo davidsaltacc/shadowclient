@@ -8,6 +8,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface RenderSystemAccessor {
 
     @Accessor("shaderTextures")
-    public static int[] getShaderTextures() { return new int[1]; };
+    static int[] getShaderTextures() { return new int[1]; }
 
 }

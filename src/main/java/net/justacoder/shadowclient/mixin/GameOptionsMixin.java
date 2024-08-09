@@ -1,7 +1,6 @@
 package net.justacoder.shadowclient.mixin;
 
 import com.google.common.collect.Lists;
-import net.justacoder.shadowclient.main.ui.font.SCFont;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.KeyBinding;
 import net.justacoder.shadowclient.main.SCMain;
