@@ -70,4 +70,10 @@ public class TextField extends FrameChild {
         this.text = text;
     }
 
+
+    @Override
+    public int getHeight() {
+        return getParentFrame().height;
+    }
+
 }

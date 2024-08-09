@@ -42,4 +42,9 @@ public class SCBoolSetting extends SCSettingComponent {
 
         super.mouseClicked(mouseX, mouseY, button);
     }
+
+    @Override
+    public int getHeight() {
+        return parent.height;
+    }
 }

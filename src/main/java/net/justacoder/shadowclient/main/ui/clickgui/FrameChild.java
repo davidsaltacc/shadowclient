@@ -16,4 +16,6 @@ public abstract class FrameChild {
     public void keyPressed(int keyCode, int scanCode, int modifiers) {
     }
 
+    public abstract int getHeight();
+
 }

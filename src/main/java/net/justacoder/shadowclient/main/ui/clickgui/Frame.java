@@ -13,6 +13,7 @@ import net.justacoder.shadowclient.main.util.ColorUtils;
 import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Frame extends FrameChild {
 
@@ -180,5 +181,15 @@ public class Frame extends FrameChild {
             }
         }
         return textFields;
+    }
+
+    public int getHeight() {
+        AtomicInteger height = new AtomicInteger(this.height);
+        if (extended) {
+            children.forEach(child -> {
+                height.set(height.get() + child.getHeight());
+            });
+        }
+        return height.get();
     }
 }

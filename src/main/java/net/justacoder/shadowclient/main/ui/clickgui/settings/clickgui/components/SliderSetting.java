@@ -66,4 +66,9 @@ public class SliderSetting extends SettingComponent {
         super.mouseReleased(mouseX, mouseY, button);
     }
 
+    @Override
+    public int getHeight() {
+        return parent.parent.height;
+    }
+
 }

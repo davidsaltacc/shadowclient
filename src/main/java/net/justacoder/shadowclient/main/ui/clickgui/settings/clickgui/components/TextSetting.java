@@ -58,4 +58,9 @@ public class TextSetting extends SettingComponent {
             stringSetting.setStringValue(stringSetting.stringValue() + (char) keyCode);
         }
     }
+
+    @Override
+    public int getHeight() {
+        return parent.parent.height;
+    }
 }

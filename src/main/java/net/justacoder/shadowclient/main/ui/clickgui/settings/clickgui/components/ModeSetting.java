@@ -56,4 +56,9 @@ public class ModeSetting extends SettingComponent {
 
         super.mouseClicked(mouseX, mouseY, button);
     }
+
+    @Override
+    public int getHeight() {
+        return parent.parent.height;
+    }
 }

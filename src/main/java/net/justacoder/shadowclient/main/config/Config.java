@@ -137,6 +137,9 @@ public class Config {
         String text;
         try {
             text = FileUtils.readFile(getConfigFile());
+            if (text == null) {
+                throw new RuntimeException();
+            }
         } catch (Exception ignored) {
             saveConfig();
             return;

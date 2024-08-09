@@ -5,7 +5,7 @@ import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.ui.clickgui.FrameChild;
 import net.justacoder.shadowclient.main.ui.clickgui.ModuleButton;
 
-public class SettingComponent extends FrameChild {
+public abstract class SettingComponent extends FrameChild {
 
     public final Setting setting;
     public final ModuleButton parent;

@@ -20,6 +20,7 @@ import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components
 import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ModuleButton extends FrameChild {
 
@@ -117,6 +118,17 @@ public class ModuleButton extends FrameChild {
                 component.keyPressed(keyCode, scanCode, modifiers);
             }
         }
+    }
+
+    @Override
+    public int getHeight() {
+        AtomicInteger height = new AtomicInteger(parent.height);
+        if (extended) {
+            components.forEach(child -> {
+                height.set(height.get() + child.getHeight());
+            });
+        }
+        return height.get();
     }
 
     public boolean isHovered(double mouseX, double mouseY) {

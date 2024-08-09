@@ -1,10 +1,14 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components.TextSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.text.TextField;
+import org.lwjgl.glfw.GLFW;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainClickGUI extends ClickGUI {
@@ -14,6 +18,8 @@ public class MainClickGUI extends ClickGUI {
     public Frame searchFrame;
     public boolean searching;
     public String searchingFor;
+
+    public final MinecraftClient mc = MinecraftClient.getInstance();
 
     public MainClickGUI() {
         super("ClickGUI");
@@ -28,9 +34,25 @@ public class MainClickGUI extends ClickGUI {
             offset += 105;
         }
 
-        searchFrame = new Frame("Search", offset, 5, 120, 14);
+        searchFrame = new Frame("Search", offset, 5, 100, 14);
         frames.add(searchFrame);
         searchFrame.children.add(new TextField(searchFrame, 14, "Find Module"));
+    }
+
+    public void repositionFramesProperly() {
+        int screenWidth = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor()).width() / mc.options.getGuiScale().getValue();
+        int columns = (int) Math.floor((float) screenWidth / 105);
+
+        int[] columnsY = new int[columns];
+        Arrays.fill(columnsY, 5);
+
+        for (int index = 0; index < frames.size(); index++) {
+            int xCol = index % columns;
+            Frame frame = frames.get(index);
+            frame.y = columnsY[xCol];
+            columnsY[xCol] += frame.getHeight() + 5;
+            frame.x = 5 + xCol * 105;
+        }
     }
 
     @Override
