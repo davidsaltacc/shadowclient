@@ -17,8 +17,6 @@ public abstract class Module {
     public final String friendlyName;
     public final String description;
 
-    public KeyBinding keybinding;
-
     public ModuleButton moduleButton = null;
 
     public boolean enabled;

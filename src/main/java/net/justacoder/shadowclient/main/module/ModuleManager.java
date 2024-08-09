@@ -176,12 +176,6 @@ public class ModuleManager {
 
     public static Module register(Module module) {
         modules.put(module.moduleName, module);
-        module.keybinding = SCMain.registerKeyBinding(new KeyBinding(
-            "key." + SCMain.ClientModId + "." + module.moduleName,
-            InputUtil.Type.KEYSYM,
-            InputUtil.UNKNOWN_KEY.getCode(),
-            "category." + SCMain.ClientModId + ".modulecategory"
-        ));
         if (module.getClass().isAnnotationPresent(EventListener.class)) {
             for (Class<? extends Event> evtcl : module.getClass().getAnnotation(EventListener.class).value()) {
                 EventManager.addModule(module, evtcl);
