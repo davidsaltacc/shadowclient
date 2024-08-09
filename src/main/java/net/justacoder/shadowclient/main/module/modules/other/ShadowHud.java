@@ -36,7 +36,7 @@ public class ShadowHud extends Module { // todo add to this
     public HudElement ENTITIES_ELEMENT = new HudElement(false, "");
 
     public ShadowHud() {
-        super("shadowhud", "Renders a minimalistic hud showing useful info.", ModuleCategory.OTHER);
+        super("shadowhud", ModuleCategory.OTHER);
 
         addSettings(CORNER, COORDINATES, PING, SATURATION, ROTATION, FRAMES, ENTITIES);
 

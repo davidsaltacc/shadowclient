@@ -30,7 +30,7 @@ import java.util.function.Predicate;
 @SearchTags({"trajectories", "bow aim laser", "aim assist"})
 public class Trajectories extends Module {
     public Trajectories() {
-        super("trajectories", "Draws a line where projectiles will go.", ModuleCategory.RENDER);
+        super("trajectories", ModuleCategory.RENDER);
     }
 
     public ArrayList<Vec3d> trajPath;

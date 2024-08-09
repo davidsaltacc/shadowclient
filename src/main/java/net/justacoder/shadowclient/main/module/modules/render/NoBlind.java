@@ -7,6 +7,6 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 @SearchTags({"no blind", "anti blind", "antiblind", "anti darkness", "anti warden"})
 public class NoBlind extends Module {
     public NoBlind() {
-        super("noblind", "Allows you to see through blindness and darkness.", ModuleCategory.RENDER);
+        super("noblind", ModuleCategory.RENDER);
     }
 }

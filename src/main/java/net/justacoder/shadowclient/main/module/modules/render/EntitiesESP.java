@@ -23,7 +23,7 @@ public class EntitiesESP extends Module {
     public final BooleanSetting DrawAmbientEntityOutlines = new BooleanSetting("Ambient", true);
 
     public EntitiesESP() {
-        super("entitiesesp", "Draws an outline around entities.", ModuleCategory.RENDER);
+        super("entitiesesp", ModuleCategory.RENDER);
 
         addSettings(DrawPlayerEntityOutlines, DrawHostileEntityOutlines, DrawPassiveEntityOutlines, DrawOtherEntityOutlines, DrawAmbientEntityOutlines);
     }

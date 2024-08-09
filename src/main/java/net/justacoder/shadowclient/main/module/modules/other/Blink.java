@@ -16,7 +16,7 @@ import java.util.List;
 @EventListener({PacketRecievedEvent.class})
 public class Blink extends Module { // TODO fix
     public Blink() {
-        super("blink", "Interrupts all movements packets for a while, so it looks like you are lagging.", ModuleCategory.OTHER);
+        super("blink", ModuleCategory.OTHER);
     }
 
     public List<PlayerMoveC2SPacket> packets = new ArrayList<>();

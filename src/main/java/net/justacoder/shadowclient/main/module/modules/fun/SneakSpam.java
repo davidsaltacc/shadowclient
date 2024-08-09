@@ -17,7 +17,7 @@ public class SneakSpam extends Module {
     private int timer = 0;
 
     public SneakSpam() {
-        super("sneakspam", "Silly. Spams the sneak key.", ModuleCategory.FUN);
+        super("sneakspam", ModuleCategory.FUN);
 
         addSetting(SPEED);
     }

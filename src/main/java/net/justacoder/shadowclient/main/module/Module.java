@@ -18,7 +18,7 @@ public abstract class Module {
     public final ModuleCategory category;
     public final String moduleName;
     public String friendlyName;
-    public final String description;
+    public String description;
 
     public ModuleButton moduleButton = null;
 
@@ -44,11 +44,11 @@ public abstract class Module {
 
     public final MinecraftClient mc = MinecraftClient.getInstance();
 
-    public Module(String name, String description, ModuleCategory category) {
+    public Module(String name, ModuleCategory category) {
         this.moduleName = name;
         this.category = category;
         this.friendlyName = "";
-        this.description = description;
+        this.description = "";
     }
 
     public void setEnabled() {
@@ -121,6 +121,7 @@ public abstract class Module {
 
     public void reloadTranslations() {
         this.friendlyName = I18n.translate("module.shadowclient." + this.moduleName);
+        this.description = I18n.translate("module.description.shadowclient." + this.moduleName);
     }
 
 }

@@ -11,7 +11,7 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 @SearchTags({"fish", "autoswim", "auto swim", "automatically swim", "easy swim"})
 public class AutoSwim extends Module {
     public AutoSwim() {
-        super("autoswim", "Automatically swim when in water.", ModuleCategory.MOVEMENT);
+        super("autoswim", ModuleCategory.MOVEMENT);
     }
 
     @Override

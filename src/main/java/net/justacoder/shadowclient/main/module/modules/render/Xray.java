@@ -25,7 +25,7 @@ public class Xray extends Module { // todo maybe add option to render blocks tra
     private int lastMode = MODE.getEnumValue().hashCode();
 
     public Xray() {
-        super("xray", "Only render ores.", ModuleCategory.RENDER);
+        super("xray", ModuleCategory.RENDER);
 
         Collections.sort(Mode.All.blocks);
         Collections.sort(Mode.Ores.blocks);

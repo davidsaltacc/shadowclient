@@ -12,7 +12,7 @@ import net.justacoder.shadowclient.mixin.MinecraftClientAccessor;
 @SearchTags({"fastplace", "fast placing", "fast place"})
 public class FastPlace extends Module {
     public FastPlace() {
-        super("fastplace", "Removes the item use cooldown.", ModuleCategory.PLAYER);
+        super("fastplace", ModuleCategory.PLAYER);
     }
 
     @Override

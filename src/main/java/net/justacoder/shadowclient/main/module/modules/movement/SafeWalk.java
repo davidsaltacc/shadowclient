@@ -12,7 +12,7 @@ import net.justacoder.shadowclient.main.module.ModuleManager;
 @SearchTags({"safe walk", "safewalk", "auto sneak", "autosneak"})
 public class SafeWalk extends Module {
     public SafeWalk() {
-        super("safewalk", "Stops you from falling off ledges when walking.", ModuleCategory.MOVEMENT);
+        super("safewalk", ModuleCategory.MOVEMENT);
     }
 
     @Override

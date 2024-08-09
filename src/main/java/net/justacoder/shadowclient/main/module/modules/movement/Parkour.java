@@ -19,7 +19,7 @@ public class Parkour extends Module {
     public final BooleanSetting LEGIT = new BooleanSetting("Legit", true);
 
     public Parkour() {
-        super("parkour", "Automatically jump at the very edge of blocks. ", ModuleCategory.MOVEMENT);
+        super("parkour", ModuleCategory.MOVEMENT);
 
         addSettings(EDGE_DIST, LEGIT);
     }

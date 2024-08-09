@@ -12,7 +12,7 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 public class AutoSprint extends Module {
 
     public AutoSprint() {
-        super("autosprint", "Automatically sprint instead of walking.", ModuleCategory.MOVEMENT);
+        super("autosprint", ModuleCategory.MOVEMENT);
     }
 
     @Override

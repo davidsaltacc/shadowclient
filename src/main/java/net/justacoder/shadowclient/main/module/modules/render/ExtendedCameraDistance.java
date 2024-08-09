@@ -11,7 +11,7 @@ public class ExtendedCameraDistance extends Module {
     public NumberSetting DISTANCE = new NumberSetting("Distance", -5, 50, 10, 1);
 
     public ExtendedCameraDistance() {
-        super("extcamdistance", "Distances your camera further away.", ModuleCategory.RENDER);
+        super("extcamdistance", ModuleCategory.RENDER);
         addSetting(DISTANCE);
     }
 

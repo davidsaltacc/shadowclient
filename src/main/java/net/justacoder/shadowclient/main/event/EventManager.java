@@ -38,9 +38,9 @@ public class EventManager {
 
             if (evt instanceof PostTickEvent) {
                 ModuleManager.getAllModules().forEach((name, module) -> {
-                    //if (module.keybinding.wasPressed()) {
-                    //    module.toggle();
-                    //}
+                    if (module.keyBinding.wasPressed()) {
+                        module.toggle();
+                    }
                 });
             }
 

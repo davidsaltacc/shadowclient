@@ -20,7 +20,7 @@ public class KillAura extends Module {
     public final BooleanSetting LEGIT = new BooleanSetting("Legit", true);
 
     public KillAura() {
-        super("killaura", "Attacks every attackable entity in your range.", ModuleCategory.COMBAT);
+        super("killaura", ModuleCategory.COMBAT);
         addSetting(LEGIT);
     }
 

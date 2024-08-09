@@ -11,7 +11,7 @@ public class HighJump extends Module {
     NumberSetting HEIGHT = new NumberSetting("Height", 0, 10, 2, 1);
 
     public HighJump() {
-        super("highjump", "You jump higher.", ModuleCategory.MOVEMENT);
+        super("highjump", ModuleCategory.MOVEMENT);
 
         addSetting(HEIGHT);
     }

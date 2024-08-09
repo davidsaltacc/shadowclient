@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
+import net.justacoder.shadowclient.main.config.Config;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
@@ -40,6 +41,11 @@ public class MainClickGUI extends ClickGUI {
     }
 
     public void repositionFramesProperly() {
+
+        if (Config.configLoaded) {
+            return;
+        }
+
         int screenWidth = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor()).width() / mc.options.getGuiScale().getValue();
         int columns = (int) Math.floor((float) screenWidth / 105);
 

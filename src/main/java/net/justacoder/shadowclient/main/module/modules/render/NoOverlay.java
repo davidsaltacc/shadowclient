@@ -7,6 +7,6 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 @SearchTags({"nooverlay", "no overlay", "no water overlay", "no lava overlay", "water vision", "lava vision"})
 public class NoOverlay extends Module {
     public NoOverlay() {
-        super("nooverlay", "Disabled the screen from turning blue in water.", ModuleCategory.RENDER);
+        super("nooverlay", ModuleCategory.RENDER);
     }
 }

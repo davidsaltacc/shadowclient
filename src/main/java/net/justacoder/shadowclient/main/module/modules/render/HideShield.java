@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class HideShield extends Module {
 
     public HideShield() {
-        super("hideshield", "Hides the shield.", ModuleCategory.RENDER);
+        super("hideshield", ModuleCategory.RENDER);
     }
 
     public static void processItem(ItemStack item, AbstractClientPlayerEntity player, CallbackInfo ci) {

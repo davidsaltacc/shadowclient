@@ -12,7 +12,7 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 @SearchTags({"load data", "load settings"})
 public class LoadData extends Module {
     public LoadData() {
-        super("loaddata", "Loads the saved configuration from the settings file.", ModuleCategory.OTHER);
+        super("loaddata", ModuleCategory.OTHER);
     }
 
     @Override

@@ -28,7 +28,7 @@ public class Freecam extends Module {
     public NumberSetting SPEED = new NumberSetting("Speed", 0.1, 2, 0.5, 1);
 
     public Freecam() {
-        super("freecam", "Fly the camera.", ModuleCategory.RENDER);
+        super("freecam", ModuleCategory.RENDER);
 
         addSetting(SPEED);
     }

@@ -16,7 +16,7 @@ public class Derpy extends Module {
     private final Random random = Random.create();
 
     public Derpy() {
-        super("derpy", "Rotates your head around like wild (visible to others).", ModuleCategory.FUN);
+        super("derpy", ModuleCategory.FUN);
     }
 
     @Override

@@ -15,7 +15,7 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 @SearchTags({"fastblockbreak", "fastbreak", "fast block break", "fast break", "block break", "speed break"})
 public class FastBlockBreak extends Module {
     public FastBlockBreak() {
-        super("fastbreak", "Allows you to break blocks faster. ", ModuleCategory.PLAYER);
+        super("fastbreak", ModuleCategory.PLAYER);
     }
 
     @Override

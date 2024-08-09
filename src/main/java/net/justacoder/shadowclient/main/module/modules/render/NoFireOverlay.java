@@ -11,7 +11,7 @@ public class NoFireOverlay extends Module {
     public final NumberSetting OFFSET = new NumberSetting("Offset", 0.01f, 0.6f, 0.6f, 2);
 
     public NoFireOverlay() {
-        super("nofireoverlay",  "Lower or hide the effect when you get set on fire.", ModuleCategory.RENDER);
+        super("nofireoverlay",  ModuleCategory.RENDER);
 
         addSetting(OFFSET);
     }

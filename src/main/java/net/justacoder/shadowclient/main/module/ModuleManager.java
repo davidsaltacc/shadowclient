@@ -1,6 +1,7 @@
 package net.justacoder.shadowclient.main.module;
 
 import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.justacoder.shadowclient.main.annotations.EventListener;
@@ -178,7 +179,10 @@ public class ModuleManager {
 
     public static Module register(Module module) {
         modules.put(module.moduleName, module);
-        module.keyBinding = new KeyBinding("module.shadowclient." + module.moduleName, InputUtil.UNKNOWN_KEY.getCode(), "category.shadowclient.modulecategory");
+        if (!module.getClass().isAnnotationPresent(NotKeybindable.class)) {
+            module.keyBinding = new KeyBinding("module.shadowclient." + module.moduleName, InputUtil.UNKNOWN_KEY.getCode(), "category.shadowclient.modulecategory");
+            SCMain.registerKeyBinding(module.keyBinding);
+        }
         if (module.getClass().isAnnotationPresent(EventListener.class)) {
             for (Class<? extends Event> evtcl : module.getClass().getAnnotation(EventListener.class).value()) {
                 EventManager.addModule(module, evtcl);

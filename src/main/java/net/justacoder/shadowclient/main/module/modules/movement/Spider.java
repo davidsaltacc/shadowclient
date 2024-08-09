@@ -13,7 +13,7 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 public class Spider extends Module {
 
     public Spider() {
-        super("spider", "Get the ability to climb up walls.", ModuleCategory.MOVEMENT);
+        super("spider", ModuleCategory.MOVEMENT);
     }
 
     @Override

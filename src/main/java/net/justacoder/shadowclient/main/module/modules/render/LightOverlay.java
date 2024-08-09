@@ -23,7 +23,7 @@ public class LightOverlay extends Module {
     public NumberSetting VRADIUS = new NumberSetting("Vertical Radius", 1, 25, 1, 0);
 
     public LightOverlay() {
-        super("lightoverlay", "Renders an overlay on blocks indicating if mobs can/will spawn.", ModuleCategory.RENDER);
+        super("lightoverlay", ModuleCategory.RENDER);
 
         addSettings(RADIUS, VRADIUS);
     }

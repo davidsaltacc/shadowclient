@@ -24,7 +24,7 @@ public class AutoCrystal extends Module {
     public final BooleanSetting FACE_CRYSTALS = new BooleanSetting("Face Crystals", false);
 
     public AutoCrystal() {
-        super("autocrystal", "Automatically detonate (not place) crystals in your area.", ModuleCategory.COMBAT);
+        super("autocrystal", ModuleCategory.COMBAT);
 
         addSetting(FACE_CRYSTALS);
     }

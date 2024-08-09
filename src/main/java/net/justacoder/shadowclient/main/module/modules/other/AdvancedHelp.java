@@ -10,7 +10,7 @@ import net.justacoder.shadowclient.main.util.JavaUtils;
 @SearchTags({"help", "documentation", "tutorial"})
 public class AdvancedHelp extends Module {
     public AdvancedHelp() {
-        super("advancedhelp", "Opens a more detailed Help inside your browser.", ModuleCategory.OTHER);
+        super("advancedhelp", ModuleCategory.OTHER);
     }
 
     @Override

@@ -12,7 +12,7 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 @SearchTags({"anti fall damage", "no fall damage", "no fall dmg", "no falling damage", "nofalldamage"})
 public class NoFallDamage extends Module {
     public NoFallDamage() {
-        super("nofall", "You take no fall damage.", ModuleCategory.MOVEMENT);
+        super("nofall", ModuleCategory.MOVEMENT);
     }
 
     @Override

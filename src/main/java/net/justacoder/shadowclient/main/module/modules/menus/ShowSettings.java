@@ -1,16 +1,18 @@
 package net.justacoder.shadowclient.main.module.modules.menus;
 
 import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.justacoder.shadowclient.main.annotations.OneClick;
 import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 
+@NotKeybindable
 @OneClick
 @SearchTags({"show settings", "options menu"})
 public class ShowSettings extends Module {
     public ShowSettings() {
-        super("showsettings", "Shows the hack client settings menu.", ModuleCategory.MENUS);
+        super("showsettings", ModuleCategory.MENUS);
     }
 
     @Override

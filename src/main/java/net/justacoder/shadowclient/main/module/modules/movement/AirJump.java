@@ -11,7 +11,7 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 @SearchTags({"airjump", "air jump", "jetpack"})
 public class AirJump extends Module {
     public AirJump() {
-        super("airjump", "Allows you to jump in the air.", ModuleCategory.MOVEMENT);
+        super("airjump", ModuleCategory.MOVEMENT);
     }
 
     @Override
