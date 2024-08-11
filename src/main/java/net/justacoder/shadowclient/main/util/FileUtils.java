@@ -35,7 +35,7 @@ public abstract class FileUtils {
             Files.readAllLines(path).forEach((line) -> contents.set(contents.get() + line + "\n"));
             return contents.get();
         } catch (NoSuchFileException e) {
-            SCMain.error("Tried to read nonexistent file " + path);
+            SCMain.warn("Tried to read nonexistent file " + path);
             return null;
         } catch (IOException e) {
             SCMain.error("Failed to read file: " + path + " ");
