@@ -1,7 +1,6 @@
 {
     "key.shadowclient.togglegui": "Toggle ClickGUI",
     "category.shadowclient.clientcategory": "ShadowClient",
-    "category.shadowclient.modulecategory": "ShadowClient Modules",
 
     "module.shadowclient.autosprint": "Autosprint",
     "module.shadowclient.spider": "Spider",
@@ -149,5 +148,7 @@
     "module.description.shadowclient.lightoverlay": "Renders an overlay on blocks indicating if mobs can/will spawn.",
     "module.description.shadowclient.unfocusedfps": "Decreases the FPS when the game is unfocused.",
     "module.description.shadowclient.hideshield": "Hides the shield.",
-    "module.description.shadowclient.configurekeybindings": "Set custom keybindings for modules."
+    "module.description.shadowclient.configurekeybindings": "Set custom keybindings for modules.",
+
+    "name.shadowclient.none": "None"
 }

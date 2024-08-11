@@ -26,6 +26,9 @@ import java.util.Map;
 public class ModuleManager {
 
     private static final Map<String, Module> modules = new HashMap<>();
+    private static boolean isConfiguringKeyBinds = false;
+    private static KeyBinding configuringKeyBinding = null;
+    private static Module configuringKeyBindingModule = null;
 
     public static AutoSprint AutoSprintModule;
     public static Spider SpiderModule;
@@ -180,8 +183,8 @@ public class ModuleManager {
     public static Module register(Module module) {
         modules.put(module.moduleName, module);
         if (!module.getClass().isAnnotationPresent(NotKeybindable.class)) {
-            module.keyBinding = new KeyBinding("module.shadowclient." + module.moduleName, InputUtil.UNKNOWN_KEY.getCode(), "category.shadowclient.modulecategory");
-            SCMain.registerKeyBinding(module.keyBinding);
+            module.keyBinding = new KeyBinding("module.shadowclient." + module.moduleName, InputUtil.UNKNOWN_KEY.getCode(), "category.shadowclient.clientcategory");
+            SCMain.registerKeyBinding(module.keyBinding, true);
         }
         if (module.getClass().isAnnotationPresent(EventListener.class)) {
             for (Class<? extends Event> evtcl : module.getClass().getAnnotation(EventListener.class).value()) {
@@ -212,9 +215,31 @@ public class ModuleManager {
         return modules;
     }
 
+    public static boolean isConfiguringKeyBinds() {
+        return isConfiguringKeyBinds;
+    }
+
+    public static KeyBinding getConfiguringKeyBinding() {
+        return configuringKeyBinding;
+    }
+
+    public static Module getConfiguringKeyBindingModule() {
+        return configuringKeyBindingModule;
+    }
+
+    public static void setConfiguringKeyBinding(KeyBinding keyBinding, Module module) {
+        configuringKeyBinding = keyBinding;
+        configuringKeyBindingModule = module;
+    }
+
     public static void startKeybindConfiguration() {
+        isConfiguringKeyBinds = true;
     }
 
     public static void endKeybindConfiguration() {
+        isConfiguringKeyBinds = false;
+        configuringKeyBinding = null;
+        configuringKeyBindingModule = null;
+        SCMain.mc.options.write();
     }
 }

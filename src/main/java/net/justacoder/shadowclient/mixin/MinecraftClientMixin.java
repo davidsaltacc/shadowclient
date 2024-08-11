@@ -1,10 +1,12 @@
 package net.justacoder.shadowclient.mixin;
 
 import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ui.clickgui.MainClickGUI;
 import net.justacoder.shadowclient.main.ui.font.SCFont;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.realms.RealmsClient;
 import net.minecraft.entity.Entity;
@@ -21,6 +23,7 @@ import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.module.modules.other.UnfocusedFPS;
 import net.justacoder.shadowclient.main.module.modules.render.EntitiesESP;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -35,6 +38,7 @@ public abstract class MinecraftClientMixin {
 
     @Shadow public abstract boolean isWindowFocused();
     @Shadow @Final public GameOptions options;
+    @Shadow @Nullable public Screen currentScreen;
 
     /**
      * @author ...
@@ -106,4 +110,12 @@ public abstract class MinecraftClientMixin {
         SCMain.guiScaleOption = SCMain.mc.options.getGuiScale();
         SCFont.initializeFont();
     }
+
+    @Inject(method = "setScreen", at = @At("HEAD"))
+    private void onScreenSet(Screen screen, CallbackInfo ci) {
+        if (currentScreen instanceof MainClickGUI && !(screen instanceof MainClickGUI)) {
+            SCMain.mainClickGUIClosed();
+        }
+    }
+
 }

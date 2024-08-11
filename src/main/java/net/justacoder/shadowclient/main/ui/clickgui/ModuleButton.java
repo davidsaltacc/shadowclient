@@ -1,5 +1,7 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
+import net.justacoder.shadowclient.main.annotations.NotKeybindable;
+import net.justacoder.shadowclient.main.module.modules.other.ConfigureKeybindings;
 import net.justacoder.shadowclient.main.ui.font.SCFont;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.SCMain;
@@ -17,7 +19,11 @@ import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components
 import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components.ModeSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components.SliderSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components.TextSetting;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -56,6 +62,17 @@ public class ModuleButton extends FrameChild {
         }
     }
 
+    private String getName() {
+        if (ModuleManager.isConfiguringKeyBinds()) {
+            if (module.getClass().isAnnotationPresent(NotKeybindable.class)) {
+                return module.friendlyName;
+            } else {
+                return "[ " + module.keyBindingName + " ] " + module.friendlyName;
+            }
+        }
+        return module.friendlyName;
+    }
+
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 
         boolean hovered = isHovered(mouseX, mouseY);
@@ -67,7 +84,7 @@ public class ModuleButton extends FrameChild {
         context.fill(parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, color);
         int textOffset = (int) ((float) parent.height / 2 - SCFont.getHeight() / 2);
 
-        SCFont.renderString(context, module.friendlyName, parent.x + textOffset, parent.y + offset + textOffset, getTextColor());
+        SCFont.renderString(context, getName(), parent.x + textOffset, parent.y + offset + textOffset, getTextColor());
 
         if (extended) {
             for (SettingComponent component : components) {
@@ -90,7 +107,16 @@ public class ModuleButton extends FrameChild {
     public void mouseClicked(double mouseX, double mouseY, int button) {
         if (isHovered(mouseX, mouseY)) {
             if (button == GLFW.GLFW_MOUSE_BUTTON_1) {
-                SCMain.toggleModuleEnabled(module.moduleName);
+                if (ModuleManager.isConfiguringKeyBinds() && !module.getClass().isAnnotationPresent(NotKeybindable.class)) {
+                    if (module instanceof ConfigureKeybindings) {
+                        SCMain.toggleModuleEnabled(module.moduleName);
+                        return;
+                    }
+                    ModuleManager.setConfiguringKeyBinding(module.keyBinding, module);
+                    return;
+                } else {
+                    SCMain.toggleModuleEnabled(module.moduleName);
+                }
             } else if (button == GLFW.GLFW_MOUSE_BUTTON_2) {
                 extended = !extended;
                 parent.updateButtons();
@@ -124,9 +150,7 @@ public class ModuleButton extends FrameChild {
     public int getHeight() {
         AtomicInteger height = new AtomicInteger(parent.height);
         if (extended) {
-            components.forEach(child -> {
-                height.set(height.get() + child.getHeight());
-            });
+            components.forEach(child -> height.set(height.get() + child.getHeight()));
         }
         return height.get();
     }
@@ -145,23 +169,26 @@ public class ModuleButton extends FrameChild {
         return false;
     }
 
-    public int getTextColor() { // messy code I know but it works
+    public int getTextColor() {
+        if (ModuleManager.isConfiguringKeyBinds()) {
+            if ((module.keyBinding == ModuleManager.getConfiguringKeyBinding() && !module.getClass().isAnnotationPresent(NotKeybindable.class)) || module instanceof ConfigureKeybindings) {
+                return Colors.TEXT_ENABLED.color;
+            }
+            return Colors.TEXT_NORMAL.color;
+        }
         if (SCMain.clickGui.searching) {
             if (isGettingSearchedFor()) {
                 if (module.enabled) {
                     return Colors.TEXT_ENABLED.color;
-                } else {
-                    return Colors.TEXT_NORMAL.color;
                 }
-            } else {
-                return Colors.TEXT_DISABLED.color;
+                return Colors.TEXT_NORMAL.color;
             }
+            return Colors.TEXT_DISABLED.color;
         } else {
             if (module.enabled) {
                 return Colors.TEXT_ENABLED.color;
-            } else {
-                return Colors.TEXT_NORMAL.color;
             }
+            return Colors.TEXT_NORMAL.color;
         }
     }
 

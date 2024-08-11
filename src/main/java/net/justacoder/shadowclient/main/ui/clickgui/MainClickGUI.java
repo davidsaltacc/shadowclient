@@ -1,11 +1,15 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
+import net.justacoder.shadowclient.main.SCMain;
 import net.justacoder.shadowclient.main.config.Config;
+import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components.TextSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.text.TextField;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
@@ -93,16 +97,41 @@ public class MainClickGUI extends ClickGUI {
     }
 
     @Override
+    public boolean shouldCloseOnEsc() {
+        if (ModuleManager.isConfiguringKeyBinds()) {
+            return false;
+        }
+        return super.shouldCloseOnEsc();
+    }
+
+    @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 
-        for (Frame frame : frames) {
-            frame.keyPressed(keyCode, scanCode, modifiers);
+        if (ModuleManager.isConfiguringKeyBinds()) {
+            if (SCMain.ToggleGUIKeyBinding.matchesKey(keyCode, scanCode)) {
+                ModuleManager.endKeybindConfiguration();
+                ModuleManager.ConfigureKeybindingsModule.setDisabled();
+                SCMain.mc.setScreen(null);
+                return true;
+            }
+            if (ModuleManager.getConfiguringKeyBinding() != null) {
+                int code = keyCode == GLFW.GLFW_KEY_ESCAPE ? GLFW.GLFW_KEY_UNKNOWN : keyCode;
+                ModuleManager.getConfiguringKeyBinding().setBoundKey(InputUtil.Type.KEYSYM.createFromCode(code));
+                ModuleManager.getConfiguringKeyBindingModule().reloadKeybindTranslation();
+                KeyBinding.updateKeysByCode();
+                ModuleManager.setConfiguringKeyBinding(null, null);
+            }
+            return super.keyPressed(keyCode, scanCode, modifiers);
         }
 
         searching = !((TextField) searchFrame.children.get(0)).getText().isEmpty();
 
         if (searching) {
             searchingFor = ((TextField) searchFrame.children.get(0)).getText();
+        }
+
+        for (Frame frame : frames) {
+            frame.keyPressed(keyCode, scanCode, modifiers);
         }
 
         return super.keyPressed(keyCode, scanCode, modifiers);

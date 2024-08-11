@@ -1,7 +1,9 @@
 package net.justacoder.shadowclient.main.event;
 
 import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.justacoder.shadowclient.main.event.events.PostTickEvent;
+import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.ui.clickgui.ClickGUI;
@@ -38,8 +40,10 @@ public class EventManager {
 
             if (evt instanceof PostTickEvent) {
                 ModuleManager.getAllModules().forEach((name, module) -> {
-                    if (module.keyBinding.wasPressed()) {
-                        module.toggle();
+                    if (!module.getClass().isAnnotationPresent(NotKeybindable.class)) {
+                        if (module.keyBinding.wasPressed()) {
+                            module.toggle();
+                        }
                     }
                 });
             }

@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.module;
 
+import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.justacoder.shadowclient.main.SCMain;
@@ -23,6 +24,7 @@ public abstract class Module {
     public ModuleButton moduleButton = null;
 
     public KeyBinding keyBinding;
+    public String keyBindingName;
 
     public boolean enabled;
 
@@ -122,6 +124,13 @@ public abstract class Module {
     public void reloadTranslations() {
         this.friendlyName = I18n.translate("module.shadowclient." + this.moduleName);
         this.description = I18n.translate("module.description.shadowclient." + this.moduleName);
+        reloadKeybindTranslation();
+    }
+
+    public void reloadKeybindTranslation() {
+        if (!this.getClass().isAnnotationPresent(NotKeybindable.class)) {
+            this.keyBindingName = this.keyBinding.isUnbound() ? I18n.translate("name.shadowclient.none") : this.keyBinding.getBoundKeyLocalizedText().getString();
+        }
     }
 
 }

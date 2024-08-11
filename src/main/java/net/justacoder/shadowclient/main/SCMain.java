@@ -49,6 +49,7 @@ public class SCMain {
     public static boolean configDeleted = false;
 
     public static List<KeyBinding> keyBindings = new ArrayList<>();
+    public static List<KeyBinding> moduleKeyBindings = new ArrayList<>();
 
     public static KeyBinding ToggleGUIKeyBinding;
     public static SimpleOption<Integer> guiScaleOption;
@@ -86,6 +87,13 @@ public class SCMain {
     }
 
     public static KeyBinding registerKeyBinding(KeyBinding bind) {
+        keyBindings.add(bind);
+        addKeybindCategory(bind.getCategory());
+        return bind;
+    }
+
+    public static KeyBinding registerKeyBinding(KeyBinding bind, boolean module) {
+        moduleKeyBindings.add(bind);
         keyBindings.add(bind);
         addKeybindCategory(bind.getCategory());
         return bind;
@@ -151,6 +159,10 @@ public class SCMain {
         setModuleEnabled(name, !ModuleManager.getModule(name).enabled);
     }
 
+    public static void mainClickGUIClosed() {
+        ModuleManager.endKeybindConfiguration();
+    }
+
     public static String createHelp() {
         // we hate java
         AtomicReference<String> help = new AtomicReference<>("§9§l§u" + ClientName + " §o" + ClientVersion + "§r help\nPress right shift for the ClickGUI.\nRight Click a Part of the UI to expand it, expand Module Buttons for its settings. Hover over Module Buttons for a short description. Go to Minecraft's Key Binding menu to set custom keybindings. \nAvailable chat commands:\n");
@@ -183,6 +195,9 @@ public class SCMain {
     }
 
     public static @Nullable Screen allowKeyPress(@Nullable Screen screen) {
+        if (ModuleManager.isConfiguringKeyBinds()) {
+            return screen;
+        }
         if (screen instanceof ClickGUI && !clickGui.isAnyTextFieldCapturing() && !settingsGui.isAnyTextFieldCapturing()) {
             return null;
         }
