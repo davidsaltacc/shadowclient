@@ -5,6 +5,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.SCMain;
 import net.justacoder.shadowclient.main.ui.clickgui.Colors;
+import net.minecraft.client.render.RenderLayer;
+
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -36,7 +38,7 @@ public class Notification {
         offX = offsetX;
         offY = offsetY;
         boolean hovered = isHovered(mouseX, mouseY, offsetX, offsetY);
-        context.fill(offsetX, offsetY, offsetX + getWidth(), offsetY + getHeight(), hovered ? Colors.NOTIFICATION_HOVERED.color : Colors.NOTIFICATION_NORMAL.color);
+        context.fill(RenderLayer.getGuiOverlay(), offsetX, offsetY, offsetX + getWidth(), offsetY + getHeight(), hovered ? Colors.NOTIFICATION_HOVERED.color : Colors.NOTIFICATION_NORMAL.color);
         SCFont.renderString(context, title, offsetX + 5, offsetY + 5, Colors.TEXT_NORMAL.color);
         context.drawHorizontalLine(offsetX + 5, offsetX + getWidth() - 5, offsetY + 10 + (int) SCFont.getHeight(), Colors.HORIZONTAL_LINE.color);
         AtomicInteger offset = new AtomicInteger(15 + (int) SCFont.getHeight()); // java this is annoying
