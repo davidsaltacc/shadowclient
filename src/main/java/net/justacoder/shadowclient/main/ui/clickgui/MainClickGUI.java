@@ -51,7 +51,7 @@ public class MainClickGUI extends ClickGUI {
         }
 
         int screenWidth = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor()).width() / mc.options.getGuiScale().getValue();
-        int columns = (int) Math.floor((float) screenWidth / 105);
+        int columns = (int) Math.floor((float) (screenWidth / 2) / 105);
 
         int[] columnsY = new int[columns];
         Arrays.fill(columnsY, 5);
@@ -59,9 +59,24 @@ public class MainClickGUI extends ClickGUI {
         for (int index = 0; index < frames.size(); index++) {
             int xCol = index % columns;
             Frame frame = frames.get(index);
-            frame.y = columnsY[xCol];
-            columnsY[xCol] += frame.getHeight() + 5;
-            frame.x = 5 + xCol * 105;
+            if (columnsY[xCol] == 5) {
+                frame.y = columnsY[xCol];
+                columnsY[xCol] += frame.getHeight() + 5;
+                frame.x = 5 + xCol * 105;
+            } else {
+                int minY = (int) 1e7;
+                int minYIndex = -1;
+                for (int ind = 0; ind < columns; ind++) {
+                    int newY = columnsY[ind] + frame.getHeight();
+                    if (newY < minY) {
+                        minY = newY;
+                        minYIndex = ind;
+                    }
+                }
+                frame.y = columnsY[minYIndex];
+                columnsY[minYIndex] += frame.getHeight() + 5;
+                frame.x = 5 + minYIndex * 105;
+            }
         }
     }
 
