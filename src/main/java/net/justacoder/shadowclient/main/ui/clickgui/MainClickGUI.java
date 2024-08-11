@@ -35,13 +35,13 @@ public class MainClickGUI extends ClickGUI {
 
         int offset = 5;
         for (ModuleCategory category : ModuleCategory.values()) {
-            frames.add(new Frame(category, offset, 5, 100, 14));
+            frames.add(new Frame(category, offset, 5, 100, 13));
             offset += 105;
         }
 
-        searchFrame = new Frame("Search", offset, 5, 100, 14);
+        searchFrame = new Frame("Search", offset, 5, 100, 12);
         frames.add(searchFrame);
-        searchFrame.children.add(new TextField(searchFrame, 14, "Find Module"));
+        searchFrame.children.add(new TextField(searchFrame, 12, "Find Module"));
     }
 
     public void repositionFramesProperly() {

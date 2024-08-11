@@ -27,7 +27,7 @@ import java.util.Map;
 public abstract class SCFont {
 
     public static String FONT_PATH = "/assets/shadowclient/font/roboto-regular.ttf";
-    public static float FONT_SIZE = 9f;
+    public static float FONT_SIZE = 8f;
 
     private static final Map<Integer, CharacterData[]> characterDatas = new HashMap<>();
 
@@ -88,7 +88,7 @@ public abstract class SCFont {
                 g.setColor(Color.WHITE);
 
                 g.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
-                g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
                 g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
@@ -209,6 +209,7 @@ public abstract class SCFont {
         BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
         GlStateManager._disableBlend();
+
     }
 
     public static float getWidth(String text) {

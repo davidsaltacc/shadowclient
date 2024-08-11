@@ -112,24 +112,24 @@ public class SCMain {
     public static void initSettingsScreen(ClickGUI gui) {
         int offset = 5;
 
-        Frame settingsframe = new Frame("Settings", offset, 5, 100, 14);
+        Frame settingsframe = new Frame("Settings", offset, 5, 100, 13);
         gui.frames.add(settingsframe);
         offset += 105;
 
-        Frame hideframe = new Frame("Options", offset, 5, 100, 14);
+        Frame hideframe = new Frame("Options", offset, 5, 100, 13);
         gui.frames.add(hideframe);
-        hideframe.children.add(new ModuleButton("hidesettings", hideframe, 14));
-        hideframe.children.add(new ModuleButton("loaddata", hideframe, 28));
-        hideframe.children.add(new ModuleButton("savedata", hideframe, 42));
-        hideframe.children.add(new ModuleButton("resetdata", hideframe, 56));
+        hideframe.children.add(new ModuleButton("hidesettings", hideframe, 13));
+        hideframe.children.add(new ModuleButton("loaddata", hideframe, 26));
+        hideframe.children.add(new ModuleButton("savedata", hideframe, 39));
+        hideframe.children.add(new ModuleButton("resetdata", hideframe, 52));
         offset += 105;
 
-        settingsframe.children.add(new SCBoolSetting(SCSettings.VanillaSpoof, settingsframe, 14));
-        settingsframe.children.add(new SCBoolSetting(SCSettings.ChatMessages, settingsframe, 28));
+        settingsframe.children.add(new SCBoolSetting(SCSettings.VanillaSpoof, settingsframe, 13));
+        settingsframe.children.add(new SCBoolSetting(SCSettings.ChatMessages, settingsframe, 26));
 
-        gui.searchFrame = new Frame("Search", offset, 5, 120, 14);
+        gui.searchFrame = new Frame("Search", offset, 5, 120, 13);
         gui.frames.add(gui.searchFrame);
-        gui.searchFrame.children.add(new TextField(gui.searchFrame, 14, "Find Setting"));
+        gui.searchFrame.children.add(new TextField(gui.searchFrame, 13, "Find Setting"));
     }
 
     public static void setModuleEnabled(String name, boolean enabled) {
