@@ -234,6 +234,12 @@ public class ModuleManager {
 
     public static void startKeybindConfiguration() {
         isConfiguringKeyBinds = true;
+        SCMain.mc.options.forwardKey.setPressed(false);
+        SCMain.mc.options.backKey.setPressed(false);
+        SCMain.mc.options.rightKey.setPressed(false);
+        SCMain.mc.options.leftKey.setPressed(false);
+        SCMain.mc.options.jumpKey.setPressed(false);
+        SCMain.mc.options.sneakKey.setPressed(false);
     }
 
     public static void endKeybindConfiguration() {
