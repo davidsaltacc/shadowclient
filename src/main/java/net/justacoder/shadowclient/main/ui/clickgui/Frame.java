@@ -78,7 +78,7 @@ public class Frame extends FrameChild {
             context.fill(x, y, x + width, y + height, rainbowcolor);
         } else {
             int[] colorArray = ColorUtils.int2RGBA(Colors.CATEGORY_FRAME.color);
-            int colorLighter = ColorUtils.RGBA2int(colorArray[0] + 40, colorArray[1] + 40, colorArray[2] + 40, 255);
+            int colorLighter = ColorUtils.RGBA2int(colorArray[0] + 25, colorArray[1] + 25, colorArray[2] + 25, 255);
             context.fillGradient(x, y, x + width, y + height, Colors.CATEGORY_FRAME.color, colorLighter);
         }
 
