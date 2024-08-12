@@ -87,6 +87,9 @@ public class MainClickGUI extends ClickGUI {
             frame.render(context, mouseX, mouseY, delta);
             frame.updatePosition(mouseX, mouseY);
         }
+        for (Frame frame : frames) {
+            frame.renderDescriptions(context, mouseX, mouseY, delta);
+        }
 
         super.render(context, mouseX, mouseY, delta);
     }

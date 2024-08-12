@@ -71,14 +71,17 @@ public class Frame extends FrameChild {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         int textOffset = (int) ((float) height / 2 - SCFont.getHeight() / 2);
 
-        int rainbowcolor = 0;
         if (ModuleManager.RainbowGUIModule.enabled) {
             float[] rainbowF = ColorUtils.rainbowColor();
             int[] rainbowI = ColorUtils.RGBFloatToRGBInt(rainbowF[0], rainbowF[1], rainbowF[2]);
-            rainbowcolor = ColorUtils.RGBA2int(rainbowI[0], rainbowI[1], rainbowI[2], 255);
+            int rainbowcolor = ColorUtils.RGBA2int(rainbowI[0], rainbowI[1], rainbowI[2], 255);
+            context.fill(x, y, x + width, y + height, rainbowcolor);
+        } else {
+            int[] colorArray = ColorUtils.int2RGBA(Colors.CATEGORY_FRAME.color);
+            int colorLighter = ColorUtils.RGBA2int(colorArray[0] + 40, colorArray[1] + 40, colorArray[2] + 40, 255);
+            context.fillGradient(x, y, x + width, y + height, Colors.CATEGORY_FRAME.color, colorLighter);
         }
 
-        context.fill(x, y, x + width, y + height, ModuleManager.RainbowGUIModule.enabled ? rainbowcolor : Colors.CATEGORY_FRAME.color);
         SCFont.renderString(context, name, x + textOffset, y + textOffset, Colors.TEXT_NORMAL.color);
         SCFont.renderString(context, extended ? "-" : "+", x + width - textOffset - SCFont.getWidth("+"), y + textOffset, Colors.TEXT_NORMAL.color);
 
@@ -87,10 +90,15 @@ public class Frame extends FrameChild {
             for (FrameChild child : children) {
                 child.render(context, mouseX, mouseY, delta);
             }
+        }
+    }
+
+    public void renderDescriptions(DrawContext context, int mouseX, int mouseY, float delta) {
+        if (extended) {
             for (FrameChild child : children) {
-                if (child instanceof ModuleButton) {
-                    if (((ModuleButton) child).isHovered(mouseX, mouseY)) {
-                        ((ModuleButton) child).renderDescription(context, mouseX, mouseY);
+                if (child instanceof ModuleButton button) {
+                    if (button.isHovered(mouseX, mouseY)) {
+                        button.renderDescription(context, mouseX, mouseY);
                     }
                 }
             }
