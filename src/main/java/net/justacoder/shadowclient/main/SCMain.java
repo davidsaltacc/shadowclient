@@ -48,8 +48,8 @@ public class SCMain {
 
     public static boolean configDeleted = false;
 
-    public static List<KeyBinding> keyBindings = new ArrayList<>();
-    public static List<KeyBinding> moduleKeyBindings = new ArrayList<>();
+    public static final List<KeyBinding> keyBindings = new ArrayList<>();
+    public static final List<KeyBinding> moduleKeyBindings = new ArrayList<>();
 
     public static KeyBinding ToggleGUIKeyBinding;
     public static SimpleOption<Integer> guiScaleOption;
@@ -93,7 +93,9 @@ public class SCMain {
     }
 
     public static KeyBinding registerKeyBinding(KeyBinding bind, boolean module) {
-        moduleKeyBindings.add(bind);
+        if (module) {
+            moduleKeyBindings.add(bind);
+        }
         keyBindings.add(bind);
         addKeybindCategory(bind.getCategory());
         return bind;
