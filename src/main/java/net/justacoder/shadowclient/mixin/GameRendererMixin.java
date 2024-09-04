@@ -63,4 +63,12 @@ public abstract class GameRendererMixin implements IGameRenderer {
             ci.cancel();
         }
     }
+
+    @Inject(method = "getFov", at = @At("HEAD"), cancellable = true)
+    private void getFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Double> cir) {
+        if (ModuleManager.ZoomModule.enabled) {
+            cir.setReturnValue(ModuleManager.ZoomModule.FOV.doubleValue());
+        }
+    }
+
 }

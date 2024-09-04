@@ -103,6 +103,8 @@ public class ModuleManager {
     public static UnfocusedFPS UnfocusedFPSModule;
     public static HideShield HideShieldModule;
     public static ConfigureKeybindings ConfigureKeybindingsModule;
+    public static Zoom ZoomModule;
+
 
     public static void registerModules() {
         AutoSprintModule = (AutoSprint) register(new AutoSprint());
@@ -178,6 +180,7 @@ public class ModuleManager {
         UnfocusedFPSModule = (UnfocusedFPS) register(new UnfocusedFPS());
         HideShieldModule = (HideShield) register(new HideShield());
         ConfigureKeybindingsModule = (ConfigureKeybindings) register(new ConfigureKeybindings());
+        ZoomModule = (Zoom) register(new Zoom());
     }
 
     public static Module register(Module module) {
