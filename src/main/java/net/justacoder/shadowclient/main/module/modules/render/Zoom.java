@@ -7,7 +7,7 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 
 @DoNotSaveState
-@SearchTags({"zoom", "fov", "increase fov", "decrease fov", "increase zoom", "decrease zoom"})
+@SearchTags({"zoom", "fov", "increase fov", "decrease fov", "increase zoom", "decrease zoom", "zoom in", "zoom out"})
 public class Zoom extends Module {
 
     public NumberSetting FOV = new NumberSetting("FOV", 1f, 179f, 90f, 0);
