@@ -106,7 +106,7 @@ public class Trajectories extends Module {
         double yaw = Math.toRadians(mc.player.getYaw());
         double pitch = Math.toRadians(mc.player.getPitch());
 
-        Vec3d arrawPos = new Vec3d(MathHelper.lerp(delta, mc.player.lastRenderX, mc.player.getX()),
+        Vec3d arrowPos = new Vec3d(MathHelper.lerp(delta, mc.player.lastRenderX, mc.player.getX()),
             MathHelper.lerp(delta, mc.player.lastRenderY, mc.player.getY()),
             MathHelper.lerp(delta, mc.player.lastRenderZ, mc.player.getZ())).add(PlayerUtils.getHandOffset(Hand.MAIN_HAND, yaw));
 
@@ -114,9 +114,9 @@ public class Trajectories extends Module {
         Vec3d arrowMotion = new Vec3d(-Math.sin(yaw) * cospitch, -Math.sin(pitch), Math.cos(yaw) * cospitch).normalize().multiply(power);
 
         for (int i = 0; i < 1000; i++) {
-            trajPath.add(arrawPos);
+            trajPath.add(arrowPos);
 
-            arrawPos = arrawPos.add(arrowMotion.multiply(0.1));
+            arrowPos = arrowPos.add(arrowMotion.multiply(0.1));
 
             arrowMotion = arrowMotion.multiply(0.999);
 
@@ -124,7 +124,7 @@ public class Trajectories extends Module {
 
             Vec3d lastPos = trajPath.size() > 1 ? trajPath.get(trajPath.size() - 2) : mc.player.getEyePos();
 
-            HitResult result = WorldUtils.raycast(lastPos, arrawPos);
+            HitResult result = item instanceof FishingRodItem ? WorldUtils.raycastFluidsSolid(lastPos, arrowPos) : WorldUtils.raycast(lastPos, arrowPos);
 
             if (result.getType() != HitResult.Type.MISS) {
                 trajHit = HitResult.Type.BLOCK;
@@ -132,10 +132,10 @@ public class Trajectories extends Module {
                 break;
             }
 
-            Box box = new Box(lastPos, arrawPos);
+            Box box = new Box(lastPos, arrowPos);
             Predicate<Entity> predicate = e -> !e.isSpectator() && e.canHit();
             double maxD = 4096;
-            EntityHitResult result1 = ProjectileUtil.raycast(mc.player, lastPos, arrawPos, box, predicate, maxD);
+            EntityHitResult result1 = ProjectileUtil.raycast(mc.player, lastPos, arrowPos, box, predicate, maxD);
 
             if (result1 != null && result1.getType() != HitResult.Type.MISS) {
                 trajHit = HitResult.Type.ENTITY;

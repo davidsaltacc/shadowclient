@@ -24,4 +24,9 @@ public abstract class WorldUtils {
         RaycastContext context = new RaycastContext(from, to, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, SCMain.mc.player);
         return SCMain.mc.world.raycast(context);
     }
+
+    public static HitResult raycastFluidsSolid(Vec3d from, Vec3d to) {
+        RaycastContext context = new RaycastContext(from, to, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.ANY, SCMain.mc.player);
+        return SCMain.mc.world.raycast(context);
+    }
 }
