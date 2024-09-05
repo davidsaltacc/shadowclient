@@ -10,6 +10,9 @@
     "warning.shadowclient.sodium": "Sodium is installed. Some modules might not work as intended.",
     "warning.shadowclient.entityculling": "EntityCulling is installed. Some entity-related modules might not work as intended.",
 
+    "textfield.placeholder.find_module": "Find Module",
+    "textfield.placeholder.find_setting": "Find Setting",
+
     "module.shadowclient.autosprint": "Autosprint",
     "module.shadowclient.spider": "Spider",
     "module.shadowclient.stepup": "Stepup",

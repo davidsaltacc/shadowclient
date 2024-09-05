@@ -5,16 +5,23 @@ import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.ui.clickgui.Colors;
 import net.justacoder.shadowclient.main.ui.clickgui.Frame;
 import net.justacoder.shadowclient.main.ui.clickgui.FrameChild;
+import net.minecraft.client.resource.language.I18n;
 import org.lwjgl.glfw.GLFW;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TextField extends FrameChild {
 
     private final Frame frameParent;
     private String text;
     private final String placeholder;
+    private String friendlyPlaceholder;
 
     public int offset;
     public boolean captureKeyPresses;
+
+    public static final List<TextField> allTextFields = new ArrayList<>();
 
     public TextField(Frame parent, int offset, String placeholder) {
         this.frameParent = parent;
@@ -22,6 +29,12 @@ public class TextField extends FrameChild {
         this.text = "";
         this.placeholder = placeholder;
         captureKeyPresses = false;
+
+        allTextFields.add(this);
+    }
+
+    public void reloadTranslations() {
+        friendlyPlaceholder = I18n.translate(placeholder);
     }
 
     public Frame getParentFrame() {
@@ -39,7 +52,7 @@ public class TextField extends FrameChild {
             context.fill(getParentFrame().x, getParentFrame().y + offset, getParentFrame().x + getParentFrame().width, getParentFrame().y + offset + getParentFrame().height, Colors.MODULE_BUTTON_NORMAL.color);
         }
         int textOffset = (int) ((float) getParentFrame().height / 2 - SCFont.getHeight() / 2);
-        SCFont.renderString(context, text.isEmpty() ? placeholder : text.toLowerCase(), getParentFrame().x + textOffset, getParentFrame().y + offset + textOffset, text.isEmpty() ? Colors.TEXT_DISABLED.color : Colors.TEXT_NORMAL.color);
+        SCFont.renderString(context, text.isEmpty() ? friendlyPlaceholder : text.toLowerCase(), getParentFrame().x + textOffset, getParentFrame().y + offset + textOffset, text.isEmpty() ? Colors.TEXT_DISABLED.color : Colors.TEXT_NORMAL.color);
     }
 
     public void mouseClicked(double mouseX, double mouseY, int button) {

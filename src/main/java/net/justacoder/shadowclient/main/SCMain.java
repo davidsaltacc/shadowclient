@@ -118,6 +118,7 @@ public class SCMain {
         for (ModuleCategory category : ModuleCategory.values()) { category.reloadTranslations(); }
         Frame.allFrames.forEach(Frame::reloadTranslation);
         NotificationsManager.reloadTranslations();
+        TextField.allTextFields.forEach(TextField::reloadTranslations);
     }
 
     public static void initSettingsScreen(ClickGUI gui) {
@@ -140,7 +141,7 @@ public class SCMain {
 
         gui.searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, offset, 5, 120, 13);
         gui.frames.add(gui.searchFrame);
-        gui.searchFrame.children.add(new TextField(gui.searchFrame, 13, "Find Setting"));
+        gui.searchFrame.children.add(new TextField(gui.searchFrame, 13, "textfield.placeholder.find_setting"));
     }
 
     public static void setModuleEnabled(String name, boolean enabled) {

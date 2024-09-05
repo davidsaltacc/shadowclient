@@ -44,7 +44,7 @@ public class MainClickGUI extends ClickGUI {
 
         searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, offset, 5, 100, 12);
         frames.add(searchFrame);
-        searchFrame.children.add(new TextField(searchFrame, 12, "Find Module"));
+        searchFrame.children.add(new TextField(searchFrame, 12, "textfield.placeholder.find_module"));
     }
 
     public void repositionFramesProperly() {
@@ -54,7 +54,7 @@ public class MainClickGUI extends ClickGUI {
         }
 
         int screenWidth = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor()).width() / (mc.options.getGuiScale().getValue() == 0 ? 2 : mc.options.getGuiScale().getValue());
-        int columns = (int) Math.floor((float) (screenWidth / 2) / 105);
+        int columns = (int) Math.floor((float) (screenWidth / 2.) / 105);
 
         int[] columnsY = new int[columns];
         Arrays.fill(columnsY, 5);
