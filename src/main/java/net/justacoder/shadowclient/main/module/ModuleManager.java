@@ -104,6 +104,7 @@ public class ModuleManager {
     public static HideShield HideShieldModule;
     public static ConfigureKeybindings ConfigureKeybindingsModule;
     public static Zoom ZoomModule;
+    public static NoBob NoBobModule;
 
 
     public static void registerModules() {
@@ -181,6 +182,7 @@ public class ModuleManager {
         HideShieldModule = (HideShield) register(new HideShield());
         ConfigureKeybindingsModule = (ConfigureKeybindings) register(new ConfigureKeybindings());
         ZoomModule = (Zoom) register(new Zoom());
+        NoBobModule = (NoBob) register(new NoBob());
     }
 
     public static Module register(Module module) {

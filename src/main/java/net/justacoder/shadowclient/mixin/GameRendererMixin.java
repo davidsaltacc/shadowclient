@@ -71,4 +71,11 @@ public abstract class GameRendererMixin implements IGameRenderer {
         }
     }
 
+    @Inject(method = "bobView", at = @At("HEAD"), cancellable = true)
+    private void bobView(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
+        if (ModuleManager.NoBobModule.enabled) {
+            ci.cancel();
+        }
+    }
+
 }
