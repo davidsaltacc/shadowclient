@@ -23,6 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Config {
 
     public static boolean configLoaded;
+    public static boolean resetUi;
 
     public static File getConfigFile() {
         return FabricLoader.getInstance().getConfigDir().resolve(SCMain.ClientModId + ".config.json").toFile();
@@ -259,6 +260,9 @@ public class Config {
             }
         });
 
+        if (!version.equals(SCMain.ClientVersion)) {
+            resetUi = true;
+        }
         if (uisettings != null) {
             JsonObject uiframes = uisettings.getAsJsonObject("frames");
             JsonObject mainuiframe = uiframes.getAsJsonObject("main");
@@ -266,7 +270,7 @@ public class Config {
 
             List<Frame> mainuiframes = new ArrayList<>(SCMain.clickGui.frames);
             mainuiframes.add(SCMain.clickGui.searchFrame);
-            mainuiframes.forEach((frame) -> {
+            mainuiframes.forEach(frame -> {
                 if (mainuiframe.has(frame.name)) {
                     JsonObject frameobj = mainuiframe.getAsJsonObject(frame.name);
                     frame.extended = frameobj.get("extended").getAsBoolean();
@@ -277,7 +281,7 @@ public class Config {
 
             List<Frame> settingsframes = new ArrayList<>(SCMain.settingsGui.frames);
             settingsframes.add(SCMain.settingsGui.searchFrame);
-            settingsframes.forEach((frame) -> {
+            settingsframes.forEach(frame -> {
                 if (settingsframe.has(frame.name)) {
                     JsonObject frameobj = settingsframe.getAsJsonObject(frame.name);
                     frame.extended = frameobj.get("extended").getAsBoolean();

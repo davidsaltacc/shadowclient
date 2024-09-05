@@ -49,7 +49,7 @@ public class MainClickGUI extends ClickGUI {
 
     public void repositionFramesProperly() {
 
-        if (Config.configLoaded) {
+        if (Config.configLoaded || !Config.resetUi) {
             return;
         }
 
