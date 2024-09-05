@@ -23,20 +23,25 @@ public class Frame extends FrameChild {
     public final int height;
     public int dragX;
     public int dragY;
-    public final String name;
+    public String name;
     public boolean dragging;
     public boolean extended;
+
+    private ModuleCategory category;
 
     public final MinecraftClient mc = MinecraftClient.getInstance();
 
     public final List<FrameChild> children;
 
-    public Frame(ModuleCategory category, int x, int y, int width, int height) {
+    public static final List<Frame> allFrames = new ArrayList<>();
+
+    private Frame(ModuleCategory category, int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.name = category.name;
+        this.category = category;
+        reloadTranslation();
         this.dragging = false;
         this.extended = true;
 
@@ -53,19 +58,35 @@ public class Frame extends FrameChild {
             offset += height;
         }
 
+        allFrames.add(this);
+
     }
 
-    public Frame(String name, int x, int y, int width, int height) { // search
+    public void reloadTranslation() {
+        this.name = category.friendlyName;
+    }
+
+    private Frame(ModuleCategory category, int x, int y, int width, int height, boolean __) { // search
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.dragging = false;
         this.extended = true;
-        this.name = name;
+        this.category = category;
+        reloadTranslation();
 
         children = new ArrayList<>();
 
+        allFrames.add(this);
+    }
+
+    public static Frame create(ModuleCategory category, int x, int y, int width, int height) {
+        return new Frame(category, x, y, width, height);
+    }
+
+    public static Frame createWithoutAddingModules(ModuleCategory category, int x, int y, int width, int height) {
+        return new Frame(category, x, y, width, height, false);
     }
 
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {

@@ -3,6 +3,7 @@ package net.justacoder.shadowclient.main;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModMetadata;
+import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.minecraft.Bootstrap;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -111,14 +112,20 @@ public class SCMain {
         map.put(category, largestInt + 1);
     }
 
+    public static void reloadTranslations() {
+        ModuleManager.getAllModules().forEach((name, module) -> module.reloadTranslations());
+        for (ModuleCategory category : ModuleCategory.values()) { category.reloadTranslations(); }
+        Frame.allFrames.forEach(Frame::reloadTranslation);
+    }
+
     public static void initSettingsScreen(ClickGUI gui) {
         int offset = 5;
 
-        Frame settingsframe = new Frame("Settings", offset, 5, 100, 13);
+        Frame settingsframe = Frame.createWithoutAddingModules(ModuleCategory.SETTINGS, offset, 5, 100, 13);
         gui.frames.add(settingsframe);
         offset += 105;
 
-        Frame hideframe = new Frame("Options", offset, 5, 100, 13);
+        Frame hideframe = Frame.createWithoutAddingModules(ModuleCategory.OPTIONS, offset, 5, 100, 13);
         gui.frames.add(hideframe);
         hideframe.children.add(new ModuleButton("hidesettings", hideframe, 13));
         hideframe.children.add(new ModuleButton("loaddata", hideframe, 26));
@@ -129,7 +136,7 @@ public class SCMain {
         settingsframe.children.add(new SCBoolSetting(SCSettings.VanillaSpoof, settingsframe, 13));
         settingsframe.children.add(new SCBoolSetting(SCSettings.ChatMessages, settingsframe, 26));
 
-        gui.searchFrame = new Frame("Search", offset, 5, 120, 13);
+        gui.searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, offset, 5, 120, 13);
         gui.frames.add(gui.searchFrame);
         gui.searchFrame.children.add(new TextField(gui.searchFrame, 13, "Find Setting"));
     }

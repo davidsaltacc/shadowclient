@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.mixin;
 
+import net.justacoder.shadowclient.main.SCMain;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.minecraft.client.resource.language.LanguageManager;
 import net.minecraft.resource.ResourceManager;
@@ -13,7 +14,7 @@ public abstract class LanguageManagerMixin {
 
     @Inject(method = "reload", at = @At("RETURN"))
     private void onLanguageReloaded(ResourceManager manager, CallbackInfo ci) {
-        ModuleManager.getAllModules().forEach((name, module) -> module.reloadTranslations());
+        SCMain.reloadTranslations();
     }
 
 }

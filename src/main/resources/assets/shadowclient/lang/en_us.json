@@ -2,6 +2,8 @@
     "key.shadowclient.togglegui": "Toggle ClickGUI",
     "category.shadowclient.clientcategory": "ShadowClient",
 
+    "name.shadowclient.none": "None",
+
     "module.shadowclient.autosprint": "Autosprint",
     "module.shadowclient.spider": "Spider",
     "module.shadowclient.stepup": "Stepup",
@@ -158,5 +160,17 @@
     "module.description.shadowclient.autohit": "Automatically hit entities if infront of your crosshair.",
     "module.description.shadowclient.automove": "Automatically press the forward key.",
 
-    "name.shadowclient.none": "None"
+    "category.module.shadowclient.combat": "Combat",
+    "category.module.shadowclient.player": "Player",
+    "category.module.shadowclient.movement": "Movement",
+    "category.module.shadowclient.world": "World",
+    "category.module.shadowclient.render": "Render",
+    "category.module.shadowclient.fun": "Fun",
+    "category.module.shadowclient.other": "Other",
+    "category.module.shadowclient.menus": "Menus",
+
+    "category.module.shadowclient.settings": "Settings",
+    "category.module.shadowclient.options": "Options",
+    "category.module.shadowclient.search": "Search"
+
 }
