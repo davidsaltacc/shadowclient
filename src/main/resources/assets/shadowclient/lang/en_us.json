@@ -77,6 +77,7 @@
     "module.shadowclient.configurekeybindings": "Configure Keybindings",
     "module.shadowclient.zoom": "Zoom",
     "module.shadowclient.nobob": "NoBob",
+    "module.shadowclient.autohit": "AutoHit",
 
     "module.description.shadowclient.autosprint": "Automatically sprint instead of walking.",
     "module.description.shadowclient.spider": "Get the ability to climb up walls.",
@@ -153,6 +154,7 @@
     "module.description.shadowclient.configurekeybindings": "Set custom keybindings for modules.",
     "module.description.shadowclient.zoom": "Lets you zoom in (and out) beyond the vanilla limit.",
     "module.description.shadowclient.nobob": "Disables view bobbing.",
+    "module.description.shadowclient.autohit": "Automatically hit entities if infront of your crosshair.",
 
     "name.shadowclient.none": "None"
 }

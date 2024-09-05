@@ -105,6 +105,7 @@ public class ModuleManager {
     public static ConfigureKeybindings ConfigureKeybindingsModule;
     public static Zoom ZoomModule;
     public static NoBob NoBobModule;
+    public static AutoHit AutoHitModule;
 
 
     public static void registerModules() {
@@ -183,6 +184,7 @@ public class ModuleManager {
         ConfigureKeybindingsModule = (ConfigureKeybindings) register(new ConfigureKeybindings());
         ZoomModule = (Zoom) register(new Zoom());
         NoBobModule = (NoBob) register(new NoBob());
+        AutoHitModule = (AutoHit) register(new AutoHit());
     }
 
     public static Module register(Module module) {
