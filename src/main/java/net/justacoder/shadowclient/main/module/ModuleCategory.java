@@ -13,13 +13,14 @@ public enum ModuleCategory {
     MENUS("menus"),
 
 
-    SETTINGS("settings"),
-    OPTIONS("options"),   // not really module categories
-    SEARCH("search");
+    SETTINGS("settings", true),
+    OPTIONS("options", true),   // not really module categories
+    SEARCH("search", true);
 
 
     public final String name;
     public String friendlyName;
+    public final boolean hiddenFromMain;
 
     public void reloadTranslations() {
         this.friendlyName = I18n.translate("category.module.shadowclient." + name);
@@ -28,5 +29,13 @@ public enum ModuleCategory {
     ModuleCategory(String name) {
         this.name = name;
         this.friendlyName = "";
+        this.hiddenFromMain = false;
+    }
+
+
+    ModuleCategory(String name, boolean hiddenFromMain) {
+        this.name = name;
+        this.friendlyName = "";
+        this.hiddenFromMain = hiddenFromMain;
     }
 }

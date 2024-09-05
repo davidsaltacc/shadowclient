@@ -49,7 +49,7 @@ public class Frame extends FrameChild {
 
         int offset = height;
         for (String modulename : ModuleManager.getAllModuleNamesInCategory(category)) {
-            if (ModuleManager.getModule(modulename).getClass().isAnnotationPresent(Hidden.class)) {
+            if (ModuleManager.getModule(modulename).getClass().isAnnotationPresent(Hidden.class) ) {
                 continue;
             }
             ModuleButton button = new ModuleButton(modulename, this, offset);

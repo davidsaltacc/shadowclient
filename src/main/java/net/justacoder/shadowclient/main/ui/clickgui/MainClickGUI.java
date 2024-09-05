@@ -35,6 +35,9 @@ public class MainClickGUI extends ClickGUI {
 
         int offset = 5;
         for (ModuleCategory category : ModuleCategory.values()) {
+            if (category.hiddenFromMain) {
+                continue;
+            }
             frames.add(Frame.create(category, offset, 5, 100, 13));
             offset += 105;
         }
