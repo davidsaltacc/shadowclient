@@ -64,7 +64,8 @@ public class SCMain {
                     InputUtil.Type.KEYSYM,
                     GLFW.GLFW_KEY_RIGHT_SHIFT,
                     "category." + ClientModId + ".clientcategory"
-                ));
+                )
+            );
             CommandManager.registerCommands();
             ModuleManager.registerModules();
             clickGui = new MainClickGUI();
