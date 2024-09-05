@@ -3,6 +3,12 @@
     "category.shadowclient.clientcategory": "ShadowClient",
 
     "name.shadowclient.none": "None",
+    "name.shadowclient.sc_warning": "ShadowClient Warning",
+    "name.shadowclient.click_to_dismiss": "Click to dismiss",
+
+    "warning.shadowclient.optifine": "Optifine is installed. Some modules might not work as intended.",
+    "warning.shadowclient.sodium": "Sodium is installed. Some modules might not work as intended.",
+    "warning.shadowclient.entityculling": "EntityCulling is installed. Some entity-related modules might not work as intended.",
 
     "module.shadowclient.autosprint": "Autosprint",
     "module.shadowclient.spider": "Spider",

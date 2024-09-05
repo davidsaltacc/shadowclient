@@ -6,7 +6,10 @@ import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.SCMain;
 import net.justacoder.shadowclient.main.ui.clickgui.Colors;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.resource.language.I18n;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -14,24 +17,43 @@ public class Notification {
 
     public String title;
     public List<String> desc;
+    public String friendlyTitle;
+    public List<String> friendlyDesc;
 
     public MinecraftClient mc;
 
+    private String dismissText = "";
+
     public int width = -999;
     public int height = -999;
-
     public int offX;
     public int offY;
 
     public Notification(String title, List<String> desc) {
         this.title = title;
         this.desc = desc;
+        this.friendlyTitle = "";
+        this.friendlyDesc = new ArrayList<>(Collections.nCopies(desc.size(), ""));
         this.mc = SCMain.mc;
     }
     public Notification(String title, String desc) {
         this.title = title;
         this.desc = List.of(desc);
+        this.friendlyTitle = "";
+        this.friendlyDesc = new ArrayList<>();
+        friendlyDesc.add("");
         this.mc = SCMain.mc;
+    }
+
+    public void reloadTranslations() {
+        this.friendlyTitle = I18n.translate(title);
+        this.dismissText = I18n.translate("name.shadowclient.click_to_dismiss");
+        for (int i = 0; i < desc.size(); i++) {
+            friendlyDesc.set(i, I18n.translate(desc.get(i)));
+        }
+
+        width = -999;
+        getWidth();
     }
 
     public void render(DrawContext context, int mouseX, int mouseY, float delta, int offsetX, int offsetY) {
@@ -39,15 +61,15 @@ public class Notification {
         offY = offsetY;
         boolean hovered = isHovered(mouseX, mouseY, offsetX, offsetY);
         context.fill(RenderLayer.getGuiOverlay(), offsetX, offsetY, offsetX + getWidth(), offsetY + getHeight(), hovered ? Colors.NOTIFICATION_HOVERED.color : Colors.NOTIFICATION_NORMAL.color);
-        SCFont.renderString(context, title, offsetX + 5, offsetY + 5, Colors.TEXT_NORMAL.color);
+        SCFont.renderString(context, friendlyTitle, offsetX + 5, offsetY + 5, Colors.TEXT_NORMAL.color);
         context.drawHorizontalLine(offsetX + 5, offsetX + getWidth() - 5, offsetY + 10 + (int) SCFont.getHeight(), Colors.HORIZONTAL_LINE.color);
         AtomicInteger offset = new AtomicInteger(15 + (int) SCFont.getHeight()); // java this is annoying
-        desc.forEach((line) -> {
+        friendlyDesc.forEach(line -> {
             SCFont.renderString(context, line, offsetX + 5, offsetY + offset.get(), Colors.TEXT_NORMAL.color);
             offset.addAndGet(5 + (int) SCFont.getHeight());
         });
         context.drawHorizontalLine(offsetX + 5, offsetX + getWidth() - 5, offsetY + offset.get(), Colors.HORIZONTAL_LINE.color);
-        SCFont.renderString(context, "Click to Dismiss.", offsetX + 5, offsetY + offset.get() + 5, Colors.TEXT_DISABLED.color);
+        SCFont.renderString(context, dismissText, offsetX + 5, offsetY + offset.get() + 5, Colors.TEXT_DISABLED.color);
 
     }
 
@@ -61,13 +83,8 @@ public class Notification {
     }
     public int getWidth() {
         if (width == -999) {
-            int[] longest = {0};
-            desc.forEach((line) -> {
-                int w = (int) SCFont.getWidth(line);
-                if (w > longest[0]) {
-                    longest[0] = w;
-                }
-            });
+            int[] longest = { (int) Math.max(SCFont.getWidth(dismissText), SCFont.getWidth(friendlyTitle)) };
+            friendlyDesc.forEach(line -> longest[0] = Math.max((int) SCFont.getWidth(line), longest[0]));
             width = longest[0] + 10;
         }
         return width;

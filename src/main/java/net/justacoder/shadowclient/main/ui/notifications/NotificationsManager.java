@@ -20,6 +20,10 @@ public abstract class NotificationsManager {
         toDelete.add(n);
     }
 
+    public static void reloadTranslations() {
+        notifications.forEach(Notification::reloadTranslations);
+    }
+
     public static void renderNotifications(DrawContext context, int mouseX, int mouseY, float delta) {
         AtomicInteger offset = new AtomicInteger(5);
         notifications.forEach(n -> {

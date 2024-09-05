@@ -117,6 +117,7 @@ public class SCMain {
         ModuleManager.getAllModules().forEach((name, module) -> module.reloadTranslations());
         for (ModuleCategory category : ModuleCategory.values()) { category.reloadTranslations(); }
         Frame.allFrames.forEach(Frame::reloadTranslation);
+        NotificationsManager.reloadTranslations();
     }
 
     public static void initSettingsScreen(ClickGUI gui) {
@@ -236,21 +237,18 @@ public class SCMain {
     }
 
     public static void checkConflictingMods() {
-        String warningTitle = "ShadowClient Warning";
+        String warningTitle = "name.shadowclient.sc_warning";
         if (isOptifinePresent()) {
-            String t = "Optifine is installed. Some modules might not work as intended.";
-            warn(t);
-            notification(warningTitle, t);
+            warn("Optifine is installed");
+            notification(warningTitle, "warning.shadowclient.optifine");
         }
         if (isSodiumPresent()) {
-            String t = "Sodium is installed. Some modules might not work as intended.";
-            warn(t);
-            notification(warningTitle, t);
+            warn("Sodium is installed");
+            notification(warningTitle, "warning.shadowclient.sodium");
         }
         if (isEntityCullPresent()) {
-            String t = "EntityCulling is installed. Some entity-related modules might not work as intended.";
-            warn(t);
-            notification(warningTitle, t);
+            warn("EntityCulling is installed");
+            notification(warningTitle, "warning.shadowclient.entityculling");
         }
     }
 
