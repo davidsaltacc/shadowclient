@@ -9,22 +9,26 @@ import net.justacoder.shadowclient.main.ui.notifications.NotificationsManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(value = Mouse.class)
 public abstract class MouseMixin {
-    @Redirect(method = "updateMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;changeLookDirection(DD)V"))
-    private void onLookDirection(ClientPlayerEntity player, double cursorDeltaX, double cursorDeltaY) {
+
+    @ModifyArgs(method = "updateMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;changeLookDirection(DD)V"))
+    private void onLookDirection(Args args) {
+
         Freecam freecam = ModuleManager.FreecamModule;
 
         if (freecam.enabled) {
-            freecam.lookDirection(cursorDeltaX * 0.15, cursorDeltaY * 0.15);
+            freecam.lookDirection((double) args.get(0) * 0.15, (double) args.get(1) * 0.15);
+            args.set(0, 0d);
+            args.set(1, 0d);
         }
-        else {
-            player.changeLookDirection(cursorDeltaX, cursorDeltaY);
-        }
+
     }
 
     @SuppressWarnings("InvalidInjectorMethodSignature")
