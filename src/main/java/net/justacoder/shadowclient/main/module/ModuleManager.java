@@ -106,6 +106,7 @@ public class ModuleManager {
     public static Zoom ZoomModule;
     public static NoBob NoBobModule;
     public static AutoHit AutoHitModule;
+    public static AutoMove AutoMoveModule;
 
 
     public static void registerModules() {
@@ -185,6 +186,7 @@ public class ModuleManager {
         ZoomModule = (Zoom) register(new Zoom());
         NoBobModule = (NoBob) register(new NoBob());
         AutoHitModule = (AutoHit) register(new AutoHit());
+        AutoMoveModule = (AutoMove) register(new AutoMove());
     }
 
     public static Module register(Module module) {

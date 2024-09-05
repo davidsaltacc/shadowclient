@@ -38,6 +38,7 @@
         "ItemEntityRendererMixin",
         "KeyBindingAccessor",
         "KeyBindingEntryAccessor",
+        "KeyboardInputMixin",
         "KeyboardMixin",
         "LanguageManagerMixin",
         "LivingEntityRendererMixin",
