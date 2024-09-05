@@ -165,10 +165,10 @@ public class Config {
 
         Map<String, JsonObject> modules = new ConcurrentHashMap<>();
         JsonObject finalJson = json;
-        json.keySet().forEach((name) -> modules.put(name, finalJson.get(name).getAsJsonObject()));
+        json.keySet().forEach(name -> modules.put(name, finalJson.get(name).getAsJsonObject()));
 
         if (scsettings != null) {
-            scsettings.keySet().forEach((setting) -> {
+            scsettings.keySet().forEach(setting -> {
                 JsonPrimitive value = scsettings.getAsJsonPrimitive(setting);
                 Setting settingobj = SCSettings.getSetting(setting);
                 if (settingobj != null) {
@@ -189,11 +189,11 @@ public class Config {
             Module module = ModuleManager.getModule(name);
             JsonObject settings = object.get("settings").getAsJsonObject();
 
-            settings.keySet().forEach((setting) -> {
+            settings.keySet().forEach(setting -> {
                 JsonElement settingjson = settings.get(setting);
                 if (settingjson.isJsonPrimitive() && settingjson.getAsJsonPrimitive().isNumber()) {
                     Number value = settingjson.getAsNumber();
-                    module.settings.forEach((settingobj) -> {
+                    module.settings.forEach(settingobj -> {
                         if (settingobj.name.equals(setting)) {
                             settingobj.shouldCallCallbacks(false);
                             settingobj.setNumberValue(value);
@@ -203,7 +203,7 @@ public class Config {
                 }
                 if (settingjson.isJsonPrimitive() && settingjson.getAsJsonPrimitive().isBoolean()) {
                     boolean value = settingjson.getAsBoolean();
-                    module.settings.forEach((settingobj) -> {
+                    module.settings.forEach(settingobj -> {
                         if (settingobj.name.equals(setting)) {
                             settingobj.shouldCallCallbacks(false);
                             settingobj.setBooleanValue(value);
@@ -217,7 +217,7 @@ public class Config {
                         if (settings.keySet().contains(setting + "_ENUMPATH")) {
                             String enumpath = settings.get(setting + "_ENUMPATH").getAsString().replace("class ", "");
                             String enumvalue = settings.get(setting).getAsString();
-                            module.settings.forEach((settingobj) -> {
+                            module.settings.forEach(settingobj -> {
                                 if (settingobj.name.equals(setting)) {
                                     try {
                                         Class<?> enumClass = Class.forName(enumpath);
@@ -231,7 +231,7 @@ public class Config {
                                 }
                             });
                         } else {
-                            module.settings.forEach((settingobj) -> {
+                            module.settings.forEach(settingobj -> {
                                 if (settingobj.name.equals(setting) && settingobj instanceof StringSetting) {
                                     settingobj.shouldCallCallbacks(false);
                                     ((StringSetting) settingobj).setStringValue(value);
