@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Config {
 
     public static boolean configLoaded;
-    public static boolean resetUi;
+    public static boolean resetUi = false;
 
     public static File getConfigFile() {
         return FabricLoader.getInstance().getConfigDir().resolve(SCMain.ClientModId + ".config.json").toFile();

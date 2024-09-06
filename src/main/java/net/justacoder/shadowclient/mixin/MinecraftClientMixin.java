@@ -118,4 +118,9 @@ public abstract class MinecraftClientMixin {
         }
     }
 
+    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;onWindowFocusChanged(Z)V", shift = At.Shift.AFTER))
+    private void onWindowInitted(RunArgs args, CallbackInfo ci) {
+        SCMain.clickGui.repositionFramesProperly();
+    }
+
 }

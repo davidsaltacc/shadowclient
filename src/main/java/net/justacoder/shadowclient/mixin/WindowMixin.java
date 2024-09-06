@@ -1,8 +1,5 @@
 package net.justacoder.shadowclient.mixin;
 
-import net.minecraft.client.WindowEventHandler;
-import net.minecraft.client.WindowSettings;
-import net.minecraft.client.util.MonitorTracker;
 import net.minecraft.client.util.Window;
 import net.justacoder.shadowclient.main.SCMain;
 import org.lwjgl.glfw.GLFW;
@@ -18,11 +15,6 @@ public abstract class WindowMixin {
     public void setTitle(String title, CallbackInfo ci) {
         GLFW.glfwSetWindowTitle(((Window) (Object) this).getHandle(), SCMain.getWindowTitle() + " | " + title);
         ci.cancel();
-    }
-
-    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lorg/lwjgl/glfw/GLFW;glfwMakeContextCurrent(J)V", shift = At.Shift.AFTER, remap = false))
-    private void onceGLFWContextCurrent(WindowEventHandler eventHandler, MonitorTracker monitorTracker, WindowSettings settings, String videoMode, String title, CallbackInfo ci) {
-        SCMain.clickGui.repositionFramesProperly();
     }
 
 }
