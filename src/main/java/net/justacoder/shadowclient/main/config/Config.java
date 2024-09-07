@@ -144,7 +144,6 @@ public class Config {
                 throw new RuntimeException();
             }
         } catch (Exception ignored) {
-            resetUi = true;
             saveConfig();
             return;
         }

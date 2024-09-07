@@ -12,6 +12,7 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,28 +34,33 @@ public class MainClickGUI extends ClickGUI {
         searching = false;
         searchingFor = "";
 
-        int offset = 5;
         for (ModuleCategory category : ModuleCategory.values()) {
             if (category.hiddenFromMain) {
                 continue;
             }
-            frames.add(Frame.create(category, offset, 5, 100, 13));
-            offset += 105;
+            frames.add(Frame.create(category, 0, 0, 100, 13));
         }
 
-        searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, offset, 5, 100, 12);
+        searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, 0, 0, 100, 12);
         frames.add(searchFrame);
         searchFrame.children.add(new TextField(searchFrame, 12, "textfield.placeholder.find_module"));
+
+        if (!Config.configLoaded || Config.resetUi) {
+            repositionFramesProperly();
+        }
     }
 
     public void repositionFramesProperly() {
 
-        if (!Config.resetUi) {
-            return;
-        }
+        // spaghetti code but there is no better way of doing this
+        String headless = "java.awt.headless";
+        String oldHeadless = System.getProperty(headless);
+        System.setProperty(headless, "false");
+        int screenWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();
+        System.setProperty(headless, oldHeadless);
 
-        int screenWidth = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor()).width() / (mc.options.getGuiScale().getValue() == 0 ? 2 : mc.options.getGuiScale().getValue());
-        int columns = (int) Math.floor((float) (screenWidth / 2.) / 105);
+        int width = screenWidth / 2;
+        int columns = (int) Math.floor((float) (width / 2.) / 105);
 
         int[] columnsY = new int[columns];
         Arrays.fill(columnsY, 5);
