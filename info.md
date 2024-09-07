@@ -20,6 +20,7 @@
 * new mode to xray
 * custom font renderer
 * custom keybinding configuration system
+* better ui ordering
 * made all text in the client translatable, meaning this allows the entire client to be translated into other languages
 * german translations
 
