@@ -41,9 +41,11 @@
 * fix modules going off-screen on small screens
 * update trajectories to treat water like a solid block for the fishing rod
 * fix a crash with meteor (if you for some reason were to use them together)
+* vanilla spoof also now doesn't change the window name
 
 ### other misc. changes:
 * changed some of the UI colors slightly
+* turn off vanilla spoof by default
 
 
 
