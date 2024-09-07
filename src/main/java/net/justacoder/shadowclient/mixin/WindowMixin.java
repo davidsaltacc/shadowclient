@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.mixin;
 
+import net.justacoder.shadowclient.main.config.SCSettings;
 import net.minecraft.client.util.Window;
 import net.justacoder.shadowclient.main.SCMain;
 import org.lwjgl.glfw.GLFW;
@@ -13,7 +14,7 @@ public abstract class WindowMixin {
 
     @Inject(method = "setTitle", at = @At("HEAD"), cancellable = true)
     public void setTitle(String title, CallbackInfo ci) {
-        GLFW.glfwSetWindowTitle(((Window) (Object) this).getHandle(), SCMain.getWindowTitle() + " | " + title);
+        GLFW.glfwSetWindowTitle(((Window) (Object) this).getHandle(), SCSettings.VanillaSpoof.booleanValue() ? title : SCMain.getWindowTitle() + " | " + title);
         ci.cancel();
     }
 

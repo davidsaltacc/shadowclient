@@ -57,6 +57,7 @@
         "Sodium_BlockOcclusionCacheMixin",
         "Sodium_FluidRendererMixin",
         "SplashOverlayMixin",
+        "SplashTextRendererMixin",
         "WindowMixin",
         "WorldRendererAccessor",
         "WorldRendererMixin"
