@@ -90,6 +90,7 @@
     "module.shadowclient.nobob": "NoBob",
     "module.shadowclient.autohit": "AutoHit",
     "module.shadowclient.automove": "AutoMove",
+    "module.shadowclient.breadcrumbs": "Breadcrumbs",
 
     "module.description.shadowclient.autosprint": "Automatically sprint instead of walking.",
     "module.description.shadowclient.spider": "Get the ability to climb up walls.",
@@ -168,6 +169,7 @@
     "module.description.shadowclient.nobob": "Disables view bobbing.",
     "module.description.shadowclient.autohit": "Automatically hit entities if infront of your crosshair.",
     "module.description.shadowclient.automove": "Automatically press the forward key.",
+    "module.description.shadowclient.breadcrumbs": "Shows a trail of where you have walked.",
 
     "category.module.shadowclient.combat": "Combat",
     "category.module.shadowclient.player": "Player",
