@@ -4,6 +4,8 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
+import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
+import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 import net.minecraft.Bootstrap;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -200,7 +202,7 @@ public class SCMain {
     }
 
     public static void onWorldJoined() {
-        if (!SCSettings.getSetting("ChatMessages").booleanValue()) {
+        if (!((BooleanSetting) SCSettings.getSetting("ChatMessages")).booleanValue()) {
             return;
         }
         ChatUtils.sendMessageClient("§9§l§u" + ClientName + " §o" + ClientVersion + "§r\nType " + ClientCommandPrefix + "help for useful help.");

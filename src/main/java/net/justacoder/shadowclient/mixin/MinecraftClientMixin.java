@@ -1,6 +1,8 @@
 package net.justacoder.shadowclient.mixin;
 
 import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
+import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.MainClickGUI;
 import net.justacoder.shadowclient.main.ui.font.SCFont;
 import net.minecraft.client.ClientBrandRetriever;
@@ -46,7 +48,7 @@ public abstract class MinecraftClientMixin {
      */
     @Overwrite
     public static ModStatus getModStatus() {
-        if (SCSettings.getSetting("VanillaSpoof").booleanValue()) {
+        if (((BooleanSetting) SCSettings.getSetting("VanillaSpoof")).booleanValue()) {
             return new ModStatus(ModStatus.Confidence.PROBABLY_NOT, "Client jar signature and brand is untouched");
         }
         return ModStatus.check("vanilla", ClientBrandRetriever::getClientModName, "Client", MinecraftClient.class);

@@ -58,17 +58,17 @@ public class Config {
                 JsonObject settings = new JsonObject();
 
                 module.settings.forEach(setting -> {
-                    if (setting instanceof BooleanSetting) {
-                        settings.addProperty(setting.name, setting.booleanValue());
+                    if (setting instanceof BooleanSetting set) {
+                        settings.addProperty(setting.name, set.booleanValue());
                     }
-                    if (setting instanceof NumberSetting) {
-                        settings.addProperty(setting.name, setting.numberValue());
+                    if (setting instanceof NumberSetting set) {
+                        settings.addProperty(setting.name, set.numberValue());
                     }
-                    if (setting instanceof StringSetting) {
-                        settings.addProperty(setting.name, ((StringSetting) setting).stringValue());
+                    if (setting instanceof StringSetting set) {
+                        settings.addProperty(setting.name, set.stringValue());
                     }
-                    if (setting instanceof EnumSetting<?>) {
-                        Enum<?> value = ((EnumSetting<?>) setting).getEnumValue();
+                    if (setting instanceof EnumSetting<?> set) {
+                        Enum<?> value = set.getEnumValue();
                         settings.addProperty(setting.name, value.name());
                         settings.addProperty(setting.name + "_ENUMPATH", value.getClass().toString());
                     }
@@ -82,17 +82,17 @@ public class Config {
 
         clientdata.addProperty("version", SCMain.ClientVersion);
 
-        Arrays.stream(SCSettings.class.getDeclaredFields()).forEach((field) -> {
+        Arrays.stream(SCSettings.class.getDeclaredFields()).forEach(field -> {
             try {
                 Setting setting = (Setting) field.get(null);
-                if (setting instanceof BooleanSetting) {
-                    scsettings.addProperty(field.getName(), setting.booleanValue());
+                if (setting instanceof BooleanSetting set) {
+                    scsettings.addProperty(field.getName(), set.booleanValue());
                 }
-                if (setting instanceof NumberSetting) {
-                    scsettings.addProperty(field.getName(), setting.numberValue());
+                if (setting instanceof NumberSetting set) {
+                    scsettings.addProperty(field.getName(), set.numberValue());
                 }
-                if (setting instanceof StringSetting) {
-                    scsettings.addProperty(field.getName(), ((StringSetting) setting).stringValue());
+                if (setting instanceof StringSetting set) {
+                    scsettings.addProperty(field.getName(), set.stringValue());
                 }
             } catch (Exception ignored) {}
         });
@@ -103,7 +103,7 @@ public class Config {
 
         List<Frame> mainuiframes = new ArrayList<>(SCMain.clickGui.frames);
         mainuiframes.add(SCMain.clickGui.searchFrame);
-        mainuiframes.forEach((frame) -> {
+        mainuiframes.forEach(frame -> {
             JsonObject frameobj = new JsonObject();
             frameobj.addProperty("offset_x", frame.x);
             frameobj.addProperty("offset_y", frame.y);
@@ -174,10 +174,10 @@ public class Config {
                 Setting settingobj = SCSettings.getSetting(setting);
                 if (settingobj != null) {
                     if (value.isBoolean()) {
-                        settingobj.setBooleanValue(value.getAsBoolean());
+                        ((BooleanSetting) settingobj).setBooleanValue(value.getAsBoolean());
                     }
                     if (value.isNumber()) {
-                        settingobj.setNumberValue(value.getAsNumber());
+                        ((NumberSetting) settingobj).setNumberValue(value.getAsNumber());
                     }
                     if (value.isString()) {
                         ((StringSetting) settingobj).setStringValue(value.getAsString());
@@ -197,7 +197,7 @@ public class Config {
                     module.settings.forEach(settingobj -> {
                         if (settingobj.name.equals(setting)) {
                             settingobj.shouldCallCallbacks(false);
-                            settingobj.setNumberValue(value);
+                            ((NumberSetting) settingobj).setNumberValue(value);
                             settingobj.shouldCallCallbacks(true);
                         }
                     });
@@ -207,7 +207,7 @@ public class Config {
                     module.settings.forEach(settingobj -> {
                         if (settingobj.name.equals(setting)) {
                             settingobj.shouldCallCallbacks(false);
-                            settingobj.setBooleanValue(value);
+                            ((BooleanSetting) settingobj).setBooleanValue(value);
                             settingobj.shouldCallCallbacks(true);
                         }
                     });

@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
+import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 import net.justacoder.shadowclient.main.setting.settings.StringSetting;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,10 +23,10 @@ public class SCSettings {
                 try {
                     Setting settingobj = (Setting) SCSettings.class.getDeclaredField(name).get(null);
                     if (setting.isBoolean()) {
-                        settingobj.setBooleanValue(setting.getAsBoolean());
+                        ((BooleanSetting) settingobj).setBooleanValue(setting.getAsBoolean());
                     }
                     if (setting.isNumber()) {
-                        settingobj.setNumberValue(setting.getAsNumber());
+                        ((NumberSetting) settingobj).setNumberValue(setting.getAsNumber());
                     }
                     if (setting.isString()) {
                         ((StringSetting) settingobj).setStringValue(setting.getAsString());
