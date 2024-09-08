@@ -30,7 +30,7 @@ public class SliderSetting extends SettingComponent {
         }
 
         double diff = Math.min(parent.parent.width, Math.max(0, mouseX - parent.parent.x));
-        int renderWidth = (int) (parent.parent.width * (numberSetting.numberValue().floatValue() - numberSetting.getMinValue().floatValue()) / (numberSetting.getMaxValue().floatValue() - numberSetting.getMinValue().floatValue()));
+        int renderWidth = (int) (parent.parent.width * (numberSetting.numberValueUneased().floatValue() - numberSetting.getMinValue().floatValue()) / (numberSetting.getMaxValue().floatValue() - numberSetting.getMinValue().floatValue()));
         context.fill(parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + renderWidth, parent.parent.y + parent.offset + offset + parent.parent.height, Colors.SLIDER.color);
 
         if (sliding) {

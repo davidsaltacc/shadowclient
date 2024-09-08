@@ -7,8 +7,8 @@ public abstract class Setting {
 
     public final String name;
 
-    private Number value;
-    private Number minValue;
+    protected Number value;
+    protected Number minValue;
 
     public Number getMinValue() {
         return minValue;
@@ -23,7 +23,7 @@ public abstract class Setting {
         this.maxValue = maxValue;
     }
 
-    private Number maxValue;
+    protected Number maxValue;
 
     private boolean boolValue;
 
@@ -31,16 +31,16 @@ public abstract class Setting {
         return value;
     }
     public int intValue() {
-        return (int) value.doubleValue();
+        return numberValue().intValue();
     }
     public long longValue() {
-        return (long) value.doubleValue();
+        return numberValue().longValue();
     }
     public float floatValue() {
-        return (float) value.doubleValue();
+        return numberValue().floatValue();
     }
     public double doubleValue() {
-        return value.doubleValue();
+        return numberValue().doubleValue();
     }
     public boolean booleanValue() {
         return boolValue;
