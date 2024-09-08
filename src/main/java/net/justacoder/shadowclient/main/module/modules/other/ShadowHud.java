@@ -17,7 +17,7 @@ import net.justacoder.shadowclient.mixin.WorldRendererAccessor;
 
 @SearchTags({"shadowhud", "shadow hud", "minihud", "hud", "coordinates", "coords"})
 @EventListener({PreTickEvent.class})
-public class ShadowHud extends Module { // todo add to this
+public class ShadowHud extends Module {
 
     public EnumSetting<HudRenderer.Corner> CORNER = new EnumSetting<>("Corner", HudRenderer.Corner.Top_Left);
 
@@ -40,14 +40,14 @@ public class ShadowHud extends Module { // todo add to this
 
         addSettings(CORNER, COORDINATES, PING, SATURATION, ROTATION, FRAMES, ENTITIES);
 
-        CORNER.addChangeCallback(() -> HudRenderer.setCorner(CORNER.getEnumValue()));
+        CORNER.addChangeCallback((newV, __) -> HudRenderer.setCorner((HudRenderer.Corner) newV));
 
-        COORDINATES.addChangeCallback(() -> COORDINATES_ELEMENT.shouldBeRendered(COORDINATES.booleanValue()));
-        PING.addChangeCallback(() -> PING_ELEMENT.shouldBeRendered(PING.booleanValue()));
-        SATURATION.addChangeCallback(() -> SATURATION_ELEMENT.shouldBeRendered(SATURATION.booleanValue()));
-        ROTATION.addChangeCallback(() -> ROTATION_ELEMENT.shouldBeRendered(ROTATION.booleanValue()));
-        FRAMES.addChangeCallback(() -> FRAMES_ELEMENT.shouldBeRendered(FRAMES.booleanValue()));
-        ENTITIES.addChangeCallback(() -> ENTITIES_ELEMENT.shouldBeRendered(ENTITIES.booleanValue()));
+        COORDINATES.addChangeCallback((newV, __) -> COORDINATES_ELEMENT.shouldBeRendered((boolean) newV));
+        PING.addChangeCallback((newV, __) -> PING_ELEMENT.shouldBeRendered(PING.booleanValue()));
+        SATURATION.addChangeCallback((newV, __) -> SATURATION_ELEMENT.shouldBeRendered((boolean) newV));
+        ROTATION.addChangeCallback((newV, __) -> ROTATION_ELEMENT.shouldBeRendered((boolean) newV));
+        FRAMES.addChangeCallback((newV, __) -> FRAMES_ELEMENT.shouldBeRendered((boolean) newV));
+        ENTITIES.addChangeCallback((newV, __) -> ENTITIES_ELEMENT.shouldBeRendered((boolean) newV));
 
         HudRenderer.addElement(COORDINATES_ELEMENT);
         HudRenderer.addElement(ROTATION_ELEMENT);

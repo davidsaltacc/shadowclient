@@ -17,12 +17,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @DoNotSaveState
 @SearchTags({"xray", "x ray", "ore render", "mine help", "finder", "ore vision"})
-@EventListener({SetOpaqueCubeEvent.class, GetAmbientOcclusionLightLevelEvent.class, ShouldDrawSideEvent.class, RenderBlockEntityEvent.class, PreTickEvent.class})
-public class Xray extends Module { // todo maybe add option to render blocks translucently or something
+@EventListener({SetOpaqueCubeEvent.class, GetAmbientOcclusionLightLevelEvent.class, ShouldDrawSideEvent.class, RenderBlockEntityEvent.class})
+public class Xray extends Module {
 
     public EnumSetting<Mode> MODE = new EnumSetting<>("Mode", Mode.All);
-
-    private int lastMode = MODE.getEnumValue().hashCode();
 
     public Xray() {
         super("xray", ModuleCategory.RENDER);
@@ -33,17 +31,12 @@ public class Xray extends Module { // todo maybe add option to render blocks tra
         Collections.sort(Mode.NaturallySpawning.blocks);
 
         addSetting(MODE);
+
+        MODE.addChangeCallback((n, o) -> mc.worldRenderer.reload());
     }
 
     @Override
     public void onEvent(Event event) {
-        if (event instanceof PreTickEvent) {
-            if (lastMode != MODE.getEnumValue().hashCode()) {
-                lastMode = MODE.getEnumValue().hashCode();
-                mc.worldRenderer.reload();
-            }
-            return;
-        }
         if (event instanceof SetOpaqueCubeEvent) {
             event.cancel();
             return;

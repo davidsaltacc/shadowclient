@@ -24,30 +24,26 @@ public class Breadcrumbs extends Module {
     public final NumberSetting MIN_SEGMENT_LEN = new NumberSetting("Min. Segment Len.", 0.01f, 5.f, 0.5f, 2, MathUtils.Easing.EASE_IN_CUBIC);
     public final NumberSetting MAX_POSITIONS = new NumberSetting("Max Breadcrumbs", 2, 8000, 2000, 0);
 
-    private int oldMaxPositions = MAX_POSITIONS.intValue();
-
     private final ArrayDeque<Vec3d> positions = new ArrayDeque<>(MAX_POSITIONS.intValue());
 
     public Breadcrumbs() {
         super("breadcrumbs", ModuleCategory.RENDER);
+
         addSettings(DEPTH_TEST, MIN_SEGMENT_LEN, MAX_POSITIONS);
+
+        MAX_POSITIONS.addChangeCallback((newValue, oldValue) -> {
+            if ((float) newValue < (float) oldValue) {
+                while (positions.size() > (float) newValue) {
+                    positions.pollFirst();
+                }
+            }
+        });
     }
 
     @Override
     public void onEvent(Event event) {
 
         if (event instanceof PreTickEvent) {
-
-            int newMaxPositions = MAX_POSITIONS.intValue();
-            if (newMaxPositions < oldMaxPositions) {
-                while (positions.size() > newMaxPositions) {
-                    positions.pollFirst();
-                }
-            }
-            if (newMaxPositions != oldMaxPositions) {
-                oldMaxPositions = newMaxPositions;
-            }
-
 
             float minSegLenSq = MathHelper.square(MIN_SEGMENT_LEN.floatValue());
             if (positions.isEmpty() || positions.peekLast().squaredDistanceTo(mc.player.getPos()) > minSegLenSq) {

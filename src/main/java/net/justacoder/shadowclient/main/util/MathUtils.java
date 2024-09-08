@@ -27,6 +27,10 @@ public abstract class MathUtils {
         return x * x * x;
     }
 
+    public static Number clamp(Number value, Number minValue, Number maxValue) {
+        return Math.min(maxValue.doubleValue(), Math.max(minValue.doubleValue(), value.doubleValue()));
+    }
+
     public enum Easing {
 
         LINEAR(x -> x),

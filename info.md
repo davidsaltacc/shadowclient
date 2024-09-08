@@ -44,6 +44,7 @@
 * update trajectories to treat water like a solid block for the fishing rod
 * fix a crash with meteor (if you for some reason were to use them together)
 * vanilla spoof also now doesn't change the window name
+* fix setting change callbacks not being called if the set value exceeded the maximum
 
 ### other misc. changes:
 * changed some of the UI colors slightly
@@ -98,7 +99,7 @@
 * eased sliders (sliders, but with easing, so it's easier to configure some values)
 * ui animations
 * use setting change callbacks instead of manual changing, I didn't know we had callbacks lol
-
+* fix shadowhud rendering, the new font renderer breaks it a bit
 
 
 

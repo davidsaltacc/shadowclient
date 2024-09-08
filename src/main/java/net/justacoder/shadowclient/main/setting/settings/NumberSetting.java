@@ -45,64 +45,22 @@ public class NumberSetting extends Setting {
     }
 
     public void setNumberValue(Number value) {
-        if (value.floatValue() > maxValue.floatValue()) {
-            this.value = maxValue;
-            return;
-        }
-        if (value.floatValue() < minValue.floatValue()) {
-            this.value = minValue;
-            return;
-        }
-        this.value = value;
-        callCallbacks();
+        Number old = this.value;
+        Number newValue = MathUtils.clamp(value, minValue, maxValue);
+        this.value = newValue;
+        callCallbacks(newValue, old);
     }
     public void setIntValue(int value) {
-        if (value > (int) maxValue) {
-            this.value = maxValue;
-            return;
-        }
-        if (value < (int) minValue) {
-            this.value = minValue;
-            return;
-        }
-        this.value = value;
-        callCallbacks();
+        setNumberValue(value);
     }
     public void setLongValue(long value) {
-        if (value > (long) maxValue) {
-            this.value = maxValue;
-            return;
-        }
-        if (value < (long) minValue) {
-            this.value = minValue;
-            return;
-        }
-        this.value = value;
-        callCallbacks();
+        setNumberValue(value);
     }
     public void setFloatValue(float value) {
-        if (value > (float) maxValue) {
-            this.value = maxValue;
-            return;
-        }
-        if (value < (float) minValue) {
-            this.value = minValue;
-            return;
-        }
-        this.value = value;
-        callCallbacks();
+        setNumberValue(value);
     }
     public void setDoubleValue(double value) {
-        if (value > (double) maxValue) {
-            this.value = maxValue;
-            return;
-        }
-        if (value < (double) minValue) {
-            this.value = minValue;
-            return;
-        }
-        this.value = value;
-        callCallbacks();
+        setNumberValue(value);
     }
 
     public NumberSetting(String name, Number min, Number max, Number defaultValue, int decimalPlaces) {

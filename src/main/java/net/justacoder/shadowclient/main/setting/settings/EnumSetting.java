@@ -12,8 +12,9 @@ public class EnumSetting<E extends Enum<E>> extends Setting {
     }
 
     public void setEnumValue(E value) {
+        E old = enumValue;
         this.enumValue = value;
-        callCallbacks();
+        callCallbacks(value, old);
     }
     public E getEnumValue() {
         return this.enumValue;

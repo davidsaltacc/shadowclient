@@ -2,6 +2,7 @@ package net.justacoder.shadowclient.main.setting;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 public abstract class Setting {
 
@@ -11,17 +12,17 @@ public abstract class Setting {
         this.name = name;
     }
 
-    public List<Runnable> callbacks = new ArrayList<>();
+    public List<BiConsumer<Object, Object>> callbacks = new ArrayList<>();
 
     private boolean callCallbacks = true;
 
-    public void addChangeCallback(Runnable cb) {
+    public void addChangeCallback(BiConsumer<Object, Object> cb) {
         callbacks.add(cb);
     }
 
-    public void callCallbacks() {
+    public void callCallbacks(Object newValue, Object oldValue) {
         if (callCallbacks) {
-            callbacks.forEach(Runnable::run);
+            callbacks.forEach(cb -> cb.accept(newValue, oldValue));
         }
     }
 

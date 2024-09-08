@@ -16,8 +16,9 @@ public class BooleanSetting extends Setting {
     }
 
     public void setBooleanValue(boolean value) {
+        boolean old = boolValue;
         this.boolValue = value;
-        callCallbacks();
+        callCallbacks(value, old);
     }
 
 }
