@@ -1,4 +1,4 @@
-# shadowclient 0.3.0
+# shadowclient 0.3.0 changelog
 
 ### newly added modules:
 * no overlay
