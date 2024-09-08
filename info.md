@@ -95,7 +95,8 @@
 * instead of having entity type settings like [hostile: false, players: true, ...] instead just make a universal EntitiesSetting as well as BlocksSetting (for xray, + a whitelist/blacklist toggle)
 * no jump cooldown (be able to hold space under trees)
 * eased sliders (sliders, but with easing, so it's easier to configure some values)
-* ui animations (i don't know how to do)
+* ui animations (I don't know how to do)
+* completely rewrite the NumberSetting/BooleanSetting/other settings, who tf thought it would be a good idea to put all number related stuff into the abstract Setting class????
 
 
 
