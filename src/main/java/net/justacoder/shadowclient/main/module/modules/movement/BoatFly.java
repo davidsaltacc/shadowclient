@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.movement;
 
+import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -15,7 +16,7 @@ import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 @SearchTags({"boat fly", "boatfly", "fly hack", "flyhack"})
 public class BoatFly extends Module {
 
-    NumberSetting SPEED = new NumberSetting("Speed", 0.1f, 10, 1,  1);
+    NumberSetting SPEED = new NumberSetting("Speed", 0.02f, 10, 1,  2, MathUtils.Easing.EASE_IN_QUADRATIC);
 
     public BoatFly() {
         super("boatfly", ModuleCategory.MOVEMENT);

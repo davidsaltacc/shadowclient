@@ -10,7 +10,7 @@ import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 @SearchTags({"zoom", "fov", "increase fov", "decrease fov", "increase zoom", "decrease zoom", "zoom in", "zoom out"})
 public class Zoom extends Module {
 
-    public NumberSetting FOV = new NumberSetting("FOV", 1f, 179f, 90f, 0);
+    public NumberSetting FOV = new NumberSetting("FOV", 1f, 179.9f, 90f, 0);
 
     public Zoom() {
         super("zoom", ModuleCategory.RENDER);

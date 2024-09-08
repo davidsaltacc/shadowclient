@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.movement;
 
+import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -17,7 +18,7 @@ import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 @SearchTags({"clicktp", "click teleport"})
 public class ClickTP extends Module {
 
-    public NumberSetting MAX_DISTANCE = new NumberSetting("Max Distance: ", 1, 100, 10, 2);
+    public NumberSetting MAX_DISTANCE = new NumberSetting("Max Distance: ", 1, 100, 10, 2, MathUtils.Easing.EASE_IN_QUADRATIC);
 
     public ClickTP() {
         super("clicktp", ModuleCategory.MOVEMENT);

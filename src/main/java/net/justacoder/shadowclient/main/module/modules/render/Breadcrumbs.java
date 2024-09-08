@@ -9,6 +9,7 @@ import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
+import net.justacoder.shadowclient.main.util.MathUtils;
 import net.justacoder.shadowclient.main.util.RenderUtils;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -20,7 +21,7 @@ import java.util.Iterator;
 public class Breadcrumbs extends Module {
 
     public final BooleanSetting DEPTH_TEST = new BooleanSetting("Depth Test", true);
-    public final NumberSetting MIN_SEGMENT_LEN = new NumberSetting("Min. Segment Len.", 0.05f, 2.f, 0.5f, 2);
+    public final NumberSetting MIN_SEGMENT_LEN = new NumberSetting("Min. Segment Len.", 0.01f, 5.f, 0.5f, 2, MathUtils.Easing.EASE_IN_CUBIC);
     public final NumberSetting MAX_POSITIONS = new NumberSetting("Max Breadcrumbs", 2, 8000, 2000, 0);
 
     private int oldMaxPositions = MAX_POSITIONS.intValue();

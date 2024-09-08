@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.render;
 
+import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.client.option.Perspective;
 import net.minecraft.client.render.Camera;
 import net.minecraft.util.math.MathHelper;
@@ -25,7 +26,7 @@ import org.joml.Vector3d;
 @EventListener({PreTickEvent.class, KeyPressEvent.class, DamageEvent.class})
 public class Freecam extends Module {
 
-    public NumberSetting SPEED = new NumberSetting("Speed", 0.1, 2, 0.5, 1);
+    public NumberSetting SPEED = new NumberSetting("Speed", 0.05f, 4, 0.5, 2, MathUtils.Easing.EASE_IN_QUADRATIC);
 
     public Freecam() {
         super("freecam", ModuleCategory.RENDER);

@@ -23,6 +23,7 @@
 * better ui ordering
 * made all text in the client translatable, meaning this allows the entire client to be translated into other languages
 * german translations
+* add easings to sliders to make them easier to configure
 
 ### fixes:
 * fix shadowhud not showing everything when loaded
