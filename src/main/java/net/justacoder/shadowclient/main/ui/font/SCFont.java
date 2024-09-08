@@ -44,7 +44,8 @@ public abstract class SCFont {
     }
 
     private static int getGuiScale() {
-        return SCMain.mc.options.getGuiScale().getValue();
+        int scale = SCMain.mc.options.getGuiScale().getValue();
+        return scale == 0 ? 2 : scale;
     }
 
     private static CharacterData[] initializeFont(int guiScale) {
