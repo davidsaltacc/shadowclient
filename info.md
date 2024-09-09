@@ -55,6 +55,53 @@
 
 
 
+## yet to do:
+* sticky aim - decrease the mouse sensitivity when aiming near enemies
+* fix searching for settings in the client settings screen, I think its broken
+* better module settings - dedicated screen?
+* optimize the font rendering so it doesn't switch textures for each character
+* optimize clickGui. insane lag on low-end devices - caching? maybe use a debugger/profiler
+* rewrite some of the old modules
+* rewrite some gui code
+* auto updater?
+* optimize light overlay with caching
+* positionSetting (+ setHere button)
+* killaura mob types
+* voidESP
+* fix blink
+* simple shadowcl <-> shadowcl encrypted chat (simple maybe key-based encoding so messages don't show in server logs)
+* different modes for flight (creative flight-like)
+* arrow dodge
+* anti ice
+* fix clickTP teleporting wrongly
+* aimbot/aimassist
+* auto update button
+* implement proper reach hack
+* hack list in hud
+* blink mode so it prioritizes blinks in hidden spots
+* breadcrumbs/trails
+* anti book/shulker ban (if possible)
+* stepdown / fast fall (like stepup but reverse)
+* fastswim
+* more ice speed
+* jesus
+* speed
+* viewlock (lock your camera rotation)
+* automine (hold left click)
+* scaffold
+* make some mixins that call a module (especially if there are more than 1 module) specifically events instead
+* bugfixes, obviously
+* nuker (just mine all blocks)
+* highway builder? for anarchy servers
+* fix autowalk not sprinting, even when sprint key is pressed
+* instead of having entity type settings like [hostile: false, players: true, ...] instead just make a universal EntitiesSetting as well as BlocksSetting (for xray, + a whitelist/blacklist toggle)
+* no jump cooldown (be able to hold space under trees)
+* eased sliders (sliders, but with easing, so it's easier to configure some values)
+* ui animations
+* use setting change callbacks instead of manual changing, I didn't know we had callbacks lol
+* fix shadowhud rendering, the new font renderer breaks it a bit
+
+
 
 
 
