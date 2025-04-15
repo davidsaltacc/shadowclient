@@ -1,20 +1,21 @@
 package net.justacoder.shadowclient.main.module.modules.movement;
 
+import net.justacoder.shadowclient.main.event.events.MouseClickedEvent;
+import net.justacoder.shadowclient.main.util.BypassUtils;
 import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
 import net.justacoder.shadowclient.main.annotations.EventListener;
 import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
-import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
 
-@EventListener({PreTickEvent.class})
+@EventListener({MouseClickedEvent.class})
 @SearchTags({"clicktp", "click teleport"})
 public class ClickTP extends Module {
 
@@ -22,10 +23,13 @@ public class ClickTP extends Module {
 
     public ClickTP() {
         super("clicktp", ModuleCategory.MOVEMENT);
+
+        addSetting(MAX_DISTANCE);
     }
 
     @Override
     public void onEvent(Event event) {
+
         if (mc.player.isUsingItem()) {
             return;
         }
@@ -33,13 +37,13 @@ public class ClickTP extends Module {
             return;
         }
 
-        if (mc.options.sprintKey.isPressed() && mc.options.useKey.isPressed()) {
-            BlockHitResult result = (BlockHitResult) mc.player.raycast(MAX_DISTANCE.floatValue(), 1f / 20f, false);
+        HitResult hitResult = mc.player.raycast(MAX_DISTANCE.doubleValue(), 1 / 20f, false);
+        BlockPos pos = ((BlockHitResult) hitResult).getBlockPos();
 
-            BlockPos pos = result.getBlockPos();
-            Direction dir = result.getSide();
-
-            mc.player.setPosition(new Vec3d(pos.getX() + 0.5f + dir.getOffsetX(), pos.getY() + 1f, pos.getZ() + 0.5f + dir.getOffsetZ()));
+        if (mc.options.sprintKey.isPressed() && mc.options.useKey.matchesMouse(((MouseClickedEvent) event).button) && hitResult.getType() == HitResult.Type.BLOCK) {
+            BypassUtils.sendFiveMovementPackets();
+            mc.player.setPosition(pos.toCenterPos());
         }
+
     }
 }
