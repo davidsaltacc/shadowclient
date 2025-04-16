@@ -34,12 +34,12 @@ public abstract class JavaUtils {
         try {
             if (getOs() == OS.WIN) {
                 Runtime rt = Runtime.getRuntime();
-                rt.exec("rundll32 url.dll,FileProtocolHandler " + url);
+                rt.exec(new String[]{ "rundll32", "url.dll,FileProtocolHandler", url });
                 return;
             }
             if (getOs() == OS.MAC) {
                 Runtime rt = Runtime.getRuntime();
-                rt.exec("open " + url);
+                rt.exec(new String[]{ "open", url });
                 return;
             }
             if (getOs() == OS.NIX) {

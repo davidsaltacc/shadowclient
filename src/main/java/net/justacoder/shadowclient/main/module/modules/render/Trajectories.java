@@ -24,6 +24,7 @@ import net.justacoder.shadowclient.main.util.WorldUtils;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.function.Predicate;
 
 @EventListener({Render3DEvent.class})
@@ -51,16 +52,13 @@ public class Trajectories extends Module {
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDepthMask(false);
 
-        drawLine(evt.matrices, trajPath);
-        
-        if (!trajPath.isEmpty()) {
-            drawEnd(evt.matrices, trajPath.get(trajPath.size() - 1));
-        }
+        drawLine(trajPath);
 
         RenderSystem.setShaderColor(1, 1, 1, 1);
         GL11.glDisable(GL11.GL_BLEND);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glDepthMask(true);
+
         evt.matrices.pop();
 
     }
@@ -146,26 +144,32 @@ public class Trajectories extends Module {
         
     }
 
-    public void drawLine(MatrixStack matrices, ArrayList<Vec3d> path) {
-        Vec3d camPos = mc.getBlockEntityRenderDispatcher().camera.getPos();
-        Matrix4f matrix = matrices.peek().getPositionMatrix();
-        Tessellator tessellator = RenderSystem.renderThreadTesselator();
-        BufferBuilder bufferBuilder = tessellator.getBuffer();
-        RenderSystem.setShader(GameRenderer::getPositionProgram);
+    public void drawLine(ArrayList<Vec3d> path) {
 
-        bufferBuilder.begin(VertexFormat.DrawMode.DEBUG_LINE_STRIP, VertexFormats.POSITION);
-
-        if (trajHit == HitResult.Type.MISS) {
-            RenderSystem.setShaderColor(1f, 1f, 1f, 0.5f);
-        } else if (trajHit == HitResult.Type.ENTITY) {
-            RenderSystem.setShaderColor(1f, 0.1f, 0.1f, 0.5f);
-        } else if (trajHit == HitResult.Type.BLOCK) {
-            RenderSystem.setShaderColor(0.1f, 0.3f, 1f, 0.5f);
+        if (path.isEmpty()) {
+            return;
         }
 
-        path.forEach(point -> bufferBuilder.vertex(matrix, (float) (point.x - camPos.x), (float) (point.y - camPos.y), (float) (point.z - camPos.z)).next());
+        float[] color;
 
-        tessellator.draw();
+        if (trajHit == HitResult.Type.ENTITY) {
+            color = new float[]{1f, 0.1f, 0.1f, 0.8f};
+        } else if (trajHit == HitResult.Type.BLOCK) {
+            color = new float[]{0.1f, 0.3f, 1f, 0.8f};
+        } else {
+            color = new float[]{1f, 1f, 1f, 0.8f};
+        }
+
+        Iterator<Vec3d> iter = path.iterator();
+
+        if (iter.hasNext()) {
+            Vec3d pos1 = iter.next();
+            while (iter.hasNext()) {
+                Vec3d pos2 = iter.next();
+                RenderUtils.drawLine(pos1.x, pos1.y, pos1.z, pos2.x, pos2.y, pos2.z, color, 1, false);
+                pos1 = pos2;
+            }
+        }
 
     }
 

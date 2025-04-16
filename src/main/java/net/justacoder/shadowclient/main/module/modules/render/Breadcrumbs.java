@@ -32,8 +32,8 @@ public class Breadcrumbs extends Module {
         addSettings(DEPTH_TEST, MIN_SEGMENT_LEN, MAX_POSITIONS);
 
         MAX_POSITIONS.addChangeCallback((newValue, oldValue) -> {
-            if ((float) newValue < (float) oldValue) {
-                while (positions.size() > (float) newValue) {
+            if ((double) newValue < (double) oldValue) {
+                while (positions.size() > (double) newValue) {
                     positions.pollFirst();
                 }
             }

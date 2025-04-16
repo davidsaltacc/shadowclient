@@ -8,6 +8,7 @@ import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
+import net.minecraft.entity.attribute.EntityAttributes;
 
 @EventListener({PreTickEvent.class})
 @SearchTags({"stepup", "step up", "step"})
@@ -21,11 +22,15 @@ public class StepUp extends Module {
         addSetting(HEIGHT);
     }
 
+    public void setStepHeight(float height) {
+        mc.player.getAttributes().getCustomInstance(EntityAttributes.GENERIC_STEP_HEIGHT).setBaseValue(height);
+    }
+
     @Override
     public void onEvent(Event event) {
 
         mc.player.setBoundingBox(mc.player.getBoundingBox().offset(0, HEIGHT.floatValue(), 0));
-        mc.player.setStepHeight(HEIGHT.floatValue());
+        setStepHeight(HEIGHT.floatValue());
         mc.player.setBoundingBox(mc.player.getBoundingBox().offset(0, -HEIGHT.floatValue(), 0));
 
     }
@@ -39,7 +44,7 @@ public class StepUp extends Module {
     @Override
     public void onDisable() {
         if (mc.player != null) {
-            mc.player.setStepHeight(0.6f);
+            setStepHeight(0.6f);
         }
         super.onDisable();
     }

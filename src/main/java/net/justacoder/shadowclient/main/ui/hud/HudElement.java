@@ -19,13 +19,14 @@ public class HudElement {
     public void shouldBeRendered(boolean rendered) {
         this.shouldBeRendered = rendered;
     }
+
     public void setTextContent(String text) {
         this.textContent = text;
     }
 
     public void render(DrawContext context, float tickDelta, int offset) {
-        context.fill(2, 2 + offset, 3 + (int) SCFont.getWidth(this.textContent), 2 + offset + (int) SCFont.getHeight(), Colors.HUD_ELEMENT_BACKGROUND.color);
-        SCFont.renderString(context, this.textContent, 3, 3 + offset, Colors.HUD_ELEMENT_TEXT.color);
+        context.fill(0, offset, (int) SCFont.getWidth(this.textContent) + 4, offset + (int) SCFont.getHeight() + 4, Colors.HUD_ELEMENT_BACKGROUND.color);
+        SCFont.renderString(context, this.textContent, 1, offset + 2, Colors.HUD_ELEMENT_TEXT.color);
     }
 
     public void render(DrawContext context, float tickDelta, int offset, boolean rightSide) {
@@ -39,6 +40,6 @@ public class HudElement {
     }
 
     public int getHeight() {
-        return (int) SCFont.getHeight();
+        return (int) SCFont.getHeight() + 4;
     }
 }

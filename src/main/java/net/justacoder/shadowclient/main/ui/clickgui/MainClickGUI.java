@@ -92,6 +92,8 @@ public class MainClickGUI extends ClickGUI {
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 
+        super.render(context, mouseX, mouseY, delta);
+
         for (Frame frame : frames) {
             frame.render(context, mouseX, mouseY, delta);
             frame.updatePosition(mouseX, mouseY);
@@ -100,7 +102,6 @@ public class MainClickGUI extends ClickGUI {
             frame.renderDescriptions(context, mouseX, mouseY, delta);
         }
 
-        super.render(context, mouseX, mouseY, delta);
     }
 
     @Override
@@ -151,14 +152,14 @@ public class MainClickGUI extends ClickGUI {
             return super.keyPressed(keyCode, scanCode, modifiers);
         }
 
+        for (Frame frame : frames) {
+            frame.keyPressed(keyCode, scanCode, modifiers);
+        }
+
         searching = !((TextField) searchFrame.children.get(0)).getText().isEmpty();
 
         if (searching) {
             searchingFor = ((TextField) searchFrame.children.get(0)).getText();
-        }
-
-        for (Frame frame : frames) {
-            frame.keyPressed(keyCode, scanCode, modifiers);
         }
 
         return super.keyPressed(keyCode, scanCode, modifiers);

@@ -2,6 +2,7 @@ package net.justacoder.shadowclient.mixin;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;
 import net.justacoder.shadowclient.main.SCMain;
 import net.justacoder.shadowclient.main.module.ModuleManager;
@@ -25,9 +26,9 @@ public abstract class InGameHudMixin {
     }
 
     @Inject(method = "render", at = @At("TAIL"))
-    private void onRender(DrawContext context, float tickDelta, CallbackInfo ci) {
-        if (SCMain.mc.currentScreen == null && ModuleManager.ShadowHudModule.enabled && !SCMain.mc.options.debugEnabled) {
-            HudRenderer.onHudRender(context, tickDelta);
+    private void onRender(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+        if (SCMain.mc.currentScreen == null && ModuleManager.ShadowHudModule.enabled && !((DebugHudAccessor) SCMain.mc.getDebugHud()).debugEnabled()) {
+            HudRenderer.onHudRender(context, tickCounter.getTickDelta(false));
         }
     }
 }

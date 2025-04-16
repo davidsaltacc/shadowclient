@@ -1,7 +1,7 @@
 {
     "required": false,
     "package": "net.justacoder.shadowclient.mixin",
-    "compatibilityLevel": "JAVA_17",
+    "compatibilityLevel": "JAVA_21",
     "injectors": {
         "defaultRequire": 1
     },
@@ -14,12 +14,12 @@
         "ChunkOcclusionDataBuilderMixin",
         "ClientConnectionMixin",
         "ClientPlayerEntityMixin",
-        "ClientPlayerInteractionManagerMixin",
         "ClientPlayerNetworkHandlerMixin",
         "ClientWorldMixin",
         "Continuity_CullingCacheMixin",
         "ControlsListWidgetMixin",
         "DeathScreenMixin",
+        "DebugHudAccessor",
         "EntityAccessor",
         "EntityMixin",
         "EntityRenderDispatcherMixin",
@@ -49,7 +49,7 @@
         "PlayerListHudMixin",
         "PowderSnowBlockMixin",
         "RenderSystemAccessor",
-        "RenderTickCounterMixin",
+        "RenderTickCounterDynamicMixin",
         "ScreenMixin",
         "ShulkerBoxScreenMixin",
         "SimpleOptionMixin",

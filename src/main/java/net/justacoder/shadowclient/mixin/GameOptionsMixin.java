@@ -1,9 +1,12 @@
 package net.justacoder.shadowclient.mixin;
 
 import com.google.common.collect.Lists;
+import net.justacoder.shadowclient.main.event.EventManager;
+import net.justacoder.shadowclient.main.event.events.PerspectiveChangeEvent;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.KeyBinding;
 import net.justacoder.shadowclient.main.SCMain;
+import net.minecraft.client.option.Perspective;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;

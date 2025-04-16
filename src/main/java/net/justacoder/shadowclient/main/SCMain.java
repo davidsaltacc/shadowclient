@@ -73,9 +73,9 @@ public class SCMain {
             clickGui = new MainClickGUI();
             settingsGui = new ClickGUI("Settings");
             initSettingsScreen(settingsGui);
+            Runtime.getRuntime().addShutdownHook(new Thread(SCMain::closed));
             Config.loadConfig();
             checkConflictingMods();
-            Runtime.getRuntime().addShutdownHook(new Thread(SCMain::closed));
             info("Finished " + ClientName + " initialization");
 
         } catch (Exception e) {
@@ -140,6 +140,7 @@ public class SCMain {
 
         settingsframe.children.add(new SCBoolSetting(SCSettings.VanillaSpoof, settingsframe, 13));
         settingsframe.children.add(new SCBoolSetting(SCSettings.ChatMessages, settingsframe, 26));
+        settingsframe.children.add(new SCBoolSetting(SCSettings.BlurBackground, settingsframe, 39));
 
         gui.searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, offset, 5, 120, 13);
         gui.frames.add(gui.searchFrame);

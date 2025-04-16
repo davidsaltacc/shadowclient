@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.mixin;
 
+import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.module.modules.render.HideShield;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -18,7 +19,9 @@ public abstract class HeldItemRendererMixin {
     @Inject(method = "renderFirstPersonItem", at = @At("HEAD"), cancellable = true)
     private void onRenderFirstPersonItem(AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
 
-        HideShield.processItem(item, player, ci);
+        if (ModuleManager.HideShieldModule.enabled) {
+            HideShield.processItem(item, player, ci);
+        }
 
     }
 

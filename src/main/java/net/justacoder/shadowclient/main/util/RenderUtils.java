@@ -23,7 +23,7 @@ public abstract class RenderUtils {
             return Vec3d.ZERO;
         }
 
-        double tickDelta = MinecraftClient.getInstance().getTickDelta();
+        double tickDelta = MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(false);
         return new Vec3d(e.getX() - MathHelper.lerp(tickDelta, e.lastRenderX, e.getX()), e.getY() - MathHelper.lerp(tickDelta, e.lastRenderY, e.getY()), e.getZ() - MathHelper.lerp(tickDelta, e.lastRenderZ, e.getZ()));
     }
 
@@ -35,7 +35,6 @@ public abstract class RenderUtils {
         MatrixStack matrices = matrixFrom(x1, y1, z1);
 
         Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder buffer = tessellator.getBuffer();
 
         if (depthTest) {
             RenderSystem.enableDepthTest();
@@ -46,9 +45,9 @@ public abstract class RenderUtils {
         RenderSystem.setShader(GameRenderer::getRenderTypeLinesProgram);
         RenderSystem.lineWidth(width);
 
-        buffer.begin(VertexFormat.DrawMode.LINES, VertexFormats.LINES);
-        vertexLine(matrices, buffer, 0f, 0f, 0f, (float) (x2 - x1), (float) (y2 - y1), (float) (z2 - z1), color);
-        tessellator.draw();
+        BufferBuilder builder = tessellator.begin(VertexFormat.DrawMode.LINES, VertexFormats.LINES);
+        vertexLine(matrices, builder, 0f, 0f, 0f, (float) (x2 - x1), (float) (y2 - y1), (float) (z2 - z1), color);
+        BufferRenderer.drawWithGlobalProgram(builder.end());
 
         RenderSystem.enableCull();
         RenderSystem.enableDepthTest();
@@ -60,13 +59,12 @@ public abstract class RenderUtils {
     }
 
     public static void vertexLine(MatrixStack matrices, VertexConsumer vertexConsumer, float x1, float y1, float z1, float x2, float y2, float z2, float[] lineColor) {
-        Matrix4f model = matrices.peek().getPositionMatrix();
-        Matrix3f normal = matrices.peek().getNormalMatrix();
+        MatrixStack.Entry entry = matrices.peek();
 
         Vector3f normalVec = getNormal(x1, y1, z1, x2, y2, z2);
 
-        vertexConsumer.vertex(model, x1, y1, z1).color(lineColor[0], lineColor[1], lineColor[2], lineColor[3]).normal(normal, normalVec.x(), normalVec.y(), normalVec.z()).next();
-        vertexConsumer.vertex(model, x2, y2, z2).color(lineColor[0], lineColor[1], lineColor[2], lineColor[3]).normal(normal, normalVec.x(), normalVec.y(), normalVec.z()).next();
+        vertexConsumer.vertex(entry, x1, y1, z1).color(lineColor[0], lineColor[1], lineColor[2], lineColor[3]).normal(entry, normalVec.x(), normalVec.y(), normalVec.z());
+        vertexConsumer.vertex(entry, x2, y2, z2).color(lineColor[0], lineColor[1], lineColor[2], lineColor[3]).normal(entry, normalVec.x(), normalVec.y(), normalVec.z());
     }
 
     public static Vector3f getNormal(float x1, float y1, float z1, float x2, float y2, float z2) {
@@ -98,36 +96,34 @@ public abstract class RenderUtils {
 
         Matrix4f matrix = matrices.peek().getPositionMatrix();
         Tessellator tessellator = RenderSystem.renderThreadTesselator();
-        BufferBuilder bufferBuilder = tessellator.getBuffer();
+        BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.DrawMode.DEBUG_LINES, VertexFormats.POSITION);
         RenderSystem.setShader(GameRenderer::getPositionProgram);
 
-        bufferBuilder.begin(VertexFormat.DrawMode.DEBUG_LINES, VertexFormats.POSITION);
+        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.minY, (float) box.minZ); // TODO someone please fucking optimize this for me
+        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.minY, (float) box.minZ);
+        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.minY, (float) box.minZ);
+        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.minY, (float) box.maxZ);
+        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.minY, (float) box.maxZ);
+        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.minY, (float) box.maxZ);
+        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.minY, (float) box.maxZ);
+        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.minY, (float) box.minZ);
+        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.minY, (float) box.minZ);
+        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.maxY, (float) box.minZ);
+        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.minY, (float) box.minZ);
+        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.maxY, (float) box.minZ);
+        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.minY, (float) box.maxZ);
+        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.maxY, (float) box.maxZ);
+        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.minY, (float) box.maxZ);
+        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.maxY, (float) box.maxZ);
+        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.maxY, (float) box.minZ);
+        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.maxY, (float) box.minZ);
+        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.maxY, (float) box.minZ);
+        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.maxY, (float) box.maxZ);
+        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.maxY, (float) box.maxZ);
+        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.maxY, (float) box.maxZ);
+        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.maxY, (float) box.maxZ);
+        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.maxY, (float) box.minZ);
 
-        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.minY, (float) box.minZ).next(); // TODO someone please fucking optimize this for me
-        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.minY, (float) box.minZ).next();
-        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.minY, (float) box.minZ).next();
-        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.minY, (float) box.maxZ).next();
-        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.minY, (float) box.maxZ).next();
-        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.minY, (float) box.maxZ).next();
-        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.minY, (float) box.maxZ).next();
-        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.minY, (float) box.minZ).next();
-        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.minY, (float) box.minZ).next();
-        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.maxY, (float) box.minZ).next();
-        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.minY, (float) box.minZ).next();
-        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.maxY, (float) box.minZ).next();
-        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.minY, (float) box.maxZ).next();
-        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.maxY, (float) box.maxZ).next();
-        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.minY, (float) box.maxZ).next();
-        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.maxY, (float) box.maxZ).next();
-        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.maxY, (float) box.minZ).next();
-        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.maxY, (float) box.minZ).next();
-        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.maxY, (float) box.minZ).next();
-        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.maxY, (float) box.maxZ).next();
-        bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.maxY, (float) box.maxZ).next();
-        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.maxY, (float) box.maxZ).next();
-        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.maxY, (float) box.maxZ).next();
-        bufferBuilder.vertex(matrix, (float) box.minX, (float) box.maxY, (float) box.minZ).next();
-
-        tessellator.draw();
+        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
     }
 }

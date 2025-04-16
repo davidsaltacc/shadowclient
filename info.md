@@ -1,5 +1,8 @@
 # shadowclient 0.3.0 changelog
 
+### version change
+* moved to minecraft 1.21.1
+
 ### newly added modules:
 * no overlay
 * chest steal
@@ -13,6 +16,7 @@
 * zoom
 * no bob
 * autohit
+* breadcrumbs
 
 ### new features:
 * add corner setting to shadowhud
@@ -26,6 +30,7 @@
 * add easings to sliders to make them easier to configure
 
 ### fixes:
+* remove legit option from parkour, just default it
 * fix shadowhud not showing everything when loaded
 * remove auto respawn as it seems to crash sometimes
 * more crash fixes
@@ -45,6 +50,7 @@
 * fix a crash with meteor (if you for some reason were to use them together)
 * vanilla spoof also now doesn't change the window name
 * fix setting change callbacks not being called if the set value exceeded the maximum
+* others
 
 ### other misc. changes:
 * changed some of the UI colors slightly
@@ -56,8 +62,13 @@
 
 
 ## yet to do:
+* a way to reset ui positions (only positions, not the settings)
+* add cooldown to air jump (configurable)
+* make more things translatable
+* CHANGE PACKET LOG TO NOT LOG INTO IN GAME CHAT - make new notification type, smaller, disappearing
+* breadcrumbs render only mode
 * sticky aim - decrease the mouse sensitivity when aiming near enemies
-* fix searching for settings in the client settings screen, I think its broken
+* fix searching for settings in the client settings screen, I think its broken (modulebutton class is the only one that has uhh the thing)
 * better module settings - dedicated screen?
 * optimize the font rendering so it doesn't switch textures for each character
 * optimize clickGui. insane lag on low-end devices - caching? maybe use a debugger/profiler
@@ -79,7 +90,6 @@
 * implement proper reach hack
 * hack list in hud
 * blink mode so it prioritizes blinks in hidden spots
-* breadcrumbs/trails
 * anti book/shulker ban (if possible)
 * stepdown / fast fall (like stepup but reverse)
 * fastswim
@@ -99,7 +109,6 @@
 * eased sliders (sliders, but with easing, so it's easier to configure some values)
 * ui animations
 * use setting change callbacks instead of manual changing, I didn't know we had callbacks lol
-* fix shadowhud rendering, the new font renderer breaks it a bit
 
 
 

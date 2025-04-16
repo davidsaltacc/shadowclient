@@ -14,9 +14,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Pseudo
 @Mixin(targets = {
-    "me.jellysquid.mods.sodium.client.render.chunk.compile.pipeline.BlockOcclusionCache", // > 5.0.0
-    "me.jellysquid.mods.sodium.client.render.occlusion.BlockOcclusionCache"}, // < 5.0.0
-    remap = false)
+    "net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockOcclusionCache", // > v6
+    "me.jellysquid.mods.sodium.client.render.chunk.compile.pipeline.BlockOcclusionCache", // > v5
+    "me.jellysquid.mods.sodium.client.render.occlusion.BlockOcclusionCache"}, // < v5
+    remap = false
+)
 public abstract class Sodium_BlockOcclusionCacheMixin {
     @SuppressWarnings("UnresolvedMixinReference")
     @Inject(at = @At("HEAD"), method = "shouldDrawSide", cancellable = true, remap = false)

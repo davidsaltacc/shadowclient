@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
+import net.justacoder.shadowclient.main.config.SCSettings;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
@@ -15,6 +16,7 @@ public class ClickGUI extends Screen {
     public Frame searchFrame;
     public boolean searching;
     public String searchingFor;
+
     public ClickGUI(String title) {
         super(Text.of(title));
 
@@ -26,7 +28,16 @@ public class ClickGUI extends Screen {
     }
 
     @Override
+    protected void applyBlur(float delta) {
+        if (SCSettings.BlurBackground.booleanValue()) {
+            super.applyBlur(delta);
+        }
+    }
+
+    @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+
+        super.render(context, mouseX, mouseY, delta);
 
         for (Frame frame : frames) {
             frame.render(context, mouseX, mouseY, delta);
@@ -36,7 +47,6 @@ public class ClickGUI extends Screen {
             frame.renderDescriptions(context, mouseX, mouseY, delta);
         }
 
-        super.render(context, mouseX, mouseY, delta);
     }
 
     @Override

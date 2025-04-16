@@ -1,6 +1,8 @@
 package net.justacoder.shadowclient.mixin;
 
 import com.mojang.authlib.GameProfile;
+import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.module.modules.player.Reach;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -13,6 +15,7 @@ import net.justacoder.shadowclient.main.event.EventManager;
 import net.justacoder.shadowclient.main.event.events.DamageEvent;
 import net.justacoder.shadowclient.main.event.events.KnockbackEvent;
 import net.justacoder.shadowclient.main.module.ModuleManager;
+import net.minecraft.registry.entry.RegistryEntry;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -44,7 +47,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     }
 
     @Override
-    public boolean hasStatusEffect(StatusEffect effect) {
+    public boolean hasStatusEffect(RegistryEntry<StatusEffect> effect) {
 
         if (effect == StatusEffects.NIGHT_VISION && (ModuleManager.NightVisionModule.enabled || ModuleManager.XrayModule.enabled)) {
             return true;
@@ -62,11 +65,10 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
             return false;
         }
 
-
         return super.hasStatusEffect(effect);
     }
 
-    @Inject(at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;", opcode = Opcodes.GETFIELD, ordinal = 0), method = "updateNausea")
+    @Inject(at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;", opcode = Opcodes.GETFIELD, ordinal = 0), method = "tickNausea")
     private void beforeUpdateNausea(CallbackInfo ci) {
         if (!ModuleManager.PortalGUIModule.enabled) {
             return;
@@ -76,7 +78,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         client.currentScreen = null;
     }
 
-    @Inject(at = @At(value = "FIELD", target = "Lnet/minecraft/client/network/ClientPlayerEntity;nauseaIntensity:F", opcode = Opcodes.GETFIELD, ordinal = 1), method = "updateNausea")
+    @Inject(at = @At(value = "FIELD", target = "Lnet/minecraft/client/network/ClientPlayerEntity;nauseaIntensity:F", opcode = Opcodes.GETFIELD, ordinal = 1), method = "tickNausea")
     private void afterUpdateNausea(CallbackInfo ci) {
         if (crntScreen == null) {
             return;
@@ -119,6 +121,23 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
             DamageEvent evt = new DamageEvent(source, amount);
             EventManager.fireEvent(evt);
         }
+    }
+
+
+    @Override
+    public double getBlockInteractionRange() {
+        if (ModuleManager.ReachModule.enabled) {
+            return ModuleManager.ReachModule.distance();
+        }
+        return super.getBlockInteractionRange();
+    }
+
+    @Override
+    public double getEntityInteractionRange() {
+        if (ModuleManager.ReachModule.enabled) {
+            return ModuleManager.ReachModule.distance();
+        }
+        return super.getEntityInteractionRange();
     }
 
 }

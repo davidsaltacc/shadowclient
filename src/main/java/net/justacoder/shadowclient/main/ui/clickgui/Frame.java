@@ -27,7 +27,7 @@ public class Frame extends FrameChild {
     public boolean dragging;
     public boolean extended;
 
-    private ModuleCategory category;
+    public ModuleCategory category;
 
     public final MinecraftClient mc = MinecraftClient.getInstance();
 

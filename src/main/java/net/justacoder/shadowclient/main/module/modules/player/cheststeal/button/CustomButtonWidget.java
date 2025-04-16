@@ -11,9 +11,9 @@ public class CustomButtonWidget extends ButtonWidget { // just a custom button c
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
         if (ModuleManager.ChestStealModule.enabled) {
-            super.render(context, mouseX, mouseY, delta);
+            super.renderWidget(context, mouseX, mouseY, delta);
         }
     }
 

@@ -1,6 +1,8 @@
 package net.justacoder.shadowclient.mixin;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.event.events.PerspectiveChangeEvent;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.MainClickGUI;
@@ -10,6 +12,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.GameOptions;
+import net.minecraft.client.option.Perspective;
 import net.minecraft.client.realms.RealmsClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.AmbientEntity;
@@ -94,8 +97,8 @@ public abstract class MinecraftClientMixin {
 
     }
 
-    @Inject(method = "onInitFinished", at = @At("HEAD"))
-    private void onInitFinished(RealmsClient realms, ResourceReload reload, RunArgs.QuickPlay quickPlay, CallbackInfo ci) {
+    @Inject(method = "method_29338", at = @At("HEAD"))
+    private void onInitFinished(CallbackInfo ci) {
         ModuleManager.getAllModules().forEach((n, m) -> m.postInit());
     }
 
@@ -107,7 +110,7 @@ public abstract class MinecraftClientMixin {
         }
     }
 
-    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;initFont(Z)V", shift = At.Shift.AFTER))
+    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;onFontOptionsChanged()V", shift = At.Shift.AFTER))
     private void initCustomFont(RunArgs args, CallbackInfo ci) {
         SCMain.guiScaleOption = SCMain.mc.options.getGuiScale();
         SCFont.initializeFont();
@@ -118,6 +121,11 @@ public abstract class MinecraftClientMixin {
         if (currentScreen instanceof MainClickGUI && !(screen instanceof MainClickGUI)) {
             SCMain.mainClickGUIClosed();
         }
+    }
+
+    @Inject(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;onCameraEntitySet(Lnet/minecraft/entity/Entity;)V", shift = At.Shift.AFTER))
+    private void afterCameraEntitySet(CallbackInfo ci) {
+        EventManager.fireEvent(new PerspectiveChangeEvent());
     }
 
 }

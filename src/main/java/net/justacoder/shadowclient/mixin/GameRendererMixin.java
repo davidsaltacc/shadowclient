@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.mixin;
 
+import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -9,6 +10,7 @@ import net.minecraft.util.math.MathHelper;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.mixininterface.IGameRenderer;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,13 +23,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class GameRendererMixin implements IGameRenderer {
 
     @Shadow
-    void loadPostProcessor(Identifier id) {
-    }
+    private void loadPostProcessor(Identifier id) {}
+
+    @Shadow @Nullable PostEffectProcessor postProcessor;
 
     @SuppressWarnings("AddedMixinMembersNamePattern")
     @Override
     public void loadShader(@Nullable Identifier id) {
         if (id != null) {
+            postProcessor = null;
             loadPostProcessor(id);
         } else {
             ((GameRenderer) (Object) this).disablePostProcessor();
@@ -41,7 +45,7 @@ public abstract class GameRendererMixin implements IGameRenderer {
         }
     }
 
-    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F", ordinal = 0), method = "renderWorld(FJLnet/minecraft/client/util/math/MatrixStack;)V")
+    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F", ordinal = 0), method = "renderWorld")
     private float nauseaLerp(float delta, float start, float end) {
         if (ModuleManager.NoWobbleModule.enabled) {
             return 0;
@@ -58,7 +62,7 @@ public abstract class GameRendererMixin implements IGameRenderer {
     }
 
     @Inject(method = "renderHand", at = @At("HEAD"), cancellable = true)
-    private void renderHand(MatrixStack matrices, Camera camera, float tickDelta, CallbackInfo ci) {
+    private void renderHand(Camera camera, float tickDelta, Matrix4f matrix4f, CallbackInfo ci) {
         if (ModuleManager.FreecamModule.enabled) {
             ci.cancel();
         }

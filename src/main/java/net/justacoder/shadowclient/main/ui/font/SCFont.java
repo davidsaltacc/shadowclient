@@ -26,8 +26,10 @@ import java.util.Map;
 
 public abstract class SCFont {
 
-    public static String FONT_PATH = "/assets/shadowclient/font/roboto-regular.ttf";
-    public static float FONT_SIZE = 8f;
+    public static String FONT_PATH = "/assets/shadowclient/font/notosans-regular.ttf";
+    public static float FONT_SIZE = 7f;
+    public static float FONT_OFFSET_X = 0f;
+    public static float FONT_OFFSET_Y = -2f;
 
     private static final Map<Integer, CharacterData[]> characterDatas = new HashMap<>();
 
@@ -166,11 +168,10 @@ public abstract class SCFont {
         MatrixStack matrices = context.getMatrices();
 
         matrices.push();
-
         matrices.scale(1f / getGuiScale(), 1f / getGuiScale(), 1f);
 
-        x += 0.5f;
-        y += 0.5f;
+        x += FONT_OFFSET_X;
+        y += FONT_OFFSET_Y;
 
         x *= getGuiScale();
         y *= getGuiScale();
@@ -201,12 +202,11 @@ public abstract class SCFont {
         GlStateManager._enableBlend();
         GlStateManager._blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         Matrix4f matrix4f = context.getMatrices().peek().getPositionMatrix();
-        BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
-        bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-        bufferBuilder.vertex(matrix4f, x, y, 0).texture(0, 0).next();
-        bufferBuilder.vertex(matrix4f, x, y + charData.height, 0).texture(0, 1).next();
-        bufferBuilder.vertex(matrix4f, x + charData.width, y + charData.height, 0).texture(1, 1).next();
-        bufferBuilder.vertex(matrix4f, x + charData.width, y, 0).texture(1, 0).next();
+        BufferBuilder bufferBuilder = Tessellator.getInstance().begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
+        bufferBuilder.vertex(matrix4f, x, y, 0).texture(0, 0);
+        bufferBuilder.vertex(matrix4f, x, y + charData.height, 0).texture(0, 1);
+        bufferBuilder.vertex(matrix4f, x + charData.width, y + charData.height, 0).texture(1, 1);
+        bufferBuilder.vertex(matrix4f, x + charData.width, y, 0).texture(1, 0);
         BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
         GlStateManager._disableBlend();

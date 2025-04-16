@@ -4,7 +4,6 @@ import net.justacoder.shadowclient.main.event.events.MouseClickedEvent;
 import net.justacoder.shadowclient.main.util.BypassUtils;
 import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.hit.BlockHitResult;
 import net.justacoder.shadowclient.main.annotations.EventListener;
 import net.justacoder.shadowclient.main.annotations.SearchTags;

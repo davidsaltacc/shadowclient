@@ -12,6 +12,7 @@ public class SCSettings {
 
     public static final BooleanSetting VanillaSpoof = new BooleanSetting("Vanilla Spoof", false);
     public static final BooleanSetting ChatMessages = new BooleanSetting("Chat Messages", true);
+    public static final BooleanSetting BlurBackground = new BooleanSetting("Blur Background", true);
 
     public static final int LOADING_SCREEN_BGND_COLOR = -14997957; // TODO make configurable maybe
 

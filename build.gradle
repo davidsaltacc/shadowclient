@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.7-SNAPSHOT'
+	id 'fabric-loom' version '1.10-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -21,7 +21,6 @@ dependencies {
 
 	include fabricApi.module("fabric-resource-loader-v0", project.fabric_version)
 	modImplementation fabricApi.module("fabric-resource-loader-v0", project.fabric_version)
-
 }
 
 loom {
@@ -37,7 +36,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+	it.options.release = 21
 	it.options.compilerArgs << "-Xlint:deprecation"
 	it.options.compilerArgs << "-Xlint:unchecked"
 	options.fork = true
@@ -46,8 +45,8 @@ tasks.withType(JavaCompile).configureEach {
 java {
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
