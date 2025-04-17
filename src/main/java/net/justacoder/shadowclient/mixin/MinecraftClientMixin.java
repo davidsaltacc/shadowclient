@@ -2,6 +2,7 @@ package net.justacoder.shadowclient.mixin;
 
 import net.justacoder.shadowclient.main.SCMain;
 import net.justacoder.shadowclient.main.event.events.PerspectiveChangeEvent;
+import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.MainClickGUI;
 import net.justacoder.shadowclient.main.ui.font.SCFont;
@@ -45,7 +46,8 @@ public abstract class MinecraftClientMixin {
      */
     @Overwrite
     public static ModStatus getModStatus() {
-        if (((BooleanSetting) SCSettings.getSetting("VanillaSpoof")).booleanValue()) {
+        Setting setting = SCSettings.getSetting("VanillaSpoof");
+        if (setting != null && ((BooleanSetting) setting).booleanValue()) {
             return new ModStatus(ModStatus.Confidence.PROBABLY_NOT, "Client jar signature and brand is untouched");
         }
         return ModStatus.check("vanilla", ClientBrandRetriever::getClientModName, "Client", MinecraftClient.class);

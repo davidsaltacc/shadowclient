@@ -307,7 +307,6 @@ public class Config {
     public static @Nullable JsonObject getSCSettings() {
         String text = FileUtils.readFile(getConfigFile());
         if (text == null) {
-            saveConfig();
             return null;
         }
         JsonObject json = (new Gson()).fromJson(text, JsonObject.class);
