@@ -1,10 +1,8 @@
 package net.justacoder.shadowclient.mixin;
 
-import com.llamalad7.mixinextras.sugar.Local;
 import net.justacoder.shadowclient.main.SCMain;
 import net.justacoder.shadowclient.main.event.events.PerspectiveChangeEvent;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
-import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.MainClickGUI;
 import net.justacoder.shadowclient.main.ui.font.SCFont;
 import net.minecraft.client.ClientBrandRetriever;
@@ -12,20 +10,16 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.option.Perspective;
-import net.minecraft.client.realms.RealmsClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.AmbientEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.resource.ResourceReload;
 import net.minecraft.util.ModStatus;
 import net.justacoder.shadowclient.main.config.SCSettings;
 import net.justacoder.shadowclient.main.event.EventManager;
 import net.justacoder.shadowclient.main.event.events.PostTickEvent;
 import net.justacoder.shadowclient.main.module.ModuleManager;
-import net.justacoder.shadowclient.main.module.modules.other.UnfocusedFPS;
 import net.justacoder.shadowclient.main.module.modules.render.EntitiesESP;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import org.jetbrains.annotations.Nullable;
@@ -100,14 +94,6 @@ public abstract class MinecraftClientMixin {
     @Inject(method = "method_29338", at = @At("HEAD"))
     private void onInitFinished(CallbackInfo ci) {
         ModuleManager.getAllModules().forEach((n, m) -> m.postInit());
-    }
-
-    @Inject(method = "getFramerateLimit", at = @At("HEAD"), cancellable = true)
-    private void onGetFramerateLimit(CallbackInfoReturnable<Integer> cir) {
-        UnfocusedFPS ufps = ModuleManager.UnfocusedFPSModule;
-        if (ufps.enabled && !isWindowFocused()) {
-            cir.setReturnValue(Math.min(ufps.getFps(), options.getMaxFps().getValue()));
-        }
     }
 
     @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;onFontOptionsChanged()V", shift = At.Shift.AFTER))

@@ -2,6 +2,7 @@ package net.justacoder.shadowclient.main.util;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
@@ -42,7 +43,7 @@ public abstract class RenderUtils {
             RenderSystem.disableDepthTest();
         }
         RenderSystem.disableCull();
-        RenderSystem.setShader(GameRenderer::getRenderTypeLinesProgram);
+        RenderSystem.setShader(ShaderProgramKeys.RENDERTYPE_LINES);
         RenderSystem.lineWidth(width);
 
         BufferBuilder builder = tessellator.begin(VertexFormat.DrawMode.LINES, VertexFormats.LINES);
@@ -97,7 +98,7 @@ public abstract class RenderUtils {
         Matrix4f matrix = matrices.peek().getPositionMatrix();
         Tessellator tessellator = RenderSystem.renderThreadTesselator();
         BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.DrawMode.DEBUG_LINES, VertexFormats.POSITION);
-        RenderSystem.setShader(GameRenderer::getPositionProgram);
+        RenderSystem.setShader(ShaderProgramKeys.POSITION);
 
         bufferBuilder.vertex(matrix, (float) box.minX, (float) box.minY, (float) box.minZ); // TODO someone please fucking optimize this for me
         bufferBuilder.vertex(matrix, (float) box.maxX, (float) box.minY, (float) box.minZ);

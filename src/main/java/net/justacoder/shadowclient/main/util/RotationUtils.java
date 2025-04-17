@@ -22,7 +22,7 @@ public abstract class RotationUtils {
         float yaw = player.getYaw() + change;
         float pitch = needed[1];
 
-        mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, mc.player.isOnGround()));
+        mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, mc.player.isOnGround(), mc.player.horizontalCollision));
     }
 
     public static float[] getNeededRotations(Vec3d vec) {

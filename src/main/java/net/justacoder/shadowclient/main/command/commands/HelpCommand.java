@@ -9,7 +9,7 @@ public class HelpCommand extends Command {
     @Override
     public void OnExecute(String... args_) {
 
-        MinecraftClient.getInstance().player.sendMessage(Text.of(SCMain.createHelp()));
+        MinecraftClient.getInstance().player.sendMessage(Text.of(SCMain.createHelp()), false);
 
     }
 

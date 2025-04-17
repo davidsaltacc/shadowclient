@@ -5,6 +5,7 @@ import net.minecraft.block.enums.BlockHalf;
 import net.minecraft.block.enums.SlabType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.LightType;
 import net.justacoder.shadowclient.main.annotations.EventListener;
 import net.justacoder.shadowclient.main.annotations.SearchTags;
@@ -42,7 +43,7 @@ public class LightOverlay extends Module {
         int minZ = plz - radius;
         int maxZ = plz + radius;
         int minY = Math.max(mc.world.getBottomY(), ply - vradius);
-        int maxY = Math.min(ply + vradius, mc.world.getTopY());
+        int maxY = Math.min(ply + vradius, mc.world.getTopYInclusive());
 
         for (int y = minY; y <= maxY; y++) {
             for (int x = minX; x <= maxX; x++) {
@@ -93,7 +94,7 @@ public class LightOverlay extends Module {
             if (dState.getCollisionShape(mc.world, down) != VoxelShapes.fullCube()) {
                 return -1;
             }
-            if (dState.isTransparent(mc.world, down)) {
+            if (dState.isTransparent()) {
                 return -1;
             }
         }

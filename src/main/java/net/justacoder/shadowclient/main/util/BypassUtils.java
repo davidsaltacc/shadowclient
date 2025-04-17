@@ -7,7 +7,7 @@ public abstract class BypassUtils {
 
     public static void sendFiveMovementPackets() {
         for (int i = 0; i < 5; i++) {
-            SCMain.mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(SCMain.mc.player.getX(), SCMain.mc.player.getY(), SCMain.mc.player.getZ(), true));
+            SCMain.mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(SCMain.mc.player.getX(), SCMain.mc.player.getY(), SCMain.mc.player.getZ(), true, SCMain.mc.player.horizontalCollision));
         }
     }
 

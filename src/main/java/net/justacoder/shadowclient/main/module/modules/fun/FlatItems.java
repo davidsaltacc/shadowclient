@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.fun;
 
+import net.minecraft.client.render.entity.state.ItemEntityRenderState;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
@@ -19,11 +20,10 @@ public class FlatItems extends Module {
         addSetting(FACE_PLAYER);
     }
 
-    public float getItemAngle(ItemEntity itemEntity, PlayerEntity playerEntity) {
-        Vec3d iPos = itemEntity.getPos();
+    public float getItemAngle(ItemEntityRenderState itemEntity, PlayerEntity playerEntity) {
         Vec3d pPos = playerEntity.getPos();
-        double diffX = iPos.x - pPos.x;
-        double diffZ = iPos.z - pPos.z;
+        double diffX = itemEntity.x - pPos.x;
+        double diffZ = itemEntity.z - pPos.z;
         return (float) Math.atan2(diffZ, diffX) - (float) Math.PI / 2;
     }
 

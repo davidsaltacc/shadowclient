@@ -1,8 +1,6 @@
 package net.justacoder.shadowclient.mixin;
 
 import com.mojang.authlib.GameProfile;
-import net.justacoder.shadowclient.main.SCMain;
-import net.justacoder.shadowclient.main.module.modules.player.Reach;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -10,12 +8,15 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.justacoder.shadowclient.main.event.EventManager;
 import net.justacoder.shadowclient.main.event.events.DamageEvent;
 import net.justacoder.shadowclient.main.event.events.KnockbackEvent;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.world.ServerWorld;
+import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,8 +24,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ClientPlayerEntity.class)
 public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity {
@@ -36,8 +37,9 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     @Final
     protected MinecraftClient client;
 
+    @Shadow public abstract boolean isUsingItem();
+
     @Unique public Screen crntScreen;
-    @Unique public boolean hideItem;
 
     @Override
     public void setVelocityClient(double x, double y, double z) {
@@ -68,6 +70,16 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         return super.hasStatusEffect(effect);
     }
 
+    @Override
+    public @Nullable StatusEffectInstance getStatusEffect(RegistryEntry<StatusEffect> effect) {
+
+        if (effect == StatusEffects.LEVITATION && ModuleManager.NoLevitationModule.enabled) {
+            return null;
+        }
+
+        return super.getStatusEffect(effect);
+    }
+
     @Inject(at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;", opcode = Opcodes.GETFIELD, ordinal = 0), method = "tickNausea")
     private void beforeUpdateNausea(CallbackInfo ci) {
         if (!ModuleManager.PortalGUIModule.enabled) {
@@ -93,34 +105,21 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         return ModuleManager.HighJumpModule.increase(super.getJumpVelocity());
     }
 
-    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingItem()Z", ordinal = 0), method = "tickMovement")
-    private void onTickMovementItemUse(CallbackInfo ci) {
+    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingItem()Z"), method = "tickMovement")
+    private boolean onIsUsingItem(ClientPlayerEntity instance) {
         if (ModuleManager.NoSlowdownModule.enabled) {
-            hideItem = true;
+            return false;
         }
+        return isUsingItem();
     }
 
-    @Inject(at = @At("HEAD"), method = "isUsingItem", cancellable = true)
-    private void onIsUsingItem(CallbackInfoReturnable<Boolean> cir) {
-        if (!hideItem) {
-            return;
-        }
-
-        cir.setReturnValue(false);
-        hideItem = false;
-    }
-
-    @Inject(at = @At(value = "FIELD", target = "Lnet/minecraft/client/network/ClientPlayerEntity;ticksToNextAutojump:I", opcode = Opcodes.GETFIELD, ordinal = 0), method = "tickMovement")
-    private void afterIsUsingItem(CallbackInfo ci) {
-        hideItem = false;
-    }
-
-    @Inject(method = "damage", at = @At("HEAD"))
-    private void onDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> info) {
+    @Override
+    public boolean damage(ServerWorld world, DamageSource source, float amount) {
         if (getWorld().isClient && canTakeDamage()) {
             DamageEvent evt = new DamageEvent(source, amount);
             EventManager.fireEvent(evt);
         }
+        return super.damage(world, source, amount);
     }
 
 

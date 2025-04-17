@@ -18,16 +18,14 @@ public class NoFallDamage extends Module {
     @Override
     public void onEvent(Event event) {
 
-        if (mc.player.isFallFlying()) {
-            return;
-        }
-        if (mc.player.fallDistance <= 2) {
+        if (mc.player.isGliding()) {
             return;
         }
         if (mc.player.getVelocity().y > -0.5) {
             return;
         }
 
-        mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.OnGroundOnly(true));
+        mc.getNetworkHandler().sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(mc.player.getX(), mc.player.getY(), mc.player.getZ(), true, mc.player.horizontalCollision));
+
     }
 }

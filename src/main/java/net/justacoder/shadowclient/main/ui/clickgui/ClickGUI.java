@@ -28,16 +28,16 @@ public class ClickGUI extends Screen {
     }
 
     @Override
-    protected void applyBlur(float delta) {
+    protected void applyBlur() {
         if (SCSettings.BlurBackground.booleanValue()) {
-            super.applyBlur(delta);
+            super.applyBlur();
         }
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 
-        super.render(context, mouseX, mouseY, delta);
+        this.applyBlur();
 
         for (Frame frame : frames) {
             frame.render(context, mouseX, mouseY, delta);

@@ -1,16 +1,14 @@
 package net.justacoder.shadowclient.mixin;
 
 import net.minecraft.client.option.SimpleOption;
-import net.justacoder.shadowclient.main.SCMain;
-import net.justacoder.shadowclient.mixininterface.ISimpleOption;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import java.util.Objects;
+
 import java.util.function.Consumer;
 
 @Mixin(SimpleOption.class)
-public abstract class SimpleOptionMixin<T> implements ISimpleOption<T> {
+public abstract class SimpleOptionMixin<T> {
 
     @Shadow
     T value;
@@ -19,17 +17,4 @@ public abstract class SimpleOptionMixin<T> implements ISimpleOption<T> {
     @Final
     private Consumer<T> changeCallback;
 
-    @SuppressWarnings("AddedMixinMembersNamePattern")
-    @Override
-    public void forceSet(T newValue) {
-        if (!SCMain.mc.isRunning()) {
-            value = newValue;
-            return;
-        }
-
-        if (!Objects.equals(value, newValue)) {
-            value = newValue;
-            changeCallback.accept(value);
-        }
-    }
 }

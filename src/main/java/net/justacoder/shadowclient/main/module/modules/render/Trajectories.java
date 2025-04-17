@@ -43,7 +43,7 @@ public class Trajectories extends Module {
     public void onEvent(Event event) {
         Render3DEvent evt = (Render3DEvent) event;
 
-        evt.matrices.push();
+        evt.matrices.pushMatrix();
 
         getTrajectory(evt.tickDelta);
 
@@ -59,7 +59,7 @@ public class Trajectories extends Module {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glDepthMask(true);
 
-        evt.matrices.pop();
+        evt.matrices.popMatrix();
 
     }
 

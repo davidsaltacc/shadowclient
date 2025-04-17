@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class KeyboardInputMixin extends Input {
 
     @Inject(method = "tick", at = @At("TAIL"))
-    private void forceForwardMovement(boolean slowDown, float slowDownFactor, CallbackInfo ci) {
+    private void forceForwardMovement(CallbackInfo ci) {
         if (ModuleManager.AutoMoveModule.enabled) {
-            this.movementForward = slowDown ? slowDownFactor : 1f;
+            this.movementForward = 1f;
         }
     }
 

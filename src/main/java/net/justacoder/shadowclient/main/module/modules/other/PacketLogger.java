@@ -152,7 +152,6 @@ public class PacketLogger extends Module {
         if (in instanceof HandSwingC2SPacket) { return "play.HandSwing"; }
         if (in instanceof JigsawGeneratingC2SPacket) { return "play.JigsawGenerating"; }
         if (in instanceof MessageAcknowledgmentC2SPacket) { return "play.MessageAcknowledgment"; }
-        if (in instanceof PickFromInventoryC2SPacket) { return "play.PickFromInventory"; }
         if (in instanceof PlayerActionC2SPacket) { return "play.PlayerAction"; }
         if (in instanceof PlayerInputC2SPacket) { return "play.PlayerInput"; }
         if (in instanceof PlayerInteractBlockC2SPacket) { return "play.PlayerInteractBlock"; }
@@ -218,7 +217,6 @@ public class PacketLogger extends Module {
         if (in instanceof BossBarS2CPacket) { return "play.BossBar"; }
         if (in instanceof BundleDelimiterS2CPacket) { return "play.BundleDelimiter"; }
         if (in instanceof BundleS2CPacket) { return "play.Bundle"; }
-        if (in instanceof ChangeUnlockedRecipesS2CPacket) { return "play.ChangeUnlockedRecipes"; }
         if (in instanceof ChatMessageS2CPacket) { return "play.ChatMessage"; }
         if (in instanceof ChatSuggestionsS2CPacket) { return "play.ChatSuggestions"; }
         if (in instanceof ChunkBiomeDataS2CPacket) { return "play.ChunkBiomeData"; }

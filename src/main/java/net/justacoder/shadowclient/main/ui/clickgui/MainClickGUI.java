@@ -92,7 +92,7 @@ public class MainClickGUI extends ClickGUI {
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 
-        super.render(context, mouseX, mouseY, delta);
+        this.applyBlur();
 
         for (Frame frame : frames) {
             frame.render(context, mouseX, mouseY, delta);

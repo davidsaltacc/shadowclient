@@ -190,61 +190,63 @@ public class Config {
             Module module = ModuleManager.getModule(name);
             JsonObject settings = object.get("settings").getAsJsonObject();
 
-            settings.keySet().forEach(setting -> {
-                JsonElement settingjson = settings.get(setting);
-                if (settingjson.isJsonPrimitive() && settingjson.getAsJsonPrimitive().isNumber()) {
-                    Number value = settingjson.getAsNumber();
-                    module.settings.forEach(settingobj -> {
-                        if (settingobj.name.equals(setting)) {
-                            settingobj.shouldCallCallbacks(false);
-                            ((NumberSetting) settingobj).setNumberValue(value);
-                            settingobj.shouldCallCallbacks(true);
-                        }
-                    });
-                }
-                if (settingjson.isJsonPrimitive() && settingjson.getAsJsonPrimitive().isBoolean()) {
-                    boolean value = settingjson.getAsBoolean();
-                    module.settings.forEach(settingobj -> {
-                        if (settingobj.name.equals(setting)) {
-                            settingobj.shouldCallCallbacks(false);
-                            ((BooleanSetting) settingobj).setBooleanValue(value);
-                            settingobj.shouldCallCallbacks(true);
-                        }
-                    });
-                }
-                if (settingjson.isJsonPrimitive() && settingjson.getAsJsonPrimitive().isString()) {
-                    String value = settingjson.getAsString();
-                    if (!setting.endsWith("_ENUMPATH")) {
-                        if (settings.keySet().contains(setting + "_ENUMPATH")) {
-                            String enumpath = settings.get(setting + "_ENUMPATH").getAsString().replace("class ", "");
-                            String enumvalue = settings.get(setting).getAsString();
-                            module.settings.forEach(settingobj -> {
-                                if (settingobj.name.equals(setting)) {
-                                    try {
-                                        Class<?> enumClass = Class.forName(enumpath);
-                                        Enum<?> enumConstant = Enum.valueOf((Class<Enum>) enumClass, enumvalue);
-                                        settingobj.shouldCallCallbacks(false);
-                                        ((EnumSetting) settingobj).setEnumValue(enumConstant);
-                                        settingobj.shouldCallCallbacks(true);
-                                    } catch (Exception e) {
-                                        throw new RuntimeException(e);
+            if (module != null) {
+
+                settings.keySet().forEach(setting -> {
+                    JsonElement settingjson = settings.get(setting);
+                    if (settingjson.isJsonPrimitive() && settingjson.getAsJsonPrimitive().isNumber()) {
+                        Number value = settingjson.getAsNumber();
+                        module.settings.forEach(settingobj -> {
+                            if (settingobj.name.equals(setting)) {
+                                settingobj.shouldCallCallbacks(false);
+                                ((NumberSetting) settingobj).setNumberValue(value);
+                                settingobj.shouldCallCallbacks(true);
+                            }
+                        });
+                    }
+                    if (settingjson.isJsonPrimitive() && settingjson.getAsJsonPrimitive().isBoolean()) {
+                        boolean value = settingjson.getAsBoolean();
+                        module.settings.forEach(settingobj -> {
+                            if (settingobj.name.equals(setting)) {
+                                settingobj.shouldCallCallbacks(false);
+                                ((BooleanSetting) settingobj).setBooleanValue(value);
+                                settingobj.shouldCallCallbacks(true);
+                            }
+                        });
+                    }
+                    if (settingjson.isJsonPrimitive() && settingjson.getAsJsonPrimitive().isString()) {
+                        String value = settingjson.getAsString();
+                        if (!setting.endsWith("_ENUMPATH")) {
+                            if (settings.keySet().contains(setting + "_ENUMPATH")) {
+                                String enumpath = settings.get(setting + "_ENUMPATH").getAsString().replace("class ", "");
+                                String enumvalue = settings.get(setting).getAsString();
+                                module.settings.forEach(settingobj -> {
+                                    if (settingobj.name.equals(setting)) {
+                                        try {
+                                            Class<?> enumClass = Class.forName(enumpath);
+                                            Enum<?> enumConstant = Enum.valueOf((Class<Enum>) enumClass, enumvalue);
+                                            settingobj.shouldCallCallbacks(false);
+                                            ((EnumSetting) settingobj).setEnumValue(enumConstant);
+                                            settingobj.shouldCallCallbacks(true);
+                                        } catch (Exception e) {
+                                            throw new RuntimeException(e);
+                                        }
                                     }
-                                }
-                            });
-                        } else {
-                            module.settings.forEach(settingobj -> {
-                                if (settingobj.name.equals(setting) && settingobj instanceof StringSetting) {
-                                    settingobj.shouldCallCallbacks(false);
-                                    ((StringSetting) settingobj).setStringValue(value);
-                                    settingobj.shouldCallCallbacks(true);
-                                }
-                            });
+                                });
+                            } else {
+                                module.settings.forEach(settingobj -> {
+                                    if (settingobj.name.equals(setting) && settingobj instanceof StringSetting) {
+                                        settingobj.shouldCallCallbacks(false);
+                                        ((StringSetting) settingobj).setStringValue(value);
+                                        settingobj.shouldCallCallbacks(true);
+                                    }
+                                });
+                            }
                         }
                     }
-                }
-            });
-            try {
-                if (module != null) {
+                });
+
+                try {
                     if (!module.getClass().isAnnotationPresent(OneClick.class) && !module.getClass().isAnnotationPresent(DoNotSaveState.class)) {
                         SCMain.setModuleEnabled(name, object.get("enabled").getAsBoolean(), true, false);
                     }
@@ -254,9 +256,9 @@ public class Config {
                             module.moduleButton.parent.updateButtons();
                         }
                     }
+                } catch (Exception e) {
+                    SCMain.error(JavaUtils.stackTraceFromThrowable(e));
                 }
-            } catch (Exception e) {
-                SCMain.error(JavaUtils.stackTraceFromThrowable(e));
             }
         });
 

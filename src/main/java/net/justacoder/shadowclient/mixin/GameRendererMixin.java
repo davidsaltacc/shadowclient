@@ -23,18 +23,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class GameRendererMixin implements IGameRenderer {
 
     @Shadow
-    private void loadPostProcessor(Identifier id) {}
-
-    @Shadow @Nullable PostEffectProcessor postProcessor;
+    private void setPostProcessor(Identifier id) {}
 
     @SuppressWarnings("AddedMixinMembersNamePattern")
     @Override
     public void loadShader(@Nullable Identifier id) {
         if (id != null) {
-            postProcessor = null;
-            loadPostProcessor(id);
+            setPostProcessor(id);
         } else {
-            ((GameRenderer) (Object) this).disablePostProcessor();
+            ((GameRenderer) (Object) this).clearPostProcessor();
         }
     }
 
@@ -69,9 +66,9 @@ public abstract class GameRendererMixin implements IGameRenderer {
     }
 
     @Inject(method = "getFov", at = @At("HEAD"), cancellable = true)
-    private void getFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Double> cir) {
+    private void getFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Float> cir) {
         if (ModuleManager.ZoomModule.enabled) {
-            cir.setReturnValue(ModuleManager.ZoomModule.FOV.doubleValue());
+            cir.setReturnValue(ModuleManager.ZoomModule.FOV.floatValue());
         }
     }
 

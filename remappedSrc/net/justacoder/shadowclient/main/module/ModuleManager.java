@@ -1,0 +1,262 @@
+package net.justacoder.shadowclient.main.module;
+
+import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.annotations.NotKeybindable;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
+import net.justacoder.shadowclient.main.annotations.EventListener;
+import net.justacoder.shadowclient.main.event.Event;
+import net.justacoder.shadowclient.main.event.EventManager;
+import net.justacoder.shadowclient.main.module.modules.combat.*;
+import net.justacoder.shadowclient.main.module.modules.fun.*;
+import net.justacoder.shadowclient.main.module.modules.menus.*;
+import net.justacoder.shadowclient.main.module.modules.movement.*;
+import net.justacoder.shadowclient.main.module.modules.other.*;
+import net.justacoder.shadowclient.main.module.modules.player.*;
+import net.justacoder.shadowclient.main.module.modules.player.cheststeal.ChestSteal;
+import net.justacoder.shadowclient.main.module.modules.render.*;
+import net.justacoder.shadowclient.main.module.modules.settings.*;
+import net.justacoder.shadowclient.main.module.modules.world.*;
+import org.jetbrains.annotations.Nullable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class ModuleManager {
+
+    private static final Map<String, Module> modules = new HashMap<>();
+    private static boolean isConfiguringKeyBinds = false;
+    private static KeyBinding configuringKeyBinding = null;
+    private static Module configuringKeyBindingModule = null;
+
+    public static AutoSprint AutoSprintModule;
+    public static Spider SpiderModule;
+    public static StepUp StepUpModule;
+    public static AutoSwim AutoSwimModule;
+    public static Fly FlyModule;
+    public static AutoFish AutoFishModule;
+    public static AutoCriticalHit AutoCriticalHitModule;
+    public static AntiKnockback AntiKnockbackModule;
+    public static CameraNoclip CameraNoclipModule;
+    public static FastClimb FastClimbModule;
+    public static AirJump AirJumpModule;
+    public static NoFallDamage NoFallDamageModule;
+    public static Parkour ParkourModule;
+    public static PowderSnowWalk PowderSnowWalkModule;
+    public static Tracers TracersModule;
+    public static FastBlockBreak FastBlockBreakModule;
+    public static Timer TimerModule;
+    public static EntitiesESP EntitiesESPModule;
+    public static EndermanMagnet EndermanMagnetModule;
+    public static SecretShaders SecretShadersModule;
+    public static SneakSpam SneakSpamModule;
+    public static Derpy DerpyModule;
+    public static NoTiltOnHurt NoTiltOnHurtModule;
+    public static Panic PanicModule;
+    public static RainbowGUI RainbowGUIModule;
+    public static NoFireOverlay NoFireOverlayModule;
+    public static AutoCrystal AutoCrystalModule;
+    public static BunnyHop BunnyHopModule;
+    public static UpdatesDisabled UpdatesDisableModule;
+    public static NoWaterPush NoWaterPushModule;
+    public static SaveData SaveDataModule;
+    public static LoadData LoadDataModule;
+    public static ShowSettings ShowSettingsModule;
+    public static HideSettings HideSettingsModule;
+    public static ResetData ResetDataModule;
+    public static KillAura KillAuraModule;
+    public static PacketLogger PacketLoggerModule;
+    public static NightVision NightVisionModule;
+    public static NoBlind NoBlindModule;
+    public static NoLevitation NoLevitationModule;
+    public static NoWobble NoWobbleModule;
+    public static BoatFly BoatFlyModule;
+    public static NoEntityPush NoEntityPushModule;
+    public static AutoHotbarCycle AutoHotbarCycleModule;
+    public static ExtendedCameraDistance ExtendedCameraDistanceModule;
+    public static FastPlace FastPlaceModule;
+    public static NoPumkin NoPumkinModule;
+    public static PortalGUI PortalGUIModule;
+    public static SeeInvisibles SeeInvisiblesModule;
+    public static HighJump HighJumpModule;
+    public static NoSlowdown NoSlowdownModule;
+    public static Reach ReachModule;
+    public static AdvancedHelp AdvancedHelpModule;
+    public static SafeWalk SafeWalkModule;
+    public static DinnerbonifyAll DinnerbonifyAllModule;
+    public static RenderBarriers RenderBarriersModule;
+    public static BetterPingDisplay BetterPingDisplayModule;
+    public static DeathNotification DeathNotificationModule;
+    public static Blink BlinkModule;
+    public static Trajectories TrajectoriesModule;
+    public static Freecam FreecamModule;
+    public static Xray XrayModule;
+    public static ShadowHud ShadowHudModule;
+    public static NoOverlay NoOverlayModule;
+    public static ChestSteal ChestStealModule;
+    public static AllModules AllModulesModule;
+    public static WeatherControl WeatherControlModule;
+    public static FlatItems FlatItemsModule;
+    public static ClickTP ClickTPModule;
+    public static LightOverlay LightOverlayModule;
+    public static UnfocusedFPS UnfocusedFPSModule;
+    public static HideShield HideShieldModule;
+    public static ConfigureKeybindings ConfigureKeybindingsModule;
+    public static Zoom ZoomModule;
+    public static NoBob NoBobModule;
+    public static AutoHit AutoHitModule;
+    public static AutoMove AutoMoveModule;
+    public static Breadcrumbs BreadcrumbsModule;
+
+
+    public static void registerModules() {
+        AutoSprintModule = (AutoSprint) register(new AutoSprint());
+        SpiderModule = (Spider) register(new Spider());
+        StepUpModule = (StepUp) register(new StepUp());
+        AutoSwimModule = (AutoSwim) register(new AutoSwim());
+        FlyModule = (Fly) register(new Fly());
+        AutoFishModule = (AutoFish) register(new AutoFish());
+        AutoCriticalHitModule = (AutoCriticalHit) register(new AutoCriticalHit());
+        AntiKnockbackModule = (AntiKnockback) register(new AntiKnockback());
+        CameraNoclipModule = (CameraNoclip) register(new CameraNoclip());
+        FastClimbModule = (FastClimb) register(new FastClimb());
+        AirJumpModule = (AirJump) register(new AirJump());
+        NoFallDamageModule = (NoFallDamage) register(new NoFallDamage());
+        ParkourModule = (Parkour) register(new Parkour());
+        PowderSnowWalkModule = (PowderSnowWalk) register(new PowderSnowWalk());
+        TracersModule = (Tracers) register(new Tracers());
+        FastBlockBreakModule = (FastBlockBreak) register(new FastBlockBreak());
+        TimerModule = (Timer) register(new Timer());
+        EntitiesESPModule = (EntitiesESP) register(new EntitiesESP());
+        EndermanMagnetModule = (EndermanMagnet) register(new EndermanMagnet());
+        SecretShadersModule = (SecretShaders) register(new SecretShaders());
+        SneakSpamModule = (SneakSpam) register(new SneakSpam());
+        DerpyModule = (Derpy) register(new Derpy());
+        NoTiltOnHurtModule = (NoTiltOnHurt) register(new NoTiltOnHurt());
+        PanicModule = (Panic) register(new Panic());
+        RainbowGUIModule = (RainbowGUI) register(new RainbowGUI());
+        NoFireOverlayModule = (NoFireOverlay) register(new NoFireOverlay());
+        AutoCrystalModule = (AutoCrystal) register(new AutoCrystal());
+        BunnyHopModule = (BunnyHop) register(new BunnyHop());
+        UpdatesDisableModule = (UpdatesDisabled) register(new UpdatesDisabled());
+        NoWaterPushModule = (NoWaterPush) register(new NoWaterPush());
+        SaveDataModule = (SaveData) register(new SaveData());
+        LoadDataModule = (LoadData) register(new LoadData());
+        ShowSettingsModule = (ShowSettings) register(new ShowSettings());
+        HideSettingsModule = (HideSettings) register(new HideSettings());
+        ResetDataModule = (ResetData) register(new ResetData());
+        KillAuraModule = (KillAura) register(new KillAura());
+        PacketLoggerModule = (PacketLogger) register(new PacketLogger());
+        NightVisionModule = (NightVision) register(new NightVision());
+        NoBlindModule = (NoBlind) register(new NoBlind());
+        NoLevitationModule = (NoLevitation) register(new NoLevitation());
+        NoWobbleModule = (NoWobble) register(new NoWobble());
+        BoatFlyModule = (BoatFly) register(new BoatFly());
+        NoEntityPushModule = (NoEntityPush) register(new NoEntityPush());
+        AutoHotbarCycleModule = (AutoHotbarCycle) register(new AutoHotbarCycle());
+        ExtendedCameraDistanceModule = (ExtendedCameraDistance) register(new ExtendedCameraDistance());
+        FastPlaceModule = (FastPlace) register(new FastPlace());
+        NoPumkinModule = (NoPumkin) register(new NoPumkin());
+        PortalGUIModule = (PortalGUI) register(new PortalGUI());
+        SeeInvisiblesModule = (SeeInvisibles) register(new SeeInvisibles());
+        HighJumpModule = (HighJump) register(new HighJump());
+        NoSlowdownModule = (NoSlowdown) register(new NoSlowdown());
+        ReachModule = (Reach) register(new Reach());
+        AdvancedHelpModule = (AdvancedHelp) register(new AdvancedHelp());
+        SafeWalkModule = (SafeWalk) register(new SafeWalk());
+        DinnerbonifyAllModule = (DinnerbonifyAll) register(new DinnerbonifyAll());
+        RenderBarriersModule = (RenderBarriers) register(new RenderBarriers());
+        BetterPingDisplayModule = (BetterPingDisplay) register(new BetterPingDisplay());
+        DeathNotificationModule = (DeathNotification) register(new DeathNotification());
+        BlinkModule = (Blink) register(new Blink());
+        TrajectoriesModule = (Trajectories) register(new Trajectories());
+        FreecamModule = (Freecam) register(new Freecam());
+        XrayModule = (Xray) register(new Xray());
+        ShadowHudModule = (ShadowHud) register(new ShadowHud());
+        NoOverlayModule = (NoOverlay) register(new NoOverlay());
+        ChestStealModule = (ChestSteal) register(new ChestSteal());
+        AllModulesModule = (AllModules) register(new AllModules());
+        WeatherControlModule = (WeatherControl) register(new WeatherControl());
+        FlatItemsModule = (FlatItems) register(new FlatItems());
+        ClickTPModule = (ClickTP) register(new ClickTP());
+        LightOverlayModule = (LightOverlay) register(new LightOverlay());
+        UnfocusedFPSModule = (UnfocusedFPS) register(new UnfocusedFPS());
+        HideShieldModule = (HideShield) register(new HideShield());
+        ConfigureKeybindingsModule = (ConfigureKeybindings) register(new ConfigureKeybindings());
+        ZoomModule = (Zoom) register(new Zoom());
+        NoBobModule = (NoBob) register(new NoBob());
+        AutoHitModule = (AutoHit) register(new AutoHit());
+        AutoMoveModule = (AutoMove) register(new AutoMove());
+        BreadcrumbsModule = (Breadcrumbs) register(new Breadcrumbs());
+    }
+
+    public static Module register(Module module) {
+        modules.put(module.moduleName, module);
+        if (!module.getClass().isAnnotationPresent(NotKeybindable.class)) {
+            module.keyBinding = new KeyBinding("module.shadowclient." + module.moduleName, InputUtil.UNKNOWN_KEY.getCode(), "category.shadowclient.clientcategory");
+            SCMain.registerKeyBinding(module.keyBinding, true);
+        }
+        if (module.getClass().isAnnotationPresent(EventListener.class)) {
+            for (Class<? extends Event> evtcl : module.getClass().getAnnotation(EventListener.class).value()) {
+                EventManager.addModule(module, evtcl);
+            }
+        }
+        return module;
+    }
+
+    public static @Nullable Module getModule(String name) {
+        return modules.get(name);
+    }
+
+    public static List<String> getAllModuleNamesInCategory(ModuleCategory category) {
+
+        List<String> categoryModules = new ArrayList<>();
+
+        getAllModules().forEach((name, module) -> {
+            if (module.category == category) {
+                categoryModules.add(name);
+            }
+        });
+
+        return categoryModules;
+    }
+
+    public static Map<String, Module> getAllModules() {
+        return modules;
+    }
+
+    public static boolean isConfiguringKeyBinds() {
+        return isConfiguringKeyBinds;
+    }
+
+    public static KeyBinding getConfiguringKeyBinding() {
+        return configuringKeyBinding;
+    }
+
+    public static Module getConfiguringKeyBindingModule() {
+        return configuringKeyBindingModule;
+    }
+
+    public static void setConfiguringKeyBinding(KeyBinding keyBinding, Module module) {
+        configuringKeyBinding = keyBinding;
+        configuringKeyBindingModule = module;
+    }
+
+    public static void startKeybindConfiguration() {
+        isConfiguringKeyBinds = true;
+        SCMain.mc.options.forwardKey.setPressed(false);
+        SCMain.mc.options.backKey.setPressed(false);
+        SCMain.mc.options.rightKey.setPressed(false);
+        SCMain.mc.options.leftKey.setPressed(false);
+        SCMain.mc.options.jumpKey.setPressed(false);
+        SCMain.mc.options.sneakKey.setPressed(false);
+    }
+
+    public static void endKeybindConfiguration() {
+        isConfiguringKeyBinds = false;
+        configuringKeyBinding = null;
+        configuringKeyBindingModule = null;
+        SCMain.mc.options.write();
+    }
+}

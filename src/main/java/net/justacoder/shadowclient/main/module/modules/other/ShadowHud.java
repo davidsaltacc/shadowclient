@@ -90,7 +90,7 @@ public class ShadowHud extends Module {
             FRAMES_ELEMENT.setTextContent(mc.getCurrentFps() + " fps");
         }
         if (ENTITIES.booleanValue()) {
-            ENTITIES_ELEMENT.setTextContent(((WorldRendererAccessor) mc.worldRenderer).getRegularEntityCount() + " entities rendered, " + mc.world.getRegularEntityCount() + " loaded");
+            ENTITIES_ELEMENT.setTextContent(((WorldRendererAccessor) mc.worldRenderer).getRenderedEntitiesCount() + " entities rendered, " + mc.world.getRegularEntityCount() + " loaded");
         }
     }
 

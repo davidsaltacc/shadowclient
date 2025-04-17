@@ -25,6 +25,6 @@ public class Derpy extends Module {
         float yaw = mc.player.getYaw() + random.nextFloat() * 360F - 180F;
         float pitch = random.nextFloat() * 180F - 90F;
 
-        mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, mc.player.isOnGround()));
+        mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, mc.player.isOnGround(), mc.player.horizontalCollision));
     }
 }

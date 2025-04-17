@@ -18,6 +18,10 @@
 * autohit
 * breadcrumbs
 
+### removed modules:
+* super secret shaders, minecraft removed them 
+* unfocused fps
+
 ### new features:
 * add corner setting to shadowhud
 * entityculling mod doesn't mess up xray and esp 
@@ -62,6 +66,7 @@
 
 
 ## yet to do:
+* click to dismiss is STILL unreadable.
 * a way to reset ui positions (only positions, not the settings)
 * add cooldown to air jump (configurable)
 * make more things translatable

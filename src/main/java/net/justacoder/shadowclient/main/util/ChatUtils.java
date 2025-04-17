@@ -5,7 +5,7 @@ import net.minecraft.text.Text;
 
 public abstract class ChatUtils {
     public static void sendMessageClient(String text) {
-        MinecraftClient.getInstance().player.sendMessage(Text.of(text));
+        MinecraftClient.getInstance().player.sendMessage(Text.of(text), false);
     }
     public static void sendMessageServer(String text) {
         MinecraftClient.getInstance().getNetworkHandler().sendChatMessage(text);

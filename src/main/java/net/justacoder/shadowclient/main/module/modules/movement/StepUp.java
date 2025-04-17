@@ -23,7 +23,7 @@ public class StepUp extends Module {
     }
 
     public void setStepHeight(float height) {
-        mc.player.getAttributes().getCustomInstance(EntityAttributes.GENERIC_STEP_HEIGHT).setBaseValue(height);
+        mc.player.getAttributes().getCustomInstance(EntityAttributes.STEP_HEIGHT).setBaseValue(height);
     }
 
     @Override

@@ -49,7 +49,6 @@ public class ModuleManager {
     public static Timer TimerModule;
     public static EntitiesESP EntitiesESPModule;
     public static EndermanMagnet EndermanMagnetModule;
-    public static SecretShaders SecretShadersModule;
     public static SneakSpam SneakSpamModule;
     public static Derpy DerpyModule;
     public static NoTiltOnHurt NoTiltOnHurtModule;
@@ -100,7 +99,6 @@ public class ModuleManager {
     public static FlatItems FlatItemsModule;
     public static ClickTP ClickTPModule;
     public static LightOverlay LightOverlayModule;
-    public static UnfocusedFPS UnfocusedFPSModule;
     public static HideShield HideShieldModule;
     public static ConfigureKeybindings ConfigureKeybindingsModule;
     public static Zoom ZoomModule;
@@ -130,7 +128,6 @@ public class ModuleManager {
         TimerModule = (Timer) register(new Timer());
         EntitiesESPModule = (EntitiesESP) register(new EntitiesESP());
         EndermanMagnetModule = (EndermanMagnet) register(new EndermanMagnet());
-        SecretShadersModule = (SecretShaders) register(new SecretShaders());
         SneakSpamModule = (SneakSpam) register(new SneakSpam());
         DerpyModule = (Derpy) register(new Derpy());
         NoTiltOnHurtModule = (NoTiltOnHurt) register(new NoTiltOnHurt());
@@ -181,7 +178,6 @@ public class ModuleManager {
         FlatItemsModule = (FlatItems) register(new FlatItems());
         ClickTPModule = (ClickTP) register(new ClickTP());
         LightOverlayModule = (LightOverlay) register(new LightOverlay());
-        UnfocusedFPSModule = (UnfocusedFPS) register(new UnfocusedFPS());
         HideShieldModule = (HideShield) register(new HideShield());
         ConfigureKeybindingsModule = (ConfigureKeybindings) register(new ConfigureKeybindings());
         ZoomModule = (Zoom) register(new Zoom());

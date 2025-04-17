@@ -38,7 +38,8 @@ public class EndermanMagnet extends Module {
             mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(
                 mc.player.getYaw() + MathHelper.wrapDegrees((float) Math.toDegrees(Math.atan2(enderman.getZ() - mc.player.getZ(), enderman.getX() - mc.player.getX())) - 90f - mc.player.getYaw()),
                 mc.player.getPitch() + MathHelper.wrapDegrees((float) -Math.toDegrees(Math.atan2(diffY, diffXZ)) - mc.player.getPitch()),
-                mc.player.isOnGround()
+                mc.player.isOnGround(),
+                mc.player.horizontalCollision
             ));
             break;
         }

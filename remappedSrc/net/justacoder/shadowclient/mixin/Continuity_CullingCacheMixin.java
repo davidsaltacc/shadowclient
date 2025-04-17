@@ -1,0 +1,37 @@
+package net.justacoder.shadowclient.mixin;
+
+import net.minecraft.block.BlockState;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockRenderView;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+@Pseudo
+@Mixin(
+    targets = {"me.pepperbell.continuity.client.model.CullingCache"},
+    remap = false
+)
+public abstract class Continuity_CullingCacheMixin {
+
+    @SuppressWarnings("UnresolvedMixinReference")
+    @Inject(method = "shouldCull(Lnet/minecraft/world/BlockRenderView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/Direction;)Z", at = @At("HEAD"), cancellable = true)
+    private void shouldCull(BlockRenderView blockView, BlockPos pos, BlockState state, Direction cullFace, CallbackInfoReturnable<Boolean> cir) {
+
+        // ShouldDrawSideEvent evt = new ShouldDrawSideEvent(state);
+
+        // EventManager.fireEvent(evt);
+
+        // if (evt.renderedSet) {
+        //     cir.setReturnValue(!evt.rendered);
+        // }
+
+
+
+        // TODO REPRODUCE THAT DAMN ISSUE WITH CONTINUITY HERE
+    }
+
+}
