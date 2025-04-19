@@ -3,6 +3,7 @@ package net.justacoder.shadowclient.main.ui.clickgui;
 import net.justacoder.shadowclient.main.SCMain;
 import net.justacoder.shadowclient.main.config.Config;
 import net.justacoder.shadowclient.main.module.ModuleManager;
+import net.justacoder.shadowclient.main.util.ScreenSizeGetter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
@@ -52,12 +53,7 @@ public class MainClickGUI extends ClickGUI {
 
     public void repositionFramesProperly() {
 
-        // spaghetti code but there is no better way of doing this
-        String headless = "java.awt.headless";
-        String oldHeadless = System.getProperty(headless);
-        System.setProperty(headless, "false");
-        int screenWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();
-        System.setProperty(headless, oldHeadless);
+        int screenWidth = ScreenSizeGetter.getResolution().x;
 
         int width = screenWidth / 2;
         int columns = (int) Math.floor((float) (width / 2.) / 105);

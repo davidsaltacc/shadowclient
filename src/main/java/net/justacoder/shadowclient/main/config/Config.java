@@ -31,6 +31,10 @@ public class Config {
 
     public static void saveConfig() {
 
+        if (!SCMain.mayWriteConfig) {
+            return;
+        }
+
         SCMain.info("Saving config");
 
         JsonObject json = new JsonObject();
@@ -137,13 +141,9 @@ public class Config {
 
     @SuppressWarnings("unchecked")
     public static void loadConfig() {
-        String text;
-        try {
-            text = FileUtils.readFile(getConfigFile());
-            if (text == null) {
-                throw new RuntimeException();
-            }
-        } catch (Exception ignored) {
+        String text = FileUtils.readFile(getConfigFile());
+        if (text == null) {
+            SCMain.info("Failed to find config file, creating new one.");
             saveConfig();
             return;
         }
@@ -307,6 +307,7 @@ public class Config {
     public static @Nullable JsonObject getSCSettings() {
         String text = FileUtils.readFile(getConfigFile());
         if (text == null) {
+            saveConfig();
             return null;
         }
         JsonObject json = (new Gson()).fromJson(text, JsonObject.class);

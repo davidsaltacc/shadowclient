@@ -13,7 +13,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Pseudo
 @Mixin(
-    targets = {"me.jellysquid.mods.sodium.client.render.chunk.compile.pipeline.FluidRenderer"},
+    targets = {
+            "net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.FluidRenderer", // > v6
+            "me.jellysquid.mods.sodium.client.render.chunk.compile.pipeline.FluidRenderer" // < v6
+    },
     remap = false
 )
 public abstract class Sodium_FluidRendererMixin {

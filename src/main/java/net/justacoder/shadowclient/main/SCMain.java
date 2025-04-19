@@ -5,7 +5,6 @@ import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
-import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 import net.minecraft.Bootstrap;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -57,6 +56,8 @@ public class SCMain {
     public static KeyBinding ToggleGUIKeyBinding;
     public static SimpleOption<Integer> guiScaleOption;
 
+    public static boolean mayWriteConfig = false;
+
     public static void init() {
         try {
             info("Starting " + ClientName + " " + ClientVersion);
@@ -73,6 +74,7 @@ public class SCMain {
             clickGui = new MainClickGUI();
             settingsGui = new ClickGUI("Settings");
             initSettingsScreen(settingsGui);
+            mayWriteConfig = true;
             Runtime.getRuntime().addShutdownHook(new Thread(SCMain::closed));
             Config.loadConfig();
             checkConflictingMods();

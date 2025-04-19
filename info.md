@@ -1,7 +1,24 @@
 # shadowclient 0.3.0 changelog
 
+- force sneak
+- tracers show name and dist
+- killaura filter
+- more killing & trolling methods (hitting through wall works with killaura legit off)
+- view dist spoof (set view dist high, but don't render the chunks far out. for shit like tracers and other stuff, so the server still gives the entity positions)
+- bow shit (extreme speed before shooting gives big damage, aswell as aim shit)
+- how does dolphins grace work?
+- fix airjump and make one that does what airjump does now (different fly mode)
+- fix the fly kick bypass (just fly down for a bit then back up, look up the anticheat how it does it)
+- investigate this new HorizontalCollison thing in the uhhhhhh packet, i think when you are bumping into shit you don't get flykickedd as easily? see if exploitable
+- make night vision enabling/disabling and other effect stuff uhh trigger some kind of reload, it seems to only apply after a second or so
+- mine patter finder - overlay - finds the most ideal legit looking pattern to mine in that gets you the most loot
+- boat full turn camera in f5
+- boatfly faster turning
+- how do game detect if swimming? can be used to exploit? swimming -> freely moveable basically
+- logoff spot visualizer
+
 ### version change
-* moved to minecraft 1.21.1
+* moved to minecraft 1.21.4
 
 ### newly added modules:
 * no overlay
@@ -65,6 +82,8 @@
 
 
 
+
+
 ## yet to do:
 * click to dismiss is STILL unreadable.
 * a way to reset ui positions (only positions, not the settings)
@@ -112,7 +131,7 @@
 * instead of having entity type settings like [hostile: false, players: true, ...] instead just make a universal EntitiesSetting as well as BlocksSetting (for xray, + a whitelist/blacklist toggle)
 * no jump cooldown (be able to hold space under trees)
 * eased sliders (sliders, but with easing, so it's easier to configure some values)
-* ui animations
+* ui animations !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 * use setting change callbacks instead of manual changing, I didn't know we had callbacks lol
 
 
