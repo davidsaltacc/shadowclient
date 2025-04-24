@@ -14,11 +14,13 @@ public class SliderSetting extends SettingComponent {
     private final NumberSetting numberSetting;
 
     private boolean sliding;
+    private Number oldValue;
 
     public SliderSetting(Setting setting, ModuleButton parent, int offset) {
         super(setting, parent, offset);
         this.numberSetting = (NumberSetting) setting;
         this.sliding = false;
+        this.oldValue = numberSetting.numberValue();
     }
 
     @Override
@@ -34,10 +36,8 @@ public class SliderSetting extends SettingComponent {
         context.fill(parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + renderWidth, parent.parent.y + parent.offset + offset + parent.parent.height, Colors.SLIDER.color);
 
         if (sliding) {
-            if (diff == 0) {
-                numberSetting.setNumberValue(numberSetting.getMinValue());
-            } else {
-                numberSetting.setNumberValue(MathUtils.roundToPlace((diff / parent.parent.width) * (numberSetting.getMaxValue().floatValue() - numberSetting.getMinValue().floatValue()) + numberSetting.getMinValue().floatValue(), numberSetting.decimalPlaces));
+            if (diff != 0) {
+                numberSetting.setNumberValue(MathUtils.roundToPlace((diff / parent.parent.width) * (numberSetting.getMaxValue().floatValue() - numberSetting.getMinValue().floatValue()) + numberSetting.getMinValue().floatValue(), numberSetting.decimalPlaces), false);
             }
         }
 
@@ -61,7 +61,11 @@ public class SliderSetting extends SettingComponent {
     @Override
     public void mouseReleased(double mouseX, double mouseY, int button) {
 
-        sliding = false;
+        if (sliding) {
+            sliding = false;
+            numberSetting.callFinishCallbacks(oldValue, numberSetting.numberValue());
+            oldValue = numberSetting.numberValue();
+        }
 
         super.mouseReleased(mouseX, mouseY, button);
     }

@@ -89,6 +89,8 @@
     "module.shadowclient.autohit": "AutoHit",
     "module.shadowclient.automove": "AutoMove",
     "module.shadowclient.breadcrumbs": "Breadcrumbs",
+    "module.shadowclient.autosneak": "AutoSneak",
+    "module.shadowclient.spoofrenderdistance": "Spoof View Distance",
 
     "module.description.shadowclient.autosprint": "Automatically sprint instead of walking.",
     "module.description.shadowclient.spider": "Get the ability to climb up walls.",
@@ -166,6 +168,8 @@
     "module.description.shadowclient.autohit": "Automatically hit entities if infront of your crosshair.",
     "module.description.shadowclient.automove": "Automatically press the forward key.",
     "module.description.shadowclient.breadcrumbs": "Shows a trail of where you have walked.",
+    "module.description.shadowclient.autosneak": "Automatically keep sneaking.",
+    "module.description.shadowclient.spoofrenderdistance": "Renders less chunks than your actual render distance (entities stay loaded).",
 
     "category.module.shadowclient.combat": "Combat",
     "category.module.shadowclient.player": "Player",

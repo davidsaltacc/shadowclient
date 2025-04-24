@@ -106,6 +106,8 @@ public class ModuleManager {
     public static AutoHit AutoHitModule;
     public static AutoMove AutoMoveModule;
     public static Breadcrumbs BreadcrumbsModule;
+    public static AutoSneak AutoSneakModule;
+    public static SpoofRenderDistance SpoofRenderDistanceModule;
 
 
     public static void registerModules() {
@@ -185,6 +187,8 @@ public class ModuleManager {
         AutoHitModule = (AutoHit) register(new AutoHit());
         AutoMoveModule = (AutoMove) register(new AutoMove());
         BreadcrumbsModule = (Breadcrumbs) register(new Breadcrumbs());
+        AutoSneakModule = (AutoSneak) register(new AutoSneak());
+        SpoofRenderDistanceModule = (SpoofRenderDistance) register(new SpoofRenderDistance());
     }
 
     public static Module register(Module module) {

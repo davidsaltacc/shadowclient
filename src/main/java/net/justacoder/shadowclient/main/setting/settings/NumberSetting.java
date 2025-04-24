@@ -3,6 +3,10 @@ package net.justacoder.shadowclient.main.setting.settings;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.util.MathUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiConsumer;
+
 public class NumberSetting extends Setting {
 
     public final int decimalPlaces;
@@ -50,6 +54,14 @@ public class NumberSetting extends Setting {
         this.value = newValue;
         callCallbacks(newValue, old);
     }
+    public void setNumberValue(Number value, boolean callCallbacksImmediatly) {
+        Number old = this.value;
+        Number newValue = MathUtils.clamp(value, minValue, maxValue);
+        this.value = newValue;
+        if (callCallbacksImmediatly) {
+            callCallbacks(newValue, old);
+        }
+    }
     public void setIntValue(int value) {
         setNumberValue(value);
     }
@@ -75,4 +87,17 @@ public class NumberSetting extends Setting {
         this.decimalPlaces = decimalPlaces;
         this.easing = easing;
     }
+
+    public List<BiConsumer<Object, Object>> onFinishCallbacks = new ArrayList<>();
+
+    public void addOnFinishCallback(BiConsumer<Object, Object> cb) {
+        onFinishCallbacks.add(cb);
+    }
+
+    public void callFinishCallbacks(Object newValue, Object oldValue) {
+        if (getShouldCallCallbacks()) {
+            onFinishCallbacks.forEach(cb -> cb.accept(newValue, oldValue));
+        }
+    }
+
 }

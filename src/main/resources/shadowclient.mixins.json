@@ -1,15 +1,17 @@
 {
-    "required": false,
+    "required": true,
     "package": "net.justacoder.shadowclient.mixin",
     "compatibilityLevel": "JAVA_21",
     "injectors": {
         "defaultRequire": 1
     },
+    "plugin": "net.justacoder.shadowclient.mixinplugin.MixinPlugin",
     "client": [
         "AbstractBlockStateMixin",
         "BasicBakedModelMixin",
         "BlockEntityRenderDispatcherMixin",
         "BlockMixin",
+        "BuiltChunkStorageMixin",
         "CameraMixin",
         "ChunkOcclusionDataBuilderMixin",
         "ClientConnectionMixin",
@@ -58,6 +60,7 @@
         "SlimeBlockMixin",
         "Sodium_BlockOcclusionCacheMixin",
         "Sodium_FluidRendererMixin",
+        "Sodium_OcclusionCullerMixin",
         "SplashOverlayMixin",
         "SplashTextRendererMixin",
         "WindowMixin",

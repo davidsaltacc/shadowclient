@@ -1,22 +1,5 @@
 # shadowclient 0.3.0 changelog
 
-- force sneak
-- tracers show name and dist
-- killaura filter
-- more killing & trolling methods (hitting through wall works with killaura legit off)
-- view dist spoof (set view dist high, but don't render the chunks far out. for shit like tracers and other stuff, so the server still gives the entity positions)
-- bow shit (extreme speed before shooting gives big damage, aswell as aim shit)
-- how does dolphins grace work?
-- fix airjump and make one that does what airjump does now (different fly mode)
-- fix the fly kick bypass (just fly down for a bit then back up, look up the anticheat how it does it)
-- investigate this new HorizontalCollison thing in the uhhhhhh packet, i think when you are bumping into shit you don't get flykickedd as easily? see if exploitable
-- make night vision enabling/disabling and other effect stuff uhh trigger some kind of reload, it seems to only apply after a second or so
-- mine patter finder - overlay - finds the most ideal legit looking pattern to mine in that gets you the most loot
-- boat full turn camera in f5
-- boatfly faster turning
-- how do game detect if swimming? can be used to exploit? swimming -> freely moveable basically
-- logoff spot visualizer
-
 ### version change
 * moved to minecraft 1.21.4
 
@@ -34,6 +17,8 @@
 * no bob
 * autohit
 * breadcrumbs
+* auto crouch
+* spoof view distance
 
 ### removed modules:
 * super secret shaders, minecraft removed them 
@@ -85,6 +70,28 @@
 
 
 ## yet to do:
+- top bar right click simulator
+- no fog
+- SLIDERS KEEP GETTING SET BACK TO MINIMUM!!!!!!!!!!!!!!!!!!!!! WHYYYYYYYYYYYYYY???????????? - i think i fix. test
+- reset breadcrumbs on leave
+- how do wardens detect sound? i need smt against them
+- WARDEN STATUS CHECKER!!!!
+- highlighter: is this chest looted (was the loot generated already)
+- tracers show name and dist
+- killaura filter
+- more killing & trolling methods (hitting through wall works with killaura legit off)
+- view dist spoof (set view dist high, but don't render the chunks far out. for shit like tracers and other stuff, so the server still gives the entity positions)
+- bow shit (extreme speed before shooting gives big damage, aswell as aim shit)
+- how does dolphins grace work?
+- fix airjump and make one that does what airjump does now (different fly mode)
+- fix the fly kick bypass (just fly down for a bit then back up, look up the anticheat how it does it)
+- investigate this new HorizontalCollison thing in the uhhhhhh packet, i think when you are bumping into shit you don't get flykickedd as easily? see if exploitable
+- make night vision enabling/disabling and other effect stuff uhh trigger some kind of reload, it seems to only apply after a second or so
+- mine patter finder - overlay - finds the most ideal legit looking pattern to mine in that gets you the most loot
+- boat full turn camera in f5
+- boatfly faster turning
+- how do game detect if swimming? can be used to exploit? swimming -> freely moveable basically
+- logoff spot visualizer
 * click to dismiss is STILL unreadable.
 * a way to reset ui positions (only positions, not the settings)
 * add cooldown to air jump (configurable)

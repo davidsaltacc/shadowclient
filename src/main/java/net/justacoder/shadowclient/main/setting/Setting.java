@@ -29,5 +29,10 @@ public abstract class Setting {
     public void shouldCallCallbacks(boolean call) {
         callCallbacks = call;
     }
+
+    public boolean getShouldCallCallbacks() {
+        return callCallbacks;
+    }
+
 }
 

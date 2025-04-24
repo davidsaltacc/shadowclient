@@ -89,6 +89,8 @@
     "module.shadowclient.autohit": "Auto-schlagen",
     "module.shadowclient.automove": "Auto-gehen",
     "module.shadowclient.breadcrumbs": "Brotkrumen",
+    "module.shadowclient.autosneak": "Auto-Kriechen",
+    "module.shadowclient.spoofrenderdistance": "Sichtweite Spoofen",
 
     "module.description.shadowclient.autosprint": "Automatisch sprinten, anstatt zu gehen.",
     "module.description.shadowclient.spider": "Erhalte die Fähigkeit, Wände hochzuklettern.",
@@ -165,7 +167,9 @@
     "module.description.shadowclient.nobob": "Deaktiviert das Schwanken der Sicht.",
     "module.description.shadowclient.autohit": "Schlägt automatisch Entitäten, die sich vor deinem Fadenkreuz befinden.",
     "module.description.shadowclient.automove": "Drückt automatisch die Vorwärtstaste.",
-    "module.description.shadowclient.breadcrumbs": "Hinterlässt eine spur hinter dir.",
+    "module.description.shadowclient.breadcrumbs": "Hinterlässt eine Spur hinter dir.",
+    "module.description.shadowclient.autosneak": "Kriecht automatisch.",
+    "module.description.shadowclient.spoofrenderdistance": "Rendert weniger Chunks als deine eigene Sichtweite (Entitäten bleiben geladen).",
 
     "category.module.shadowclient.combat": "Kampf",
     "category.module.shadowclient.player": "Spieler",

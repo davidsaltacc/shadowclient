@@ -3,6 +3,7 @@ package net.justacoder.shadowclient.mixin;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.input.Input;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
@@ -33,12 +34,9 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         super(world, profile);
     }
 
-    @Shadow
-    @Final
-    protected MinecraftClient client;
-
+    @Shadow @Final protected MinecraftClient client;
     @Shadow public abstract boolean isUsingItem();
-
+    @Shadow public Input input;
     @Unique public Screen crntScreen;
 
     @Override
@@ -139,4 +137,11 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         return super.getEntityInteractionRange();
     }
 
+    @Override
+    public boolean isSneaking() {
+        if (ModuleManager.AutoSneakModule.enabled) {
+            return true;
+        }
+        return input.playerInput.sneak();
+    }
 }
