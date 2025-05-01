@@ -1,9 +1,9 @@
 package net.justacoder.shadowclient.main.ui.notifications;
 
-import net.justacoder.shadowclient.main.ui.font.SCFont;
+import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.ui.clickgui.Colors;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.resource.language.I18n;
@@ -34,7 +34,7 @@ public class Notification {
         this.desc = desc;
         this.friendlyTitle = "";
         this.friendlyDesc = new ArrayList<>(Collections.nCopies(desc.size(), ""));
-        this.mc = SCMain.mc;
+        this.mc = ShadowClientMain.mc;
     }
     public Notification(String title, String desc) {
         this.title = title;
@@ -42,7 +42,7 @@ public class Notification {
         this.friendlyTitle = "";
         this.friendlyDesc = new ArrayList<>();
         friendlyDesc.add("");
-        this.mc = SCMain.mc;
+        this.mc = ShadowClientMain.mc;
     }
 
     public void reloadTranslations() {
@@ -61,30 +61,30 @@ public class Notification {
         offY = offsetY;
         boolean hovered = isHovered(mouseX, mouseY, offsetX, offsetY);
         context.fill(RenderLayer.getGuiOverlay(), offsetX, offsetY, offsetX + getWidth(), offsetY + getHeight(), hovered ? Colors.NOTIFICATION_HOVERED.color : Colors.NOTIFICATION_NORMAL.color);
-        SCFont.renderString(context, friendlyTitle, offsetX + 5, offsetY + 5, Colors.TEXT_NORMAL.color);
-        context.drawHorizontalLine(offsetX + 5, offsetX + getWidth() - 5, offsetY + 10 + (int) SCFont.getHeight(), Colors.HORIZONTAL_LINE.color);
-        AtomicInteger offset = new AtomicInteger(15 + (int) SCFont.getHeight()); // java this is annoying
+        Font.renderString(context, friendlyTitle, offsetX + 5, offsetY + 5, Colors.TEXT_NORMAL.color);
+        context.drawHorizontalLine(offsetX + 5, offsetX + getWidth() - 5, offsetY + 10 + (int) Font.getHeight(), Colors.HORIZONTAL_LINE.color);
+        AtomicInteger offset = new AtomicInteger(15 + (int) Font.getHeight()); // java this is annoying
         friendlyDesc.forEach(line -> {
-            SCFont.renderString(context, line, offsetX + 5, offsetY + offset.get(), Colors.TEXT_NORMAL.color);
-            offset.addAndGet(5 + (int) SCFont.getHeight());
+            Font.renderString(context, line, offsetX + 5, offsetY + offset.get(), Colors.TEXT_NORMAL.color);
+            offset.addAndGet(5 + (int) Font.getHeight());
         });
         context.drawHorizontalLine(offsetX + 5, offsetX + getWidth() - 5, offsetY + offset.get(), Colors.HORIZONTAL_LINE.color);
-        SCFont.renderString(context, dismissText, offsetX + 5, offsetY + offset.get() + 5, Colors.TEXT_DISABLED.color);
+        Font.renderString(context, dismissText, offsetX + 5, offsetY + offset.get() + 5, Colors.TEXT_DISABLED.color);
 
     }
 
     public int getHeight() {
         if (height == -999) {
-            height = (int) SCFont.getHeight() + 10 +          // title
-                ((int) SCFont.getHeight() + 5) * (desc.size() // desc
+            height = (int) Font.getHeight() + 10 +          // title
+                ((int) Font.getHeight() + 5) * (desc.size() // desc
                 + 1) + 10;                                    // dismiss text
         }
         return height;
     }
     public int getWidth() {
         if (width == -999) {
-            int[] longest = { (int) Math.max(SCFont.getWidth(dismissText), SCFont.getWidth(friendlyTitle)) };
-            friendlyDesc.forEach(line -> longest[0] = Math.max((int) SCFont.getWidth(line), longest[0]));
+            int[] longest = { (int) Math.max(Font.getWidth(dismissText), Font.getWidth(friendlyTitle)) };
+            friendlyDesc.forEach(line -> longest[0] = Math.max((int) Font.getWidth(line), longest[0]));
             width = longest[0] + 10;
         }
         return width;

@@ -4,19 +4,19 @@ import net.justacoder.shadowclient.main.annotations.EventListener;
 import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
-import net.justacoder.shadowclient.main.event.events.Render3DEvent;
+import net.justacoder.shadowclient.main.event.events.RenderEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 import net.justacoder.shadowclient.main.util.MathUtils;
-import net.justacoder.shadowclient.main.util.RenderUtils;
+import net.justacoder.shadowclient.main.render.Renderer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import java.util.ArrayDeque;
 import java.util.Iterator;
 
-@EventListener({Render3DEvent.class, PreTickEvent.class})
+@EventListener({RenderEvent.class, PreTickEvent.class})
 @SearchTags({"breadcrumbs", "trails", "player trails"})
 public class Breadcrumbs extends Module {
 
@@ -53,7 +53,7 @@ public class Breadcrumbs extends Module {
                 positions.addLast(mc.player.getPos());
             }
 
-        } else if (event instanceof Render3DEvent) {
+        } else if (event instanceof RenderEvent evt) {
 
             Iterator<Vec3d> iter = positions.iterator();
 
@@ -61,7 +61,7 @@ public class Breadcrumbs extends Module {
                 Vec3d pos1 = iter.next();
                 while (iter.hasNext()) {
                     Vec3d pos2 = iter.next();
-                    RenderUtils.drawLine(pos1.x, pos1.y, pos1.z, pos2.x, pos2.y, pos2.z, new float[]{1, 1, 1, 1}, 1, DEPTH_TEST.booleanValue());
+                    evt.renderer.drawLine(pos1.x, pos1.y, pos1.z, pos2.x, pos2.y, pos2.z, new float[]{1, 1, 1, 1}, DEPTH_TEST.booleanValue());
                     pos1 = pos2;
                 }
             }

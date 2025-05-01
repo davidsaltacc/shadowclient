@@ -42,7 +42,7 @@ public class AutoCrystal extends Module {
     private void detonate(ArrayList<Entity> crystals) {
         for (Entity e : crystals) {
             if (FACE_CRYSTALS.booleanValue()) {
-                RotationUtils.rotateToVec3d(e.getBoundingBox().getCenter());
+                RotationUtils.rotatePlayerToVec3d(e.getBoundingBox().getCenter());
             }
             mc.interactionManager.attackEntity(mc.player, e);
         }

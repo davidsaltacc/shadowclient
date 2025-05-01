@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.mixin;
 
-import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.option.ControlsListWidget;
 import net.minecraft.client.gui.widget.ElementListWidget;
@@ -26,7 +26,7 @@ public abstract class ControlsListWidgetMixin extends ElementListWidget<Controls
     @SuppressWarnings("RedundantCast")
     private int addEntryCustom(ControlsListWidget.Entry entry) {
         if (entry instanceof ControlsListWidget.KeyBindingEntry) {
-            if (!SCMain.moduleKeyBindings.contains(((KeyBindingEntryAccessor) (ControlsListWidget.KeyBindingEntry) entry).getBinding())) {
+            if (!ShadowClientMain.moduleKeyBindings.contains(((KeyBindingEntryAccessor) (ControlsListWidget.KeyBindingEntry) entry).getBinding())) {
                 children().add(entry);
             }
             return this.children().size() - 1;

@@ -1,7 +1,7 @@
 package net.justacoder.shadowclient.main.ui.clickgui.settings.scsettings;
 
 import net.minecraft.client.MinecraftClient;
-import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.ui.clickgui.Colors;
 import net.justacoder.shadowclient.main.ui.clickgui.Frame;
@@ -22,11 +22,11 @@ public abstract class SCSettingComponent extends FrameChild {
     }
 
     public boolean isGettingSearchedFor() {
-        return setting.name.toLowerCase().contains(SCMain.settingsGui.searchingFor.toLowerCase());
+        return setting.name.toLowerCase().contains(ShadowClientMain.settingsGui.searchingFor.toLowerCase());
     }
 
     public int getTextColor() {
-        if (SCMain.settingsGui.searching && !isGettingSearchedFor()) {
+        if (ShadowClientMain.settingsGui.searching && !isGettingSearchedFor()) {
             return Colors.TEXT_DISABLED.color;
         }
         return Colors.TEXT_NORMAL.color;

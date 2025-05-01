@@ -1,11 +1,12 @@
 package net.justacoder.shadowclient.mixin;
 
-import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ShadowClientMain;
+import net.justacoder.shadowclient.main.config.Config;
 import net.justacoder.shadowclient.main.event.events.PerspectiveChangeEvent;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.MainClickGUI;
-import net.justacoder.shadowclient.main.ui.font.SCFont;
+import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
@@ -17,7 +18,7 @@ import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ModStatus;
-import net.justacoder.shadowclient.main.config.SCSettings;
+import net.justacoder.shadowclient.main.config.ShadowClientSettings;
 import net.justacoder.shadowclient.main.event.EventManager;
 import net.justacoder.shadowclient.main.event.events.PostTickEvent;
 import net.justacoder.shadowclient.main.module.ModuleManager;
@@ -46,7 +47,7 @@ public abstract class MinecraftClientMixin {
      */
     @Overwrite
     public static ModStatus getModStatus() {
-        Setting setting = SCSettings.getSetting("VanillaSpoof");
+        Setting setting = ShadowClientSettings.getSetting("VanillaSpoof");
         if (setting != null && ((BooleanSetting) setting).booleanValue()) {
             return new ModStatus(ModStatus.Confidence.PROBABLY_NOT, "Client jar signature and brand is untouched");
         }
@@ -100,14 +101,21 @@ public abstract class MinecraftClientMixin {
 
     @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;onFontOptionsChanged()V", shift = At.Shift.AFTER))
     private void initCustomFont(RunArgs args, CallbackInfo ci) {
-        SCMain.guiScaleOption = SCMain.mc.options.getGuiScale();
-        SCFont.initializeFont();
+        ShadowClientMain.guiScaleOption = ShadowClientMain.mc.options.getGuiScale();
+        Font.initializeFont();
+    }
+
+    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;onWindowFocusChanged(Z)V", shift = At.Shift.AFTER))
+    private void repositionFramesProperly(RunArgs args, CallbackInfo ci) {
+        if (!Config.configLoaded || Config.resetUi) {
+            ShadowClientMain.clickGui.repositionFramesProperly();
+        }
     }
 
     @Inject(method = "setScreen", at = @At("HEAD"))
     private void onScreenSet(Screen screen, CallbackInfo ci) {
         if (currentScreen instanceof MainClickGUI && !(screen instanceof MainClickGUI)) {
-            SCMain.mainClickGUIClosed();
+            ShadowClientMain.mainClickGUIClosed();
         }
     }
 

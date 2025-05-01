@@ -1,7 +1,6 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
-import net.justacoder.shadowclient.main.SCMain;
-import net.justacoder.shadowclient.main.config.Config;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.util.ScreenSizeGetter;
 import net.minecraft.client.MinecraftClient;
@@ -13,7 +12,6 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -45,10 +43,6 @@ public class MainClickGUI extends ClickGUI {
         searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, 0, 0, 100, 12);
         frames.add(searchFrame);
         searchFrame.children.add(new TextField(searchFrame, 12, "textfield.placeholder.find_module"));
-
-        if (!Config.configLoaded || Config.resetUi) {
-            repositionFramesProperly();
-        }
     }
 
     public void repositionFramesProperly() {
@@ -132,10 +126,10 @@ public class MainClickGUI extends ClickGUI {
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 
         if (ModuleManager.isConfiguringKeyBinds()) {
-            if (SCMain.ToggleGUIKeyBinding.matchesKey(keyCode, scanCode)) {
+            if (ShadowClientMain.ToggleGUIKeyBinding.matchesKey(keyCode, scanCode)) {
                 ModuleManager.endKeybindConfiguration();
                 ModuleManager.ConfigureKeybindingsModule.setDisabled();
-                SCMain.mc.setScreen(null);
+                ShadowClientMain.mc.setScreen(null);
                 return true;
             }
             if (ModuleManager.getConfiguringKeyBinding() != null) {

@@ -36,7 +36,7 @@ public class KillAura extends Module {
                     if (entity.isAlive()) {
                         if (LEGIT.booleanValue()) {
                             if (WorldUtils.lineOfSight(mc.player, entity) && !(mc.currentScreen instanceof HandledScreen<?>)) {
-                                RotationUtils.rotateToVec3d(entity.getPos());
+                                RotationUtils.rotatePlayerToVec3d(entity.getPos());
                                 mc.interactionManager.attackEntity(mc.player, entity);
                                 mc.player.swingHand(Hand.MAIN_HAND);
                             }

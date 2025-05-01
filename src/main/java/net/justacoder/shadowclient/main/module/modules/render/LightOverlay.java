@@ -5,18 +5,17 @@ import net.minecraft.block.enums.BlockHalf;
 import net.minecraft.block.enums.SlabType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.Heightmap;
 import net.minecraft.world.LightType;
 import net.justacoder.shadowclient.main.annotations.EventListener;
 import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
-import net.justacoder.shadowclient.main.event.events.Render3DEvent;
+import net.justacoder.shadowclient.main.event.events.RenderEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
-import net.justacoder.shadowclient.main.util.RenderUtils;
+import net.justacoder.shadowclient.main.render.Renderer;
 
-@EventListener({Render3DEvent.class})
+@EventListener({RenderEvent.class})
 @SearchTags({"lightoverlay", "light overlay", "spawn indicator"})
 public class LightOverlay extends Module {
 
@@ -31,6 +30,7 @@ public class LightOverlay extends Module {
 
     @Override
     public void onEvent(Event event) {
+
         int plx = mc.player.getBlockX();
         int ply = mc.player.getBlockY();
         int plz = mc.player.getBlockZ();
@@ -51,13 +51,13 @@ public class LightOverlay extends Module {
                     BlockPos pos = new BlockPos(x, y, z);
                     BlockState state = mc.world.getBlockState(pos);
                     int spawnPossible = spawnPossible(pos, state);
-                    renderBlockOverlay(pos, spawnPossible);
+                    renderBlockOverlay((RenderEvent) event, pos, spawnPossible);
                 }
             }
         }
     }
 
-    public void renderBlockOverlay(BlockPos pos, int level) { // todo maybe render text showing light level somehow?
+    public void renderBlockOverlay(RenderEvent event, BlockPos pos, int level) { // todo maybe render text showing light level somehow?
         if (level == -1) {
             return;
         }
@@ -72,10 +72,10 @@ public class LightOverlay extends Module {
         } else {
             color = new float[]{0f, 1f, 0f, 1f};
         }
-        RenderUtils.drawLine(x, y, z, x, y, z + 1, color, 1, true);
-        RenderUtils.drawLine(x, y, z + 1, x + 1, y, z + 1, color, 1, true);
-        RenderUtils.drawLine(x + 1, y, z + 1, x + 1, y, z, color, 1, true);
-        RenderUtils.drawLine(x + 1, y, z, x, y, z, color, 1, true);
+        event.renderer.drawLine(x, y, z, x, y, z + 1, color, true);
+        event.renderer.drawLine(x, y, z + 1, x + 1, y, z + 1, color, true);
+        event.renderer.drawLine(x + 1, y, z + 1, x + 1, y, z, color, true);
+        event.renderer.drawLine(x + 1, y, z, x, y, z, color, true);
     }
 
     public int spawnPossible(BlockPos pos, BlockState state) { // -1 = do not render, 0 = never, 1 = possible, 2 = always

@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.main.util;
 
-import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import java.lang.reflect.Field;
 
 public abstract class EntityCullingFix {
@@ -11,17 +11,17 @@ public abstract class EntityCullingFix {
             Field enabledField = configClass.getDeclaredField("enabled");
             enabledField.setBoolean(null, cull);
         } catch (ClassNotFoundException ignored) { // entityCulling not installed
-            SCMain.info("EntityCulling not installed. Skipping force " + (cull ? "enable" : "disable"));
+            ShadowClientMain.info("EntityCulling not installed. Skipping force " + (cull ? "enable" : "disable"));
         } catch (NoSuchFieldException e) {
             try {
                 Class<?> configClass = Class.forName("dev.tr7zw.entityculling.EntityCullingModBase");
                 Field enabledField = configClass.getDeclaredField("enabled");
                 enabledField.setBoolean(null, cull);
             } catch (Exception e1) {
-                SCMain.error("Error force " + (cull ? "enabling" : "disabling") + " Entity Culling: \n" + JavaUtils.stackTraceFromThrowable(e1));
+                ShadowClientMain.error("Error force " + (cull ? "enabling" : "disabling") + " Entity Culling: \n" + JavaUtils.stackTraceFromThrowable(e1));
             }
         } catch (Exception e) {
-            SCMain.error("Error force " + (cull ? "enabling" : "disabling") + " Entity Culling: \n" + JavaUtils.stackTraceFromThrowable(e));
+            ShadowClientMain.error("Error force " + (cull ? "enabling" : "disabling") + " Entity Culling: \n" + JavaUtils.stackTraceFromThrowable(e));
         }
     }
 

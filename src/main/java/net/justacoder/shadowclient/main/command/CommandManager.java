@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.main.command;
 
-import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.command.commands.HelpCommand;
 import net.justacoder.shadowclient.main.command.commands.PanicCommand;
 import net.justacoder.shadowclient.main.module.ModuleManager;
@@ -21,7 +21,7 @@ public class CommandManager {
     }
 
     public static void execute(String chatMessage) {
-        String str = chatMessage.substring(SCMain.ClientCommandPrefix.length());
+        String str = chatMessage.substring(ShadowClientMain.ClientCommandPrefix.length());
         String[] parts = str.split(" ");
 
         if (commands.get(parts[0]) != null) {
@@ -30,7 +30,7 @@ public class CommandManager {
         }
 
         if (ModuleManager.getModule(parts[0]) != null) {
-            SCMain.toggleModuleEnabled(parts[0]);
+            ShadowClientMain.toggleModuleEnabled(parts[0]);
             return;
         }
 

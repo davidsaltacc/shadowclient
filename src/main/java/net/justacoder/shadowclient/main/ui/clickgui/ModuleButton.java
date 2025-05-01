@@ -2,9 +2,9 @@ package net.justacoder.shadowclient.main.ui.clickgui;
 
 import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.justacoder.shadowclient.main.module.modules.other.ConfigureKeybindings;
-import net.justacoder.shadowclient.main.ui.font.SCFont;
+import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.gui.DrawContext;
-import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.annotations.Hidden;
 import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.module.Module;
@@ -19,11 +19,8 @@ import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components
 import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components.ModeSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components.SliderSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components.TextSetting;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -82,9 +79,9 @@ public class ModuleButton extends FrameChild {
            color = Colors.MODULE_BUTTON_HOVERED.color;
         }
         context.fill(parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, color);
-        int textOffset = (int) ((float) parent.height / 2 - SCFont.getHeight() / 2);
+        int textOffset = (int) ((float) parent.height / 2 - Font.getHeight() / 2);
 
-        SCFont.renderString(context, getName(), parent.x + textOffset, parent.y + offset + textOffset, getTextColor());
+        Font.renderString(context, getName(), parent.x + textOffset, parent.y + offset + textOffset, getTextColor());
 
         if (extended) {
             for (SettingComponent component : components) {
@@ -96,12 +93,12 @@ public class ModuleButton extends FrameChild {
     public void renderDescription(DrawContext context, int mouseX, int mouseY) {
         int color = Colors.MODULE_BUTTON_NORMAL.color;
 
-        int width = (int) SCFont.getWidth(module.description);
-        int textOffset = (int) ((float) parent.height / 2 - SCFont.getHeight() / 2);
+        int width = (int) Font.getWidth(module.description);
+        int textOffset = (int) ((float) parent.height / 2 - Font.getHeight() / 2);
 
         context.fill(parent.x + parent.width, parent.y + offset, parent.x + parent.width + width + textOffset * 2, parent.y + offset + parent.height, color);
 
-        SCFont.renderString(context, module.description, parent.x + parent.width + textOffset, parent.y + offset + textOffset, Colors.TEXT_NORMAL.color);
+        Font.renderString(context, module.description, parent.x + parent.width + textOffset, parent.y + offset + textOffset, Colors.TEXT_NORMAL.color);
     }
 
     public void mouseClicked(double mouseX, double mouseY, int button) {
@@ -109,13 +106,13 @@ public class ModuleButton extends FrameChild {
             if (button == GLFW.GLFW_MOUSE_BUTTON_1) {
                 if (ModuleManager.isConfiguringKeyBinds() && !module.getClass().isAnnotationPresent(NotKeybindable.class)) {
                     if (module instanceof ConfigureKeybindings) {
-                        SCMain.toggleModuleEnabled(module.moduleName);
+                        ShadowClientMain.toggleModuleEnabled(module.moduleName);
                         return;
                     }
                     ModuleManager.setConfiguringKeyBinding(module.keyBinding, module);
                     return;
                 } else {
-                    SCMain.toggleModuleEnabled(module.moduleName);
+                    ShadowClientMain.toggleModuleEnabled(module.moduleName);
                 }
             } else if (button == GLFW.GLFW_MOUSE_BUTTON_2) {
                 extended = !extended;
@@ -162,7 +159,7 @@ public class ModuleButton extends FrameChild {
     public boolean isGettingSearchedFor() {
         String[] moduleSearchTags = module.getClass().getAnnotation(SearchTags.class).value();
         for (String searchtag : moduleSearchTags) {
-            if (searchtag.toLowerCase().contains(SCMain.clickGui.searchingFor.toLowerCase())) {
+            if (searchtag.toLowerCase().contains(ShadowClientMain.clickGui.searchingFor.toLowerCase())) {
                 return true;
             }
         }
@@ -176,7 +173,7 @@ public class ModuleButton extends FrameChild {
             }
             return Colors.TEXT_NORMAL.color;
         }
-        if (SCMain.clickGui.searching) {
+        if (ShadowClientMain.clickGui.searching) {
             if (isGettingSearchedFor()) {
                 if (module.enabled) {
                     return Colors.TEXT_ENABLED.color;

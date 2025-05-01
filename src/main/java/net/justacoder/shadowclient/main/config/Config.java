@@ -2,7 +2,7 @@ package net.justacoder.shadowclient.main.config;
 
 import com.google.gson.*;
 import net.fabricmc.loader.api.FabricLoader;
-import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.annotations.DoNotSaveState;
 import net.justacoder.shadowclient.main.annotations.OneClick;
 import net.justacoder.shadowclient.main.module.Module;
@@ -26,16 +26,16 @@ public class Config {
     public static boolean resetUi = false;
 
     public static File getConfigFile() {
-        return FabricLoader.getInstance().getConfigDir().resolve(SCMain.ClientModId + ".config.json").toFile();
+        return FabricLoader.getInstance().getConfigDir().resolve(ShadowClientMain.ClientModId + ".config.json").toFile();
     }
 
     public static void saveConfig() {
 
-        if (!SCMain.mayWriteConfig) {
+        if (!ShadowClientMain.mayWriteConfig) {
             return;
         }
 
-        SCMain.info("Saving config");
+        ShadowClientMain.info("Saving config");
 
         JsonObject json = new JsonObject();
         JsonObject modulescontainer = new JsonObject();
@@ -84,9 +84,9 @@ public class Config {
 
         });
 
-        clientdata.addProperty("version", SCMain.ClientVersion);
+        clientdata.addProperty("version", ShadowClientMain.ClientVersion);
 
-        Arrays.stream(SCSettings.class.getDeclaredFields()).forEach(field -> {
+        Arrays.stream(ShadowClientSettings.class.getDeclaredFields()).forEach(field -> {
             try {
                 Setting setting = (Setting) field.get(null);
                 if (setting instanceof BooleanSetting set) {
@@ -105,8 +105,8 @@ public class Config {
         JsonObject mainuiframe = new JsonObject();
         JsonObject settingsframe = new JsonObject();
 
-        List<Frame> mainuiframes = new ArrayList<>(SCMain.clickGui.frames);
-        mainuiframes.add(SCMain.clickGui.searchFrame);
+        List<Frame> mainuiframes = new ArrayList<>(ShadowClientMain.clickGui.frames);
+        mainuiframes.add(ShadowClientMain.clickGui.searchFrame);
         mainuiframes.forEach(frame -> {
             JsonObject frameobj = new JsonObject();
             frameobj.addProperty("offset_x", frame.x);
@@ -115,8 +115,8 @@ public class Config {
             mainuiframe.add(frame.category.name, frameobj);
         });
 
-        List<Frame> settingsframes = new ArrayList<>(SCMain.settingsGui.frames);
-        settingsframes.add(SCMain.settingsGui.searchFrame);
+        List<Frame> settingsframes = new ArrayList<>(ShadowClientMain.settingsGui.frames);
+        settingsframes.add(ShadowClientMain.settingsGui.searchFrame);
         settingsframes.forEach(frame -> {
             JsonObject frameobj = new JsonObject();
             frameobj.addProperty("offset_x", frame.x);
@@ -143,7 +143,7 @@ public class Config {
     public static void loadConfig() {
         String text = FileUtils.readFile(getConfigFile());
         if (text == null) {
-            SCMain.info("Failed to find config file, creating new one.");
+            ShadowClientMain.info("Failed to find config file, creating new one.");
             saveConfig();
             return;
         }
@@ -158,8 +158,8 @@ public class Config {
         JsonObject scsettings = json.getAsJsonObject("settings");
         JsonObject uisettings = json.getAsJsonObject("ui");
         String version = clientdata.get("version").getAsString();
-        if (!version.equals(SCMain.ClientVersion)) {
-            SCMain.warn("Config version " + version + " does not match current version " + SCMain.ClientVersion);
+        if (!version.equals(ShadowClientMain.ClientVersion)) {
+            ShadowClientMain.warn("Config version " + version + " does not match current version " + ShadowClientMain.ClientVersion);
         }
 
         json = json.getAsJsonObject("modules");
@@ -171,7 +171,7 @@ public class Config {
         if (scsettings != null) {
             scsettings.keySet().forEach(setting -> {
                 JsonPrimitive value = scsettings.getAsJsonPrimitive(setting);
-                Setting settingobj = SCSettings.getSetting(setting);
+                Setting settingobj = ShadowClientSettings.getSetting(setting);
                 if (settingobj != null) {
                     if (value.isBoolean()) {
                         ((BooleanSetting) settingobj).setBooleanValue(value.getAsBoolean());
@@ -248,7 +248,7 @@ public class Config {
 
                 try {
                     if (!module.getClass().isAnnotationPresent(OneClick.class) && !module.getClass().isAnnotationPresent(DoNotSaveState.class)) {
-                        SCMain.setModuleEnabled(name, object.get("enabled").getAsBoolean(), true, false);
+                        ShadowClientMain.setModuleEnabled(name, object.get("enabled").getAsBoolean(), true, false);
                     }
                     if (module.moduleButton != null) {
                         if (object.get("extended").getAsBoolean()) {
@@ -257,12 +257,12 @@ public class Config {
                         }
                     }
                 } catch (Exception e) {
-                    SCMain.error(JavaUtils.stackTraceFromThrowable(e));
+                    ShadowClientMain.error(JavaUtils.stackTraceFromThrowable(e));
                 }
             }
         });
 
-        if (!version.equals(SCMain.ClientVersion)) {
+        if (!version.equals(ShadowClientMain.ClientVersion)) {
             resetUi = true;
         }
         if (uisettings != null) {
@@ -270,8 +270,8 @@ public class Config {
             JsonObject mainuiframe = uiframes.getAsJsonObject("main");
             JsonObject settingsframe = uiframes.getAsJsonObject("settings");
 
-            List<Frame> mainuiframes = new ArrayList<>(SCMain.clickGui.frames);
-            mainuiframes.add(SCMain.clickGui.searchFrame);
+            List<Frame> mainuiframes = new ArrayList<>(ShadowClientMain.clickGui.frames);
+            mainuiframes.add(ShadowClientMain.clickGui.searchFrame);
             mainuiframes.forEach(frame -> {
                 if (mainuiframe.has(frame.category.name)) {
                     JsonObject frameobj = mainuiframe.getAsJsonObject(frame.category.name);
@@ -281,8 +281,8 @@ public class Config {
                 }
             });
 
-            List<Frame> settingsframes = new ArrayList<>(SCMain.settingsGui.frames);
-            settingsframes.add(SCMain.settingsGui.searchFrame);
+            List<Frame> settingsframes = new ArrayList<>(ShadowClientMain.settingsGui.frames);
+            settingsframes.add(ShadowClientMain.settingsGui.searchFrame);
             settingsframes.forEach(frame -> {
                 if (settingsframe.has(frame.category.name)) {
                     JsonObject frameobj = settingsframe.getAsJsonObject(frame.category.name);
@@ -298,9 +298,9 @@ public class Config {
 
     public static void resetConfig() {
         if (getConfigFile().delete()) {
-            SCMain.configDeleted = true;
+            ShadowClientMain.configDeleted = true;
         } else {
-            SCMain.error("Failed to delete config file.");
+            ShadowClientMain.error("Failed to delete config file.");
         }
     }
 

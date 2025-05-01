@@ -6,19 +6,19 @@ import net.minecraft.client.network.OtherClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.data.DataTracker;
-import net.justacoder.shadowclient.main.SCMain;
-import net.justacoder.shadowclient.mixininterface.IEntity;
+import net.justacoder.shadowclient.main.ShadowClientMain;
+
 import java.util.UUID;
 
 public class FakePlayerEntity extends OtherClientPlayerEntity {
 
-    public ClientPlayerEntity player = SCMain.mc.player;
-    public ClientWorld world = SCMain.mc.world;
+    public ClientPlayerEntity player = ShadowClientMain.mc.player;
+    public ClientWorld world = ShadowClientMain.mc.world;
 
     public FakePlayerEntity() {
-        super(SCMain.mc.world, new GameProfile(UUID.randomUUID(), SCMain.mc.player.getGameProfile().getName()));
+        super(ShadowClientMain.mc.world, new GameProfile(UUID.randomUUID(), ShadowClientMain.mc.player.getGameProfile().getName()));
 
-        getGameProfile().getProperties().putAll(SCMain.mc.player.getGameProfile().getProperties());
+        getGameProfile().getProperties().putAll(ShadowClientMain.mc.player.getGameProfile().getProperties());
 
         copyPositionAndRotation(player);
         copyInventory();

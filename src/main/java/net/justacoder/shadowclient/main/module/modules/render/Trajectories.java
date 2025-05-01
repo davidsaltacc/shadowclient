@@ -1,8 +1,5 @@
 package net.justacoder.shadowclient.main.module.modules.render;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.render.*;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.*;
@@ -10,68 +7,55 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.justacoder.shadowclient.main.annotations.EventListener;
 import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
-import net.justacoder.shadowclient.main.event.events.Render3DEvent;
+import net.justacoder.shadowclient.main.event.events.RenderEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.util.PlayerUtils;
-import net.justacoder.shadowclient.main.util.RenderUtils;
+import net.justacoder.shadowclient.main.render.Renderer;
 import net.justacoder.shadowclient.main.util.WorldUtils;
-import org.joml.Matrix4f;
-import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 import java.util.function.Predicate;
 
-@EventListener({Render3DEvent.class})
+@EventListener({RenderEvent.class})
 @SearchTags({"trajectories", "bow aim laser", "aim assist"})
 public class Trajectories extends Module {
     public Trajectories() {
         super("trajectories", ModuleCategory.RENDER);
     }
 
-    public ArrayList<Vec3d> trajPath;
-    public HitResult.Type trajHit;
-
-    public final Box endBox = new Box(0, 0, 0, 1, 1, 1);
-
     @Override
     public void onEvent(Event event) {
-        Render3DEvent evt = (Render3DEvent) event;
 
-        evt.matrices.pushMatrix();
+        RenderEvent evt = (RenderEvent) event;
 
-        getTrajectory(evt.tickDelta);
+        Trajectory traj = getTrajectory(evt.renderer);
 
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glDisable(GL11.GL_DEPTH_TEST);
-        GL11.glDepthMask(false);
+        float[] color = switch (traj.hitType) {
+            case HitResult.Type.ENTITY -> new float[]{1f, 0.1f, 0.1f, 0.8f};
+            case HitResult.Type.BLOCK -> new float[]{0.1f, 0.3f, 1f, 0.8f};
+            default -> new float[]{1f, 1f, 1f, 0.8f};
+        };
 
-        drawLine(trajPath);
-
-        RenderSystem.setShaderColor(1, 1, 1, 1);
-        GL11.glDisable(GL11.GL_BLEND);
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glDepthMask(true);
-
-        evt.matrices.popMatrix();
+        evt.renderer.drawLineList(traj.path, color, false);
 
     }
 
-    public void getTrajectory(float delta) {
+    private record Trajectory(HitResult.Type hitType, List<Vec3d> path) {}
 
-        trajHit = HitResult.Type.MISS;
-        trajPath = new ArrayList<>();
+    public Trajectory getTrajectory(Renderer renderer) {
+
+        ArrayList<Vec3d> trajPath = new ArrayList<>();
+        HitResult.Type trajHit = HitResult.Type.MISS;
 
         Item item = mc.player.getMainHandStack().getItem(); // todo offhand too
 
         if (!(item instanceof RangedWeaponItem || item instanceof SnowballItem || item instanceof EggItem || item instanceof EnderPearlItem || item instanceof ThrowablePotionItem || item instanceof FishingRodItem || item instanceof TridentItem)) {
-            return;
+            return new Trajectory(trajHit, trajPath);
         }
 
         double power;
@@ -87,26 +71,18 @@ public class Trajectories extends Module {
             }
         }
 
-        double gravity;
-
-        if (item instanceof RangedWeaponItem) {
-            gravity = 0.05;
-        } else if (item instanceof ThrowablePotionItem) {
-            gravity = 0.4;
-        } else if (item instanceof FishingRodItem) {
-            gravity = 0.15;
-        } else if (item instanceof TridentItem) {
-            gravity = 0.015;
-        } else {
-            gravity = 0.03;
-        }
+        double gravity = switch (item) {
+            case RangedWeaponItem ignored -> 0.05;
+            case ThrowablePotionItem ignored -> 0.4;
+            case FishingRodItem ignored -> 0.15;
+            case TridentItem ignored -> 0.015;
+            default -> 0.03;
+        };
 
         double yaw = Math.toRadians(mc.player.getYaw());
         double pitch = Math.toRadians(mc.player.getPitch());
 
-        Vec3d arrowPos = new Vec3d(MathHelper.lerp(delta, mc.player.lastRenderX, mc.player.getX()),
-            MathHelper.lerp(delta, mc.player.lastRenderY, mc.player.getY()),
-            MathHelper.lerp(delta, mc.player.lastRenderZ, mc.player.getZ())).add(PlayerUtils.getHandOffset(Hand.MAIN_HAND, yaw));
+        Vec3d arrowPos = mc.player.getPos().subtract(renderer.getInterpolationOffset(mc.player)).add(PlayerUtils.getHandOffset(Hand.MAIN_HAND, yaw));
 
         double cospitch = Math.cos(pitch);
         Vec3d arrowMotion = new Vec3d(-Math.sin(yaw) * cospitch, -Math.sin(pitch), Math.cos(yaw) * cospitch).normalize().multiply(power);
@@ -141,59 +117,9 @@ public class Trajectories extends Module {
                 break;
             }
         }
+
+        return new Trajectory(trajHit, trajPath);
         
-    }
-
-    public void drawLine(ArrayList<Vec3d> path) {
-
-        if (path.isEmpty()) {
-            return;
-        }
-
-        float[] color;
-
-        if (trajHit == HitResult.Type.ENTITY) {
-            color = new float[]{1f, 0.1f, 0.1f, 0.8f};
-        } else if (trajHit == HitResult.Type.BLOCK) {
-            color = new float[]{0.1f, 0.3f, 1f, 0.8f};
-        } else {
-            color = new float[]{1f, 1f, 1f, 0.8f};
-        }
-
-        Iterator<Vec3d> iter = path.iterator();
-
-        if (iter.hasNext()) {
-            Vec3d pos1 = iter.next();
-            while (iter.hasNext()) {
-                Vec3d pos2 = iter.next();
-                RenderUtils.drawLine(pos1.x, pos1.y, pos1.z, pos2.x, pos2.y, pos2.z, color, 1, false);
-                pos1 = pos2;
-            }
-        }
-
-    }
-
-    public void drawEnd(MatrixStack matrices, Vec3d pos) {
-        Vec3d camPos = mc.getBlockEntityRenderDispatcher().camera.getPos();
-        double renderX = pos.x - camPos.x;
-        double renderY = pos.y - camPos.y;
-        double renderZ = pos.z - camPos.z;
-
-        matrices.push();
-        matrices.translate(renderX - 0.5, renderY - 0.5, renderZ - 0.5);
-
-        if (trajHit == HitResult.Type.MISS) {
-            RenderSystem.setShaderColor(1f, 1f, 1f, 0.5f);
-        } else if (trajHit == HitResult.Type.ENTITY) {
-            RenderSystem.setShaderColor(1f, 0.1f, 0.1f, 0.5f);
-        } else if (trajHit == HitResult.Type.BLOCK) {
-            RenderSystem.setShaderColor(0.1f, 0.3f, 1f, 0.5f);
-        }
-
-        RenderUtils.drawOutlinedBox(endBox, matrices);
-
-        matrices.pop();
-
     }
 
 }

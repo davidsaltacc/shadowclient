@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.menus;
 
-import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.justacoder.shadowclient.main.annotations.OneClick;
 import net.justacoder.shadowclient.main.annotations.SearchTags;
@@ -17,7 +17,7 @@ public class ShowSettings extends Module {
 
     @Override
     public void onEnable() {
-        mc.setScreen(SCMain.settingsGui);
+        mc.setScreen(ShadowClientMain.settingsGui);
         super.onEnable();
     }
 }

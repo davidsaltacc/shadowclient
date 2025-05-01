@@ -1,9 +1,8 @@
 package net.justacoder.shadowclient.main.event;
 
-import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.justacoder.shadowclient.main.event.events.PostTickEvent;
-import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.ui.clickgui.ClickGUI;
@@ -26,11 +25,11 @@ public class EventManager {
     public static void fireEvent(Event evt) {
         try {
             if (evt instanceof PostTickEvent) {
-                if (SCMain.ToggleGUIKeyBinding.wasPressed()) {
-                    if (SCMain.mc.currentScreen == null) {
-                        SCMain.mc.setScreen(SCMain.clickGui);
-                    } else if (SCMain.mc.currentScreen instanceof ClickGUI) {
-                        SCMain.mc.setScreen(null);
+                if (ShadowClientMain.ToggleGUIKeyBinding.wasPressed()) {
+                    if (ShadowClientMain.mc.currentScreen == null) {
+                        ShadowClientMain.mc.setScreen(ShadowClientMain.clickGui);
+                    } else if (ShadowClientMain.mc.currentScreen instanceof ClickGUI) {
+                        ShadowClientMain.mc.setScreen(null);
                     }
                 }
             }
@@ -50,15 +49,15 @@ public class EventManager {
 
             List<Module> modules;
             if ((modules = listeners.get(evt.getClass())) != null) {
-                modules.forEach((module) -> {
+                modules.forEach(module -> {
                     if (module.enabled) {
                         module.onEvent(evt);
                     }
                 });
             }
         } catch (Exception e) {
-            SCMain.error("Exception while handling event: " + evt.getClass().getName());
-            SCMain.error(JavaUtils.stackTraceFromThrowable(e));
+            ShadowClientMain.error("Exception while handling event: " + evt.getClass().getName());
+            ShadowClientMain.error(JavaUtils.stackTraceFromThrowable(e));
         }
     }
 }

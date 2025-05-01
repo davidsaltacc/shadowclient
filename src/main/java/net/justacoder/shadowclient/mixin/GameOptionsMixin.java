@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.KeyBinding;
-import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,7 +23,7 @@ public abstract class GameOptionsMixin {
     public void onLoad(CallbackInfo info) {
 
         List<KeyBinding> binds = Lists.newArrayList(allKeys);
-        binds.addAll(SCMain.keyBindings);
+        binds.addAll(ShadowClientMain.keyBindings);
         allKeys = binds.toArray(new KeyBinding[0]);
 
     }

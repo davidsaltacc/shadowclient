@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.main.util;
 
-import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -59,10 +59,10 @@ public abstract class JavaUtils {
                 return;
             }
 
-            SCMain.error("Operating System not found, could not open web browser.");
+            ShadowClientMain.error("Operating System not found, could not open web browser.");
 
         } catch (Exception e) {
-            SCMain.error("Error opening web browser: \n" + JavaUtils.stackTraceFromThrowable(e));
+            ShadowClientMain.error("Error opening web browser: \n" + JavaUtils.stackTraceFromThrowable(e));
         }
     }
 }

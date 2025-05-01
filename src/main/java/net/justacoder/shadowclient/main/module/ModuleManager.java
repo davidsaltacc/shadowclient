@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.main.module;
 
-import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
@@ -195,7 +195,7 @@ public class ModuleManager {
         modules.put(module.moduleName, module);
         if (!module.getClass().isAnnotationPresent(NotKeybindable.class)) {
             module.keyBinding = new KeyBinding("module.shadowclient." + module.moduleName, InputUtil.UNKNOWN_KEY.getCode(), "category.shadowclient.clientcategory");
-            SCMain.registerKeyBinding(module.keyBinding, true);
+            ShadowClientMain.registerKeyBinding(module.keyBinding, true);
         }
         if (module.getClass().isAnnotationPresent(EventListener.class)) {
             for (Class<? extends Event> evtcl : module.getClass().getAnnotation(EventListener.class).value()) {
@@ -245,18 +245,18 @@ public class ModuleManager {
 
     public static void startKeybindConfiguration() {
         isConfiguringKeyBinds = true;
-        SCMain.mc.options.forwardKey.setPressed(false);
-        SCMain.mc.options.backKey.setPressed(false);
-        SCMain.mc.options.rightKey.setPressed(false);
-        SCMain.mc.options.leftKey.setPressed(false);
-        SCMain.mc.options.jumpKey.setPressed(false);
-        SCMain.mc.options.sneakKey.setPressed(false);
+        ShadowClientMain.mc.options.forwardKey.setPressed(false);
+        ShadowClientMain.mc.options.backKey.setPressed(false);
+        ShadowClientMain.mc.options.rightKey.setPressed(false);
+        ShadowClientMain.mc.options.leftKey.setPressed(false);
+        ShadowClientMain.mc.options.jumpKey.setPressed(false);
+        ShadowClientMain.mc.options.sneakKey.setPressed(false);
     }
 
     public static void endKeybindConfiguration() {
         isConfiguringKeyBinds = false;
         configuringKeyBinding = null;
         configuringKeyBindingModule = null;
-        SCMain.mc.options.write();
+        ShadowClientMain.mc.options.write();
     }
 }

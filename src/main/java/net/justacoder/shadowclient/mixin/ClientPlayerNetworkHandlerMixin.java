@@ -14,7 +14,7 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.ChunkDeltaUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.util.math.BlockPos;
-import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.command.CommandManager;
 import net.justacoder.shadowclient.main.event.EventManager;
 import net.justacoder.shadowclient.main.event.events.ChunkDeltaUpdateEvent;
@@ -39,7 +39,7 @@ public abstract class ClientPlayerNetworkHandlerMixin extends ClientCommonNetwor
 
     @Inject(method = "sendChatMessage", at = @At("HEAD"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
     public void sendMessage(String content, CallbackInfo ci) {
-        if (SCMain.interceptMessage(content)) {
+        if (ShadowClientMain.interceptMessage(content)) {
             CommandManager.execute(content);
             ci.cancel();
         }
@@ -47,7 +47,7 @@ public abstract class ClientPlayerNetworkHandlerMixin extends ClientCommonNetwor
 
     @Inject(method = "onGameJoin", at = @At(value = "TAIL"))
     private void onGameJoined(GameJoinS2CPacket packet, CallbackInfo ci) {
-        SCMain.onWorldJoined();
+        ShadowClientMain.onWorldJoined();
     }
 
     @Override

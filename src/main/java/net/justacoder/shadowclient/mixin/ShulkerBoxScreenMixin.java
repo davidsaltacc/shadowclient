@@ -7,7 +7,7 @@ import net.minecraft.screen.ShulkerBoxScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.text.Text;
-import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.module.modules.player.cheststeal.button.CustomButtonWidget;
 import net.justacoder.shadowclient.main.util.JavaUtils;
@@ -36,7 +36,7 @@ public abstract class ShulkerBoxScreenMixin extends HandledScreen<ShulkerBoxScre
     public void run(Runnable r) {
         Thread thread = new Thread(() -> {
             try { r.run(); } catch(Exception e) {
-                SCMain.error(JavaUtils.stackTraceFromThrowable(e));
+                ShadowClientMain.error(JavaUtils.stackTraceFromThrowable(e));
             }
         });
         thread.setName("ChestSteal Thread");
@@ -52,7 +52,7 @@ public abstract class ShulkerBoxScreenMixin extends HandledScreen<ShulkerBoxScre
             }
 
             try { Thread.sleep(ModuleManager.ChestStealModule.getDelay()); }
-            catch (Exception e) { SCMain.error(JavaUtils.stackTraceFromThrowable(e)); }
+            catch (Exception e) { ShadowClientMain.error(JavaUtils.stackTraceFromThrowable(e)); }
 
             if (client.currentScreen == null) {
                 break;

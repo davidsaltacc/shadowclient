@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.main.util;
 
-import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.io.IOException;
@@ -15,8 +15,8 @@ public abstract class FileUtils {
             Files.writeString(path, contents);
             return true;
         } catch (IOException e) {
-            SCMain.error("Failed to write file: " + path + " ");
-            SCMain.error(JavaUtils.stackTraceFromThrowable(e));
+            ShadowClientMain.error("Failed to write file: " + path + " ");
+            ShadowClientMain.error(JavaUtils.stackTraceFromThrowable(e));
             return false;
         }
     }
@@ -35,11 +35,11 @@ public abstract class FileUtils {
             Files.readAllLines(path).forEach((line) -> contents.set(contents.get() + line + "\n"));
             return contents.get();
         } catch (NoSuchFileException e) {
-            SCMain.warn("Tried to read nonexistent file " + path);
+            ShadowClientMain.warn("Tried to read nonexistent file " + path);
             return null;
         } catch (IOException e) {
-            SCMain.error("Failed to read file: " + path + " ");
-            SCMain.error(JavaUtils.stackTraceFromThrowable(e));
+            ShadowClientMain.error("Failed to read file: " + path + " ");
+            ShadowClientMain.error(JavaUtils.stackTraceFromThrowable(e));
             return null;
         }
     }

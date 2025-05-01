@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
-import net.justacoder.shadowclient.main.ui.font.SCFont;
+import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.annotations.Hidden;
@@ -90,7 +90,7 @@ public class Frame extends FrameChild {
     }
 
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        int textOffset = (int) ((float) height / 2 - SCFont.getHeight() / 2);
+        int textOffset = (int) ((float) height / 2 - Font.getHeight() / 2);
 
         if (ModuleManager.RainbowGUIModule.enabled) {
             float[] rainbowF = ColorUtils.rainbowColor();
@@ -103,8 +103,8 @@ public class Frame extends FrameChild {
             context.fillGradient(x, y, x + width, y + height, Colors.CATEGORY_FRAME.color, colorLighter);
         }
 
-        SCFont.renderString(context, name, x + textOffset, y + textOffset, Colors.TEXT_NORMAL.color);
-        SCFont.renderString(context, extended ? "-" : "+", x + width - textOffset - SCFont.getWidth("+"), y + textOffset, Colors.TEXT_NORMAL.color);
+        Font.renderString(context, name, x + textOffset, y + textOffset, Colors.TEXT_NORMAL.color);
+        Font.renderString(context, extended ? "-" : "+", x + width - textOffset - Font.getWidth("+"), y + textOffset, Colors.TEXT_NORMAL.color);
 
 
         if (extended) {

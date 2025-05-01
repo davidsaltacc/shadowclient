@@ -22,7 +22,7 @@
 
 ### removed modules:
 * super secret shaders, minecraft removed them 
-* unfocused fps
+* unfocused fps, vanilla has support for that (though sodium hides the option...?)
 
 ### new features:
 * add corner setting to shadowhud
@@ -34,9 +34,14 @@
 * made all text in the client translatable, meaning this allows the entire client to be translated into other languages
 * german translations
 * add easings to sliders to make them easier to configure
+* tracers show distance and name
+* rewritten improved and more optimized rendering
+* in airjump you can toggle between normal and "jetpack" mode (hold)
 
 ### fixes:
-* remove legit option from parkour, just default it
+* fixed sliders resetting to minimum values randomly
+* fixed issues with rendering system
+* fixed issue with rendering tracer to player in freecam
 * fix shadowhud not showing everything when loaded
 * remove auto respawn as it seems to crash sometimes
 * more crash fixes
@@ -70,11 +75,29 @@
 
 
 ## yet to do:
+- translateable setting names
+- unhittable - move player around in a small area real quickly to make them harder to hit
+- MAKE XRAY ORE MODE INCLUDE LAVA -
+- autosneak: make interactions be normal
+* clean up the codebase... so much unused stuff
+* throwing eggs works in freecam... what else?
+- rework most of the *Utils classes
+* remove legit option from parkour, just default it
+- wall interact
+- noclip
+- redo the splash texts. fuuucking hell
+- less annotations, more constructor params
+- freecam: instead of keeping the player as the camera entity and doing weird hackarounds, create an artifical camera entity that moves? this should fix the skin rendering, and the chunks oddly culling sometimes
+- wall phase. please
+- fix the freecam skin rendering
+- SCFont.getWidth seems to be wrong slightly, does it count spaces properly?
+- MAKE ESC KEY CLOSE THE FUCKING CLICKGUI.
 - top bar right click simulator
 - no fog
-- SLIDERS KEEP GETTING SET BACK TO MINIMUM!!!!!!!!!!!!!!!!!!!!! WHYYYYYYYYYYYYYY???????????? - i think i fix. test
+- SLIDERS KEEP GETTING SET BACK TO MINIMUM!!!!!!!!!!!!!!!!!!!!! WHYYYYYYYYYYYYYY???????????? - i think i fix. test. NEVERMIND 
 - reset breadcrumbs on leave
-- how do wardens detect sound? i need smt against them
+- optimize breadcrumbs rendering
+- how do wardens detect sound? I need smt against them
 - WARDEN STATUS CHECKER!!!!
 - highlighter: is this chest looted (was the loot generated already)
 - tracers show name and dist
@@ -99,14 +122,14 @@
 * CHANGE PACKET LOG TO NOT LOG INTO IN GAME CHAT - make new notification type, smaller, disappearing
 * breadcrumbs render only mode
 * sticky aim - decrease the mouse sensitivity when aiming near enemies
-* fix searching for settings in the client settings screen, I think its broken (modulebutton class is the only one that has uhh the thing)
+* fix searching for settings in the client settings screen, I think it is broken (modulebutton class is the only one that has uhh the thing)
 * better module settings - dedicated screen?
 * optimize the font rendering so it doesn't switch textures for each character
 * optimize clickGui. insane lag on low-end devices - caching? maybe use a debugger/profiler
 * rewrite some of the old modules
 * rewrite some gui code
 * auto updater?
-* optimize light overlay with caching
+* optimize light overlay with caching / just don't update every single fucking frame???
 * positionSetting (+ setHere button)
 * killaura mob types
 * voidESP

@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
-import net.justacoder.shadowclient.main.config.SCSettings;
+import net.justacoder.shadowclient.main.config.ShadowClientSettings;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
@@ -29,7 +29,7 @@ public class ClickGUI extends Screen {
 
     @Override
     protected void applyBlur() {
-        if (SCSettings.BlurBackground.booleanValue()) {
+        if (ShadowClientSettings.BlurBackground.booleanValue()) {
             super.applyBlur();
         }
     }

@@ -5,7 +5,7 @@ import net.minecraft.client.render.entity.ItemEntityRenderer;
 import net.minecraft.client.render.entity.state.ItemEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.RotationAxis;
-import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import org.joml.Quaternionf;
 import org.spongepowered.asm.mixin.Mixin;
@@ -38,7 +38,7 @@ public abstract class ItemEntityRendererMixin {
         if (ModuleManager.FlatItemsModule.enabled) {
             float offset = item.uniqueOffset;
             if (ModuleManager.FlatItemsModule.face()) {
-                offset = ModuleManager.FlatItemsModule.getItemAngle(item, SCMain.mc.player);
+                offset = ModuleManager.FlatItemsModule.getItemAngle(item, ShadowClientMain.mc.player);
             }
             matrices.multiply(flatRotation);
             matrices.multiply(RotationAxis.POSITIVE_Z.rotation(offset));

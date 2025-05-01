@@ -1,7 +1,7 @@
 package net.justacoder.shadowclient.mixin;
 
-import net.justacoder.shadowclient.main.config.SCSettings;
-import net.justacoder.shadowclient.main.ui.SCSplashTexts;
+import net.justacoder.shadowclient.main.config.ShadowClientSettings;
+import net.justacoder.shadowclient.main.ui.SplashTexts;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.SplashTextRenderer;
@@ -22,13 +22,13 @@ public abstract class SplashTextRendererMixin {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void setCustomText(String text, CallbackInfo ci) {
-        customText = SCSplashTexts.getRandom();
+        customText = SplashTexts.getRandom();
     }
 
     @Inject(method = "render", at = @At("TAIL"))
     private void addSplashText(DrawContext context, int screenWidth, TextRenderer textRenderer, int alpha, CallbackInfo ci) {
 
-        if (SCSettings.VanillaSpoof.booleanValue()) {
+        if (ShadowClientSettings.VanillaSpoof.booleanValue()) {
             return;
         }
 

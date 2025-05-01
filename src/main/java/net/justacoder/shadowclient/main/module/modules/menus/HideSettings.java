@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.menus;
 
-import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.annotations.Hidden;
 import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.justacoder.shadowclient.main.annotations.OneClick;
@@ -19,7 +19,7 @@ public class HideSettings extends Module {
 
     @Override
     public void onEnable() {
-        mc.setScreen(SCMain.clickGui);
+        mc.setScreen(ShadowClientMain.clickGui);
         super.onEnable();
     }
 }
