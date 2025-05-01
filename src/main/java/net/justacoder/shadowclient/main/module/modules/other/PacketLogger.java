@@ -17,7 +17,6 @@ import net.minecraft.network.packet.s2c.config.*;
 import net.minecraft.network.packet.s2c.login.*;
 import net.minecraft.network.packet.s2c.play.*;
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PacketRecievedEvent;
 import net.justacoder.shadowclient.main.event.events.PacketSentEvent;
@@ -30,7 +29,6 @@ import net.minecraft.network.packet.s2c.query.PingResultS2CPacket;
 import net.minecraft.network.packet.s2c.query.QueryResponseS2CPacket;
 
 @EventListener({PacketSentEvent.class, PacketRecievedEvent.class})
-@SearchTags({"packet logger"})
 public class PacketLogger extends Module {
 
     public final EnumSetting<Mode> MODE = new EnumSetting<>("Mode", Mode.ALL);
@@ -38,7 +36,7 @@ public class PacketLogger extends Module {
     public final EnumSetting<FMode> FMODE = new EnumSetting<>("Filter Mode", FMode.WHITELIST);
 
     public PacketLogger() {
-        super("packetlogger", ModuleCategory.OTHER);
+        super("packetlogger", ModuleCategory.OTHER, new String[]{"packet logger", "packetlogger"});
         addSettings(MODE, FILTER, FMODE);
     }
 

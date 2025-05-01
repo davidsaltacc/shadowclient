@@ -2,17 +2,15 @@ package net.justacoder.shadowclient.main.module.modules.player;
 
 import net.minecraft.util.Hand;
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 
 @EventListener({PreTickEvent.class})
-@SearchTags({"automatically fish", "autofish", "auto fish", "fish", "auto fish hack"})
 public class AutoFish extends Module {
     public AutoFish() {
-        super("autofish", ModuleCategory.PLAYER);
+        super("autofish", ModuleCategory.PLAYER, new String[]{"automatically fish", "autofish", "auto fish", "fish", "auto fish hack"});
     }
 
 

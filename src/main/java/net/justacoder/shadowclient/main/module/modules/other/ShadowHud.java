@@ -3,7 +3,6 @@ package net.justacoder.shadowclient.main.module.modules.other;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
@@ -15,7 +14,6 @@ import net.justacoder.shadowclient.main.ui.hud.HudRenderer;
 import net.justacoder.shadowclient.main.util.MathUtils;
 import net.justacoder.shadowclient.mixin.WorldRendererAccessor;
 
-@SearchTags({"shadowhud", "shadow hud", "minihud", "hud", "coordinates", "coords"})
 @EventListener({PreTickEvent.class})
 public class ShadowHud extends Module {
 
@@ -36,18 +34,18 @@ public class ShadowHud extends Module {
     public HudElement ENTITIES_ELEMENT = new HudElement(false, "");
 
     public ShadowHud() {
-        super("shadowhud", ModuleCategory.OTHER);
+        super("shadowhud", ModuleCategory.OTHER, new String[]{"shadowhud", "shadow hud", "minihud", "hud", "coordinates", "coords"});
 
         addSettings(CORNER, COORDINATES, PING, SATURATION, ROTATION, FRAMES, ENTITIES);
 
-        CORNER.addChangeCallback((newV, __) -> HudRenderer.setCorner((HudRenderer.Corner) newV));
+        CORNER.addChangeCallback((newV, ignored) -> HudRenderer.setCorner((HudRenderer.Corner) newV));
 
-        COORDINATES.addChangeCallback((newV, __) -> COORDINATES_ELEMENT.shouldBeRendered((boolean) newV));
-        PING.addChangeCallback((newV, __) -> PING_ELEMENT.shouldBeRendered(PING.booleanValue()));
-        SATURATION.addChangeCallback((newV, __) -> SATURATION_ELEMENT.shouldBeRendered((boolean) newV));
-        ROTATION.addChangeCallback((newV, __) -> ROTATION_ELEMENT.shouldBeRendered((boolean) newV));
-        FRAMES.addChangeCallback((newV, __) -> FRAMES_ELEMENT.shouldBeRendered((boolean) newV));
-        ENTITIES.addChangeCallback((newV, __) -> ENTITIES_ELEMENT.shouldBeRendered((boolean) newV));
+        COORDINATES.addChangeCallback((newV, ignored) -> COORDINATES_ELEMENT.shouldBeRendered((boolean) newV));
+        PING.addChangeCallback((newV, ignored) -> PING_ELEMENT.shouldBeRendered(PING.booleanValue()));
+        SATURATION.addChangeCallback((newV, ignored) -> SATURATION_ELEMENT.shouldBeRendered((boolean) newV));
+        ROTATION.addChangeCallback((newV, ignored) -> ROTATION_ELEMENT.shouldBeRendered((boolean) newV));
+        FRAMES.addChangeCallback((newV, ignored) -> FRAMES_ELEMENT.shouldBeRendered((boolean) newV));
+        ENTITIES.addChangeCallback((newV, ignored) -> ENTITIES_ELEMENT.shouldBeRendered((boolean) newV));
 
         HudRenderer.addElement(COORDINATES_ELEMENT);
         HudRenderer.addElement(ROTATION_ELEMENT);

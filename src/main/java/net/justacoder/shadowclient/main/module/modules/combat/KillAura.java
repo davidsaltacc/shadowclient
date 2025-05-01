@@ -4,7 +4,6 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Hand;
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
@@ -14,13 +13,12 @@ import net.justacoder.shadowclient.main.util.RotationUtils;
 import net.justacoder.shadowclient.main.util.WorldUtils;
 
 @EventListener({PreTickEvent.class})
-@SearchTags({"killaura", "kill aura", "auto kill", "auto hit"})
 public class KillAura extends Module {
 
     public final BooleanSetting LEGIT = new BooleanSetting("Legit", true);
 
     public KillAura() {
-        super("killaura", ModuleCategory.COMBAT);
+        super("killaura", ModuleCategory.COMBAT, new String[]{"killaura", "kill aura", "auto kill", "auto hit"});
         addSetting(LEGIT);
     }
 

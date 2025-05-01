@@ -4,7 +4,6 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.justacoder.shadowclient.main.annotations.DoNotSaveState;
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
@@ -12,10 +11,9 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 
 @DoNotSaveState
 @EventListener({PreTickEvent.class})
-@SearchTags({"fastblockbreak", "fastbreak", "fast block break", "fast break", "block break", "speed break"})
 public class FastBlockBreak extends Module {
     public FastBlockBreak() {
-        super("fastbreak", ModuleCategory.PLAYER);
+        super("fastbreak", ModuleCategory.PLAYER, new String[]{"fastblockbreak", "fastbreak", "fast block break", "fast break", "block break", "speed break"});
     }
 
     @Override

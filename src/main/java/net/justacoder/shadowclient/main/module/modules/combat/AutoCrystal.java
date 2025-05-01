@@ -5,7 +5,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.decoration.EndCrystalEntity;
 import net.minecraft.util.Hand;
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
@@ -18,13 +17,12 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @EventListener({PreTickEvent.class})
-@SearchTags({"auto crystal", "auto detonate", "crystal aura", "autocrystal"})
 public class AutoCrystal extends Module {
 
     public final BooleanSetting FACE_CRYSTALS = new BooleanSetting("Face Crystals", false);
 
     public AutoCrystal() {
-        super("autocrystal", ModuleCategory.COMBAT);
+        super("autocrystal", ModuleCategory.COMBAT, new String[]{"auto crystal", "auto detonate", "crystal aura", "autocrystal"});
 
         addSetting(FACE_CRYSTALS);
     }

@@ -7,25 +7,23 @@ import net.minecraft.entity.mob.AmbientEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 
 @DoNotSaveState
-@SearchTags({"entitiesesp", "esp", "entity esp", "entities esp", "wallhack", "wall hack"})
 public class EntitiesESP extends Module {
 
-    public final BooleanSetting DrawPlayerEntityOutlines = new BooleanSetting("Players", true);
-    public final BooleanSetting DrawHostileEntityOutlines = new BooleanSetting("Hostiles", true);
-    public final BooleanSetting DrawPassiveEntityOutlines = new BooleanSetting("Passives", false);
-    public final BooleanSetting DrawOtherEntityOutlines = new BooleanSetting("Others", false);
-    public final BooleanSetting DrawAmbientEntityOutlines = new BooleanSetting("Ambient", true);
+    public final BooleanSetting drawPlayerEntityOutlines = new BooleanSetting("Players", true);
+    public final BooleanSetting drawHostileEntityOutlines = new BooleanSetting("Hostiles", true);
+    public final BooleanSetting drawPassiveEntityOutlines = new BooleanSetting("Passives", false);
+    public final BooleanSetting drawOtherEntityOutlines = new BooleanSetting("Others", false);
+    public final BooleanSetting drawAmbientEntityOutlines = new BooleanSetting("Ambient", true);
 
     public EntitiesESP() {
-        super("entitiesesp", ModuleCategory.RENDER);
+        super("entitiesesp", ModuleCategory.RENDER, new String[]{"entitiesesp", "esp", "entity esp", "entities esp", "wallhack", "wall hack"});
 
-        addSettings(DrawPlayerEntityOutlines, DrawHostileEntityOutlines, DrawPassiveEntityOutlines, DrawOtherEntityOutlines, DrawAmbientEntityOutlines);
+        addSettings(drawPlayerEntityOutlines, drawHostileEntityOutlines, drawPassiveEntityOutlines, drawOtherEntityOutlines, drawAmbientEntityOutlines);
     }
 
     public int[] getColor(Entity entity) {

@@ -7,23 +7,20 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.LightType;
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.RenderEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
-import net.justacoder.shadowclient.main.render.Renderer;
 
 @EventListener({RenderEvent.class})
-@SearchTags({"lightoverlay", "light overlay", "spawn indicator"})
 public class LightOverlay extends Module {
 
     public NumberSetting RADIUS = new NumberSetting("Radius", 1, 25, 10, 0);
     public NumberSetting VRADIUS = new NumberSetting("Vertical Radius", 1, 25, 1, 0);
 
     public LightOverlay() {
-        super("lightoverlay", ModuleCategory.RENDER);
+        super("lightoverlay", ModuleCategory.RENDER, new String[]{"lightoverlay", "light overlay", "spawn indicator"});
 
         addSettings(RADIUS, VRADIUS);
     }

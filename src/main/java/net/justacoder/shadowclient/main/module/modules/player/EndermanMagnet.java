@@ -5,18 +5,16 @@ import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.math.MathHelper;
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 
 @EventListener({PreTickEvent.class})
-@SearchTags({"enderman look", "endermen magnet", "enderman", "look at enderman", "look", "magnet", "enderman magnet", "look at endermen"})
 public class EndermanMagnet extends Module {
 
     public EndermanMagnet() {
-        super("endermanlook", ModuleCategory.OTHER);
+        super("endermanlook", ModuleCategory.OTHER, new String[]{"enderman look", "endermen magnet", "look at enderman", "enderman magnet", "look at endermen"});
 
     }
 

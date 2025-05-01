@@ -3,7 +3,6 @@ package net.justacoder.shadowclient.main.module.modules.other;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.justacoder.shadowclient.main.annotations.EventListener;
 import net.justacoder.shadowclient.main.annotations.Hidden;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PacketRecievedEvent;
 import net.justacoder.shadowclient.main.module.Module;
@@ -12,11 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Hidden
-@SearchTags({"blink"})
 @EventListener({PacketRecievedEvent.class})
 public class Blink extends Module { // TODO fix
     public Blink() {
-        super("blink", ModuleCategory.OTHER);
+        super("blink", ModuleCategory.OTHER, new String[]{"blink", "lagging"});
     }
 
     public List<PlayerMoveC2SPacket> packets = new ArrayList<>();

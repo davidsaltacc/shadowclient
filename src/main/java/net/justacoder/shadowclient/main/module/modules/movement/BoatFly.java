@@ -5,7 +5,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
@@ -13,13 +12,12 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 
 @EventListener({PreTickEvent.class})
-@SearchTags({"boat fly", "boatfly", "fly hack", "flyhack"})
 public class BoatFly extends Module {
 
     NumberSetting SPEED = new NumberSetting("Speed", 0.02f, 10, 0.4,  2, MathUtils.Easing.EASE_IN_QUADRATIC);
 
     public BoatFly() {
-        super("boatfly", ModuleCategory.MOVEMENT);
+        super("boatfly", ModuleCategory.MOVEMENT, new String[]{"boat fly", "boatfly", "fly hack", "flyhack"});
 
         addSetting(SPEED);
     }

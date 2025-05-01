@@ -1,7 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.render;
 
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.event.events.RenderEvent;
@@ -10,14 +9,12 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 import net.justacoder.shadowclient.main.util.MathUtils;
-import net.justacoder.shadowclient.main.render.Renderer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import java.util.ArrayDeque;
 import java.util.Iterator;
 
 @EventListener({RenderEvent.class, PreTickEvent.class})
-@SearchTags({"breadcrumbs", "trails", "player trails"})
 public class Breadcrumbs extends Module {
 
     public final BooleanSetting DEPTH_TEST = new BooleanSetting("Depth Test", true);
@@ -27,7 +24,7 @@ public class Breadcrumbs extends Module {
     private final ArrayDeque<Vec3d> positions = new ArrayDeque<>(MAX_POSITIONS.intValue());
 
     public Breadcrumbs() {
-        super("breadcrumbs", ModuleCategory.RENDER);
+        super("breadcrumbs", ModuleCategory.RENDER, new String[]{"breadcrumbs", "trails", "player trails"});
 
         addSettings(DEPTH_TEST, MIN_SEGMENT_LEN, MAX_POSITIONS);
 

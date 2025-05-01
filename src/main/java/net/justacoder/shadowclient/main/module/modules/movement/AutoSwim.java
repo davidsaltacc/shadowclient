@@ -1,17 +1,15 @@
 package net.justacoder.shadowclient.main.module.modules.movement;
 
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 
 @EventListener({PreTickEvent.class})
-@SearchTags({"fish", "autoswim", "auto swim", "automatically swim", "easy swim"})
 public class AutoSwim extends Module {
     public AutoSwim() {
-        super("autoswim", ModuleCategory.MOVEMENT);
+        super("autoswim", ModuleCategory.MOVEMENT, new String[]{"fish", "autoswim", "auto swim", "automatically swim", "easy swim"});
     }
 
     @Override

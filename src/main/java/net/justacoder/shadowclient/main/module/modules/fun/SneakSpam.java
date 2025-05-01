@@ -1,7 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.fun;
 
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
@@ -9,7 +8,6 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 
 @EventListener({PreTickEvent.class})
-@SearchTags({"sneak spam", "sneak", "twerk"})
 public class SneakSpam extends Module {
 
     public final NumberSetting SPEED = new NumberSetting("Speed", 1, 10, 5, 0);
@@ -17,7 +15,7 @@ public class SneakSpam extends Module {
     private int timer = 0;
 
     public SneakSpam() {
-        super("sneakspam", ModuleCategory.FUN);
+        super("sneakspam", ModuleCategory.FUN, new String[]{"sneak spam", "sneak", "twerk"});
 
         addSetting(SPEED);
     }

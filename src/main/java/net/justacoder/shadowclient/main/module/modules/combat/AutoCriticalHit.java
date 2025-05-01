@@ -5,18 +5,16 @@ import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 
 @EventListener({PreTickEvent.class})
-@SearchTags({"autocrit", "criticals", "automatical crit", "auto critical hit"})
 public class AutoCriticalHit extends Module {
 
     public AutoCriticalHit() {
-        super("autocrit", ModuleCategory.COMBAT);
+        super("autocrit", ModuleCategory.COMBAT, new String[]{"autocrit", "criticals", "automatical crit", "auto critical hit"});
     }
 
     @Override
@@ -36,7 +34,7 @@ public class AutoCriticalHit extends Module {
 
         mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(mc.player.getX(), mc.player.getY() + 0.0625d, mc.player.getZ(), true, mc.player.horizontalCollision));
         mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(mc.player.getX(), mc.player.getY(), mc.player.getZ(), false, mc.player.horizontalCollision));
-        mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(mc.player.getX(), mc.player.getY() + 1.1E-5d, mc.player.getZ(), false, mc.player.horizontalCollision));
+        mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(mc.player.getX(), mc.player.getY() + 1.1e-5d, mc.player.getZ(), false, mc.player.horizontalCollision));
         mc.player.networkHandler.sendPacket(new PlayerMoveC2SPacket.PositionAndOnGround(mc.player.getX(), mc.player.getY(), mc.player.getZ(), false, mc.player.horizontalCollision));
     }
 }

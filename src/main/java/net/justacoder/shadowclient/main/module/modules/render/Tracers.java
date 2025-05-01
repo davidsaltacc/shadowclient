@@ -10,7 +10,6 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.RenderEvent;
 import net.justacoder.shadowclient.main.module.Module;
@@ -19,7 +18,6 @@ import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 import org.joml.Quaternionf;
 
 @EventListener({RenderEvent.class})
-@SearchTags({"tracers", "lines", "entity tracers"})
 public class Tracers extends Module {
 
     public final BooleanSetting drawPlayerEntityTracers = new BooleanSetting("Players", true);
@@ -34,7 +32,7 @@ public class Tracers extends Module {
     public final NumberSetting startDistance = new NumberSetting("Text Distance", 0.1, 20, 2, 1);
 
     public Tracers() {
-        super("tracers", ModuleCategory.RENDER);
+        super("tracers", ModuleCategory.RENDER, new String[]{"tracers", "lines", "entity tracers", "esp"});
 
         addSettings(drawPlayerEntityTracers, drawHostileEntityTracers, drawPassiveEntityTracers, drawAmbientEntityTracers, drawOtherEntityTracers, drawNames, drawDistance, startDistance);
     }

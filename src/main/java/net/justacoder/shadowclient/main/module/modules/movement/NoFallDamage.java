@@ -2,17 +2,15 @@ package net.justacoder.shadowclient.main.module.modules.movement;
 
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 
 @EventListener({PreTickEvent.class})
-@SearchTags({"anti fall damage", "no fall damage", "no fall dmg", "no falling damage", "nofalldamage"})
 public class NoFallDamage extends Module {
     public NoFallDamage() {
-        super("nofall", ModuleCategory.MOVEMENT);
+        super("nofall", ModuleCategory.MOVEMENT, new String[]{"anti fall damage", "no fall damage", "no fall dmg", "no falling damage", "nofalldamage"});
     }
 
     @Override

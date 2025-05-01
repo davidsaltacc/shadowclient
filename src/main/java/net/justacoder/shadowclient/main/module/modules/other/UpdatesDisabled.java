@@ -1,13 +1,10 @@
 package net.justacoder.shadowclient.main.module.modules.other;
 
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 
-
-@SearchTags({"disable updates", "stop", "lagfix", "fix lag"})
 public class UpdatesDisabled extends Module {
     public UpdatesDisabled() {
-        super("updatesdisabled", ModuleCategory.OTHER);
+        super("updatesdisabled", ModuleCategory.OTHER, new String[]{"disable updates", "stop", "lagfix", "fix lag"});
     }
 }

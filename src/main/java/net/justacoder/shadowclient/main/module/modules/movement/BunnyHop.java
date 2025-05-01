@@ -1,7 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.movement;
 
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
@@ -10,7 +9,6 @@ import net.justacoder.shadowclient.main.setting.settings.EnumSetting;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 
 @EventListener({PreTickEvent.class})
-@SearchTags({"bunny hop", "bunnyhop", "auto jump", "sprint jump"})
 public class BunnyHop extends Module {
     public final EnumSetting<JumpWhen> MODE = new EnumSetting<>("When", JumpWhen.ALWAYS);
     public final NumberSetting MINVEL = new NumberSetting("Min. Velocity", 0f, 0.3f, 0.075f, 3);
@@ -18,7 +16,7 @@ public class BunnyHop extends Module {
     public boolean pressed = false;
 
     public BunnyHop() {
-        super("bunnyhop", ModuleCategory.MOVEMENT);
+        super("bunnyhop", ModuleCategory.MOVEMENT, new String[]{"bunny hop", "bunnyhop", "auto jump", "sprint jump"});
 
         addSettings(MODE, MINVEL);
     }

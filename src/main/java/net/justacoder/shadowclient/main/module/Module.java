@@ -18,6 +18,7 @@ public abstract class Module {
 
     public final ModuleCategory category;
     public final String moduleName;
+    public final String[] searchTags;
     public String friendlyName;
     public String description;
 
@@ -46,9 +47,10 @@ public abstract class Module {
 
     public final MinecraftClient mc = MinecraftClient.getInstance();
 
-    public Module(String name, ModuleCategory category) {
+    public Module(String name, ModuleCategory category, String[] searchTags) {
         this.moduleName = name;
         this.category = category;
+        this.searchTags = searchTags;
         this.friendlyName = "";
         this.description = "";
     }

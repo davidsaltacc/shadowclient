@@ -4,17 +4,15 @@ import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.annotations.Hidden;
 import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.justacoder.shadowclient.main.annotations.OneClick;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 
 @NotKeybindable
 @Hidden
 @OneClick
-@SearchTags({"hide settings", "hide options menu"})
 public class HideSettings extends Module {
     public HideSettings() {
-        super("hidesettings", ModuleCategory.MENUS);
+        super("hidesettings", ModuleCategory.MENUS, new String[]{"hide settings", "hide options menu"});
     }
 
     @Override

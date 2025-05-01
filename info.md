@@ -75,6 +75,8 @@
 
 
 ## yet to do:
+- seedcrackerX integration
+- seed xray / "oresim" 
 - translateable setting names
 - unhittable - move player around in a small area real quickly to make them harder to hit
 - MAKE XRAY ORE MODE INCLUDE LAVA -

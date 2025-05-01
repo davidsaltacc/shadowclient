@@ -1,16 +1,14 @@
 package net.justacoder.shadowclient.main.module.modules.other;
 
 import net.justacoder.shadowclient.main.annotations.OneClick;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 
 @OneClick
-@SearchTags({"panic", "disableall", "disable all", "stop all"})
 public class Panic extends Module {
     public Panic() {
-        super("panic", ModuleCategory.OTHER);
+        super("panic", ModuleCategory.OTHER, new String[]{"panic", "disableall", "disable all", "stop all"});
     }
 
     @Override

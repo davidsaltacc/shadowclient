@@ -6,7 +6,6 @@ import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.BlockHitResult;
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
@@ -15,13 +14,12 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 
 @EventListener({MouseClickedEvent.class})
-@SearchTags({"clicktp", "click teleport"})
 public class ClickTP extends Module {
 
     public NumberSetting MAX_DISTANCE = new NumberSetting("Max Distance: ", 1, 100, 10, 2, MathUtils.Easing.EASE_IN_QUADRATIC);
 
     public ClickTP() {
-        super("clicktp", ModuleCategory.MOVEMENT);
+        super("clicktp", ModuleCategory.MOVEMENT, new String[]{"clicktp", "click teleport"});
 
         addSetting(MAX_DISTANCE);
     }

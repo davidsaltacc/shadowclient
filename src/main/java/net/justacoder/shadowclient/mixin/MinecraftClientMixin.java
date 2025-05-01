@@ -78,15 +78,15 @@ public abstract class MinecraftClientMixin {
             return;
         }
 
-        if (entity instanceof PlayerEntity && entitiesEspModule.DrawPlayerEntityOutlines.booleanValue()) {
+        if (entity instanceof PlayerEntity && entitiesEspModule.drawPlayerEntityOutlines.booleanValue()) {
             cir.setReturnValue(true);
-        } else if (entity instanceof Monster && entitiesEspModule.DrawHostileEntityOutlines.booleanValue()) {
+        } else if (entity instanceof Monster && entitiesEspModule.drawHostileEntityOutlines.booleanValue()) {
             cir.setReturnValue(true);
-        } else if (entity instanceof PassiveEntity && entitiesEspModule.DrawPassiveEntityOutlines.booleanValue()) {
+        } else if (entity instanceof PassiveEntity && entitiesEspModule.drawPassiveEntityOutlines.booleanValue()) {
             cir.setReturnValue(true);
-        } else if (entity instanceof AmbientEntity && entitiesEspModule.DrawAmbientEntityOutlines.booleanValue()) {
+        } else if (entity instanceof AmbientEntity && entitiesEspModule.drawAmbientEntityOutlines.booleanValue()) {
             cir.setReturnValue(true);
-        } else if (!(entity instanceof PlayerEntity) && !(entity instanceof Monster) && !(entity instanceof PassiveEntity) && !(entity instanceof AmbientEntity) && entitiesEspModule.DrawOtherEntityOutlines.booleanValue()) {
+        } else if (!(entity instanceof PlayerEntity) && !(entity instanceof Monster) && !(entity instanceof PassiveEntity) && !(entity instanceof AmbientEntity) && entitiesEspModule.drawOtherEntityOutlines.booleanValue()) {
             cir.setReturnValue(true);
         } else {
             cir.setReturnValue(cir.getReturnValue());

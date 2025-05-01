@@ -1,12 +1,10 @@
 package net.justacoder.shadowclient.main.module.modules.player;
 
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 
-@SearchTags({"no levitation", "anti levitation", "anti shulker"})
 public class NoLevitation extends Module {
     public NoLevitation() {
-        super("nolevitation", ModuleCategory.PLAYER);
+        super("nolevitation", ModuleCategory.PLAYER, new String[]{"no levitation", "anti levitation", "anti shulker"});
     }
 }

@@ -4,7 +4,6 @@ import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
@@ -12,7 +11,6 @@ import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 
 @EventListener({PreTickEvent.class})
-@SearchTags({"flyhack", "fly", "flying"})
 public class Fly extends Module {
     private int toggle = 0;
     private double acceleration = 0.2;
@@ -20,7 +18,7 @@ public class Fly extends Module {
     public final NumberSetting SPEED = new NumberSetting("Speed", 0.1f, 5f, 1f, 1, MathUtils.Easing.EASE_IN_QUADRATIC);
 
     public Fly() {
-        super("fly", ModuleCategory.MOVEMENT);
+        super("fly", ModuleCategory.MOVEMENT, new String[]{"flyhack", "fly", "flying"});
 
         addSetting(SPEED);
     }

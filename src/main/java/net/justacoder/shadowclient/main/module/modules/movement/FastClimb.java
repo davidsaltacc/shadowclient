@@ -2,17 +2,15 @@ package net.justacoder.shadowclient.main.module.modules.movement;
 
 import net.minecraft.util.math.Vec3d;
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 
 @EventListener({PreTickEvent.class})
-@SearchTags({"fastclimb", "fast climbing", "climb fast", "speed climb"})
 public class FastClimb extends Module {
     public FastClimb() {
-        super("fastclimb", ModuleCategory.MOVEMENT);
+        super("fastclimb", ModuleCategory.MOVEMENT, new String[]{"fastclimb", "fast climbing", "climb fast", "speed climb"});
     }
 
     @Override

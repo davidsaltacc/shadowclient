@@ -7,7 +7,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.justacoder.shadowclient.main.annotations.DoNotSaveState;
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.DamageEvent;
 import net.justacoder.shadowclient.main.event.events.KeyPressEvent;
@@ -22,14 +21,13 @@ import org.joml.Vector2d;
 import org.joml.Vector3d;
 
 @DoNotSaveState
-@SearchTags({"freecam", "camera fly", "free cam"})
 @EventListener({PreTickEvent.class, KeyPressEvent.class, DamageEvent.class})
 public class Freecam extends Module {
 
     public NumberSetting SPEED = new NumberSetting("Speed", 0.05f, 4, 0.5, 2, MathUtils.Easing.EASE_IN_QUADRATIC);
 
     public Freecam() {
-        super("freecam", ModuleCategory.RENDER);
+        super("freecam", ModuleCategory.RENDER, new String[]{"freecam", "camera fly", "free cam"});
 
         addSetting(SPEED);
     }

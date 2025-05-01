@@ -9,7 +9,6 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.RenderEvent;
 import net.justacoder.shadowclient.main.module.Module;
@@ -22,10 +21,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 @EventListener({RenderEvent.class})
-@SearchTags({"trajectories", "bow aim laser", "aim assist"})
 public class Trajectories extends Module {
     public Trajectories() {
-        super("trajectories", ModuleCategory.RENDER);
+        super("trajectories", ModuleCategory.RENDER, new String[]{"trajectories", "bow aim laser", "aim assist"});
     }
 
     @Override

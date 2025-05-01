@@ -6,7 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.math.BlockPos;
 import net.justacoder.shadowclient.main.annotations.EventListener;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.*;
 import net.justacoder.shadowclient.main.module.Module;
@@ -16,14 +15,13 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @DoNotSaveState
-@SearchTags({"xray", "x ray", "ore render", "mine help", "finder", "ore vision"})
 @EventListener({SetOpaqueCubeEvent.class, GetAmbientOcclusionLightLevelEvent.class, ShouldDrawSideEvent.class, RenderBlockEntityEvent.class})
 public class Xray extends Module {
 
     public EnumSetting<Mode> MODE = new EnumSetting<>("Mode", Mode.All);
 
     public Xray() {
-        super("xray", ModuleCategory.RENDER);
+        super("xray", ModuleCategory.RENDER, new String[]{"xray", "x ray", "ore render", "mine help", "finder", "ore vision"});
 
         Collections.sort(Mode.All.blocks);
         Collections.sort(Mode.Ores.blocks);

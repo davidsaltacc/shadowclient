@@ -1,12 +1,10 @@
 package net.justacoder.shadowclient.main.module.modules.world;
 
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 
-@SearchTags({"time control", "weather control"})
 public class WeatherControl extends Module {
 
     public BooleanSetting DISABLE_RAIN = new BooleanSetting("Disable Rain", true);
@@ -17,7 +15,7 @@ public class WeatherControl extends Module {
 
 
     public WeatherControl() {
-        super("weathercontrol", ModuleCategory.WORLD);
+        super("weathercontrol", ModuleCategory.WORLD, new String[]{"time control", "weather control", "moon control"});
 
         addSettings(DISABLE_RAIN, CHANGE_TIME, CHANGE_MOON, TIME, MOON);
     }

@@ -6,7 +6,6 @@ import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.annotations.Hidden;
-import net.justacoder.shadowclient.main.annotations.SearchTags;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.setting.Setting;
@@ -157,8 +156,7 @@ public class ModuleButton extends FrameChild {
     }
 
     public boolean isGettingSearchedFor() {
-        String[] moduleSearchTags = module.getClass().getAnnotation(SearchTags.class).value();
-        for (String searchtag : moduleSearchTags) {
+        for (String searchtag : module.searchTags) {
             if (searchtag.toLowerCase().contains(ShadowClientMain.clickGui.searchingFor.toLowerCase())) {
                 return true;
             }
