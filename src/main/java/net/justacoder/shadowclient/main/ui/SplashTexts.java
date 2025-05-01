@@ -15,18 +15,25 @@ public abstract class SplashTexts {
             "shadowclient best client",
             "justacoder the §4§lGOAT§r",
             "good utility client",
-            "join the §1community§r!",
-            "funny splash text here",
-            "§lTechnoblade never dies!§r",
+            "§lTechnoblade never dies.§r",
             "No hacks, just utility!",
             "No utility, just hacks!",
             "One does not simply §lfind§r diamonds.",
             "§l§cAlt+F4§r for a surprise!",
-            "One block at a time!",
-            "Unleash your inner Enderman!",
-            "It's not X-ray, it's §ostrategy§r!",
-            "You can't sleep here, monsters nearby!",
-            "The cake is a lie!"
+            "It's not X-ray, it's called §ostrategy§r!",
+            "Not yet consumed by brainrot",
+            "You seem like a nice person.",
+            "racism will NOT be tolerated",
+            "First, we mine. Then we craft. LET'S MINECRAFT!!",
+            "CHICKEN JOCKEY!!!!",
+            "absolute cinema",
+            "Cats are cool. Period.",
+            "This statement is false",
+            "This is a splash text.",
+            "",
+            "Why?",
+            "What is the purpose of our lives?",
+            "Can be used to troll friends."
     );
 
     public static String getRandom() {
