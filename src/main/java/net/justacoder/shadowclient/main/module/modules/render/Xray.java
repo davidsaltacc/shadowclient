@@ -153,7 +153,7 @@ public class Xray extends Module {
                 "minecraft:lapis_ore", "minecraft:nether_gold_ore", "minecraft:nether_quartz_ore",
                 "minecraft:raw_copper_block", "minecraft:raw_gold_block", "minecraft:raw_iron_block",
                 "minecraft:redstone_block", "minecraft:redstone_ore", "minecraft:suspicious_gravel",
-                "minecraft:suspicious_sand"
+                "minecraft:suspicious_sand", "minecraft:lava", "minecraft:water"
             ))
         ), Functional(
             new ArrayList<>(List.of(
