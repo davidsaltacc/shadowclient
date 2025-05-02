@@ -90,7 +90,7 @@ public class Frame extends FrameChild {
     }
 
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        int textOffset = (int) ((float) height / 2 - Font.getHeight() / 2);
+        int textOffset = (int) ((float) height / 2 - (float) Font.getHeight() / 2);
 
         if (ModuleManager.RainbowGUIModule.enabled) {
             float[] rainbowF = ColorUtils.rainbowColor();
@@ -104,7 +104,7 @@ public class Frame extends FrameChild {
         }
 
         Font.renderString(context, name, x + textOffset, y + textOffset, Colors.TEXT_NORMAL.color);
-        Font.renderString(context, extended ? "-" : "+", x + width - textOffset - Font.getWidth("+"), y + textOffset, Colors.TEXT_NORMAL.color);
+        Font.renderString(context, extended ? "-" : "+", x + width - textOffset - (float) Font.getWidth("+"), y + textOffset, Colors.TEXT_NORMAL.color);
 
 
         if (extended) {
@@ -117,10 +117,8 @@ public class Frame extends FrameChild {
     public void renderDescriptions(DrawContext context, int mouseX, int mouseY, float delta) {
         if (extended) {
             for (FrameChild child : children) {
-                if (child instanceof ModuleButton button) {
-                    if (button.isHovered(mouseX, mouseY)) {
+                if (child instanceof ModuleButton button && button.isHovered(mouseX, mouseY)) {
                         button.renderDescription(context, mouseX, mouseY);
-                    }
                 }
             }
         }
@@ -144,6 +142,7 @@ public class Frame extends FrameChild {
         }
     }
 
+    @Override
     public void mouseReleased(double mouseX, double mouseY, int button) {
         if (dragging && button == GLFW.GLFW_MOUSE_BUTTON_1) {
             dragging = false;
@@ -156,6 +155,7 @@ public class Frame extends FrameChild {
         }
     }
 
+    @Override
     public void keyPressed(int keyCode, int scanCode, int modifiers) {
         if (extended) {
             for (FrameChild child : children) {
@@ -215,9 +215,7 @@ public class Frame extends FrameChild {
     public int getHeight() {
         AtomicInteger height = new AtomicInteger(this.height);
         if (extended) {
-            children.forEach(child -> {
-                height.set(height.get() + child.getHeight());
-            });
+            children.forEach(child -> height.set(height.get() + child.getHeight()));
         }
         return height.get();
     }

@@ -27,7 +27,7 @@ public class SCBoolSetting extends SCSettingComponent {
         } else {
             context.fill(parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, Colors.SETTING_COMPONENT_NORMAL.color);
         }
-        int textOffset = (int) ((float) parent.height / 2 - Font.getHeight() / 2);
+        int textOffset = (int) ((float) parent.height / 2 - (float) Font.getHeight() / 2);
 
         Font.renderString(context, booleanSetting.name + ": " + booleanSetting.booleanValue(), parent.x + textOffset, parent.y + offset + textOffset, getTextColor());
 

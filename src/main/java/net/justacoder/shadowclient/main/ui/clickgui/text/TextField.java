@@ -51,14 +51,16 @@ public class TextField extends FrameChild {
         } else {
             context.fill(getParentFrame().x, getParentFrame().y + offset, getParentFrame().x + getParentFrame().width, getParentFrame().y + offset + getParentFrame().height, Colors.MODULE_BUTTON_NORMAL.color);
         }
-        int textOffset = (int) ((float) getParentFrame().height / 2 - Font.getHeight() / 2);
+        int textOffset = (int) ((float) getParentFrame().height / 2 - (float) Font.getHeight() / 2);
         Font.renderString(context, text.isEmpty() ? friendlyPlaceholder : text.toLowerCase(), getParentFrame().x + textOffset, getParentFrame().y + offset + textOffset, text.isEmpty() ? Colors.TEXT_DISABLED.color : Colors.TEXT_NORMAL.color);
     }
 
+    @Override
     public void mouseClicked(double mouseX, double mouseY, int button) {
         captureKeyPresses = isHovered(mouseX, mouseY);
     }
 
+    @Override
     public void keyPressed(int keyCode, int scanCode, int modifiers) {
         if (captureKeyPresses) {
             if (keyCode == GLFW.GLFW_KEY_BACKSPACE) {

@@ -12,6 +12,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.GameOptions;
+import net.minecraft.client.util.VideoMode;
+import net.minecraft.client.util.Window;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.AmbientEntity;
 import net.minecraft.entity.mob.Monster;
@@ -25,6 +27,7 @@ import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.module.modules.render.EntitiesESP;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -40,6 +43,8 @@ public abstract class MinecraftClientMixin {
     @Shadow public abstract boolean isWindowFocused();
     @Shadow @Final public GameOptions options;
     @Shadow @Nullable public Screen currentScreen;
+
+    @Shadow public abstract Window getWindow();
 
     /**
      * @author ...

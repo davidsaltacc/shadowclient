@@ -31,7 +31,7 @@ public abstract class SplashTexts {
             "This statement is false",
             "This is a splash text.",
             "",
-            "Why?",
+            "Why? WHYY????",
             "What is the purpose of our lives?",
             "Can be used to troll friends."
     );

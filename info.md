@@ -75,6 +75,10 @@
 
 
 ## yet to do:
+- is it possible to dynamically grow the font atlas?
+- specator mode - spectate someone. make the cameraEntity be someone else
+- make UI independent of ui scale.
+- new help message
 - seedcrackerX integration
 - seed xray / "oresim" 
 - translateable setting names
@@ -85,7 +89,7 @@
 * throwing eggs works in freecam... what else?
 - rework most of the *Utils classes
 * remove legit option from parkour, just default it
-- wall interact
+- wall interact !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 - noclip
 - redo the splash texts. fuuucking hell
 - less annotations, more constructor params

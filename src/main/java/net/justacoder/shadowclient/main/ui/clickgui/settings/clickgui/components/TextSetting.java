@@ -35,14 +35,16 @@ public class TextSetting extends SettingComponent {
         } else {
             context.fill(parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, Colors.MODULE_BUTTON_NORMAL.color);
         }
-        int textOffset = (int) ((float) parent.parent.height / 2 - Font.getHeight() / 2);
+        int textOffset = (int) ((float) parent.parent.height / 2 - (float) Font.getHeight() / 2);
         Font.renderString(context, stringSetting.stringValue().isEmpty() ? placeholder :  stringSetting.stringValue().toLowerCase(), parent.parent.x + textOffset, parent.parent.y + parent.offset + offset + textOffset, stringSetting.stringValue().isEmpty() ? Colors.TEXT_DISABLED.color : Colors.TEXT_NORMAL.color);
     }
 
+    @Override
     public void mouseClicked(double mouseX, double mouseY, int button) {
         captureKeyPresses = isHovered(mouseX, mouseY);
     }
 
+    @Override
     public void keyPressed(int keyCode, int scanCode, int modifiers) {
         if (captureKeyPresses) {
             if (keyCode == GLFW.GLFW_KEY_BACKSPACE) {

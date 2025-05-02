@@ -6,9 +6,7 @@ import net.justacoder.shadowclient.mixin.DrawContextAccessor;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
-import org.joml.Quaternionf;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,33 +21,28 @@ public class FontRenderer {
     }
 
 
-    public void drawText(DrawContext context, String text, float x, float y, int fontSize, int color, int guiScale) {
-        drawText(((DrawContextAccessor) context).getVertexConsumers(), context.getMatrices(), text, x, y, fontSize, color, guiScale);
+    public void drawText(DrawContext context, String text, float x, float y, int fontSize, int color) {
+        drawText(((DrawContextAccessor) context).getVertexConsumers(), context.getMatrices(), text, x, y, fontSize, color);
     }
 
-    public void drawText(VertexConsumerProvider provider, MatrixStack matrices, String text, float x, float y, int fontSize, int color, int guiScale) {
-        FontTextureAtlas atlas = getAtlasForSize(fontSize * guiScale);
-        drawText(provider.getBuffer(RenderLayer.getText(atlas.getTextureId())), matrices.peek().getPositionMatrix(), text, x, y, fontSize, color, guiScale);
+    public void drawText(VertexConsumerProvider provider, MatrixStack matrices, String text, float x, float y, int fontSize, int color) {
+        FontTextureAtlas atlas = getAtlasForSize(fontSize);
+        drawText(provider.getBuffer(RenderLayer.getText(atlas.getTextureId())), matrices.peek().getPositionMatrix(), text, x, y, fontSize, color);
     }
 
-    public void drawText(BufferBuilderProvider provider, MatrixStack matrices, String text, float x, float y, int fontSize, int color, int guiScale, boolean depthTest) {
-        FontTextureAtlas atlas = getAtlasForSize(fontSize * guiScale);
-        drawText(provider.getBufferBuilder(RenderingTypes.getText(atlas.getTextureId(), depthTest)), matrices.peek().getPositionMatrix(), text, x, y, fontSize, color, guiScale);
+    public void drawText(BufferBuilderProvider provider, MatrixStack matrices, String text, float x, float y, int fontSize, int color, boolean depthTest) {
+        FontTextureAtlas atlas = getAtlasForSize(fontSize);
+        drawText(provider.getBufferBuilder(RenderingTypes.getText(atlas.getTextureId(), depthTest)), matrices.peek().getPositionMatrix(), text, x, y, fontSize, color);
     }
 
-    public void drawText(BufferBuilderProvider provider, MatrixStack matrices, String text, float x, float y, int fontSize, int color, int guiScale) {
-        drawText(provider, matrices, text, x, y, fontSize, color, guiScale, true);
+    public void drawText(BufferBuilderProvider provider, MatrixStack matrices, String text, float x, float y, int fontSize, int color) {
+        drawText(provider, matrices, text, x, y, fontSize, color, false);
     }
 
-    private void drawText(VertexConsumer consumer, Matrix4f matrix, String text, float x, float y, int fontSize, int color, int guiScale) {
+    private void drawText(VertexConsumer consumer, Matrix4f matrix, String text, float x, float y, int fontSize, int color) {
 
-        FontTextureAtlas atlas = getAtlasForSize(fontSize * guiScale);
+        FontTextureAtlas atlas = getAtlasForSize(fontSize);
         FontTextureAtlas.Glyph glyph;
-
-        matrix.scale(1f / guiScale, 1f / guiScale, 1f);
-
-        x *= guiScale;
-        y *= guiScale;
 
         float r = (color >> 16 & 255) / 255f;
         float g = (color >> 8 & 255) / 255f;
@@ -67,12 +60,6 @@ public class FontRenderer {
 
             cursorX += glyph.width;
         }
-
-        matrix.scale(guiScale, guiScale, 1f);
-
-    }
-
-    public void drawTextInWorld(VertexConsumerProvider.Immediate vertexConsumers, MatrixStack matrices, String text, Vec3d position, float scale, int color, Quaternionf rotation, boolean faceCam) {
 
     }
 

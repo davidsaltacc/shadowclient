@@ -2,9 +2,7 @@ package net.justacoder.shadowclient.main.ui.clickgui;
 
 import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.module.ModuleManager;
-import net.justacoder.shadowclient.main.util.ScreenSizeGetter;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components.TextSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.text.TextField;
@@ -18,50 +16,39 @@ import java.util.List;
 
 public class MainClickGUI extends ClickGUI {
 
-    public final List<Frame> frames;
-
-    public Frame searchFrame;
-    public boolean searching;
-    public String searchingFor;
-
     public final MinecraftClient mc = MinecraftClient.getInstance();
 
     public MainClickGUI() {
         super("ClickGUI");
 
-        frames = new ArrayList<>();
-        searching = false;
-        searchingFor = "";
-
         for (ModuleCategory category : ModuleCategory.values()) {
             if (category.hiddenFromMain) {
                 continue;
             }
-            frames.add(Frame.create(category, 0, 0, 100, 13));
+            frames.add(Frame.create(category, 0, 0, 200, 26));
         }
 
-        searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, 0, 0, 100, 12);
+        searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, 0, 0, 200, 26);
         frames.add(searchFrame);
-        searchFrame.children.add(new TextField(searchFrame, 12, "textfield.placeholder.find_module"));
+        searchFrame.children.add(new TextField(searchFrame, 24, "textfield.placeholder.find_module"));
     }
 
     public void repositionFramesProperly() {
 
-        int screenWidth = ScreenSizeGetter.getResolution().x;
+        int width = mc.getWindow().getMonitor().findClosestVideoMode(mc.getWindow().getFullscreenVideoMode()).getWidth(); // why is this so hard???? anyway it works now
 
-        int width = screenWidth / 2;
-        int columns = (int) Math.floor((float) (width / 2.) / 105);
+        int columns = (int) Math.floor((float) (width / 2.) / 210);
 
         int[] columnsY = new int[columns];
-        Arrays.fill(columnsY, 5);
+        Arrays.fill(columnsY, 10);
 
         for (int index = 0; index < frames.size(); index++) {
             int xCol = index % columns;
             Frame frame = frames.get(index);
-            if (columnsY[xCol] == 5) {
+            if (columnsY[xCol] == 10) {
                 frame.y = columnsY[xCol];
-                columnsY[xCol] += frame.getHeight() + 5;
-                frame.x = 5 + xCol * 105;
+                columnsY[xCol] += frame.getHeight() + 10;
+                frame.x = 10 + xCol * 210;
             } else {
                 int minY = (int) 1e7;
                 int minYIndex = -1;
@@ -73,45 +60,10 @@ public class MainClickGUI extends ClickGUI {
                     }
                 }
                 frame.y = columnsY[minYIndex];
-                columnsY[minYIndex] += frame.getHeight() + 5;
-                frame.x = 5 + minYIndex * 105;
+                columnsY[minYIndex] += frame.getHeight() + 10;
+                frame.x = 10 + minYIndex * 210;
             }
         }
-    }
-
-    @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-
-        this.applyBlur();
-
-        for (Frame frame : frames) {
-            frame.render(context, mouseX, mouseY, delta);
-            frame.updatePosition(mouseX, mouseY);
-        }
-        for (Frame frame : frames) {
-            frame.renderDescriptions(context, mouseX, mouseY, delta);
-        }
-
-    }
-
-    @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-
-        for (Frame frame : frames) {
-            frame.mouseClicked(mouseX, mouseY, button);
-        }
-
-        return super.mouseClicked(mouseX, mouseY, button);
-    }
-
-    @Override
-    public boolean mouseReleased(double mouseX, double mouseY, int button) {
-
-        for (Frame frame : frames) {
-            frame.mouseReleased(mouseX, mouseY, button);
-        }
-
-        return super.mouseReleased(mouseX, mouseY, button);
     }
 
     @Override

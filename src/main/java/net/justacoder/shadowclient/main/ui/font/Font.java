@@ -15,9 +15,9 @@ import java.io.InputStream;
 public abstract class Font {
 
     public static final String FONT_PATH = "/assets/shadowclient/font/notosans-regular.ttf";
-    public static final float FONT_SIZE = 7f;
+    public static final float FONT_SIZE = 14f;
     public static final float FONT_OFFSET_X = 0f;
-    public static final float FONT_OFFSET_Y = -2f;
+    public static final float FONT_OFFSET_Y = -4f;
 
     public static FontRenderer fontRenderer;
 
@@ -31,14 +31,6 @@ public abstract class Font {
             fontDataStream.close();
             fontRenderer = new FontRenderer(font);
 
-            for (int s = 1; s <= 4; s++) {
-                try {
-                    fontRenderer.getAtlasForSize((int) FONT_SIZE * s);
-                } catch (Exception e) {
-                    throw new RuntimeException("Failed to create font atlas for size " + (int) FONT_SIZE * s + " (gui scale " + s + "): " + e);
-                }
-            }
-
             ShadowClientMain.info("Finished initializing font renderer");
 
         } catch (Exception e) {
@@ -47,33 +39,32 @@ public abstract class Font {
         }
     }
 
-    private static int getGuiScale() {
-        int scale = ShadowClientMain.mc.options.getGuiScale().getValue();
-        return scale == 0 ? 2 : scale;
-    }
-
     public static void renderString(DrawContext context, String text, float x, float y, int color) {
-        fontRenderer.drawText(context, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, (int) FONT_SIZE, color, getGuiScale());
-    }
-
-    public static void renderString(VertexConsumerProvider.Immediate vertexConsumers, MatrixStack matrices, String text, float x, float y, int color, int guiScale) {
-        fontRenderer.drawText(vertexConsumers, matrices, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, (int) FONT_SIZE, color, guiScale);
+        fontRenderer.drawText(context, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, (int) FONT_SIZE, color);
     }
 
     public static void renderString(VertexConsumerProvider.Immediate vertexConsumers, MatrixStack matrices, String text, float x, float y, int color) {
-        fontRenderer.drawText(vertexConsumers, matrices, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, (int) FONT_SIZE, color, getGuiScale());
-    }
-
-    public static void renderString(BufferBuilderProvider bufferBuilderProvider, MatrixStack matrices, String text, float x, float y, int color, int guiScale) {
-        fontRenderer.drawText(bufferBuilderProvider, matrices, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, (int) FONT_SIZE, color, guiScale);
+        fontRenderer.drawText(vertexConsumers, matrices, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, (int) FONT_SIZE, color);
     }
 
     public static void renderString(BufferBuilderProvider bufferBuilderProvider, MatrixStack matrices, String text, float x, float y, int color) {
-        fontRenderer.drawText(bufferBuilderProvider, matrices, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, (int) FONT_SIZE, color, getGuiScale());
+        fontRenderer.drawText(bufferBuilderProvider, matrices, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, (int) FONT_SIZE, color);
     }
 
-    public static int getWidth(String text) {
-        FontTextureAtlas atlas = fontRenderer.getAtlasForSize((int) FONT_SIZE);
+    public static void renderString(DrawContext context, String text, float x, float y, int color, int fontSize) {
+        fontRenderer.drawText(context, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, fontSize, color);
+    }
+
+    public static void renderString(VertexConsumerProvider.Immediate vertexConsumers, MatrixStack matrices, String text, float x, float y, int color, int fontSize) {
+        fontRenderer.drawText(vertexConsumers, matrices, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, fontSize, color);
+    }
+
+    public static void renderString(BufferBuilderProvider bufferBuilderProvider, MatrixStack matrices, String text, float x, float y, int color, int fontSize) {
+        fontRenderer.drawText(bufferBuilderProvider, matrices, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, fontSize, color);
+    }
+
+    public static int getWidth(String text, int fontSize) {
+        FontTextureAtlas atlas = fontRenderer.getAtlasForSize(fontSize);
         int width = 0;
 
         for (char c : text.toCharArray()) {
@@ -84,12 +75,23 @@ public abstract class Font {
         return width;
     }
 
+    public static int getWidth(String text) {
+        return getWidth(text, (int) FONT_SIZE);
+    }
+
     public static int getWidth(Text text) {
         return getWidth(text.getString());
     }
 
-    public static float getHeight() {
-        return FONT_SIZE;
+    public static int getWidth(Text text, int fontSize) {
+        return getWidth(text.getString(), fontSize);
+    }
+
+    public static int getHeight() {
+        return (int) FONT_SIZE;
+    }
+    public static int getHeight(int fontSize) {
+        return fontSize;
     }
 
 }

@@ -27,7 +27,7 @@ public class BoolSetting extends SettingComponent {
         } else {
             context.fill(parent.parent.x, parent.parent.y + parent.offset + offset, parent.parent.x + parent.parent.width, parent.parent.y + parent.offset + offset + parent.parent.height, Colors.SETTING_COMPONENT_NORMAL.color);
         }
-        int textOffset = (int) ((float) parent.parent.height / 2 - Font.getHeight() / 2);
+        int textOffset = (int) ((float) parent.parent.height / 2 - (float) Font.getHeight() / 2);
 
         Font.renderString(context, booleanSetting.name + ": " + (booleanSetting.booleanValue() ? "yes" : "no"), parent.parent.x + textOffset, parent.parent.y + parent.offset + offset + textOffset, Colors.TEXT_NORMAL.color);
 

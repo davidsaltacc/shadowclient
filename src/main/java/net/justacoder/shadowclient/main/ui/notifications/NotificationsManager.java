@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.ui.notifications;
 
+import net.justacoder.shadowclient.main.render.UIRenderUtils;
 import net.minecraft.client.gui.DrawContext;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,18 +25,34 @@ public abstract class NotificationsManager {
         notifications.forEach(Notification::reloadTranslations);
     }
 
-    public static void renderNotifications(DrawContext context, int mouseX, int mouseY, float delta) {
-        AtomicInteger offset = new AtomicInteger(5);
+    public static void renderNotifications(DrawContext context, int scaledMouseX, int scaledMouseY, float delta) {
+
+        UIRenderUtils.beforeUIRender(context);
+
+        float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor(); // see ClickGUI.render() for the reason using enableGuiScaleFactor()
+        int mouseX = (int) (scaledMouseX * disableScaleFactor);
+        int mouseY = (int) (scaledMouseY * disableScaleFactor);
+
+        AtomicInteger offset = new AtomicInteger(10);
         notifications.forEach(n -> {
-            n.render(context, mouseX, mouseY, delta, 5, offset.get());
-            offset.addAndGet(n.getHeight() + 5);
+            n.render(context, mouseX, mouseY, delta, 10, offset.get());
+            offset.addAndGet(n.getHeight() + 10);
         });
+
+        UIRenderUtils.afterUIRender(context);
+
     }
 
-    public static void mouseClicked(double mouseX, double mouseY, int button) {
-        notifications.forEach(n -> n.mouseClicked((int) mouseX, (int) mouseY, button));
+    public static void mouseClicked(double scaledMouseX, double scaledMouseY, int button) {
+
+        float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor(); // see ClickGUI.render() for the reason using enableGuiScaleFactor()
+        int mouseX = (int) (scaledMouseX * disableScaleFactor);
+        int mouseY = (int) (scaledMouseY * disableScaleFactor);
+
+        notifications.forEach(n -> n.mouseClicked(mouseX, mouseY, button));
         toDelete.forEach(NotificationsManager::removeNotification);
         toDelete.clear();
+
     }
 
 }

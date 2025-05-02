@@ -126,27 +126,27 @@ public class ShadowClientMain {
     }
 
     public static void initSettingsScreen(ClickGUI gui) {
-        int offset = 5;
+        int offset = 10;
 
-        Frame settingsframe = Frame.createWithoutAddingModules(ModuleCategory.SETTINGS, offset, 5, 100, 13);
+        Frame settingsframe = Frame.createWithoutAddingModules(ModuleCategory.SETTINGS, offset, 10, 200, 26);
         gui.frames.add(settingsframe);
-        offset += 105;
+        offset += 210;
 
-        Frame hideframe = Frame.createWithoutAddingModules(ModuleCategory.OPTIONS, offset, 5, 100, 13);
+        Frame hideframe = Frame.createWithoutAddingModules(ModuleCategory.OPTIONS, offset, 10, 200, 26);
         gui.frames.add(hideframe);
-        hideframe.children.add(new ModuleButton("hidesettings", hideframe, 13));
-        hideframe.children.add(new ModuleButton("loaddata", hideframe, 26));
-        hideframe.children.add(new ModuleButton("savedata", hideframe, 39));
-        hideframe.children.add(new ModuleButton("resetdata", hideframe, 52));
+        hideframe.children.add(new ModuleButton("hidesettings", hideframe, 26));
+        hideframe.children.add(new ModuleButton("loaddata", hideframe, 52));
+        hideframe.children.add(new ModuleButton("savedata", hideframe, 78));
+        hideframe.children.add(new ModuleButton("resetdata", hideframe, 104));
         offset += 105;
 
-        settingsframe.children.add(new SCBoolSetting(ShadowClientSettings.VanillaSpoof, settingsframe, 13));
-        settingsframe.children.add(new SCBoolSetting(ShadowClientSettings.ChatMessages, settingsframe, 26));
-        settingsframe.children.add(new SCBoolSetting(ShadowClientSettings.BlurBackground, settingsframe, 39));
+        settingsframe.children.add(new SCBoolSetting(ShadowClientSettings.VanillaSpoof, settingsframe, 26));
+        settingsframe.children.add(new SCBoolSetting(ShadowClientSettings.ChatMessages, settingsframe, 52));
+        settingsframe.children.add(new SCBoolSetting(ShadowClientSettings.BlurBackground, settingsframe, 78));
 
-        gui.searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, offset, 5, 120, 13);
+        gui.searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, offset, 10, 240, 26);
         gui.frames.add(gui.searchFrame);
-        gui.searchFrame.children.add(new TextField(gui.searchFrame, 13, "textfield.placeholder.find_setting"));
+        gui.searchFrame.children.add(new TextField(gui.searchFrame, 26, "textfield.placeholder.find_setting"));
     }
 
     public static void setModuleEnabled(String name, boolean enabled) {

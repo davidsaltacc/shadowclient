@@ -1,6 +1,7 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
 import net.justacoder.shadowclient.main.config.ShadowClientSettings;
+import net.justacoder.shadowclient.main.render.UIRenderUtils;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
@@ -35,9 +36,15 @@ public class ClickGUI extends Screen {
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void render(DrawContext context, int scaledMouseX, int scaledMouseY, float delta) {
 
         this.applyBlur();
+
+        float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor(); // technically we disable, but we use enable() because we need to multiply the coordinates instead of downscaling
+        int mouseX = (int) (scaledMouseX * disableScaleFactor);
+        int mouseY = (int) (scaledMouseY * disableScaleFactor);
+
+        UIRenderUtils.beforeUIRender(context);
 
         for (Frame frame : frames) {
             frame.render(context, mouseX, mouseY, delta);
@@ -47,10 +54,16 @@ public class ClickGUI extends Screen {
             frame.renderDescriptions(context, mouseX, mouseY, delta);
         }
 
+        UIRenderUtils.afterUIRender(context);
+
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    public boolean mouseClicked(double scaledMouseX, double scaledMouseY, int button) {
+
+        float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor(); // see render() for reason of using enable...()
+        int mouseX = (int) (scaledMouseX * disableScaleFactor);
+        int mouseY = (int) (scaledMouseY * disableScaleFactor);
 
         for (Frame frame : frames) {
             frame.mouseClicked(mouseX, mouseY, button);
@@ -60,7 +73,11 @@ public class ClickGUI extends Screen {
     }
 
     @Override
-    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+    public boolean mouseReleased(double scaledMouseX, double scaledMouseY, int button) {
+
+        float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor();
+        int mouseX = (int) (scaledMouseX * disableScaleFactor);
+        int mouseY = (int) (scaledMouseY * disableScaleFactor);
 
         for (Frame frame : frames) {
             frame.mouseReleased(mouseX, mouseY, button);

@@ -25,8 +25,8 @@ public class HudElement {
     }
 
     public void render(DrawContext context, float tickDelta, int offset) {
-        context.fill(0, offset, (int) Font.getWidth(this.textContent) + 4, offset + (int) Font.getHeight() + 4, Colors.HUD_ELEMENT_BACKGROUND.color);
-        Font.renderString(context, this.textContent, 1, offset + 2, Colors.HUD_ELEMENT_TEXT.color);
+        context.fill(0, offset, Font.getWidth(this.textContent) + 8, offset + Font.getHeight() + 8, Colors.HUD_ELEMENT_BACKGROUND.color);
+        Font.renderString(context, this.textContent, 2, offset + 4, Colors.HUD_ELEMENT_TEXT.color);
     }
 
     public void render(DrawContext context, float tickDelta, int offset, boolean rightSide) {
@@ -35,11 +35,11 @@ public class HudElement {
             return;
         }
         int width = context.getScaledWindowWidth();
-        context.fill(width - 3 - mc.textRenderer.getWidth(this.textContent), 2 + offset, width - 2, 2 + offset + (int) Font.getHeight(), Colors.HUD_ELEMENT_BACKGROUND.color);
-        Font.renderString(context, this.textContent, width - mc.textRenderer.getWidth(this.textContent) - 2, 3 + offset, Colors.HUD_ELEMENT_TEXT.color);
+        context.fill(width - 6 - mc.textRenderer.getWidth(this.textContent), 4 + offset, width - 4, 4 + offset + Font.getHeight(), Colors.HUD_ELEMENT_BACKGROUND.color);
+        Font.renderString(context, this.textContent, width - mc.textRenderer.getWidth(this.textContent) - 4, 6 + offset, Colors.HUD_ELEMENT_TEXT.color);
     }
 
     public int getHeight() {
-        return (int) Font.getHeight() + 4;
+        return Font.getHeight() + 8;
     }
 }

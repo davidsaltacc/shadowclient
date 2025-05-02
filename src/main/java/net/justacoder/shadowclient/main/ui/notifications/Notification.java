@@ -60,32 +60,32 @@ public class Notification {
         offX = offsetX;
         offY = offsetY;
         boolean hovered = isHovered(mouseX, mouseY, offsetX, offsetY);
-        context.fill(RenderLayer.getGuiOverlay(), offsetX, offsetY, offsetX + getWidth(), offsetY + getHeight(), hovered ? Colors.NOTIFICATION_HOVERED.color : Colors.NOTIFICATION_NORMAL.color);
-        Font.renderString(context, friendlyTitle, offsetX + 5, offsetY + 5, Colors.TEXT_NORMAL.color);
-        context.drawHorizontalLine(offsetX + 5, offsetX + getWidth() - 5, offsetY + 10 + (int) Font.getHeight(), Colors.HORIZONTAL_LINE.color);
-        AtomicInteger offset = new AtomicInteger(15 + (int) Font.getHeight()); // java this is annoying
+        int w = getWidth();
+        context.fill(RenderLayer.getGuiOverlay(), offsetX, offsetY, offsetX + w, offsetY + getHeight(), hovered ? Colors.NOTIFICATION_HOVERED.color : Colors.NOTIFICATION_NORMAL.color);
+        Font.renderString(context, friendlyTitle, offsetX + 10, offsetY + 10, Colors.TEXT_NORMAL.color);
+        context.drawHorizontalLine(offsetX + 10, offsetX + w - 10, offsetY + 20 + Font.getHeight(), Colors.HORIZONTAL_LINE.color);
+        AtomicInteger offset = new AtomicInteger(30 + Font.getHeight()); // java this is annoying
         friendlyDesc.forEach(line -> {
-            Font.renderString(context, line, offsetX + 5, offsetY + offset.get(), Colors.TEXT_NORMAL.color);
-            offset.addAndGet(5 + (int) Font.getHeight());
+            Font.renderString(context, line, offsetX + 10, offsetY + offset.get(), Colors.TEXT_NORMAL.color);
+            offset.addAndGet(10 + Font.getHeight());
         });
-        context.drawHorizontalLine(offsetX + 5, offsetX + getWidth() - 5, offsetY + offset.get(), Colors.HORIZONTAL_LINE.color);
-        Font.renderString(context, dismissText, offsetX + 5, offsetY + offset.get() + 5, Colors.TEXT_DISABLED.color);
+        context.drawHorizontalLine(offsetX + 10, offsetX + w - 10, offsetY + offset.get(), Colors.HORIZONTAL_LINE.color);
+        Font.renderString(context, dismissText, offsetX + 10, offsetY + offset.get() + 10, Colors.TEXT_DISABLED.color);
 
     }
 
     public int getHeight() {
         if (height == -999) {
-            height = (int) Font.getHeight() + 10 +          // title
-                ((int) Font.getHeight() + 5) * (desc.size() // desc
-                + 1) + 10;                                    // dismiss text
+            height = (Font.getHeight() + 20) * (desc.size() // desc
+                + 2); // title and dismiss text
         }
         return height;
     }
     public int getWidth() {
         if (width == -999) {
-            int[] longest = { (int) Math.max(Font.getWidth(dismissText), Font.getWidth(friendlyTitle)) };
-            friendlyDesc.forEach(line -> longest[0] = Math.max((int) Font.getWidth(line), longest[0]));
-            width = longest[0] + 10;
+            int[] longest = {Math.max(Font.getWidth(dismissText), Font.getWidth(friendlyTitle)) };
+            friendlyDesc.forEach(line -> longest[0] = Math.max(Font.getWidth(line), longest[0]));
+            width = longest[0] + 20;
         }
         return width;
     }

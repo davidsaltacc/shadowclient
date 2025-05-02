@@ -41,7 +41,7 @@ public class SliderSetting extends SettingComponent {
             }
         }
 
-        int textOffset = (int) ((float) parent.parent.height / 2 - Font.getHeight() / 2);
+        int textOffset = (int) ((float) parent.parent.height / 2 - (float) Font.getHeight() / 2);
 
         Font.renderString(context, numberSetting.name + ": " + MathUtils.roundToPlace(numberSetting.numberValue().floatValue(), 3), parent.parent.x + textOffset, parent.parent.y + parent.offset + offset + textOffset, Colors.TEXT_NORMAL.color);
 

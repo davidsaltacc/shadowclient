@@ -92,7 +92,7 @@ public class ModuleButton extends FrameChild {
     public void renderDescription(DrawContext context, int mouseX, int mouseY) {
         int color = Colors.MODULE_BUTTON_NORMAL.color;
 
-        int width = (int) Font.getWidth(module.description);
+        int width = Font.getWidth(module.description);
         int textOffset = (int) ((float) parent.height / 2 - Font.getHeight() / 2);
 
         context.fill(parent.x + parent.width, parent.y + offset, parent.x + parent.width + width + textOffset * 2, parent.y + offset + parent.height, color);

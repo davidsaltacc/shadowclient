@@ -10,10 +10,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
-import org.joml.Math;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
-import org.joml.Vector3f;
 
 import java.util.List;
 
@@ -94,13 +92,23 @@ public class Renderer { // IntelliJ says this can be converted to a record. it's
         matrices.pop();
     }
 
+    private static final int FONT_SIZE = 28;
+
+    public int getTextWidth(String text) {
+        return Font.getWidth(text, FONT_SIZE);
+    }
+
+    public int getTextHeight() {
+        return Font.getHeight(FONT_SIZE);
+    }
+
     public void drawText(String text, float x, float y, float z, Quaternionf rotation, int color, float offsetX, float offsetY) {
         matrices.push();
         matricesToWorldSpace();
         matrices.translate(x, y, z);
         matrices.multiply(rotation);
-        matrices.scale(-0.01f, -0.01f, 0.01f);
-        Font.renderString(bufferBuilderProvider, matrices, text, offsetX, offsetY, color, 4);
+        matrices.scale(-0.0025f, -0.0025f, 0.0025f);
+        Font.renderString(bufferBuilderProvider, matrices, text, offsetX, offsetY, color, FONT_SIZE);
         matrices.pop();
     }
 

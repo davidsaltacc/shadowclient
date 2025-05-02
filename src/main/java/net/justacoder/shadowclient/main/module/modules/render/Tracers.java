@@ -86,18 +86,18 @@ public class Tracers extends Module {
 
                 float[] textRot = RotationUtils.rotationAwayF(textPos, mc.gameRenderer.getCamera().getPos());
 
-                float offsetY = (pointOnTracer.y - tracerStart.y) < 0 ? (-Font.getHeight() * (drawNames.booleanValue() && drawDistance.booleanValue() ? 2 : 1) - 1f) : 1f;
+                float offsetY = (pointOnTracer.y - tracerStart.y) < 0 ? (-evt.renderer.getTextHeight() * (drawNames.booleanValue() && drawDistance.booleanValue() ? 2 : 1) - 1f) : 1f;
 
                 if (drawNames.booleanValue()) {
                     String name = entity.getName().getString();
-                    evt.renderer.drawText(name, textPos.x, textPos.y, textPos.z, new Quaternionf().rotationYXZ(-(float) Math.toRadians(textRot[0]), (float) Math.toRadians(textRot[1]), 0f), -1, -Font.getWidth(name) / 2f, offsetY);
-                    offsetY += Font.getHeight();
+                    evt.renderer.drawText(name, textPos.x, textPos.y, textPos.z, new Quaternionf().rotationYXZ(-(float) Math.toRadians(textRot[0]), (float) Math.toRadians(textRot[1]), 0f), -1, -evt.renderer.getTextWidth(name) / 2f, offsetY);
+                    offsetY += evt.renderer.getTextHeight();
                 }
 
                 if (drawDistance.booleanValue()) {
                     String distance = (int) Math.floor(mc.player.getPos().distanceTo(entity.getPos())) + "m";
-                    evt.renderer.drawText(distance, textPos.x, textPos.y, textPos.z, new Quaternionf().rotationYXZ(-(float) Math.toRadians(textRot[0]), (float) Math.toRadians(textRot[1]), 0f), -1, -Font.getWidth(distance) / 2f, offsetY);
-                    offsetY += Font.getHeight();
+                    evt.renderer.drawText(distance, textPos.x, textPos.y, textPos.z, new Quaternionf().rotationYXZ(-(float) Math.toRadians(textRot[0]), (float) Math.toRadians(textRot[1]), 0f), -1, -evt.renderer.getTextWidth(distance) / 2f, offsetY);
+                    offsetY += evt.renderer.getTextHeight();
                 }
 
             }
