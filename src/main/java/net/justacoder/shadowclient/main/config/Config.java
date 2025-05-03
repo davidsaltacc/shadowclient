@@ -66,7 +66,7 @@ public class Config {
                         settings.addProperty(setting.name, set.booleanValue());
                     }
                     if (setting instanceof NumberSetting set) {
-                        settings.addProperty(setting.name, set.numberValue());
+                        settings.addProperty(setting.name, set.numberValueUneased());
                     }
                     if (setting instanceof StringSetting set) {
                         settings.addProperty(setting.name, set.stringValue());

@@ -1,7 +1,10 @@
 package net.justacoder.shadowclient.main.setting.settings;
 
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.setting.Setting;
+import net.justacoder.shadowclient.main.util.JavaUtils;
 import net.justacoder.shadowclient.main.util.MathUtils;
+import net.justacoder.shadowclient.main.config.hardcoded.Settings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,12 +52,18 @@ public class NumberSetting extends Setting {
     }
 
     public void setNumberValue(Number value) {
+        if (Settings.DEBUG_MODE) {
+            ShadowClientMain.info("number setting " + name + " was changed to " + value + " by " + String.join(" -> ", JavaUtils.getStackStrings()));
+        }
         Number old = this.value;
         Number newValue = MathUtils.clamp(value, minValue, maxValue);
         this.value = newValue;
         callCallbacks(newValue, old);
     }
     public void setNumberValue(Number value, boolean callCallbacksImmediatly) {
+        if (Settings.DEBUG_MODE) {
+            ShadowClientMain.info("number setting " + name + " was changed to " + value + " by " + String.join(" -> ", JavaUtils.getStackStrings()));
+        }
         Number old = this.value;
         Number newValue = MathUtils.clamp(value, minValue, maxValue);
         this.value = newValue;

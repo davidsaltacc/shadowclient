@@ -3,8 +3,23 @@ package net.justacoder.shadowclient.main.util;
 import net.justacoder.shadowclient.main.ShadowClientMain;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 public abstract class JavaUtils {
+
+    public static List<StackWalker.StackFrame> getStack() {
+        return StackWalker.getInstance().walk(Stream::toList);
+    }
+
+    public static List<String> getStackStrings() {
+        List<StackWalker.StackFrame> stackElements = JavaUtils.getStack();
+        List<String> stackStrings = new ArrayList<>();
+        stackElements.forEach(frame -> stackStrings.add(frame.getClassName() + "." + frame.getMethodName()));
+        return stackStrings;
+    }
+
     public static String stackTraceFromThrowable(Throwable e) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw, true);

@@ -1,5 +1,7 @@
 # shadowclient 0.3.0 changelog
 
+TODO https://chat.deepseek.com/a/chat/s/2f59bec3-7e09-46bb-a3f2-8d9b8bef99b6
+
 ### version change
 * moved to minecraft 1.21.4
 
@@ -39,6 +41,7 @@
 * in airjump you can toggle between normal and "jetpack" mode (hold)
 
 ### fixes:
+* fixed a lot of ui related bugs
 * fixed sliders resetting to minimum values randomly
 * fixed issues with rendering system
 * fixed issue with rendering tracer to player in freecam
@@ -64,6 +67,7 @@
 * others
 
 ### other misc. changes:
+* made clickgui independent of the gui scale
 * changed some of the UI colors slightly
 * turn off vanilla spoof by default
 
