@@ -52,7 +52,7 @@ public abstract class ShadowClientMain {
     public static final List<KeyBinding> keyBindings = new ArrayList<>();
     public static final List<KeyBinding> moduleKeyBindings = new ArrayList<>();
 
-    public static KeyBinding ToggleGUIKeyBinding;
+    public static KeyBinding toggleGUIKeyBinding;
     public static SimpleOption<Integer> guiScaleOption;
 
     public static boolean mayWriteConfig = false;
@@ -60,7 +60,7 @@ public abstract class ShadowClientMain {
     public static void init() {
         try {
             info("Starting " + CLIENT_NAME + " " + CLIENT_VERSION);
-            ToggleGUIKeyBinding = registerKeyBinding(
+            toggleGUIKeyBinding = registerKeyBinding(
                 new KeyBinding(
                     "key." + CLIENT_MOD_ID + ".togglegui",
                     InputUtil.Type.KEYSYM,
@@ -137,7 +137,7 @@ public abstract class ShadowClientMain {
         hideframe.children.add(new ModuleButton("loaddata", hideframe, 52));
         hideframe.children.add(new ModuleButton("savedata", hideframe, 78));
         hideframe.children.add(new ModuleButton("resetdata", hideframe, 104));
-        offset += 105;
+        offset += 210;
 
         settingsframe.children.add(new SCBoolSetting(ShadowClientSettings.VanillaSpoof, settingsframe, 26));
         settingsframe.children.add(new SCBoolSetting(ShadowClientSettings.ChatMessages, settingsframe, 52));
@@ -205,16 +205,6 @@ public abstract class ShadowClientMain {
             return;
         }
         ChatUtils.sendMessageClient("§9§l§u" + CLIENT_NAME + " §o" + CLIENT_VERSION + "§r\nType " + CLIENT_COMMAND_PREFIX + "help for useful help.");
-    }
-
-    public static @Nullable Screen allowKeyPress(@Nullable Screen screen) {
-        if (ModuleManager.isConfiguringKeyBinds()) {
-            return screen;
-        }
-        if (screen instanceof ClickGUI && !clickGui.isAnyTextFieldCapturing() && !settingsGui.isAnyTextFieldCapturing()) {
-            return null;
-        }
-        return screen;
     }
 
     public static String getFullClientName() {

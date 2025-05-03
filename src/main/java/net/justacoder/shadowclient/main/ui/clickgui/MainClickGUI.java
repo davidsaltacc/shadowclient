@@ -67,18 +67,19 @@ public class MainClickGUI extends ClickGUI {
     }
 
     @Override
-    public boolean shouldCloseOnEsc() {
-        if (ModuleManager.isConfiguringKeyBinds()) {
-            return false;
-        }
-        return super.shouldCloseOnEsc();
-    }
-
-    @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 
+        if (keyCode == GLFW.GLFW_KEY_ESCAPE && !this.isAnyTextFieldCapturing()) {
+            ShadowClientMain.mc.setScreen(null);
+            return true;
+        }
+        if (ShadowClientMain.toggleGUIKeyBinding.matchesKey(keyCode, scanCode)) {
+            ShadowClientMain.mc.setScreen(null);
+            return true;
+        }
+
         if (ModuleManager.isConfiguringKeyBinds()) {
-            if (ShadowClientMain.ToggleGUIKeyBinding.matchesKey(keyCode, scanCode)) {
+            if (ShadowClientMain.toggleGUIKeyBinding.matchesKey(keyCode, scanCode)) {
                 ModuleManager.endKeybindConfiguration();
                 ModuleManager.ConfigureKeybindingsModule.setDisabled();
                 ShadowClientMain.mc.setScreen(null);
@@ -91,17 +92,6 @@ public class MainClickGUI extends ClickGUI {
                 KeyBinding.updateKeysByCode();
                 ModuleManager.setConfiguringKeyBinding(null, null);
             }
-            return super.keyPressed(keyCode, scanCode, modifiers);
-        }
-
-        for (Frame frame : frames) {
-            frame.keyPressed(keyCode, scanCode, modifiers);
-        }
-
-        searching = !((TextField) searchFrame.children.get(0)).getText().isEmpty();
-
-        if (searching) {
-            searchingFor = ((TextField) searchFrame.children.get(0)).getText();
         }
 
         return super.keyPressed(keyCode, scanCode, modifiers);

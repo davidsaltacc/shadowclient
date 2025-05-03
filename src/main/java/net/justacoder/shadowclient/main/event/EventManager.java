@@ -5,9 +5,7 @@ import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.justacoder.shadowclient.main.event.events.PostTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleManager;
-import net.justacoder.shadowclient.main.ui.clickgui.ClickGUI;
 import net.justacoder.shadowclient.main.util.JavaUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,25 +22,18 @@ public class EventManager {
 
     public static void fireEvent(Event evt) {
         try {
-            if (evt instanceof PostTickEvent) {
-                if (ShadowClientMain.ToggleGUIKeyBinding.wasPressed()) {
-                    if (ShadowClientMain.mc.currentScreen == null) {
-                        ShadowClientMain.mc.setScreen(ShadowClientMain.clickGui);
-                    } else if (ShadowClientMain.mc.currentScreen instanceof ClickGUI) {
-                        ShadowClientMain.mc.setScreen(null);
-                    }
-                }
+            if (evt instanceof PostTickEvent && ShadowClientMain.toggleGUIKeyBinding.wasPressed() && ShadowClientMain.mc.currentScreen == null) {
+                ShadowClientMain.mc.setScreen(ShadowClientMain.clickGui);
             }
+
             if (ModuleManager.UpdatesDisableModule.enabled) {
                 return;
             }
 
             if (evt instanceof PostTickEvent) {
                 ModuleManager.getAllModules().forEach((name, module) -> {
-                    if (!module.getClass().isAnnotationPresent(NotKeybindable.class)) {
-                        if (module.keyBinding.wasPressed()) {
-                            module.toggle();
-                        }
+                    if (!module.getClass().isAnnotationPresent(NotKeybindable.class) && module.keyBinding.wasPressed()) {
+                        module.toggle();
                     }
                 });
             }

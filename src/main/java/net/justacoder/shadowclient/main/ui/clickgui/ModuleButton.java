@@ -1,7 +1,7 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
 import net.justacoder.shadowclient.main.annotations.NotKeybindable;
-import net.justacoder.shadowclient.main.module.modules.other.ConfigureKeybindings;
+import net.justacoder.shadowclient.main.module.modules.menus.ConfigureKeybindings;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.ShadowClientMain;

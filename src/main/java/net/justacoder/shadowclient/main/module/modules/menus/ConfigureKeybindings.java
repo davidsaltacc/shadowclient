@@ -1,4 +1,4 @@
-package net.justacoder.shadowclient.main.module.modules.other;
+package net.justacoder.shadowclient.main.module.modules.menus;
 
 import net.justacoder.shadowclient.main.annotations.DoNotSaveState;
 import net.justacoder.shadowclient.main.annotations.NoChatMessages;
@@ -13,7 +13,7 @@ import net.justacoder.shadowclient.main.module.ModuleManager;
 public class ConfigureKeybindings extends Module {
 
     public ConfigureKeybindings() {
-        super("configurekeybindings", ModuleCategory.OTHER, new String[]{"keybinds", "keybindings", "custom binds", "configure keys", "custom keys", "configure binds"});
+        super("configurekeybindings", ModuleCategory.MENUS, new String[]{"keybinds", "keybindings", "custom binds", "configure keys", "custom keys", "configure binds"});
     }
 
     @Override

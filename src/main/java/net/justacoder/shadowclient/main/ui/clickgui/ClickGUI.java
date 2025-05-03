@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.config.ShadowClientSettings;
 import net.justacoder.shadowclient.main.render.UIRenderUtils;
 import net.minecraft.client.gui.DrawContext;
@@ -7,6 +8,8 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components.TextSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.text.TextField;
+import org.lwjgl.glfw.GLFW;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,10 +95,29 @@ public class ClickGUI extends Screen {
     }
 
     @Override
+    public boolean shouldCloseOnEsc() {
+        return false;
+    }
+
+    @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+
+        if (keyCode == GLFW.GLFW_KEY_ESCAPE && !(this instanceof MainClickGUI) && !this.isAnyTextFieldCapturing()) {
+            ShadowClientMain.mc.setScreen(ShadowClientMain.clickGui);
+        }
+        if (ShadowClientMain.toggleGUIKeyBinding.matchesKey(keyCode, scanCode) && !(this instanceof MainClickGUI)) {
+            ShadowClientMain.mc.setScreen(null);
+            return true;
+        }
 
         for (Frame frame : frames) {
             frame.keyPressed(keyCode, scanCode, modifiers);
+        }
+
+        searching = !((TextField) searchFrame.children.getFirst()).getText().isEmpty();
+
+        if (searching) {
+            searchingFor = ((TextField) searchFrame.children.getFirst()).getText();
         }
 
         return super.keyPressed(keyCode, scanCode, modifiers);

@@ -5,7 +5,7 @@ import net.justacoder.shadowclient.main.annotations.OneClick;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.module.ModuleManager;
-import net.justacoder.shadowclient.main.module.modules.other.ConfigureKeybindings;
+import net.justacoder.shadowclient.main.module.modules.menus.ConfigureKeybindings;
 import net.justacoder.shadowclient.main.module.modules.render.Freecam;
 
 @NotKeybindable
