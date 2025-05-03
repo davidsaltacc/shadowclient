@@ -26,7 +26,7 @@ public class Config {
     public static boolean resetUi = false;
 
     public static File getConfigFile() {
-        return FabricLoader.getInstance().getConfigDir().resolve(ShadowClientMain.ClientModId + ".config.json").toFile();
+        return FabricLoader.getInstance().getConfigDir().resolve(ShadowClientMain.CLIENT_MOD_ID + ".config.json").toFile();
     }
 
     public static void saveConfig() {
@@ -84,7 +84,7 @@ public class Config {
 
         });
 
-        clientdata.addProperty("version", ShadowClientMain.ClientVersion);
+        clientdata.addProperty("version", ShadowClientMain.CLIENT_VERSION);
 
         Arrays.stream(ShadowClientSettings.class.getDeclaredFields()).forEach(field -> {
             try {
@@ -158,8 +158,8 @@ public class Config {
         JsonObject scsettings = json.getAsJsonObject("settings");
         JsonObject uisettings = json.getAsJsonObject("ui");
         String version = clientdata.get("version").getAsString();
-        if (!version.equals(ShadowClientMain.ClientVersion)) {
-            ShadowClientMain.warn("Config version " + version + " does not match current version " + ShadowClientMain.ClientVersion);
+        if (!version.equals(ShadowClientMain.CLIENT_VERSION)) {
+            ShadowClientMain.warn("Config version " + version + " does not match current version " + ShadowClientMain.CLIENT_VERSION);
         }
 
         json = json.getAsJsonObject("modules");
@@ -262,7 +262,7 @@ public class Config {
             }
         });
 
-        if (!version.equals(ShadowClientMain.ClientVersion)) {
+        if (!version.equals(ShadowClientMain.CLIENT_VERSION)) {
             resetUi = true;
         }
         if (uisettings != null) {

@@ -21,7 +21,7 @@ public class CommandManager {
     }
 
     public static void execute(String chatMessage) {
-        String str = chatMessage.substring(ShadowClientMain.ClientCommandPrefix.length());
+        String str = chatMessage.substring(ShadowClientMain.CLIENT_COMMAND_PREFIX.length());
         String[] parts = str.split(" ");
 
         if (commands.get(parts[0]) != null) {

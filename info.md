@@ -81,7 +81,6 @@
 - sodium does not cause issues... remove the warning.
 - is it possible to dynamically grow the font atlas?
 - spectator mode - spectate someone. make the cameraEntity be someone else
-- new help message
 - seedcrackerX integration? maybe
 - seed xray / "oresim" 
 - translatable setting names

@@ -31,22 +31,21 @@ import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class ShadowClientMain {
+public abstract class ShadowClientMain {
 
-    public static final String ClientModId = "shadowclient";
-    public static final String ClientName = "ShadowClient";
-    public static final String ClientVersion = "0.3.0";
-    public static final String ClientCommandPrefix = "sc/";
+    public static final String CLIENT_MOD_ID = "shadowclient";
+    public static final String CLIENT_NAME = "ShadowClient";
+    public static final String CLIENT_VERSION = "0.3.0";
+    public static final String CLIENT_COMMAND_PREFIX = "sc/";
 
     public static MainClickGUI clickGui;
     public static ClickGUI settingsGui;
 
     public static final MinecraftClient mc = MinecraftClient.getInstance();
-    public static final Logger logger = LoggerFactory.getLogger(ClientName);
+    public static final Logger logger = LoggerFactory.getLogger(CLIENT_NAME);
 
     public static boolean configDeleted = false;
 
@@ -60,13 +59,13 @@ public class ShadowClientMain {
 
     public static void init() {
         try {
-            info("Starting " + ClientName + " " + ClientVersion);
+            info("Starting " + CLIENT_NAME + " " + CLIENT_VERSION);
             ToggleGUIKeyBinding = registerKeyBinding(
                 new KeyBinding(
-                    "key." + ClientModId + ".togglegui",
+                    "key." + CLIENT_MOD_ID + ".togglegui",
                     InputUtil.Type.KEYSYM,
                     GLFW.GLFW_KEY_RIGHT_SHIFT,
-                    "category." + ClientModId + ".clientcategory"
+                    "category." + CLIENT_MOD_ID + ".clientcategory"
                 )
             );
             CommandManager.registerCommands();
@@ -78,7 +77,7 @@ public class ShadowClientMain {
             Runtime.getRuntime().addShutdownHook(new Thread(ShadowClientMain::closed));
             Config.loadConfig();
             checkConflictingMods();
-            info("Finished " + ClientName + " initialization");
+            info("Finished " + CLIENT_NAME + " initialization");
 
         } catch (Exception e) {
             error("Error starting client: \n" + JavaUtils.stackTraceFromThrowable(e));
@@ -181,12 +180,9 @@ public class ShadowClientMain {
     }
 
     public static String createHelp() {
-        // we hate java
-        AtomicReference<String> help = new AtomicReference<>("§9§l§u" + ClientName + " §o" + ClientVersion + "§r help\nPress right shift for the ClickGUI.\nRight Click a Part of the UI to expand it, expand Module Buttons for its settings. Hover over Module Buttons for a short description. Go to Minecraft's Key Binding menu to set custom keybindings. \nAvailable chat commands:\n");
-
-        CommandManager.commands.forEach((name, cmd) -> help.set(help.get() + "  " + ClientCommandPrefix + name + "\n"));
-
-        return help.get();
+        String help = "§9§l§u" + CLIENT_NAME + " §o" + CLIENT_VERSION + "§r help\nPress right shift for the ClickGUI.\nRight click a part of the UI to expand it, expand module buttons for its settings. Hover over module buttons for a short description. Use the \"Configure Keybinds\" button to change the keybinds. \nAvailable chat commands:\n";
+        help += String.join("\n", CommandManager.commands.keySet().stream().map(name -> CLIENT_COMMAND_PREFIX + name).toList());
+        return help;
     }
 
     public static String getWindowTitle() {
@@ -201,14 +197,14 @@ public class ShadowClientMain {
     }
 
     public static boolean interceptMessage(String message) {
-        return message.startsWith(ClientCommandPrefix);
+        return message.startsWith(CLIENT_COMMAND_PREFIX);
     }
 
     public static void onWorldJoined() {
         if (!((BooleanSetting) ShadowClientSettings.getSetting("ChatMessages")).booleanValue()) {
             return;
         }
-        ChatUtils.sendMessageClient("§9§l§u" + ClientName + " §o" + ClientVersion + "§r\nType " + ClientCommandPrefix + "help for useful help.");
+        ChatUtils.sendMessageClient("§9§l§u" + CLIENT_NAME + " §o" + CLIENT_VERSION + "§r\nType " + CLIENT_COMMAND_PREFIX + "help for useful help.");
     }
 
     public static @Nullable Screen allowKeyPress(@Nullable Screen screen) {
@@ -222,7 +218,7 @@ public class ShadowClientMain {
     }
 
     public static String getFullClientName() {
-        return ClientName + " " + ClientVersion;
+        return CLIENT_NAME + " " + CLIENT_VERSION;
     }
 
     public static void info(String text) {
