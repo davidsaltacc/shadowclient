@@ -1,7 +1,5 @@
 # shadowclient 0.3.0 changelog
 
-TODO https://chat.deepseek.com/a/chat/s/2f59bec3-7e09-46bb-a3f2-8d9b8bef99b6
-
 ### version change
 * moved to minecraft 1.21.4
 
