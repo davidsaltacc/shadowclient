@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.render;
 
+import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.justacoder.shadowclient.main.util.RotationUtils;
@@ -56,7 +57,10 @@ public class Tracers extends Module {
 
         for (Entity entity : mc.world.getEntities()) {
 
-            if (entity == mc.player) { // TODO  && !ModuleManager.FreecamModule.enabled ONCE FREECAM IS IMPROVED
+            if (
+                    (entity == mc.player && !ModuleManager.FreecamModule.enabled) ||
+                    (ModuleManager.FreecamModule.enabled && entity == ModuleManager.FreecamModule.getFreecamEntity())
+            ) {
                 continue;
             }
 

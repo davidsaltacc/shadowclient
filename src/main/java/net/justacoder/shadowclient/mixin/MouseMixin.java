@@ -2,11 +2,10 @@ package net.justacoder.shadowclient.mixin;
 
 import net.justacoder.shadowclient.main.event.EventManager;
 import net.justacoder.shadowclient.main.event.events.MouseClickedEvent;
+import net.justacoder.shadowclient.main.event.events.MouseMoveEvent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.Mouse;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.module.modules.render.Freecam;
 import net.justacoder.shadowclient.main.ui.notifications.NotificationsManager;
 import org.spongepowered.asm.mixin.Final;
@@ -15,7 +14,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
@@ -28,12 +26,14 @@ public abstract class MouseMixin {
     @ModifyArgs(method = "updateMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;changeLookDirection(DD)V"))
     private void onLookDirection(Args args) {
 
-        Freecam freecam = ModuleManager.FreecamModule;
-
-        if (freecam.enabled) {
-            freecam.lookDirection((double) args.get(0) * 0.15, (double) args.get(1) * 0.15);
-            args.set(0, 0d);
-            args.set(1, 0d);
+        MouseMoveEvent event = new MouseMoveEvent((double) args.get(0) * 0.15, (double) args.get(1) * 0.15);
+        EventManager.fireEvent(event);
+        if (event.cancelled) {
+            args.set(0, 0.);
+            args.set(1, 0.);
+        } else {
+            args.set(0, event.getDeltaX() * (1 / 0.15));
+            args.set(1, event.getDeltaY() * (1 / 0.15));
         }
 
     }

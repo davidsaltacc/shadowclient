@@ -31,4 +31,11 @@ public abstract class InGameHudMixin {
             HudRenderer.onHudRender(context, tickCounter.getTickDelta(false));
         }
     }
+
+    @Inject(method = "renderMainHud", at = @At("HEAD"), cancellable = true)
+    private void beforeRenderMainHud(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+        if (ModuleManager.FreecamModule.enabled) {
+            ci.cancel();
+        }
+    }
 }

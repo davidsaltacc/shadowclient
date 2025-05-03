@@ -12,8 +12,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.util.VideoMode;
-import net.minecraft.client.util.Window;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.AmbientEntity;
 import net.minecraft.entity.mob.Monster;
@@ -27,24 +26,23 @@ import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.module.modules.render.EntitiesESP;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import org.jetbrains.annotations.Nullable;
-import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin {
 
-    @Shadow public abstract boolean isWindowFocused();
     @Shadow @Final public GameOptions options;
     @Shadow @Nullable public Screen currentScreen;
 
-    @Shadow public abstract Window getWindow();
+    @Shadow private boolean integratedServerRunning;
 
     /**
      * @author ...
@@ -127,6 +125,14 @@ public abstract class MinecraftClientMixin {
     @Inject(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;onCameraEntitySet(Lnet/minecraft/entity/Entity;)V", shift = At.Shift.AFTER))
     private void afterCameraEntitySet(CallbackInfo ci) {
         EventManager.fireEvent(new PerspectiveChangeEvent());
+    }
+
+    @Redirect(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/KeyBinding;wasPressed()Z", ordinal = 0))
+    private boolean disallowPerspectiveChange(KeyBinding instance) {
+        if (ModuleManager.FreecamModule.enabled) {
+            return false;
+        }
+        return instance.wasPressed();
     }
 
 }

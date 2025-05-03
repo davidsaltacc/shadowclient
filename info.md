@@ -37,6 +37,7 @@
 * tracers show distance and name
 * rewritten improved and more optimized rendering
 * in airjump you can toggle between normal and "jetpack" mode (hold)
+* heavily improved and bugfixed freecam
 
 ### fixes:
 * fixed a lot of ui related bugs
@@ -77,44 +78,38 @@
 
 
 ## yet to do:
+- sodium does not cause issues... remove the warning.
 - is it possible to dynamically grow the font atlas?
-- specator mode - spectate someone. make the cameraEntity be someone else
-- make UI independent of ui scale.
+- spectator mode - spectate someone. make the cameraEntity be someone else
 - new help message
-- seedcrackerX integration
+- seedcrackerX integration? maybe
 - seed xray / "oresim" 
-- translateable setting names
+- translatable setting names
 - unhittable - move player around in a small area real quickly to make them harder to hit
 - MAKE XRAY ORE MODE INCLUDE LAVA -
 - autosneak: make interactions be normal
 * clean up the codebase... so much unused stuff
-* throwing eggs works in freecam... what else?
 - rework most of the *Utils classes
 * remove legit option from parkour, just default it
 - wall interact !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 - noclip
 - redo the splash texts. fuuucking hell
 - less annotations, more constructor params
-- freecam: instead of keeping the player as the camera entity and doing weird hackarounds, create an artifical camera entity that moves? this should fix the skin rendering, and the chunks oddly culling sometimes
 - wall phase. please
-- fix the freecam skin rendering
 - SCFont.getWidth seems to be wrong slightly, does it count spaces properly?
 - MAKE ESC KEY CLOSE THE FUCKING CLICKGUI.
 - top bar right click simulator
 - no fog
-- SLIDERS KEEP GETTING SET BACK TO MINIMUM!!!!!!!!!!!!!!!!!!!!! WHYYYYYYYYYYYYYY???????????? - i think i fix. test. NEVERMIND 
 - reset breadcrumbs on leave
 - optimize breadcrumbs rendering
 - how do wardens detect sound? I need smt against them
 - WARDEN STATUS CHECKER!!!!
 - highlighter: is this chest looted (was the loot generated already)
-- tracers show name and dist
 - killaura filter
 - more killing & trolling methods (hitting through wall works with killaura legit off)
 - view dist spoof (set view dist high, but don't render the chunks far out. for shit like tracers and other stuff, so the server still gives the entity positions)
 - bow shit (extreme speed before shooting gives big damage, aswell as aim shit)
 - how does dolphins grace work?
-- fix airjump and make one that does what airjump does now (different fly mode)
 - fix the fly kick bypass (just fly down for a bit then back up, look up the anticheat how it does it)
 - investigate this new HorizontalCollison thing in the uhhhhhh packet, i think when you are bumping into shit you don't get flykickedd as easily? see if exploitable
 - make night vision enabling/disabling and other effect stuff uhh trigger some kind of reload, it seems to only apply after a second or so
@@ -162,7 +157,6 @@
 * automine (hold left click)
 * scaffold
 * make some mixins that call a module (especially if there are more than 1 module) specifically events instead
-* bugfixes, obviously
 * nuker (just mine all blocks)
 * highway builder? for anarchy servers
 * fix autowalk not sprinting, even when sprint key is pressed

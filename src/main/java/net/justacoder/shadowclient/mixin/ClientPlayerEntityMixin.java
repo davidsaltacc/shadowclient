@@ -111,15 +111,12 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         return isUsingItem();
     }
 
-    @Override
-    public boolean damage(ServerWorld world, DamageSource source, float amount) {
-        if (getWorld().isClient && canTakeDamage()) {
-            DamageEvent evt = new DamageEvent(source, amount);
-            EventManager.fireEvent(evt);
+    @Inject(method = "updateHealth", at = @At("HEAD"))
+    private void onDamageTaken(float health, CallbackInfo ci) {
+        if (getHealth() > health) {
+            EventManager.fireEvent(new DamageEvent(getHealth() - health));
         }
-        return super.damage(world, source, amount);
     }
-
 
     @Override
     public double getBlockInteractionRange() {
@@ -141,6 +138,9 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     public boolean isSneaking() {
         if (ModuleManager.AutoSneakModule.enabled) {
             return true;
+        }
+        if (ModuleManager.FreecamModule.enabled) {
+            return false;
         }
         return input.playerInput.sneak();
     }

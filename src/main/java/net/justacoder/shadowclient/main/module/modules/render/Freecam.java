@@ -1,98 +1,60 @@
 package net.justacoder.shadowclient.main.module.modules.render;
 
-import net.justacoder.shadowclient.main.util.MathUtils;
-import net.minecraft.client.option.Perspective;
-import net.minecraft.client.render.Camera;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.justacoder.shadowclient.main.annotations.DoNotSaveState;
 import net.justacoder.shadowclient.main.annotations.EventListener;
 import net.justacoder.shadowclient.main.event.Event;
-import net.justacoder.shadowclient.main.event.events.DamageEvent;
-import net.justacoder.shadowclient.main.event.events.KeyPressEvent;
-import net.justacoder.shadowclient.main.event.events.PreTickEvent;
+import net.justacoder.shadowclient.main.event.events.*;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
-import net.justacoder.shadowclient.main.ui.clickgui.ClickGUI;
 import net.justacoder.shadowclient.main.util.ChatUtils;
-import net.justacoder.shadowclient.main.util.FakePlayerEntity;
-import org.joml.Vector2d;
-import org.joml.Vector3d;
+import net.justacoder.shadowclient.main.util.MathUtils;
+import net.minecraft.client.option.Perspective;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.MarkerEntity;
+import net.minecraft.util.math.Vec3d;
 
 @DoNotSaveState
-@EventListener({PreTickEvent.class, KeyPressEvent.class, DamageEvent.class})
+@EventListener({DamageEvent.class, PreTickEvent.class, MouseClickedEvent.class, MouseMoveEvent.class})
 public class Freecam extends Module {
 
     public NumberSetting SPEED = new NumberSetting("Speed", 0.05f, 4, 0.5, 2, MathUtils.Easing.EASE_IN_QUADRATIC);
 
     public Freecam() {
         super("freecam", ModuleCategory.RENDER, new String[]{"freecam", "camera fly", "free cam"});
-
         addSetting(SPEED);
     }
 
-    public boolean forward;
-    public boolean backward;
-    public boolean left;
-    public boolean right;
-    public boolean up;
-    public boolean down;
-
-    public Vector3d pos = new Vector3d();
-    public Vector2d rot = new Vector2d();
-
-    public double fovEffectScale;
-    public boolean bobView;
-
-    public FakePlayerEntity fakePlayer;
+    private Entity freecamEntity = null;
 
     @Override
     public void onEnable() {
 
-        Camera cam = mc.gameRenderer.getCamera();
-        Vec3d cpos = cam.getPos();
-        pos.x = cpos.x;
-        pos.y = cpos.y;
-        pos.z = cpos.z;
+        mc.options.setPerspective(Perspective.FIRST_PERSON);
 
-        rot.x = mc.player.getYaw();
-        rot.y = mc.player.getPitch();
+        freecamEntity = new MarkerEntity(EntityType.MARKER, mc.world); // marker entity is the closest thing to an "empty" entity
+        freecamEntity.setPosition(mc.player.getPos().add(new Vec3d(0, mc.player.getHeight() + 1f, 0)));
+        freecamEntity.setYaw(mc.player.getYaw());
+        freecamEntity.setYaw(mc.player.getPitch());
+        freecamEntity.resetPosition();
 
-        mc.options.forwardKey.setPressed(false);
-        mc.options.backKey.setPressed(false);
-        mc.options.rightKey.setPressed(false);
-        mc.options.leftKey.setPressed(false);
-        mc.options.jumpKey.setPressed(false);
-        mc.options.sneakKey.setPressed(false);
-
-        fovEffectScale = mc.options.getFovEffectScale().getValue();
-        bobView = mc.options.getBobView().getValue();
-        mc.options.getFovEffectScale().setValue(0d);
-        mc.options.getBobView().setValue(false);
-
-        fakePlayer = new FakePlayerEntity();
-        fakePlayer.spawn();
+        mc.setCameraEntity(freecamEntity);
 
         super.onEnable();
     }
 
     @Override
     public void onDisable() {
-        mc.options.getFovEffectScale().setValue(fovEffectScale);
-        mc.options.getBobView().setValue(bobView);
 
-        if (fakePlayer != null) {
-            fakePlayer.resetPlayerPosition();
-            fakePlayer.despawn();
+        if (freecamEntity == null) {
+            return;
         }
 
-        forward = false;
-        backward = false;
-        left = false;
-        right = false;
-        up = false;
-        down = false;
+        freecamEntity.remove(Entity.RemovalReason.DISCARDED);
+        freecamEntity = null;
+
+        mc.setCameraEntity(mc.player);
 
         super.onDisable();
     }
@@ -100,138 +62,49 @@ public class Freecam extends Module {
     @Override
     public void onEvent(Event event) {
 
-        if (event instanceof KeyPressEvent) {
-            if (mc.currentScreen == null || mc.currentScreen instanceof ClickGUI) {
-
-                int keyCode = ((KeyPressEvent) event).keyCode;
-
-                boolean cancel = false;
-
-                if (mc.options.forwardKey.matchesKey(keyCode, 0)) {
-                    forward = ((KeyPressEvent) event).action != 0;
-                    mc.options.forwardKey.setPressed(false);
-                    cancel = true;
-                }
-                if (mc.options.backKey.matchesKey(keyCode, 0)) {
-                    backward = ((KeyPressEvent) event).action != 0;
-                    mc.options.backKey.setPressed(false);
-                    cancel = true;
-                }
-                if (mc.options.rightKey.matchesKey(keyCode, 0)) {
-                    right = ((KeyPressEvent) event).action != 0;
-                    mc.options.rightKey.setPressed(false);
-                    cancel = true;
-                }
-                if (mc.options.leftKey.matchesKey(keyCode, 0)) {
-                    left = ((KeyPressEvent) event).action != 0;
-                    mc.options.leftKey.setPressed(false);
-                    cancel = true;
-                }
-                if (mc.options.jumpKey.matchesKey(keyCode, 0)) {
-                    up = ((KeyPressEvent) event).action != 0;
-                    mc.options.jumpKey.setPressed(false);
-                    cancel = true;
-                }
-                if (mc.options.sneakKey.matchesKey(keyCode, 0)) {
-                    down = ((KeyPressEvent) event).action != 0;
-                    mc.options.sneakKey.setPressed(false);
-                    cancel = true;
-                }
-
-                if (cancel) {
-                    event.cancel();
-                }
-            }
-            return;
-        }
-
         if (event instanceof DamageEvent) {
             setDisabled(true, false);
             ChatUtils.sendMessageClient("Toggled freecam because you took damage.");
-            return;
         }
 
-        if (mc.cameraEntity.isInsideWall()) {
-            mc.getCameraEntity().noClip = true;
-        }
-        if (!mc.options.getPerspective().isFirstPerson()) {
-            mc.options.setPerspective(Perspective.FIRST_PERSON);
+        if (event instanceof MouseClickedEvent && mc.currentScreen == null) {
+            event.cancel();
         }
 
-        Vec3d forward = Vec3d.fromPolar(0f, (float) rot.x);
-        Vec3d right = Vec3d.fromPolar(0f, (float) rot.x + 90f);
-        double velX = 0;
-        double velY = 0;
-        double velZ = 0;
+        if (event instanceof PreTickEvent) {
 
-        double s = 0.5;
-        if (mc.options.sprintKey.isPressed()) {
-            s = 1;
-        }
+            float directionLR = 0f;
+            float directionFB = 0f;
+            float directionUD = 0f;
 
-        s *= SPEED.doubleValue();
+            if (mc.options.forwardKey.isPressed()) { directionFB += 1; }
+            if (mc.options.backKey.isPressed()) { directionFB -= 1; }
+            if (mc.options.leftKey.isPressed()) { directionLR += 1; }
+            if (mc.options.rightKey.isPressed()) { directionLR -= 1; }
+            if (mc.options.jumpKey.isPressed()) { directionUD += 1; }
+            if (mc.options.sneakKey.isPressed()) { directionUD -= 1; }
 
-        boolean a = false;
-        if (this.forward) {
-            velX += forward.x * s;
-            velZ += forward.z * s;
-            a = true;
-        }
-        if (this.backward) {
-            velX -= forward.x * s;
-            velZ -= forward.z * s;
-            a = true;
+            if (directionLR != 0f || directionFB != 0f || directionUD != 0f) {
+                freecamEntity.setPosition(freecamEntity.getPos().add(new Vec3d(directionLR, directionUD, directionFB).rotateY((float) Math.toRadians(-freecamEntity.getYaw())).normalize().multiply(SPEED.floatValue() * (mc.options.sprintKey.isPressed() ? 4 : 1))));
+                freecamEntity.resetPosition();
+            }
+
         }
 
-        boolean b = false;
-        if (this.right) {
-            velX += right.x * s;
-            velZ += right.z * s;
-            b = true;
-        }
-        if (this.left) {
-            velX -= right.x * s;
-            velZ -= right.z * s;
-            b = true;
+        if (event instanceof MouseMoveEvent evt) {
+
+            freecamEntity.setYaw(freecamEntity.getYaw() + (float) evt.getDeltaX());
+            freecamEntity.setPitch(freecamEntity.getPitch() + (float) evt.getDeltaY());
+            freecamEntity.resetPosition();
+
+            evt.cancel();
+
         }
 
-        if (a && b) {
-            double d = 1 / Math.sqrt(2);
-            velX *= d;
-            velZ *= d;
-        }
-
-        if (this.up) {
-            velY += s;
-        }
-        if (this.down) {
-            velY -= s;
-        }
-
-        pos.x += velX;
-        pos.y += velY;
-        pos.z += velZ;
     }
 
-    public void lookDirection(double dx, double dy) {
-        rot.x += dx;
-        rot.y = MathHelper.clamp(rot.y + dy, -90, 90);
+    public Entity getFreecamEntity() {
+        return freecamEntity;
     }
 
-    public double getX() {
-        return pos.x;
-    }
-    public double getY() {
-        return pos.y;
-    }
-    public double getZ() {
-        return pos.z;
-    }
-
-    public double getYaw() {
-        return rot.x;
-    }
-    public double getPitch() {
-        return rot.y;
-    }
 }
