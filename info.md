@@ -79,6 +79,7 @@
 
 
 ## yet to do:
+- some modules don't summon chat messages on en/disable, even when calling super.onEnable. fix
 - sneak spoof mode for autosneak - only the server thinks you are sneaking, while you can walk around normally. what the sigma
 - sodium does not cause issues... remove the warning.
 - is it possible to dynamically grow the font atlas?
@@ -91,10 +92,9 @@
 * clean up the codebase... so much unused stuff
 - rework most of the *Utils classes
 * remove legit option from parkour, just default it
-* - noclip
+* noclip
 - redo the splash texts. fuuucking hell
 - less annotations, more constructor params
-- wall phase. please
 - SCFont.getWidth seems to be wrong slightly, does it count spaces properly?
 - top bar right click simulator
 - no fog
@@ -104,8 +104,6 @@
 - WARDEN STATUS CHECKER!!!!
 - highlighter: is this chest looted (was the loot generated already)
 - killaura filter
-- more killing & trolling methods (hitting through wall works with killaura legit off)
-- view dist spoof (set view dist high, but don't render the chunks far out. for shit like tracers and other stuff, so the server still gives the entity positions)
 - bow shit (extreme speed before shooting gives big damage, aswell as aim shit)
 - how does dolphins grace work?
 - fix the fly kick bypass (just fly down for a bit then back up, look up the anticheat how it does it)

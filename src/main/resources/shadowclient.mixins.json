@@ -45,6 +45,7 @@
         "KeyboardInputMixin",
         "KeyboardMixin",
         "LanguageManagerMixin",
+        "LightmapTextureManagerAccessor",
         "LivingEntityRendererMixin",
         "MinecraftClientAccessor",
         "MinecraftClientMixin",

@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ModuleManager {
+public abstract class ModuleManager {
 
     private static final Map<String, Module> modules = new HashMap<>();
     private static boolean isConfiguringKeyBinds = false;

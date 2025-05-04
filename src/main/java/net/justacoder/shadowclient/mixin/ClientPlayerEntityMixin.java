@@ -7,7 +7,6 @@ import net.minecraft.client.input.Input;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -16,7 +15,6 @@ import net.justacoder.shadowclient.main.event.events.DamageEvent;
 import net.justacoder.shadowclient.main.event.events.KnockbackEvent;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.world.ServerWorld;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
@@ -37,6 +35,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     @Shadow @Final protected MinecraftClient client;
     @Shadow public abstract boolean isUsingItem();
     @Shadow public Input input;
+    @Shadow private boolean inSneakingPose;
     @Unique public Screen crntScreen;
 
     @Override
@@ -137,11 +136,24 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     @Override
     public boolean isSneaking() {
         if (ModuleManager.AutoSneakModule.enabled) {
-            return true;
+            if (ModuleManager.AutoSneakModule.serverSideOnly.booleanValue()) {
+                return input.playerInput.sneak();
+            } else {
+                return true;
+            }
         }
         if (ModuleManager.FreecamModule.enabled) {
             return false;
         }
         return input.playerInput.sneak();
     }
+
+    @Redirect(method = "sendSneakingPacket", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isSneaking()Z"))
+    private boolean serverSideAutoSneak(ClientPlayerEntity player) {
+        if (ModuleManager.AutoSneakModule.enabled && ModuleManager.AutoSneakModule.serverSideOnly.booleanValue()) {
+            return true;
+        }
+        return player.isSneaking();
+    }
+
 }
