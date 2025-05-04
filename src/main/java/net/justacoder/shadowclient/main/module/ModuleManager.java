@@ -108,6 +108,7 @@ public class ModuleManager {
     public static Breadcrumbs BreadcrumbsModule;
     public static AutoSneak AutoSneakModule;
     public static SpoofRenderDistance SpoofRenderDistanceModule;
+    public static WallInteract WallInteractModule;
 
 
     public static void registerModules() {
@@ -189,6 +190,7 @@ public class ModuleManager {
         BreadcrumbsModule = (Breadcrumbs) register(new Breadcrumbs());
         AutoSneakModule = (AutoSneak) register(new AutoSneak());
         SpoofRenderDistanceModule = (SpoofRenderDistance) register(new SpoofRenderDistance());
+        WallInteractModule = (WallInteract) register(new WallInteract());
     }
 
     public static Module register(Module module) {

@@ -4,6 +4,7 @@
 * moved to minecraft 1.21.4
 
 ### newly added modules:
+* wall interact
 * no overlay
 * chest steal
 * enable all modules (careful...)
@@ -78,6 +79,7 @@
 
 
 ## yet to do:
+- sneak spoof mode for autosneak - only the server thinks you are sneaking, while you can walk around normally. what the sigma
 - sodium does not cause issues... remove the warning.
 - is it possible to dynamically grow the font atlas?
 - spectator mode - spectate someone. make the cameraEntity be someone else
@@ -89,8 +91,7 @@
 * clean up the codebase... so much unused stuff
 - rework most of the *Utils classes
 * remove legit option from parkour, just default it
-- wall interact !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-- noclip
+* - noclip
 - redo the splash texts. fuuucking hell
 - less annotations, more constructor params
 - wall phase. please

@@ -91,6 +91,7 @@
     "module.shadowclient.breadcrumbs": "Brotkrumen",
     "module.shadowclient.autosneak": "Auto-Kriechen",
     "module.shadowclient.spoofrenderdistance": "Sichtweite Spoofen",
+    "module.shadowclient.wallinteract": "Wand-Interaktion",
 
     "module.description.shadowclient.autosprint": "Automatisch sprinten, anstatt zu gehen.",
     "module.description.shadowclient.spider": "Erhalte die Fähigkeit, Wände hochzuklettern.",
@@ -170,6 +171,7 @@
     "module.description.shadowclient.breadcrumbs": "Hinterlässt eine Spur hinter dir.",
     "module.description.shadowclient.autosneak": "Kriecht automatisch.",
     "module.description.shadowclient.spoofrenderdistance": "Rendert weniger Chunks als deine eigene Sichtweite (Entitäten bleiben geladen).",
+    "module.description.shadowclient.wallinteract": "Erlaubt dir, mit Dingen hinter Wänden zu interagieren, und sie zu schlagen.",
 
     "category.module.shadowclient.combat": "Kampf",
     "category.module.shadowclient.player": "Spieler",
