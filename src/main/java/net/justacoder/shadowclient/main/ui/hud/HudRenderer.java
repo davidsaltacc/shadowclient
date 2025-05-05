@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.ui.hud;
 
+import net.justacoder.shadowclient.main.render.UIRenderUtils;
 import net.minecraft.client.gui.DrawContext;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +14,7 @@ public class HudRenderer {
     private static boolean shouldRender = true;
 
     public static void onHudRender(DrawContext context, float tickDelta) {
+        UIRenderUtils.beforeUIRender(context);
         if (!shouldRender) {
             return;
         }
@@ -38,6 +40,7 @@ public class HudRenderer {
 
             }
         });
+        UIRenderUtils.afterUIRender(context);
     }
 
     public static void addElement(HudElement el) {

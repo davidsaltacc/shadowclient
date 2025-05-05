@@ -13,6 +13,10 @@ public class NightVision extends Module {
     @Override
     public void onEnable() {
 
+        if (mc.gameRenderer == null) {
+            return;
+        }
+
         ((LightmapTextureManagerAccessor) mc.gameRenderer.getLightmapTextureManager()).markDirty(true);
 
         super.onEnable();
@@ -21,6 +25,10 @@ public class NightVision extends Module {
 
     @Override
     public void onDisable() {
+
+        if (mc.gameRenderer == null) {
+            return;
+        }
 
         ((LightmapTextureManagerAccessor) mc.gameRenderer.getLightmapTextureManager()).markDirty(true);
 
