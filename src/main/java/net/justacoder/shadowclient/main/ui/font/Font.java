@@ -11,15 +11,19 @@ import net.minecraft.text.Text;
 import org.joml.Matrix4f;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Font {
 
     public static final String FONT_PATH = "/assets/shadowclient/font/notosans-regular.ttf";
-    public static final float FONT_SIZE = 14f;
+    public static final int FONT_SIZE = 14;
     public static final float FONT_OFFSET_X = 0f;
     public static final float FONT_OFFSET_Y = -4f;
 
     public static FontRenderer fontRenderer;
+
+    private static final List<Integer> registeredFontSizes = new ArrayList<>(List.of(FONT_SIZE));
 
     public static void initializeFont() {
         try {
@@ -27,9 +31,11 @@ public abstract class Font {
             ShadowClientMain.info("Initializing font renderer");
 
             InputStream fontDataStream = Font.class.getResourceAsStream(FONT_PATH);
-            java.awt.Font font = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, fontDataStream).deriveFont(FONT_SIZE);
+            java.awt.Font font = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, fontDataStream).deriveFont((float) FONT_SIZE);
             fontDataStream.close();
             fontRenderer = new FontRenderer(font);
+
+            registeredFontSizes.forEach(size -> fontRenderer.getAtlasForSize(size));
 
             ShadowClientMain.info("Finished initializing font renderer");
 
@@ -39,16 +45,27 @@ public abstract class Font {
         }
     }
 
+    public static void registerFontSize(int size) {
+        if (isFontSizeRegistered(size)) {
+            return;
+        }
+        registeredFontSizes.add(size);
+    }
+
+    public static boolean isFontSizeRegistered(int size) {
+        return registeredFontSizes.contains(size);
+    }
+
     public static void renderString(DrawContext context, String text, float x, float y, int color) {
-        fontRenderer.drawText(context, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, (int) FONT_SIZE, color);
+        fontRenderer.drawText(context, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, FONT_SIZE, color);
     }
 
     public static void renderString(VertexConsumerProvider.Immediate vertexConsumers, MatrixStack matrices, String text, float x, float y, int color) {
-        fontRenderer.drawText(vertexConsumers, matrices, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, (int) FONT_SIZE, color);
+        fontRenderer.drawText(vertexConsumers, matrices, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, FONT_SIZE, color);
     }
 
     public static void renderString(BufferBuilderProvider bufferBuilderProvider, MatrixStack matrices, String text, float x, float y, int color) {
-        fontRenderer.drawText(bufferBuilderProvider, matrices, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, (int) FONT_SIZE, color);
+        fontRenderer.drawText(bufferBuilderProvider, matrices, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, FONT_SIZE, color);
     }
 
     public static void renderString(DrawContext context, String text, float x, float y, int color, int fontSize) {
@@ -76,7 +93,7 @@ public abstract class Font {
     }
 
     public static int getWidth(String text) {
-        return getWidth(text, (int) FONT_SIZE);
+        return getWidth(text, FONT_SIZE);
     }
 
     public static int getWidth(Text text) {
@@ -88,7 +105,7 @@ public abstract class Font {
     }
 
     public static int getHeight() {
-        return (int) FONT_SIZE;
+        return FONT_SIZE;
     }
     public static int getHeight(int fontSize) {
         return fontSize;

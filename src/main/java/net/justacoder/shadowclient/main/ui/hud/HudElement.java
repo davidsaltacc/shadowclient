@@ -25,8 +25,8 @@ public class HudElement {
     }
 
     public void render(DrawContext context, float tickDelta, int offset) {
-        context.fill(0, offset, Font.getWidth(this.textContent) + 8, offset + Font.getHeight() + 8, Colors.HUD_ELEMENT_BACKGROUND.color);
-        Font.renderString(context, this.textContent, 2, offset + 4, Colors.HUD_ELEMENT_TEXT.color);
+        context.fill(0, offset, Font.getWidth(this.textContent) + 6, offset + Font.getHeight() + 6, Colors.HUD_ELEMENT_BACKGROUND.color);
+        Font.renderString(context, this.textContent, 3, offset + 3, Colors.HUD_ELEMENT_TEXT.color);
     }
 
     public void render(DrawContext context, float tickDelta, int offset, boolean rightSide) {
@@ -40,6 +40,6 @@ public class HudElement {
     }
 
     public int getHeight() {
-        return Font.getHeight() + 8;
+        return Font.getHeight() + 6;
     }
 }

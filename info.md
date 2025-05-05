@@ -79,10 +79,9 @@
 
 
 ## yet to do:
+- fix shadowhud being kinda ugly
 - test: do tracers render towards spectators too?
-- INITIALIZE ALL FONT ATLASES ON LOAD - HAVE TO REGISTER ALL SIZES TO BE USED BEFORE LAUNCH - CRASH IF SIZE REQUESTED THAT HASNT BEEN REGISTERED - ONLY WAY TO MAKE THIS SHIT BEARABLE
 - some modules don't summon chat messages on en/disable, even when calling super.onEnable. fix
-- sneak spoof mode for autosneak - only the server thinks you are sneaking, while you can walk around normally. what the sigma
 - sodium does not cause issues... remove the warning.
 - is it possible to dynamically grow the font atlas?
 - spectator mode - spectate someone. make the cameraEntity be someone else

@@ -92,7 +92,7 @@ public class Renderer { // IntelliJ says this can be converted to a record. it's
         matrices.pop();
     }
 
-    private static final int FONT_SIZE = 28;
+    public static final int FONT_SIZE = 28;
 
     public int getTextWidth(String text) {
         return Font.getWidth(text, FONT_SIZE);

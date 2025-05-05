@@ -64,6 +64,9 @@ public class FontRenderer {
     }
 
     public FontTextureAtlas getAtlasForSize(int size) {
+        if (!net.justacoder.shadowclient.main.ui.font.Font.isFontSizeRegistered(size)) {
+            throw new RuntimeException("Tried to get a font atlas for a size that was not registered and generated on launch!");
+        }
         return atlases.computeIfAbsent(size, s ->
                 new FontTextureAtlas(baseFont.deriveFont((float) s))
         );

@@ -26,5 +26,9 @@
 		"fabricloader": ">=0.16",
 		"minecraft": "~1.21.4",
 		"java": ">=21"
+	},
+	"breaks": {
+		"wurst": "*",
+		"meteor-client": "*"
 	}
 }

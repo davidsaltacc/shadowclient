@@ -4,10 +4,11 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
+import net.justacoder.shadowclient.main.render.Renderer;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
+import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.Bootstrap;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.option.SimpleOption;
 import net.minecraft.client.util.InputUtil;
@@ -26,7 +27,6 @@ import net.justacoder.shadowclient.main.ui.notifications.NotificationsManager;
 import net.justacoder.shadowclient.main.util.ChatUtils;
 import net.justacoder.shadowclient.main.util.JavaUtils;
 import net.justacoder.shadowclient.mixin.KeyBindingAccessor;
-import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,6 +77,7 @@ public abstract class ShadowClientMain {
             Runtime.getRuntime().addShutdownHook(new Thread(ShadowClientMain::closed));
             Config.loadConfig();
             checkConflictingMods();
+            registerAllFontSizes();
             info("Finished " + CLIENT_NAME + " initialization");
 
         } catch (Exception e) {
@@ -89,6 +90,10 @@ public abstract class ShadowClientMain {
         if (!configDeleted) {
             Config.saveConfig();
         }
+    }
+
+    public static void registerAllFontSizes() {
+        Font.registerFontSize(Renderer.FONT_SIZE);
     }
 
     public static KeyBinding registerKeyBinding(KeyBinding bind) {
