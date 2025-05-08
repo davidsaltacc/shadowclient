@@ -2,6 +2,7 @@ package net.justacoder.shadowclient.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.justacoder.shadowclient.main.util.MixinSharedValues;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -19,6 +20,7 @@ import net.justacoder.shadowclient.mixininterface.IGameRenderer;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,13 +28,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin implements IGameRenderer {
 
     @Shadow private void setPostProcessor(Identifier id) {}
     @Shadow private static HitResult ensureTargetInRange(HitResult hitResult, Vec3d cameraPos, double interactionRange) { return null; }
+    @Shadow @Final private MinecraftClient client;
 
     @SuppressWarnings("AddedMixinMembersNamePattern")
     @Override
@@ -90,7 +92,7 @@ public abstract class GameRendererMixin implements IGameRenderer {
 
     @Redirect(method = "findCrosshairTarget", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;raycast(DFZ)Lnet/minecraft/util/hit/HitResult;"))
     private HitResult changeCrosshairTarget(Entity camEntity, double maxDistance, float tickDelta, boolean includeFluids) {
-        if (ModuleManager.WallInteractModule.enabled) {
+        if (ModuleManager.WallInteractModule.enabled && !(ModuleManager.WallInteractModule.disableOnSneak.booleanValue() && client.player.isSneaking())) {
             MixinSharedValues.ignoreSolidBlocksRaycasting = true;
             HitResult result = camEntity.raycast(maxDistance, tickDelta, includeFluids);
             MixinSharedValues.ignoreSolidBlocksRaycasting = false;
@@ -102,7 +104,7 @@ public abstract class GameRendererMixin implements IGameRenderer {
     @Inject(method = "findCrosshairTarget", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/ProjectileUtil;raycast(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Ljava/util/function/Predicate;D)Lnet/minecraft/util/hit/EntityHitResult;", shift = At.Shift.AFTER), cancellable = true)
     private void changeCrosshairTarget2(Entity camera, double blockInteractionRange, double entityInteractionRange, float tickDelta, CallbackInfoReturnable<HitResult> cir, @Local HitResult hitResult, @Local(ordinal = 0) Vec3d vec3d, @Local(ordinal = 2) Vec3d vec3d3, @Local Box box) {
         EntityHitResult entityHitResult = ProjectileUtil.raycast(camera, vec3d, vec3d3, box, EntityPredicates.CAN_HIT, MathHelper.square(Math.max(blockInteractionRange, entityInteractionRange)));
-        if (ModuleManager.WallInteractModule.enabled && hitResult.getType() == HitResult.Type.MISS && entityHitResult == null) {
+        if (ModuleManager.WallInteractModule.enabled && !(ModuleManager.WallInteractModule.disableOnSneak.booleanValue() && client.player.isSneaking()) && hitResult.getType() == HitResult.Type.MISS && entityHitResult == null) {
             cir.setReturnValue(ensureTargetInRange(camera.raycast(Math.max(blockInteractionRange, entityInteractionRange), tickDelta, false), camera.getCameraPosVec(tickDelta), blockInteractionRange));
         }
     }

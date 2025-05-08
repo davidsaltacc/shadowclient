@@ -67,16 +67,15 @@ public class MainClickGUI extends ClickGUI {
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean shouldCloseOnEsc() {
+        if (ModuleManager.isConfiguringKeyBinds()) {
+            return false;
+        }
+        return super.shouldCloseOnEsc();
+    }
 
-        if (keyCode == GLFW.GLFW_KEY_ESCAPE && !this.isAnyTextFieldCapturing()) {
-            ShadowClientMain.mc.setScreen(null);
-            return true;
-        }
-        if (ShadowClientMain.toggleGUIKeyBinding.matchesKey(keyCode, scanCode)) {
-            ShadowClientMain.mc.setScreen(null);
-            return true;
-        }
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 
         if (ModuleManager.isConfiguringKeyBinds()) {
             if (ShadowClientMain.toggleGUIKeyBinding.matchesKey(keyCode, scanCode)) {

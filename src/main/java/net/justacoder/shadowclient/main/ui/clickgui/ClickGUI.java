@@ -9,6 +9,7 @@ import net.minecraft.text.Text;
 import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components.TextSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.text.TextField;
 import org.lwjgl.glfw.GLFW;
+import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,18 +97,16 @@ public class ClickGUI extends Screen {
 
     @Override
     public boolean shouldCloseOnEsc() {
-        return false;
+        return this instanceof MainClickGUI;
     }
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 
-        if (keyCode == GLFW.GLFW_KEY_ESCAPE && !(this instanceof MainClickGUI) && !this.isAnyTextFieldCapturing()) {
-            ShadowClientMain.mc.setScreen(ShadowClientMain.clickGui);
-        }
-        if (ShadowClientMain.toggleGUIKeyBinding.matchesKey(keyCode, scanCode) && !(this instanceof MainClickGUI)) {
-            ShadowClientMain.mc.setScreen(null);
-            return true;
+        if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
+            if (!(this instanceof MainClickGUI)) {
+                client.setScreen(ShadowClientMain.clickGui);
+            }
         }
 
         for (Frame frame : frames) {

@@ -5,6 +5,7 @@ import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.justacoder.shadowclient.main.event.events.PostTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleManager;
+import net.justacoder.shadowclient.main.ui.clickgui.ClickGUI;
 import net.justacoder.shadowclient.main.util.JavaUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,12 @@ public class EventManager {
 
     public static void fireEvent(Event evt) {
         try {
-            if (evt instanceof PostTickEvent && ShadowClientMain.toggleGUIKeyBinding.wasPressed() && ShadowClientMain.mc.currentScreen == null) {
-                ShadowClientMain.mc.setScreen(ShadowClientMain.clickGui);
+            if (evt instanceof PostTickEvent && ShadowClientMain.toggleGUIKeyBinding.wasPressed()) {
+                if (ShadowClientMain.mc.currentScreen == null) {
+                    ShadowClientMain.mc.setScreen(ShadowClientMain.clickGui);
+                } else if (ShadowClientMain.mc.currentScreen instanceof ClickGUI) {
+                    ShadowClientMain.mc.setScreen(null);
+                }
             }
 
             if (ModuleManager.UpdatesDisableModule.enabled) {

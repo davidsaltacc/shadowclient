@@ -38,4 +38,11 @@ public abstract class InGameHudMixin {
             ci.cancel();
         }
     }
+
+    @Inject(method = "renderExperienceLevel", at = @At("HEAD"), cancellable = true)
+    private void beforeRenderExpLevel(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) { // why does the experience level get drawn separately
+        if (ModuleManager.FreecamModule.enabled) {
+            ci.cancel();
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package net.justacoder.shadowclient.mixin;
 
+import com.llamalad7.mixinextras.sugar.Local;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.minecraft.client.Keyboard;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -28,9 +30,8 @@ public abstract class KeyboardMixin {
     }
 
     @Redirect(method = "onKey", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;", opcode = Opcodes.GETFIELD))
-    private Screen redirect(MinecraftClient instance) {
-        // TODO make WASD keypresses go through
-        return instance.currentScreen;
+    private Screen redirect(MinecraftClient instance, @Local(argsOnly = true, ordinal = 0) int key) {
+        return ShadowClientMain.allowKeyPress(instance.currentScreen, key);
     }
 
 }

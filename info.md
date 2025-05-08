@@ -79,7 +79,6 @@
 
 
 ## yet to do:
-- fix shadowhud being kinda ugly
 - test: do tracers render towards spectators too?
 - some modules don't summon chat messages on en/disable, even when calling super.onEnable. fix
 - sodium does not cause issues... remove the warning.

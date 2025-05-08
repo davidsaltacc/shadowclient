@@ -9,6 +9,7 @@ import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.Bootstrap;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.option.SimpleOption;
 import net.minecraft.client.util.InputUtil;
@@ -27,6 +28,7 @@ import net.justacoder.shadowclient.main.ui.notifications.NotificationsManager;
 import net.justacoder.shadowclient.main.util.ChatUtils;
 import net.justacoder.shadowclient.main.util.JavaUtils;
 import net.justacoder.shadowclient.mixin.KeyBindingAccessor;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -210,6 +212,19 @@ public abstract class ShadowClientMain {
             return;
         }
         ChatUtils.sendMessageClient("§9§l§u" + CLIENT_NAME + " §o" + CLIENT_VERSION + "§r\nType " + CLIENT_COMMAND_PREFIX + "help for useful help.");
+    }
+
+    public static @Nullable Screen allowKeyPress(@Nullable Screen screen, int key) {
+        if (ModuleManager.isConfiguringKeyBinds()) {
+            return screen;
+        }
+        if (screen instanceof ClickGUI && !clickGui.isAnyTextFieldCapturing() && !settingsGui.isAnyTextFieldCapturing()) {
+            if (key == GLFW.GLFW_KEY_ESCAPE) {
+                return screen;
+            }
+            return null;
+        }
+        return screen;
     }
 
     public static String getFullClientName() {
