@@ -79,7 +79,7 @@ public class ShadowHud extends Module {
             PING_ELEMENT.setTextContent("Ping: " +  mc.player.networkHandler.getPlayerListEntry(mc.player.getUuid()).getLatency());
         }
         if (SATURATION.booleanValue()) {
-            SATURATION_ELEMENT.setTextContent("Saturation: " + mc.player.getHungerManager().getSaturationLevel() + " / 20.0");
+            SATURATION_ELEMENT.setTextContent("Saturation: " + MathUtils.roundToPlace(mc.player.getHungerManager().getSaturationLevel(), 2) + " / 20.0");
         }
         if (ROTATION.booleanValue()) {
             ROTATION_ELEMENT.setTextContent("Rotation: " + MathUtils.roundToPlace(MathHelper.wrapDegrees(mc.player.getYaw()), 2) + ", " + MathUtils.roundToPlace(MathHelper.wrapDegrees(mc.player.getPitch()), 2));
