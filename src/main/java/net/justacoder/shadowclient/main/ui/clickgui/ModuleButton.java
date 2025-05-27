@@ -6,57 +6,20 @@ import net.justacoder.shadowclient.main.ui.clickgui.settings.modules.SettingsScr
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.ShadowClientMain;
-import net.justacoder.shadowclient.main.annotations.Hidden;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleManager;
-import net.justacoder.shadowclient.main.setting.Setting;
-import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
-import net.justacoder.shadowclient.main.setting.settings.EnumSetting;
-import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
-import net.justacoder.shadowclient.main.setting.settings.StringSetting;
-import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.SettingComponent;
-import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components.BoolSetting;
-import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components.ModeSetting;
-import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components.SliderSetting;
-import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components.TextSetting;
 import org.lwjgl.glfw.GLFW;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ModuleButton extends FrameChild {
 
     public final Module module;
     public final Frame parent;
     public int offset;
-    public boolean extended;
-
-    public final List<SettingComponent> components;
 
     public ModuleButton(String modulename, Frame parent, int offset) {
         this.module = ModuleManager.getModule(modulename);
         this.parent = parent;
         this.offset = offset;
-        this.components = new ArrayList<>();
-        this.extended = false;
-
-        int settingOffset = parent.height;
-        for (Setting setting : module.getSettings()) {
-            if (setting.getClass().isAnnotationPresent(Hidden.class)) {
-                continue;
-            }
-            if (setting instanceof BooleanSetting) {
-                components.add(new BoolSetting(setting, this, settingOffset));
-            } else if (setting instanceof EnumSetting<?>) {
-                components.add(new ModeSetting(setting, this, settingOffset));
-            } else if (setting instanceof NumberSetting) {
-                components.add(new SliderSetting(setting, this, settingOffset));
-            } else if (setting instanceof StringSetting) {
-                components.add(new TextSetting(setting, this, settingOffset));
-            }
-            settingOffset += parent.height;
-        }
     }
 
     private String getName() {
@@ -83,11 +46,6 @@ public class ModuleButton extends FrameChild {
 
         Font.renderString(context, getName(), parent.x + textOffset, parent.y + offset + textOffset, getTextColor());
 
-        if (extended) {
-            for (SettingComponent component : components) {
-                component.render(context, mouseX, mouseY, delta);
-            }
-        }
     }
 
     public void renderDescription(DrawContext context, int mouseX, int mouseY) {
@@ -119,38 +77,11 @@ public class ModuleButton extends FrameChild {
             }
         }
 
-        for (SettingComponent component : components) {
-            if (extended) {
-                component.mouseClicked(mouseX, mouseY, button);
-            }
-        }
-    }
-
-    @Override
-    public void mouseReleased(double mouseX, double mouseY, int button) {
-        for (SettingComponent component : components) {
-            if (extended) {
-                component.mouseReleased(mouseX, mouseY, button);
-            }
-        }
-    }
-
-    @Override
-    public void keyPressed(int keyCode, int scanCode, int modifiers) {
-        for (SettingComponent component : components) {
-            if (extended) {
-                component.keyPressed(keyCode, scanCode, modifiers);
-            }
-        }
     }
 
     @Override
     public int getHeight() {
-        AtomicInteger height = new AtomicInteger(parent.height);
-        if (extended) {
-            components.forEach(child -> height.set(height.get() + child.getHeight()));
-        }
-        return height.get();
+        return parent.height;
     }
 
     public boolean isHovered(double mouseX, double mouseY) {

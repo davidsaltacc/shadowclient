@@ -6,8 +6,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.annotations.Hidden;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.module.ModuleManager;
-import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.SettingComponent;
-import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components.TextSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.text.TextField;
 import net.justacoder.shadowclient.main.util.ColorUtils;
 import org.lwjgl.glfw.GLFW;
@@ -185,13 +183,6 @@ public class Frame extends FrameChild {
                 ((TextField) child).offset = offset;
             }
             offset += height;
-            if (child.getClass().equals(ModuleButton.class)) {
-                if (((ModuleButton) child).extended) {
-                    for (SettingComponent ignored : ((ModuleButton) child).components) {
-                        offset += height;
-                    }
-                }
-            }
         }
     }
 
@@ -200,13 +191,6 @@ public class Frame extends FrameChild {
         for (FrameChild child : children) {
             if (child.getClass() == TextField.class) {
                 textFields.add(child);
-            }
-            if (child.getClass() == ModuleButton.class) {
-                ((ModuleButton) child).components.forEach((component) -> {
-                    if (component.getClass() == TextSetting.class) {
-                        textFields.add(component);
-                    }
-                });
             }
         }
         return textFields;
