@@ -16,6 +16,12 @@ public abstract class FrameChild {
     public void keyPressed(int keyCode, int scanCode, int modifiers) {
     }
 
+    public void mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+    }
+
+    public void init() {
+    }
+
     public abstract int getHeight();
 
 }

@@ -6,6 +6,7 @@ import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.render.Renderer;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
+import net.justacoder.shadowclient.main.ui.clickgui.settings.modules.SettingsScreen;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.Bootstrap;
 import net.minecraft.client.MinecraftClient;
@@ -96,6 +97,7 @@ public abstract class ShadowClientMain {
 
     public static void registerAllFontSizes() {
         Font.registerFontSize(Renderer.FONT_SIZE);
+        Font.registerFontSize(SettingsScreen.titleFontSize);
     }
 
     public static KeyBinding registerKeyBinding(KeyBinding bind) {
@@ -218,7 +220,7 @@ public abstract class ShadowClientMain {
         if (ModuleManager.isConfiguringKeyBinds()) {
             return screen;
         }
-        if (screen instanceof ClickGUI && !clickGui.isAnyTextFieldCapturing() && !settingsGui.isAnyTextFieldCapturing()) {
+        if (screen instanceof ClickGUI && !clickGui.isAnyTextFieldCapturing() && !settingsGui.isAnyTextFieldCapturing() || (screen instanceof SettingsScreen && !((SettingsScreen) screen).interceptKeypresses())) {
             if (key == GLFW.GLFW_KEY_ESCAPE) {
                 return screen;
             }

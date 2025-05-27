@@ -2,6 +2,7 @@ package net.justacoder.shadowclient.main.module.modules.render;
 
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
+import net.justacoder.shadowclient.main.setting.settings.PaddingSetting;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.justacoder.shadowclient.main.util.RotationUtils;
 import net.minecraft.entity.Entity;
@@ -35,7 +36,7 @@ public class Tracers extends Module {
     public Tracers() {
         super("tracers", ModuleCategory.RENDER, new String[]{"tracers", "lines", "entity tracers", "esp"});
 
-        addSettings(drawPlayerEntityTracers, drawHostileEntityTracers, drawPassiveEntityTracers, drawAmbientEntityTracers, drawOtherEntityTracers, drawNames, drawDistance, startDistance);
+        addSettings(drawPlayerEntityTracers, drawHostileEntityTracers, drawPassiveEntityTracers, drawAmbientEntityTracers, drawOtherEntityTracers, new PaddingSetting(""), drawNames, drawDistance, startDistance);
     }
 
     public float[] getColor(Entity entity) {

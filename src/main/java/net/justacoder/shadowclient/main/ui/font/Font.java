@@ -8,9 +8,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
-import org.joml.Matrix4f;
-
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +16,7 @@ public abstract class Font {
     public static final String FONT_PATH = "/assets/shadowclient/font/notosans-regular.ttf";
     public static final int FONT_SIZE = 14;
     public static final float FONT_OFFSET_X = 0f;
-    public static final float FONT_OFFSET_Y = -4f;
+    public static final float FONT_OFFSET_Y = 12f; // probably not the best way, but who cares if it works
 
     public static FontRenderer fontRenderer;
 
@@ -30,10 +27,7 @@ public abstract class Font {
 
             ShadowClientMain.info("Initializing font renderer");
 
-            InputStream fontDataStream = Font.class.getResourceAsStream(FONT_PATH);
-            java.awt.Font font = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, fontDataStream).deriveFont((float) FONT_SIZE);
-            fontDataStream.close();
-            fontRenderer = new FontRenderer(font);
+            fontRenderer = new FontRenderer(FONT_PATH);
 
             registeredFontSizes.forEach(size -> fontRenderer.getAtlasForSize(size));
 
@@ -86,7 +80,7 @@ public abstract class Font {
 
         for (char c : text.toCharArray()) {
             FontTextureAtlas.Glyph glyph = atlas.getGlyph(c);
-            width += glyph.width;
+            width += glyph.advance();
         }
 
         return width;

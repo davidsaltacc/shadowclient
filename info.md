@@ -79,6 +79,10 @@
 
 
 ## yet to do:
+- IMPORTANT: better translation system in general, copy from the fractal renderer
+- scrolling down on the clickgui? and sideways, ig?
+- anti cobweb
+- ping spoof
 - test: do tracers render towards spectators too?
 - some modules don't summon chat messages on en/disable, even when calling super.onEnable. fix
 - sodium does not cause issues... remove the warning.
@@ -88,7 +92,6 @@
 - seed xray / "oresim" 
 - translatable setting names
 - unhittable - move player around in a small area real quickly to make them harder to hit
-- autosneak: make interactions be normal
 * clean up the codebase... so much unused stuff
 - rework most of the *Utils classes
 * remove legit option from parkour, just default it

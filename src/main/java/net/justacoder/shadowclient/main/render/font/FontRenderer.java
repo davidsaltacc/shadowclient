@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.render.font;
 
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.render.BufferBuilderProvider;
 import net.justacoder.shadowclient.main.render.RenderingTypes;
 import net.justacoder.shadowclient.mixin.DrawContextAccessor;
@@ -7,17 +8,18 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import org.joml.Matrix4f;
-import java.awt.*;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class FontRenderer {
 
     private final Map<Integer, FontTextureAtlas> atlases = new HashMap<>();
-    private final Font baseFont;
+    private final String fontPath;
 
-    public FontRenderer(Font baseFont) {
-        this.baseFont = baseFont;
+    public FontRenderer(String fontPath) {
+        this.fontPath = fontPath;
     }
 
 
@@ -49,16 +51,17 @@ public class FontRenderer {
         float b = (color & 255) / 255f;
         float a = (color >> 24 & 255) / 255f;
 
-        float cursorX = x;
+        float advX = x;
+
         for (char c : text.toCharArray()) {
-            glyph = atlas.getGlyph(c); // so we basically just fill the font atlas over time and hope it never runs out of space. great. love me the lack of optimization
+            glyph = atlas.getGlyph(c);
 
-            consumer.vertex(matrix, cursorX, y, 0).color(r, g, b, a).texture(glyph.u0, glyph.v0).light(15728880); // apparently the maximum value
-            consumer.vertex(matrix, cursorX, y + glyph.height, 0).color(r, g, b, a).texture(glyph.u0, glyph.v1).light(15728880);
-            consumer.vertex(matrix, cursorX + glyph.width, y + glyph.height, 0).color(r, g, b, a).texture(glyph.u1, glyph.v1).light(15728880);
-            consumer.vertex(matrix, cursorX + glyph.width, y, 0).color(r, g, b, a).texture(glyph.u1, glyph.v0).light(15728880);
+            consumer.vertex(matrix, advX + glyph.bearingX(), y - glyph.bearingY(), 0).color(r, g, b, a).texture(glyph.u0(), glyph.v0()).light(15728880); // x0 y0
+            consumer.vertex(matrix, advX + glyph.bearingX(), y - glyph.bearingY() + glyph.height(), 0).color(r, g, b, a).texture(glyph.u0(), glyph.v1()).light(15728880); // x0 y1
+            consumer.vertex(matrix, advX + glyph.bearingX() + glyph.width(), y - glyph.bearingY() + glyph.height(), 0).color(r, g, b, a).texture(glyph.u1(), glyph.v1()).light(15728880); // x1 y1
+            consumer.vertex(matrix, advX + glyph.bearingX() + glyph.width(), y - glyph.bearingY(), 0).color(r, g, b, a).texture(glyph.u1(), glyph.v0()).light(15728880); // x1 y0
 
-            cursorX += glyph.width;
+            advX += glyph.advance();
         }
 
     }
@@ -68,7 +71,14 @@ public class FontRenderer {
             throw new RuntimeException("Tried to get a font atlas for a size that was not registered and generated on launch!");
         }
         return atlases.computeIfAbsent(size, s ->
-                new FontTextureAtlas(baseFont.deriveFont((float) s))
+                {
+                    try {
+                        return new FontTextureAtlas(fontPath, s);
+                    } catch (IOException e) {
+                        ShadowClientMain.error("Failed to load font atlas");
+                        throw new RuntimeException(e);
+                    }
+                }
         );
     }
 

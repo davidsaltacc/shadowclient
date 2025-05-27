@@ -2,6 +2,7 @@ package net.justacoder.shadowclient.main.ui.clickgui;
 
 import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.justacoder.shadowclient.main.module.modules.menus.ConfigureKeybindings;
+import net.justacoder.shadowclient.main.ui.clickgui.settings.modules.SettingsScreen;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.ShadowClientMain;
@@ -114,8 +115,7 @@ public class ModuleButton extends FrameChild {
                     ShadowClientMain.toggleModuleEnabled(module.moduleName);
                 }
             } else if (button == GLFW.GLFW_MOUSE_BUTTON_2) {
-                extended = !extended;
-                parent.updateButtons();
+                ShadowClientMain.mc.setScreen(new SettingsScreen(module));
             }
         }
 
@@ -126,6 +126,7 @@ public class ModuleButton extends FrameChild {
         }
     }
 
+    @Override
     public void mouseReleased(double mouseX, double mouseY, int button) {
         for (SettingComponent component : components) {
             if (extended) {
@@ -134,6 +135,7 @@ public class ModuleButton extends FrameChild {
         }
     }
 
+    @Override
     public void keyPressed(int keyCode, int scanCode, int modifiers) {
         for (SettingComponent component : components) {
             if (extended) {

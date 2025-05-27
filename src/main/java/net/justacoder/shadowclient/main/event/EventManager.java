@@ -6,6 +6,7 @@ import net.justacoder.shadowclient.main.event.events.PostTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.ui.clickgui.ClickGUI;
+import net.justacoder.shadowclient.main.ui.clickgui.settings.modules.SettingsScreen;
 import net.justacoder.shadowclient.main.util.JavaUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class EventManager {
             if (evt instanceof PostTickEvent && ShadowClientMain.toggleGUIKeyBinding.wasPressed()) {
                 if (ShadowClientMain.mc.currentScreen == null) {
                     ShadowClientMain.mc.setScreen(ShadowClientMain.clickGui);
-                } else if (ShadowClientMain.mc.currentScreen instanceof ClickGUI) {
+                } else if (ShadowClientMain.mc.currentScreen instanceof ClickGUI || ShadowClientMain.mc.currentScreen instanceof SettingsScreen) {
                     ShadowClientMain.mc.setScreen(null);
                 }
             }

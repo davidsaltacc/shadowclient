@@ -2,6 +2,7 @@ package net.justacoder.shadowclient.main.module.modules.render;
 
 import net.justacoder.shadowclient.main.annotations.DoNotSaveState;
 import net.justacoder.shadowclient.main.util.EntityCullingFix;
+import net.justacoder.shadowclient.mixin.LightmapTextureManagerAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.math.BlockPos;
@@ -57,19 +58,27 @@ public class Xray extends Module {
 
     @Override
     public void onEnable() {
+        if (mc.gameRenderer == null) {
+            return;
+        }
         EntityCullingFix.disableCull();
         if (mc.worldRenderer != null) {
             mc.worldRenderer.reload();
         }
+        ((LightmapTextureManagerAccessor) mc.gameRenderer.getLightmapTextureManager()).markDirty(true);
         super.onEnable();
     }
 
     @Override
     public void onDisable() {
+        if (mc.gameRenderer == null) {
+            return;
+        }
         EntityCullingFix.enableCull();
         if (mc.worldRenderer != null) {
             mc.worldRenderer.reload();
         }
+        ((LightmapTextureManagerAccessor) mc.gameRenderer.getLightmapTextureManager()).markDirty(true);
         super.onDisable();
     }
 

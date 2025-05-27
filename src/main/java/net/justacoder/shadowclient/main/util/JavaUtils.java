@@ -1,8 +1,13 @@
 package net.justacoder.shadowclient.main.util;
 
 import net.justacoder.shadowclient.main.ShadowClientMain;
+import org.lwjgl.system.MemoryUtil;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -79,5 +84,14 @@ public abstract class JavaUtils {
         } catch (Exception e) {
             ShadowClientMain.error("Error opening web browser: \n" + JavaUtils.stackTraceFromThrowable(e));
         }
+    }
+
+    public static ByteBuffer resourceToByteBuffer(String resourcePath) throws IOException {
+        InputStream in = JavaUtils.class.getResourceAsStream(resourcePath);
+        byte[] data = in.readAllBytes();
+        in.close();
+        ByteBuffer direct = MemoryUtil.memAlloc(data.length);
+        direct.put(data).flip();
+        return direct; 
     }
 }
