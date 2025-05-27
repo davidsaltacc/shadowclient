@@ -53,12 +53,6 @@ public class Config {
                     modulejson.addProperty("enabled", module.enabled);
                 }
 
-                if (module.moduleButton != null) {
-                    modulejson.addProperty("extended", module.moduleButton.extended);
-                } else {
-                    modulejson.addProperty("extended", false);
-                }
-
                 JsonObject settings = new JsonObject();
 
                 module.settings.forEach(setting -> {
@@ -249,12 +243,6 @@ public class Config {
                 try {
                     if (!module.getClass().isAnnotationPresent(OneClick.class) && !module.getClass().isAnnotationPresent(DoNotSaveState.class)) {
                         ShadowClientMain.setModuleEnabled(name, object.get("enabled").getAsBoolean(), true, false);
-                    }
-                    if (module.moduleButton != null) {
-                        if (object.get("extended").getAsBoolean()) {
-                            module.moduleButton.extended = true;
-                            module.moduleButton.parent.updateButtons();
-                        }
                     }
                 } catch (Exception e) {
                     ShadowClientMain.error(JavaUtils.stackTraceFromThrowable(e));
