@@ -39,6 +39,7 @@
 * rewritten improved and more optimized rendering
 * in airjump you can toggle between normal and "jetpack" mode (hold)
 * heavily improved and bugfixed freecam
+* reworked settings, now a separate screen
 
 ### fixes:
 * fixed a lot of ui related bugs
@@ -64,6 +65,7 @@
 * fix a crash with meteor (if you for some reason were to use them together)
 * vanilla spoof also now doesn't change the window name
 * fix setting change callbacks not being called if the set value exceeded the maximum
+* fix shadowhud showing the saturation with floating point errors
 * others
 
 ### other misc. changes:
