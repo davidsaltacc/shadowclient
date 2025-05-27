@@ -4,7 +4,6 @@ import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.minecraft.client.MinecraftClient;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
-import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components.TextSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.text.TextField;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
@@ -109,11 +108,6 @@ public class MainClickGUI extends ClickGUI {
         for (FrameChild textField : allTextFields) {
             if (textField.getClass() == TextField.class) {
                 if (((TextField) textField).captureKeyPresses) {
-                    return true;
-                }
-            }
-            if (textField.getClass() == TextSetting.class) {
-                if (((TextSetting) textField).captureKeyPresses) {
                     return true;
                 }
             }

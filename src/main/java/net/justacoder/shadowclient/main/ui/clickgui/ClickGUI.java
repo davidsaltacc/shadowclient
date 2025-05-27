@@ -6,10 +6,8 @@ import net.justacoder.shadowclient.main.render.UIRenderUtils;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
-import net.justacoder.shadowclient.main.ui.clickgui.settings.clickgui.components.TextSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.text.TextField;
 import org.lwjgl.glfw.GLFW;
-import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,11 +133,6 @@ public class ClickGUI extends Screen {
         for (FrameChild textField : allTextFields) {
             if (textField.getClass() == TextField.class) {
                 if (((TextField) textField).captureKeyPresses) {
-                    return true;
-                }
-            }
-            if (textField.getClass() == TextSetting.class) {
-                if (((TextSetting) textField).captureKeyPresses) {
                     return true;
                 }
             }
