@@ -24,7 +24,7 @@ public class SneakSpam extends Module {
     public void onEvent(Event event) {
         timer++;
 
-        if (timer < 10 - SPEED.doubleValue()) {
+        if (timer < 10 - SPEED.doubleValueEased()) {
             return;
         }
 

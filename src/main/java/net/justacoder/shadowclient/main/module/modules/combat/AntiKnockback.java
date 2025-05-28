@@ -20,7 +20,7 @@ public class AntiKnockback extends Module {
     @Override
     public void onEvent(Event event) {
 
-        float multiplier = 1 - STRENGTH.floatValue();
+        float multiplier = 1 - STRENGTH.floatValueEased();
 
         ((KnockbackEvent) event).x *= multiplier;
         ((KnockbackEvent) event).y *= multiplier;

@@ -62,7 +62,7 @@ public class Fly extends Module {
             entity.setVelocity(newvel);
 
             if (forwardPressed || leftPressed || rightPressed || backPressed) {
-                if (acceleration < SPEED.floatValue()) {
+                if (acceleration < SPEED.floatValueEased()) {
                     acceleration += 0.1;
                 }
             } else if (acceleration > 0.2) {

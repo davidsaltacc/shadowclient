@@ -34,7 +34,7 @@ public class ClickTP extends Module {
             return;
         }
 
-        HitResult hitResult = mc.player.raycast(MAX_DISTANCE.doubleValue(), 1 / 20f, false);
+        HitResult hitResult = mc.player.raycast(MAX_DISTANCE.doubleValueEased(), 1 / 20f, false);
         BlockPos pos = ((BlockHitResult) hitResult).getBlockPos();
 
         if (mc.options.sprintKey.isPressed() && mc.options.useKey.matchesMouse(((MouseClickedEvent) event).button) && hitResult.getType() == HitResult.Type.BLOCK) {

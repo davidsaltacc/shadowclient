@@ -20,7 +20,8 @@ public enum Colors {
     ENUM_SETTING_BACKGROUND(-603058674),
     SLIDER(-8942167),
     TEXT_SETTING_BACKEND(-603058674),
-    SLIDER_BACKGROUND(-603058674);
+    SLIDER_BACKGROUND(-603058674),
+    KEYBIND_SETTING_BACKGROUND(-603058674);
 
     public void setColor(int color) {
         this.color = color;

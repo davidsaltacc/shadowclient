@@ -1,12 +1,15 @@
 package net.justacoder.shadowclient.main.ui.clickgui.settings.modules;
 
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.settings.*;
 import net.justacoder.shadowclient.main.ui.clickgui.Colors;
 import net.justacoder.shadowclient.main.ui.clickgui.FrameChild;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.justacoder.shadowclient.main.util.MathUtils;
+import net.justacoder.shadowclient.mixin.KeyBindingAccessor;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.resource.language.I18n;
 import org.joml.Vector2i;
 import org.lwjgl.glfw.GLFW;
 
@@ -45,6 +48,7 @@ public abstract class SettingComponent extends FrameChild {
             case NumberSetting ignored -> new NumberSettingComponent(setting, position);
             case StringSetting ignored -> new TextSettingComponent(setting, position);
             case PaddingSetting ignored -> new PaddingSettingComponent(setting, position);
+            case KeySetting ignored -> new KeybindingSettingComponent(setting, position);
             default -> throw new RuntimeException("Tried to create a setting component for an unsupported setting type: " + setting.getClass().getName());
         };
     }
@@ -177,7 +181,7 @@ public abstract class SettingComponent extends FrameChild {
 
         @Override
         public int getHeight() {
-            return Font.getHeight() + 4; // 4 + line + 4
+            return Font.getHeight() + 8; // 4 + line + 4
         }
 
     }
@@ -187,7 +191,7 @@ public abstract class SettingComponent extends FrameChild {
         protected NumberSettingComponent(Setting setting, Vector2i position) {
             super(setting, position);
             this.sliding = false;
-            this.oldValue = ((NumberSetting) setting).numberValue();
+            this.oldValue = ((NumberSetting) setting).numberValueEased();
         }
 
         private boolean sliding;
@@ -201,7 +205,7 @@ public abstract class SettingComponent extends FrameChild {
             String text = getText(numberSetting);
 
             int sliderTotalWidth = Math.max(200, Font.getWidth(text));
-            int sliderSize = (int) ((sliderTotalWidth - 2 - 2) * (numberSetting.numberValueUneased().floatValue() - numberSetting.getMinValue().floatValue()) / (numberSetting.getMaxValue().floatValue() - numberSetting.getMinValue().floatValue()));
+            int sliderSize = (int) ((sliderTotalWidth - 2 - 2) * (numberSetting.numberValue().floatValue() - numberSetting.getMinValue().floatValue()) / (numberSetting.getMaxValue().floatValue() - numberSetting.getMinValue().floatValue()));
 
             if (sliding) {
                 numberSetting.setNumberValue(
@@ -233,8 +237,8 @@ public abstract class SettingComponent extends FrameChild {
             if (sliding) {
                 NumberSetting numberSetting = (NumberSetting) setting;
                 sliding = false;
-                numberSetting.callFinishCallbacks(oldValue, numberSetting.numberValue());
-                oldValue = numberSetting.numberValue();
+                numberSetting.callFinishCallbacks(oldValue, numberSetting.numberValueEased());
+                oldValue = numberSetting.numberValueEased();
             }
         }
 
@@ -244,7 +248,7 @@ public abstract class SettingComponent extends FrameChild {
                 NumberSetting numberSetting = (NumberSetting) setting;
                 numberSetting.setNumberValue(
                         MathUtils.roundToPlace(
-                                numberSetting.doubleValue() + (numberSetting.getMaxValue().doubleValue() - numberSetting.getMinValue().doubleValue()) / 100. * verticalAmount,
+                                numberSetting.numberValue().doubleValue() + (numberSetting.getMaxValue().doubleValue() - numberSetting.getMinValue().doubleValue()) / 100. * verticalAmount,
                                 numberSetting.decimalPlaces
                         )
                 );
@@ -252,7 +256,7 @@ public abstract class SettingComponent extends FrameChild {
         }
 
         private String getText(NumberSetting numberSetting) {
-            return numberSetting.name + ": " + MathUtils.roundToPlace(numberSetting.doubleValue(), numberSetting.decimalPlaces);
+            return numberSetting.name + ": " + MathUtils.roundToPlace(numberSetting.doubleValueEased(), numberSetting.decimalPlaces);
         }
 
         @Override
@@ -309,7 +313,7 @@ public abstract class SettingComponent extends FrameChild {
                     }
                     return;
                 }
-                if (keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT || keyCode == GLFW.GLFW_KEY_ESCAPE) {
+                if (keyCode == GLFW.GLFW_KEY_ENTER || keyCode == ((KeyBindingAccessor) ShadowClientMain.toggleGUIKeyBinding).getBoundKey().getCode() || keyCode == GLFW.GLFW_KEY_ESCAPE) {
                     typing = false;
                     return;
                 }
@@ -350,6 +354,69 @@ public abstract class SettingComponent extends FrameChild {
         @Override
         public int getHeight() {
             return Font.getHeight() + 4;
+        }
+
+    }
+
+    public static class KeybindingSettingComponent extends SettingComponent {
+
+        protected KeybindingSettingComponent(Setting setting, Vector2i position) {
+            super(setting, position);
+        }
+
+        private boolean configuring = false;
+
+        @Override
+        public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+
+            String text = setting.name + ": ";
+            int textWidth = Font.getWidth(text);
+            String binding = configuring ? "[Press a key]" : getBindingName(((KeySetting) setting).keyValue());
+            int bindingWidth = Font.getWidth(binding);
+            context.fill(position.x + textWidth,position.y + 2, position.x + textWidth + bindingWidth + 4, position.y + 2 + Font.getHeight() + 4, Colors.KEYBIND_SETTING_BACKGROUND.color);
+            Font.renderString(context, text, position.x + 2, position.y + 4, Colors.TEXT_NORMAL.color);
+            Font.renderString(context, binding, position.x + textWidth + 2, position.y + 4, Colors.TEXT_NORMAL.color);
+
+        }
+
+        @Override
+        public boolean interceptKeypresses() {
+            return configuring;
+        }
+
+        public boolean isConfiguring() {
+            return configuring;
+        }
+
+        @Override
+        public void mouseClicked(double mouseX, double mouseY, int button) {
+            configuring = isHovered(mouseX, mouseY);
+        }
+
+        @Override
+        public void keyPressed(int keyCode, int scanCode, int modifiers) {
+            if (configuring) {
+                configuring = false;
+                if (keyCode == ((KeyBindingAccessor) ShadowClientMain.toggleGUIKeyBinding).getBoundKey().getCode()) {
+                    return;
+                }
+                ((KeySetting) setting).setKeyValue(keyCode == GLFW.GLFW_KEY_ESCAPE ? -1 : keyCode);
+            }
+        }
+
+        private String getBindingName(int key) {
+            String binding = key == -1 ? null : GLFW.glfwGetKeyName(key, -1).toUpperCase();
+            return binding == null ? I18n.translate("name.shadowclient.none") : binding;
+        }
+
+        @Override
+        public int getWidth() {
+            return Font.getWidth(setting.name + ": " + getBindingName(((KeySetting) setting).keyValue()));
+        }
+
+        @Override
+        public int getHeight() {
+            return Font.getHeight() + 8; // 2 + line (+ 2*2 padding) + 2
         }
 
     }

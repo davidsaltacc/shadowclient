@@ -36,14 +36,6 @@ public class EventManager {
                 return;
             }
 
-            if (evt instanceof PostTickEvent) {
-                ModuleManager.getAllModules().forEach((name, module) -> {
-                    if (!module.getClass().isAnnotationPresent(NotKeybindable.class) && module.keyBinding.wasPressed()) {
-                        module.toggle();
-                    }
-                });
-            }
-
             List<Module> modules;
             if ((modules = listeners.get(evt.getClass())) != null) {
                 modules.forEach(module -> {

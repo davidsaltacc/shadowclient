@@ -60,7 +60,7 @@ public class Config {
                         settings.addProperty(setting.name, set.booleanValue());
                     }
                     if (setting instanceof NumberSetting set) {
-                        settings.addProperty(setting.name, set.numberValueUneased());
+                        settings.addProperty(setting.name, set.numberValue());
                     }
                     if (setting instanceof StringSetting set) {
                         settings.addProperty(setting.name, set.stringValue());
@@ -87,7 +87,7 @@ public class Config {
                     scsettings.addProperty(field.getName(), set.booleanValue());
                 }
                 if (setting instanceof NumberSetting set) {
-                    scsettings.addProperty(field.getName(), set.numberValue());
+                    scsettings.addProperty(field.getName(), set.numberValueEased());
                 }
                 if (setting instanceof StringSetting set) {
                     scsettings.addProperty(field.getName(), set.stringValue());

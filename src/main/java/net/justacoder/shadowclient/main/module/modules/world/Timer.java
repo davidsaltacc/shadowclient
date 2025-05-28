@@ -18,6 +18,6 @@ public class Timer extends Module {
     }
 
     public float getMultiplier() {
-        return this.enabled ? MULTIPLIER.floatValue() : 1f;
+        return this.enabled ? MULTIPLIER.floatValueEased() : 1f;
     }
 }

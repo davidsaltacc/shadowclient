@@ -85,7 +85,7 @@ public class Freecam extends Module {
             if (mc.options.sneakKey.isPressed()) { directionUD -= 1; }
 
             if (directionLR != 0f || directionFB != 0f || directionUD != 0f) {
-                freecamEntity.setPosition(freecamEntity.getPos().add(new Vec3d(directionLR, directionUD, directionFB).rotateY((float) Math.toRadians(-freecamEntity.getYaw())).normalize().multiply(SPEED.floatValue() * (mc.options.sprintKey.isPressed() ? 4 : 1))));
+                freecamEntity.setPosition(freecamEntity.getPos().add(new Vec3d(directionLR, directionUD, directionFB).rotateY((float) Math.toRadians(-freecamEntity.getYaw())).normalize().multiply(SPEED.floatValueEased() * (mc.options.sprintKey.isPressed() ? 4 : 1))));
                 freecamEntity.resetPosition();
             }
 

@@ -65,36 +65,6 @@ public class MainClickGUI extends ClickGUI {
         }
     }
 
-    @Override
-    public boolean shouldCloseOnEsc() {
-        if (ModuleManager.isConfiguringKeyBinds()) {
-            return false;
-        }
-        return super.shouldCloseOnEsc();
-    }
-
-    @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-
-        if (ModuleManager.isConfiguringKeyBinds()) {
-            if (ShadowClientMain.toggleGUIKeyBinding.matchesKey(keyCode, scanCode)) {
-                ModuleManager.endKeybindConfiguration();
-                ModuleManager.ConfigureKeybindingsModule.setDisabled();
-                ShadowClientMain.mc.setScreen(null);
-                return true;
-            }
-            if (ModuleManager.getConfiguringKeyBinding() != null) {
-                int code = keyCode == GLFW.GLFW_KEY_ESCAPE ? GLFW.GLFW_KEY_UNKNOWN : keyCode;
-                ModuleManager.getConfiguringKeyBinding().setBoundKey(InputUtil.Type.KEYSYM.createFromCode(code));
-                ModuleManager.getConfiguringKeyBindingModule().reloadKeybindTranslation();
-                KeyBinding.updateKeysByCode();
-                ModuleManager.setConfiguringKeyBinding(null, null);
-            }
-        }
-
-        return super.keyPressed(keyCode, scanCode, modifiers);
-    }
-
     public List<FrameChild> getAllTextFields() {
         List<FrameChild> textFields = new ArrayList<>();
         for (Frame frame : frames) {

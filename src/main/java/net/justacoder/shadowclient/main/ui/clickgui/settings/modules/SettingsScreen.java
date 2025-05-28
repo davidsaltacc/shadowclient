@@ -1,11 +1,13 @@
 package net.justacoder.shadowclient.main.ui.clickgui.settings.modules;
 
 import net.justacoder.shadowclient.main.ShadowClientMain;
+import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.justacoder.shadowclient.main.config.ShadowClientSettings;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.render.UIRenderUtils;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
+import net.justacoder.shadowclient.main.setting.settings.KeySetting;
 import net.justacoder.shadowclient.main.setting.settings.PaddingSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.Colors;
 import net.justacoder.shadowclient.main.ui.clickgui.FrameChild;
@@ -43,16 +45,27 @@ public class SettingsScreen extends Screen {
     private float scrollY = 0;
     private float scrollSpeed = 10;
 
+    public SettingComponent.KeybindingSettingComponent toggleModuleKeybindComponent = null;
+    public BooleanSetting enabledSetting;
+
     public SettingsScreen(Module module) {
         super(Text.of(module.friendlyName));
         this.module = module;
-        BooleanSetting enabledSetting = new BooleanSetting("Enabled", module.enabled);
+
+        enabledSetting = new BooleanSetting("Enabled", module.enabled);
         components.add(SettingComponent.ofSetting(enabledSetting, new Vector2i()));
         enabledSetting.addChangeCallback((newValue, ignored) -> {
             if ((boolean) newValue) { module.setEnabled(); }
             else { module.setDisabled(); }
         });
+
+        if (!module.getClass().isAnnotationPresent(NotKeybindable.class)) {
+            toggleModuleKeybindComponent = (SettingComponent.KeybindingSettingComponent) SettingComponent.ofSetting(new KeySetting("Keybind", module.keyBinding), new Vector2i());
+            components.add(toggleModuleKeybindComponent);
+        }
+
         components.add(SettingComponent.ofSetting(new PaddingSetting(""), new Vector2i()));
+
         for (Setting setting : module.getSettings()) {
             components.add(SettingComponent.ofSetting(setting, new Vector2i()));
         }
@@ -138,7 +151,8 @@ public class SettingsScreen extends Screen {
 
         float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor();
         int mouseX = (int) (scaledMouseX * disableScaleFactor);
-        int mouseY = (int) (scaledMouseY * disableScaleFactor);
+        int mouseY = (int) (scaledMouseY * disableScaleFactor) - (int) scrollY;
+        int mouseYScreen = mouseY + (int) scrollY;
 
         boolean canScroll = true;
         for (SettingComponent component : components) {
@@ -148,8 +162,8 @@ public class SettingsScreen extends Screen {
             component.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
         }
 
-        if (canScroll && contentActualHeight > contentEndY - contentStartY && mouseX > overlayStartX && mouseX < overlayStartX + overlayWidth && mouseY > overlayStartY && mouseY < overlayStartY + overlayHeight) {
-            scrollY = (float) Math.clamp(scrollY + Math.signum(verticalAmount) * MathHelper.square(verticalAmount) * scrollSpeed, -(contentActualHeight - (contentEndY - contentStartY - padding)), 0f);
+        if (canScroll && contentActualHeight > contentEndY - contentStartY && mouseX > overlayStartX && mouseX < overlayStartX + overlayWidth && mouseYScreen > overlayStartY && mouseYScreen < overlayStartY + overlayHeight) {
+            scrollY = (float) Math.clamp(scrollY + Math.signum(verticalAmount) * MathHelper.square(verticalAmount) * scrollSpeed, Math.min(0f, -(contentActualHeight - (contentEndY - contentStartY - titleOffset))), 0f);
         }
 
         return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
@@ -164,7 +178,15 @@ public class SettingsScreen extends Screen {
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 
         if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
-            client.setScreen(ShadowClientMain.clickGui);
+            boolean configuring = false;
+            for (SettingComponent component : components) {
+                if (component instanceof SettingComponent.KeybindingSettingComponent settingComponent && settingComponent.isConfiguring()) {
+                    configuring = true;
+                }
+            }
+            if (!configuring) {
+                client.setScreen(ShadowClientMain.clickGui);
+            }
         }
 
         components.forEach(component -> component.keyPressed(keyCode, scanCode, modifiers));
@@ -177,7 +199,7 @@ public class SettingsScreen extends Screen {
 
         float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor();
         int mouseX = (int) (scaledMouseX * disableScaleFactor);
-        int mouseY = (int) (scaledMouseY * disableScaleFactor);
+        int mouseY = (int) (scaledMouseY * disableScaleFactor) - (int) scrollY;
 
         components.forEach(component -> component.mouseClicked(mouseX, mouseY, button));
 
@@ -189,7 +211,7 @@ public class SettingsScreen extends Screen {
 
         float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor();
         int mouseX = (int) (scaledMouseX * disableScaleFactor);
-        int mouseY = (int) (scaledMouseY * disableScaleFactor);
+        int mouseY = (int) (scaledMouseY * disableScaleFactor) - (int) scrollY;
 
         components.forEach(component -> component.mouseReleased(mouseX, mouseY, button));
 

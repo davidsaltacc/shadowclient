@@ -36,14 +36,14 @@ public class SpoofRenderDistance extends Module {
         if (!enabled) {
             return original;
         }
-        return spoofedDistance.intValue() * 16;
+        return spoofedDistance.intValueEased() * 16;
     }
 
     public int getDistanceChunks(int original) {
         if (!enabled) {
             return original;
         }
-        return spoofedDistance.intValue();
+        return spoofedDistance.intValueEased();
     }
 
 }

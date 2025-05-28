@@ -32,11 +32,23 @@ public class NumberSetting extends Setting {
         this.maxValue = maxValue;
     }
 
-    public Number numberValue() {
+    public Number numberValueEased() {
         return MathUtils.easedSliderValue(value.doubleValue(), minValue.doubleValue(), maxValue.doubleValue(), easing);
     }
-    public Number numberValueUneased() {
+    public Number numberValue() {
         return value;
+    }
+    public int intValueEased() {
+        return numberValueEased().intValue();
+    }
+    public long longValueEased() {
+        return numberValueEased().longValue();
+    }
+    public float floatValueEased() {
+        return numberValueEased().floatValue();
+    }
+    public double doubleValueEased() {
+        return numberValueEased().doubleValue();
     }
     public int intValue() {
         return numberValue().intValue();

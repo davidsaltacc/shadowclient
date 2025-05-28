@@ -3,6 +3,7 @@ package net.justacoder.shadowclient.main;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModMetadata;
+import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.render.Renderer;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
@@ -185,7 +186,6 @@ public abstract class ShadowClientMain {
     }
 
     public static void mainClickGUIClosed() {
-        ModuleManager.endKeybindConfiguration();
     }
 
     public static String createHelp() {
@@ -216,11 +216,16 @@ public abstract class ShadowClientMain {
         ChatUtils.sendMessageClient("§9§l§u" + CLIENT_NAME + " §o" + CLIENT_VERSION + "§r\nType " + CLIENT_COMMAND_PREFIX + "help for useful help.");
     }
 
+    public static void keyPressed(int keyCode, int scanCode, int action) {
+        ModuleManager.getAllModules().forEach((name, module) -> {
+            if (!module.getClass().isAnnotationPresent(NotKeybindable.class) && module.keyBinding.matchesKey(keyCode, scanCode) && action == GLFW.GLFW_PRESS && !(ShadowClientMain.mc.currentScreen instanceof SettingsScreen screen && screen.toggleModuleKeybindComponent != null && screen.toggleModuleKeybindComponent.isConfiguring())) {
+                module.toggle();
+            }
+        });
+    }
+
     public static @Nullable Screen allowKeyPress(@Nullable Screen screen, int key) {
-        if (ModuleManager.isConfiguringKeyBinds()) {
-            return screen;
-        }
-        if (screen instanceof ClickGUI && !clickGui.isAnyTextFieldCapturing() && !settingsGui.isAnyTextFieldCapturing() || (screen instanceof SettingsScreen && !((SettingsScreen) screen).interceptKeypresses())) {
+        if (screen instanceof ClickGUI && !clickGui.isAnyTextFieldCapturing() && !settingsGui.isAnyTextFieldCapturing() || (screen instanceof SettingsScreen sscreen && !sscreen.interceptKeypresses())) {
             if (key == GLFW.GLFW_KEY_ESCAPE) {
                 return screen;
             }

@@ -31,9 +31,9 @@ public class WeatherControl extends Module {
     }
 
     public int getTime() {
-        return TIME.intValue();
+        return TIME.intValueEased();
     }
     public int getMoon() {
-        return MOON.intValue();
+        return MOON.intValueEased();
     }
 }

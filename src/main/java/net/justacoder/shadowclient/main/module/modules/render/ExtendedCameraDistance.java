@@ -14,6 +14,6 @@ public class ExtendedCameraDistance extends Module {
     }
 
     public float getDistance() {
-        return DISTANCE.floatValue();
+        return DISTANCE.floatValueEased();
     }
 }

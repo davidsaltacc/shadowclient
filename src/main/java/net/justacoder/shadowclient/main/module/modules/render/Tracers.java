@@ -3,7 +3,6 @@ package net.justacoder.shadowclient.main.module.modules.render;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 import net.justacoder.shadowclient.main.setting.settings.PaddingSetting;
-import net.justacoder.shadowclient.main.ui.font.Font;
 import net.justacoder.shadowclient.main.util.RotationUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.AmbientEntity;
@@ -54,7 +53,7 @@ public class Tracers extends Module {
 
         RenderEvent evt = (RenderEvent) event;
 
-        Vec3d tracerStart = new Vec3d(0, 0, startDistance.floatValue()).rotateX(-(float) Math.toRadians(mc.gameRenderer.getCamera().getPitch())).rotateY(-(float) Math.toRadians(mc.gameRenderer.getCamera().getYaw())).add(mc.gameRenderer.getCamera().getPos());
+        Vec3d tracerStart = new Vec3d(0, 0, startDistance.floatValueEased()).rotateX(-(float) Math.toRadians(mc.gameRenderer.getCamera().getPitch())).rotateY(-(float) Math.toRadians(mc.gameRenderer.getCamera().getYaw())).add(mc.gameRenderer.getCamera().getPos());
 
         for (Entity entity : mc.world.getEntities()) {
 

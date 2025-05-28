@@ -21,7 +21,7 @@ public class Breadcrumbs extends Module {
     public final NumberSetting MIN_SEGMENT_LEN = new NumberSetting("Min. Segment Len.", 0.01f, 5.f, 0.5f, 2, MathUtils.Easing.EASE_IN_CUBIC);
     public final NumberSetting MAX_POSITIONS = new NumberSetting("Max Breadcrumbs", 2, 8000, 2000, 0);
 
-    private final ArrayDeque<Vec3d> positions = new ArrayDeque<>(MAX_POSITIONS.intValue());
+    private final ArrayDeque<Vec3d> positions = new ArrayDeque<>(MAX_POSITIONS.intValueEased());
 
     public Breadcrumbs() {
         super("breadcrumbs", ModuleCategory.RENDER, new String[]{"breadcrumbs", "trails", "player trails"});
@@ -42,9 +42,9 @@ public class Breadcrumbs extends Module {
 
         if (event instanceof PreTickEvent) {
 
-            float minSegLenSq = MathHelper.square(MIN_SEGMENT_LEN.floatValue());
+            float minSegLenSq = MathHelper.square(MIN_SEGMENT_LEN.floatValueEased());
             if (positions.isEmpty() || positions.peekLast().squaredDistanceTo(mc.player.getPos()) > minSegLenSq) {
-                if (positions.size() == MAX_POSITIONS.intValue()) {
+                if (positions.size() == MAX_POSITIONS.intValueEased()) {
                     positions.pollFirst();
                 }
                 positions.addLast(mc.player.getPos());

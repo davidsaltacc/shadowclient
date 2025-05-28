@@ -16,7 +16,7 @@ public class NoFireOverlay extends Module {
     }
 
     public float getOffset() {
-        return this.enabled ? OFFSET.floatValue() : 0f;
+        return this.enabled ? OFFSET.floatValueEased() : 0f;
     }
 
 }

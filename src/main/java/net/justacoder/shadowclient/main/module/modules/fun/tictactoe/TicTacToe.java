@@ -23,7 +23,7 @@ public class TicTacToe extends Module {
     @Override
     public void onEnable() {
         game.aistart = AI_STARTS.booleanValue();
-        game.difficulty = DIFFICULTY.intValue();
+        game.difficulty = DIFFICULTY.intValueEased();
         game.reset();
         super.onEnable();
     }

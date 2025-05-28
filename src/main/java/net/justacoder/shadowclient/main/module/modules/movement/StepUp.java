@@ -27,9 +27,9 @@ public class StepUp extends Module {
     @Override
     public void onEvent(Event event) {
 
-        mc.player.setBoundingBox(mc.player.getBoundingBox().offset(0, HEIGHT.floatValue(), 0));
-        setStepHeight(HEIGHT.floatValue());
-        mc.player.setBoundingBox(mc.player.getBoundingBox().offset(0, -HEIGHT.floatValue(), 0));
+        mc.player.setBoundingBox(mc.player.getBoundingBox().offset(0, HEIGHT.floatValueEased(), 0));
+        setStepHeight(HEIGHT.floatValueEased());
+        mc.player.setBoundingBox(mc.player.getBoundingBox().offset(0, -HEIGHT.floatValueEased(), 0));
 
     }
 

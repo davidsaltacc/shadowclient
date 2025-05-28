@@ -18,6 +18,6 @@ public class HighJump extends Module {
         if (!enabled) {
             return in;
         }
-        return in * HEIGHT.floatValue();
+        return in * HEIGHT.floatValueEased();
     }
 }

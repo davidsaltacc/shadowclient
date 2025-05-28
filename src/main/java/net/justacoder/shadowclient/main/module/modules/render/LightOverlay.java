@@ -32,8 +32,8 @@ public class LightOverlay extends Module {
         int ply = mc.player.getBlockY();
         int plz = mc.player.getBlockZ();
 
-        int radius = RADIUS.intValue();
-        int vradius = VRADIUS.intValue();
+        int radius = RADIUS.intValueEased();
+        int vradius = VRADIUS.intValueEased();
 
         int minX = plx - radius;
         int maxX = plx + radius;

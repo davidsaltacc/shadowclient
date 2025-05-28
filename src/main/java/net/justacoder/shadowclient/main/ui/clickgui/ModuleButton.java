@@ -1,7 +1,7 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
+import net.justacoder.shadowclient.main.annotations.NoSettingsScreen;
 import net.justacoder.shadowclient.main.annotations.NotKeybindable;
-import net.justacoder.shadowclient.main.module.modules.menus.ConfigureKeybindings;
 import net.justacoder.shadowclient.main.ui.clickgui.settings.modules.SettingsScreen;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.gui.DrawContext;
@@ -23,13 +23,6 @@ public class ModuleButton extends FrameChild {
     }
 
     private String getName() {
-        if (ModuleManager.isConfiguringKeyBinds()) {
-            if (module.getClass().isAnnotationPresent(NotKeybindable.class)) {
-                return module.friendlyName;
-            } else {
-                return "[ " + module.keyBindingName + " ] " + module.friendlyName;
-            }
-        }
         return module.friendlyName;
     }
 
@@ -62,17 +55,8 @@ public class ModuleButton extends FrameChild {
     public void mouseClicked(double mouseX, double mouseY, int button) {
         if (isHovered(mouseX, mouseY)) {
             if (button == GLFW.GLFW_MOUSE_BUTTON_1) {
-                if (ModuleManager.isConfiguringKeyBinds() && !module.getClass().isAnnotationPresent(NotKeybindable.class)) {
-                    if (module instanceof ConfigureKeybindings) {
-                        ShadowClientMain.toggleModuleEnabled(module.moduleName);
-                        return;
-                    }
-                    ModuleManager.setConfiguringKeyBinding(module.keyBinding, module);
-                    return;
-                } else {
-                    ShadowClientMain.toggleModuleEnabled(module.moduleName);
-                }
-            } else if (button == GLFW.GLFW_MOUSE_BUTTON_2) {
+                ShadowClientMain.toggleModuleEnabled(module.moduleName);
+            } else if (button == GLFW.GLFW_MOUSE_BUTTON_2 && !module.getClass().isAnnotationPresent(NoSettingsScreen.class)) {
                 ShadowClientMain.mc.setScreen(new SettingsScreen(module));
             }
         }
@@ -98,12 +82,6 @@ public class ModuleButton extends FrameChild {
     }
 
     public int getTextColor() {
-        if (ModuleManager.isConfiguringKeyBinds()) {
-            if ((module.keyBinding == ModuleManager.getConfiguringKeyBinding() && !module.getClass().isAnnotationPresent(NotKeybindable.class)) || module instanceof ConfigureKeybindings) {
-                return Colors.TEXT_ENABLED.color;
-            }
-            return Colors.TEXT_NORMAL.color;
-        }
         if (ShadowClientMain.clickGui.searching) {
             if (isGettingSearchedFor()) {
                 if (module.enabled) {

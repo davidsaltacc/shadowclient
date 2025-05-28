@@ -16,6 +16,6 @@ public class ChestSteal extends Module {
     }
 
     public int getDelay() {
-        return DELAY.intValue();
+        return DELAY.intValueEased();
     }
 }

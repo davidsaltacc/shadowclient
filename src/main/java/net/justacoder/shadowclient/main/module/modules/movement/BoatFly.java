@@ -28,7 +28,7 @@ public class BoatFly extends Module {
             return;
         }
 
-        float speed = SPEED.floatValue();
+        float speed = SPEED.floatValueEased();
 
         Entity entity = mc.player.getVehicle();
         Vec3d vel = entity.getVelocity();

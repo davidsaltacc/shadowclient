@@ -35,7 +35,7 @@ public class Parkour extends Module {
         }
 
         Box box = mc.player.getBoundingBox();
-        Box adjustedBox = box.stretch(0, -0.5, 0).expand(-EDGE_DIST.floatValue(), 0, -EDGE_DIST.floatValue());
+        Box adjustedBox = box.stretch(0, -0.5, 0).expand(-EDGE_DIST.floatValueEased(), 0, -EDGE_DIST.floatValueEased());
 
         if (!mc.world.isSpaceEmpty(mc.player, adjustedBox)) {
             return;

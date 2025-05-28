@@ -26,9 +26,6 @@ import java.util.Map;
 public abstract class ModuleManager {
 
     private static final Map<String, Module> modules = new HashMap<>();
-    private static boolean isConfiguringKeyBinds = false;
-    private static KeyBinding configuringKeyBinding = null;
-    private static Module configuringKeyBindingModule = null;
 
     public static AutoSprint AutoSprintModule;
     public static Spider SpiderModule;
@@ -100,7 +97,6 @@ public abstract class ModuleManager {
     public static ClickTP ClickTPModule;
     public static LightOverlay LightOverlayModule;
     public static HideShield HideShieldModule;
-    public static ConfigureKeybindings ConfigureKeybindingsModule;
     public static Zoom ZoomModule;
     public static NoBob NoBobModule;
     public static AutoHit AutoHitModule;
@@ -182,7 +178,6 @@ public abstract class ModuleManager {
         ClickTPModule = (ClickTP) register(new ClickTP());
         LightOverlayModule = (LightOverlay) register(new LightOverlay());
         HideShieldModule = (HideShield) register(new HideShield());
-        ConfigureKeybindingsModule = (ConfigureKeybindings) register(new ConfigureKeybindings());
         ZoomModule = (Zoom) register(new Zoom());
         NoBobModule = (NoBob) register(new NoBob());
         AutoHitModule = (AutoHit) register(new AutoHit());
@@ -228,37 +223,4 @@ public abstract class ModuleManager {
         return modules;
     }
 
-    public static boolean isConfiguringKeyBinds() {
-        return isConfiguringKeyBinds;
-    }
-
-    public static KeyBinding getConfiguringKeyBinding() {
-        return configuringKeyBinding;
-    }
-
-    public static Module getConfiguringKeyBindingModule() {
-        return configuringKeyBindingModule;
-    }
-
-    public static void setConfiguringKeyBinding(KeyBinding keyBinding, Module module) {
-        configuringKeyBinding = keyBinding;
-        configuringKeyBindingModule = module;
-    }
-
-    public static void startKeybindConfiguration() {
-        isConfiguringKeyBinds = true;
-        ShadowClientMain.mc.options.forwardKey.setPressed(false);
-        ShadowClientMain.mc.options.backKey.setPressed(false);
-        ShadowClientMain.mc.options.rightKey.setPressed(false);
-        ShadowClientMain.mc.options.leftKey.setPressed(false);
-        ShadowClientMain.mc.options.jumpKey.setPressed(false);
-        ShadowClientMain.mc.options.sneakKey.setPressed(false);
-    }
-
-    public static void endKeybindConfiguration() {
-        isConfiguringKeyBinds = false;
-        configuringKeyBinding = null;
-        configuringKeyBindingModule = null;
-        ShadowClientMain.mc.options.write();
-    }
 }

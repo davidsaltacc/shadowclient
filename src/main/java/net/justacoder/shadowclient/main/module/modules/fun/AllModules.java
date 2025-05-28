@@ -5,7 +5,6 @@ import net.justacoder.shadowclient.main.annotations.OneClick;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.module.ModuleManager;
-import net.justacoder.shadowclient.main.module.modules.menus.ConfigureKeybindings;
 import net.justacoder.shadowclient.main.module.modules.render.Freecam;
 
 @NotKeybindable
@@ -18,7 +17,7 @@ public class AllModules extends Module {
     @Override
     public void onEnable() {
         ModuleManager.getAllModules().forEach((n, m) -> {
-            if (!m.getClass().isAnnotationPresent(OneClick.class) && !(m instanceof Freecam) && !(m instanceof ConfigureKeybindings)) {
+            if (!m.getClass().isAnnotationPresent(OneClick.class) && !(m instanceof Freecam)) {
                 m.setEnabled();
             }
         });

@@ -1,6 +1,8 @@
 package net.justacoder.shadowclient.main.ui.clickgui.text;
 
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.ui.font.Font;
+import net.justacoder.shadowclient.mixin.KeyBindingAccessor;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.ui.clickgui.Colors;
 import net.justacoder.shadowclient.main.ui.clickgui.Frame;
@@ -69,7 +71,7 @@ public class TextField extends FrameChild {
                 }
                 return;
             }
-            if (keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT || keyCode == GLFW.GLFW_KEY_ESCAPE) {
+            if (keyCode == GLFW.GLFW_KEY_ENTER || keyCode == ((KeyBindingAccessor) ShadowClientMain.toggleGUIKeyBinding).getBoundKey().getCode() || keyCode == GLFW.GLFW_KEY_ESCAPE) {
                 captureKeyPresses = false;
                 return;
             }

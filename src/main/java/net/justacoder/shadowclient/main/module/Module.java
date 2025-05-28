@@ -2,6 +2,7 @@ package net.justacoder.shadowclient.main.module;
 
 import net.justacoder.shadowclient.main.annotations.NoChatMessages;
 import net.justacoder.shadowclient.main.annotations.NotKeybindable;
+import net.justacoder.shadowclient.main.ui.clickgui.settings.modules.SettingsScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.justacoder.shadowclient.main.ShadowClientMain;
@@ -113,12 +114,21 @@ public abstract class Module {
         if (showMessage && !this.getClass().isAnnotationPresent(OneClick.class) && !this.getClass().isAnnotationPresent(NoChatMessages.class)) {
             ShadowClientMain.moduleToggleChatMessage(friendlyName, true);
         }
+        updateSettingsScreenIfNecessary();
     }
     public void onDisable() {
         if (showMessage && !this.getClass().isAnnotationPresent(OneClick.class) && !this.getClass().isAnnotationPresent(NoChatMessages.class)) {
             ShadowClientMain.moduleToggleChatMessage(friendlyName, false);
         }
+        updateSettingsScreenIfNecessary();
     }
+
+    private void updateSettingsScreenIfNecessary() {
+        if (mc.currentScreen instanceof SettingsScreen screen && screen.enabledSetting.booleanValue() != enabled) {
+            screen.enabledSetting.setBooleanValue(enabled);
+        }
+    }
+
     public void onEvent(Event event) {}
 
     public void postInit() {}

@@ -31,7 +31,7 @@ public class BunnyHop extends Module {
             }
             return;
         }
-        if ((Math.abs(mc.player.getVelocity().x) + Math.abs(mc.player.getVelocity().z)) / 2f <= MINVEL.floatValue()) {
+        if ((Math.abs(mc.player.getVelocity().x) + Math.abs(mc.player.getVelocity().z)) / 2f <= MINVEL.floatValueEased()) {
             return;
         }
 
