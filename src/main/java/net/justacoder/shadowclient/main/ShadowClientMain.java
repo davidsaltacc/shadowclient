@@ -80,7 +80,6 @@ public abstract class ShadowClientMain {
             mayWriteConfig = true;
             Runtime.getRuntime().addShutdownHook(new Thread(ShadowClientMain::closed));
             Config.loadConfig();
-            checkConflictingMods();
             registerAllFontSizes();
             info("Finished " + CLIENT_NAME + " initialization");
 
@@ -253,32 +252,6 @@ public abstract class ShadowClientMain {
     }
     public static void notification(String title, String desc) {
         NotificationsManager.addNotification(new Notification(title, desc));
-    }
-
-    public static void checkConflictingMods() {
-        String warningTitle = "name.shadowclient.sc_warning";
-        if (isOptifinePresent()) {
-            warn("Optifine is installed");
-            notification(warningTitle, "warning.shadowclient.optifine");
-        }
-        if (isSodiumPresent()) {
-            warn("Sodium is installed");
-            notification(warningTitle, "warning.shadowclient.sodium");
-        }
-        if (isEntityCullPresent()) {
-            warn("EntityCulling is installed");
-            notification(warningTitle, "warning.shadowclient.entityculling");
-        }
-    }
-
-    public static boolean isSodiumPresent() {
-        return isModPresent(mod -> mod.contains("sodium"));
-    }
-    public static boolean isOptifinePresent() {
-        return isModPresent(mod -> mod.contains("optifine") || mod.contains("optifabric"));
-    }
-    public static boolean isEntityCullPresent() {
-        return isModPresent(mod -> mod.contains("entityculling"));
     }
 
     public static boolean isModPresent(Predicate<String> search) {

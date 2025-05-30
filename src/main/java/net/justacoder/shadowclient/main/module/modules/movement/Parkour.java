@@ -7,7 +7,6 @@ import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
-import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 import net.justacoder.shadowclient.main.util.EntityUtils;
 
@@ -15,12 +14,11 @@ import net.justacoder.shadowclient.main.util.EntityUtils;
 public class Parkour extends Module {
 
     public final NumberSetting EDGE_DIST = new NumberSetting("Edge Distance", 0.001f, 0.25f, 0.001f, 3, MathUtils.Easing.EASE_IN_QUADRATIC);
-    public final BooleanSetting LEGIT = new BooleanSetting("Legit", true);
 
     public Parkour() {
         super("parkour", ModuleCategory.MOVEMENT, new String[]{"parkour", "autojump", "auto jump", "auto parkour"});
 
-        addSettings(EDGE_DIST, LEGIT);
+        addSettings(EDGE_DIST);
     }
 
     @Override
@@ -42,8 +40,7 @@ public class Parkour extends Module {
         }
 
         mc.player.jump();
-        if (LEGIT.booleanValue()) {
-            EntityUtils.setOnGround(mc.player, false);
-        }
+        EntityUtils.setOnGround(mc.player, false);
+
     }
 }
