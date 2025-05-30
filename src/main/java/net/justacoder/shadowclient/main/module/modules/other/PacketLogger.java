@@ -18,7 +18,7 @@ import net.minecraft.network.packet.s2c.login.*;
 import net.minecraft.network.packet.s2c.play.*;
 import net.justacoder.shadowclient.main.annotations.EventListener;
 import net.justacoder.shadowclient.main.event.Event;
-import net.justacoder.shadowclient.main.event.events.PacketRecievedEvent;
+import net.justacoder.shadowclient.main.event.events.PacketReceivedEvent;
 import net.justacoder.shadowclient.main.event.events.PacketSentEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
@@ -28,7 +28,7 @@ import net.justacoder.shadowclient.main.util.ChatUtils;
 import net.minecraft.network.packet.s2c.query.PingResultS2CPacket;
 import net.minecraft.network.packet.s2c.query.QueryResponseS2CPacket;
 
-@EventListener({PacketSentEvent.class, PacketRecievedEvent.class})
+@EventListener({PacketSentEvent.class, PacketReceivedEvent.class})
 public class PacketLogger extends Module {
 
     public final EnumSetting<Mode> MODE = new EnumSetting<>("Mode", Mode.ALL);
@@ -63,15 +63,15 @@ public class PacketLogger extends Module {
     @Override
     public void onEvent(Event event) {
         if (MODE.getEnumValue() == Mode.ALL) {
-            if (event instanceof PacketRecievedEvent) {
-                send(ChatUtils.Formattings.ITALIC + "RECEIVED " + ChatUtils.Formattings.RESET + cleanClassName(((PacketRecievedEvent) event).packet));
+            if (event instanceof PacketReceivedEvent) {
+                send(ChatUtils.Formattings.ITALIC + "RECEIVED " + ChatUtils.Formattings.RESET + cleanClassName(((PacketReceivedEvent) event).packet));
                 return;
             }
             send(ChatUtils.Formattings.ITALIC + "SENT " + ChatUtils.Formattings.RESET + cleanClassName(((PacketSentEvent) event).packet));
             return;
         }
-        if (MODE.getEnumValue() == Mode.RECEIVED && event instanceof PacketRecievedEvent) {
-            send(ChatUtils.Formattings.ITALIC + "RECEIVED " + ChatUtils.Formattings.RESET + cleanClassName(((PacketRecievedEvent) event).packet));
+        if (MODE.getEnumValue() == Mode.RECEIVED && event instanceof PacketReceivedEvent) {
+            send(ChatUtils.Formattings.ITALIC + "RECEIVED " + ChatUtils.Formattings.RESET + cleanClassName(((PacketReceivedEvent) event).packet));
             return;
         }
         if (MODE.getEnumValue() == Mode.SENT && event instanceof PacketSentEvent) {

@@ -42,8 +42,6 @@ public abstract class MinecraftClientMixin {
     @Shadow @Final public GameOptions options;
     @Shadow @Nullable public Screen currentScreen;
 
-    @Shadow private boolean integratedServerRunning;
-
     /**
      * @author ...
      * @reason ...

@@ -31,6 +31,10 @@ public class Freecam extends Module {
     @Override
     public void onEnable() {
 
+        if (mc.player == null) {
+            return;
+        }
+
         mc.options.setPerspective(Perspective.FIRST_PERSON);
 
         freecamEntity = new MarkerEntity(EntityType.MARKER, mc.world); // marker entity is the closest thing to an "empty" entity

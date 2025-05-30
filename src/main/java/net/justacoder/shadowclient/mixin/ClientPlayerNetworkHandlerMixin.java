@@ -50,16 +50,6 @@ public abstract class ClientPlayerNetworkHandlerMixin extends ClientCommonNetwor
         ShadowClientMain.onWorldJoined();
     }
 
-    @Override
-    public void sendPacket(Packet<?> packet) {
-        PacketSentEvent event = new PacketSentEvent(packet);
-        EventManager.fireEvent(event);
-        if (event.cancelled) {
-            return;
-        }
-        super.sendPacket(packet);
-    }
-
     @Inject(method = "onChunkDeltaUpdate", at = @At("HEAD"))
     private void onChunkDeltaData(ChunkDeltaUpdateS2CPacket packet, CallbackInfo ci) {
         Map<BlockPos, BlockState> delta = new ConcurrentHashMap<>();

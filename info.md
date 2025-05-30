@@ -20,6 +20,8 @@
 * breadcrumbs
 * auto crouch
 * spoof view distance
+* no fog
+* blink
 
 ### removed modules:
 * super secret shaders, minecraft removed them 
@@ -86,7 +88,7 @@
 - anti cobweb
 - ping spoof
 - test: do tracers render towards spectators too?
-- some modules don't summon chat messages on en/disable, even when calling super.onEnable. fix
+- some modules don't summon chat messages on en/disable, even when calling super.onEnable. fix. I THINK: some modules don't call super.onEn/Disable. wait. nevermind. whatever investigate anyway 
 - sodium does not cause issues... remove the warning.
 - is it possible to dynamically grow the font atlas?
 - spectator mode - spectate someone. make the cameraEntity be someone else
