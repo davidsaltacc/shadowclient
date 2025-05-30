@@ -83,13 +83,13 @@
 
 
 ## yet to do:
+- test blink properly, i think i didnt test it fully
 - IMPORTANT: better translation system in general, copy from the fractal renderer
 - scrolling down on the clickgui? and sideways, ig?
 - anti cobweb
 - ping spoof
 - test: do tracers render towards spectators too?
-- some modules don't summon chat messages on en/disable, even when calling super.onEnable. fix. I THINK: some modules don't call super.onEn/Disable. wait. nevermind. whatever investigate anyway 
-- sodium does not cause issues... remove the warning.
+- some modules don't summon chat messages on en/disable, even when calling super.onEnable. fix. I THINK: some modules don't call super.onEn/Disable. wait. nevermind. whatever investigate anyway
 - is it possible to dynamically grow the font atlas?
 - spectator mode - spectate someone. make the cameraEntity be someone else
 - seedcrackerX integration? maybe

@@ -12,6 +12,8 @@ import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 import net.justacoder.shadowclient.mixininterface.IClientConnection;
 import net.minecraft.network.listener.PacketListener;
 import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
+
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -32,7 +34,7 @@ public class Blink extends Module {
 
     @Override
     public void onEvent(Event event) {
-        if (event instanceof PacketSentEvent evt) {
+        if (event instanceof PacketSentEvent evt && evt.packet instanceof PlayerMoveC2SPacket) {
             outgoingPacketQueue.add(evt.packet);
             evt.cancel();
         }
