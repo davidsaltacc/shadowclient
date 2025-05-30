@@ -8,6 +8,7 @@
     "plugin": "net.justacoder.shadowclient.mixinplugin.MixinPlugin",
     "client": [
         "AbstractBlockStateMixin",
+        "BackgroundRendererMixin",
         "BasicBakedModelMixin",
         "BlockEntityRenderDispatcherMixin",
         "BlockMixin",

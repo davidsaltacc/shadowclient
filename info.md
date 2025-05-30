@@ -96,13 +96,10 @@
 - unhittable - move player around in a small area real quickly to make them harder to hit
 * clean up the codebase... so much unused stuff
 - rework most of the *Utils classes
-* remove legit option from parkour, just default it
 * noclip
 - redo the splash texts. fuuucking hell
 - less annotations, more constructor params
-- SCFont.getWidth seems to be wrong slightly, does it count spaces properly?
 - top bar right click simulator
-- no fog
 - reset breadcrumbs on leave
 - optimize breadcrumbs rendering
 - how do wardens detect sound? I need smt against them
