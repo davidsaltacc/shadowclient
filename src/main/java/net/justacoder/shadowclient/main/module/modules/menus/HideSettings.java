@@ -18,8 +18,8 @@ public class HideSettings extends Module {
     }
 
     @Override
-    public void onEnable() {
+    public boolean onEnable() {
         mc.setScreen(ShadowClientMain.clickGui);
-        super.onEnable();
+        return super.onEnable();
     }
 }

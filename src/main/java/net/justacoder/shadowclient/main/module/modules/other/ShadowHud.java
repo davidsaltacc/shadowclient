@@ -56,7 +56,7 @@ public class ShadowHud extends Module {
     }
 
     @Override
-    public void onEnable() {
+    public boolean onEnable() {
         HudRenderer.setCorner(CORNER.getEnumValue());
 
         COORDINATES_ELEMENT.shouldBeRendered(COORDINATES.booleanValue());
@@ -66,7 +66,7 @@ public class ShadowHud extends Module {
         FRAMES_ELEMENT.shouldBeRendered(FRAMES.booleanValue());
         ENTITIES_ELEMENT.shouldBeRendered(ENTITIES.booleanValue());
 
-        super.onEnable();
+        return super.onEnable();
     }
 
     @Override

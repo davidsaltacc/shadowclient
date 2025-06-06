@@ -43,18 +43,18 @@ public class EntitiesESP extends Module {
     }
 
     @Override
-    public void onEnable() {
+    public boolean onEnable() {
 
         EntityCullingFix.disableCull();
 
-        super.onEnable();
+        return super.onEnable();
     }
 
     @Override
-    public void onDisable() {
+    public boolean onDisable() {
 
         EntityCullingFix.enableCull();
 
-        super.onDisable();
+        return super.onDisable();
     }
 }

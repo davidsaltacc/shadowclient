@@ -21,10 +21,10 @@ public class TicTacToe extends Module {
     public TTTGame game = new TTTGame();
 
     @Override
-    public void onEnable() {
+    public boolean onEnable() {
         game.aistart = AI_STARTS.booleanValue();
         game.difficulty = DIFFICULTY.intValueEased();
         game.reset();
-        super.onEnable();
+        return super.onEnable();
     }
 }

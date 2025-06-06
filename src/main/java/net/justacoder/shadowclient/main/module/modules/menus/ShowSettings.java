@@ -16,8 +16,8 @@ public class ShowSettings extends Module {
     }
 
     @Override
-    public void onEnable() {
+    public boolean onEnable() {
         mc.setScreen(ShadowClientMain.settingsGui);
-        super.onEnable();
+        return super.onEnable();
     }
 }

@@ -29,10 +29,10 @@ public class Freecam extends Module {
     private Entity freecamEntity = null;
 
     @Override
-    public void onEnable() {
+    public boolean onEnable() {
 
         if (mc.player == null) {
-            return;
+            return true;
         }
 
         mc.options.setPerspective(Perspective.FIRST_PERSON);
@@ -45,14 +45,14 @@ public class Freecam extends Module {
 
         mc.setCameraEntity(freecamEntity);
 
-        super.onEnable();
+        return super.onEnable();
     }
 
     @Override
-    public void onDisable() {
+    public boolean onDisable() {
 
         if (freecamEntity == null) {
-            return;
+            return true;
         }
 
         freecamEntity.remove(Entity.RemovalReason.DISCARDED);
@@ -60,7 +60,7 @@ public class Freecam extends Module {
 
         mc.setCameraEntity(mc.player);
 
-        super.onDisable();
+        return super.onDisable();
     }
 
     @Override

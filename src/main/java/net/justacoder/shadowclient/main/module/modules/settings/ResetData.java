@@ -18,8 +18,8 @@ public class ResetData extends Module {
     }
 
     @Override
-    public void onEnable() {
+    public boolean onEnable() {
         Config.resetConfig();
-        super.onEnable();
+        return super.onEnable();
     }
 }

@@ -16,10 +16,10 @@ public class LoadData extends Module {
     }
 
     @Override
-    public void onEnable() {
+    public boolean onEnable() {
         try {
             Config.loadConfig();
         } catch (Exception ignored) {}
-        super.onEnable();
+        return super.onEnable();
     }
 }

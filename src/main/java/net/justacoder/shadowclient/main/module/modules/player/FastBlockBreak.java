@@ -37,10 +37,10 @@ public class FastBlockBreak extends Module {
     }
 
     @Override
-    public void onDisable() {
+    public boolean onDisable() {
         if (mc.player != null) {
             removeHaste();
         }
-        super.onDisable();
+        return super.onDisable();
     }
 }

@@ -34,16 +34,16 @@ public class StepUp extends Module {
     }
 
     @Override
-    public void onEnable() {
+    public boolean onEnable() {
         ModuleManager.SafeWalkModule.setDisabled(true, false); // incompatible
-        super.onEnable();
+        return super.onEnable();
     }
 
     @Override
-    public void onDisable() {
+    public boolean onDisable() {
         if (mc.player != null) {
             setStepHeight(0.6f);
         }
-        super.onDisable();
+        return super.onDisable();
     }
 }

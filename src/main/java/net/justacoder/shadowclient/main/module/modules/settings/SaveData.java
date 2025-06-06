@@ -17,8 +17,8 @@ public class SaveData extends Module {
     }
 
     @Override
-    public void onEnable() {
+    public boolean onEnable() {
         Config.saveConfig();
-        super.onEnable();
+        return super.onEnable();
     }
 }

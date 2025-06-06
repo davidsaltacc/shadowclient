@@ -44,12 +44,12 @@ public class BunnyHop extends Module {
     }
 
     @Override
-    public void onDisable() {
+    public boolean onDisable() {
         if (pressed) {
             mc.options.jumpKey.setPressed(false);
             pressed = false;
         }
-        super.onDisable();
+        return super.onDisable();
     }
 
     public enum JumpWhen {

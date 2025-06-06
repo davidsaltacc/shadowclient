@@ -15,10 +15,16 @@ public class BooleanSetting extends Setting {
         return boolValue;
     }
 
-    public void setBooleanValue(boolean value) {
+    public void setBooleanValue(boolean value, boolean callCallbacks) {
         boolean old = boolValue;
         this.boolValue = value;
-        callCallbacks(value, old);
+        if (callCallbacks) {
+            callCallbacks(value, old);
+        }
+    }
+
+    public void setBooleanValue(boolean value) {
+        setBooleanValue(value, true);
     }
 
 }

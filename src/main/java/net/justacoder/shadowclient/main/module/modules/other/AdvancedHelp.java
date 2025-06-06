@@ -12,8 +12,8 @@ public class AdvancedHelp extends Module {
     }
 
     @Override
-    public void onEnable() {
+    public boolean onEnable() {
         JavaUtils.openBrowser("https://davidsaltacc.github.io/pages/minecraft/shadowclient");
-        super.onEnable();
+        return super.onEnable();
     }
 }

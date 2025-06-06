@@ -1,7 +1,7 @@
 package net.justacoder.shadowclient.main.module;
 
 import net.justacoder.shadowclient.main.annotations.NoChatMessages;
-import net.justacoder.shadowclient.main.annotations.NotKeybindable;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.ui.clickgui.settings.modules.SettingsScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
@@ -10,7 +10,6 @@ import net.justacoder.shadowclient.main.annotations.OneClick;
 import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.ui.clickgui.ModuleButton;
-import net.minecraft.client.resource.language.I18n;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +17,14 @@ import java.util.List;
 public abstract class Module {
 
     public final ModuleCategory category;
-    public final String moduleName;
+    public final String moduleId;
     public final String[] searchTags;
-    public String friendlyName;
-    public String description;
+    public TranslatableString name;
+    public TranslatableString description;
 
     public ModuleButton moduleButton = null;
 
     public KeyBinding keyBinding;
-    public String keyBindingName;
 
     public boolean enabled;
 
@@ -48,12 +46,12 @@ public abstract class Module {
 
     public final MinecraftClient mc = MinecraftClient.getInstance();
 
-    public Module(String name, ModuleCategory category, String[] searchTags) {
-        this.moduleName = name;
+    public Module(String id, ModuleCategory category, String[] searchTags) {
+        this.moduleId = id;
         this.category = category;
         this.searchTags = searchTags;
-        this.friendlyName = "";
-        this.description = "";
+        this.name = new TranslatableString("module.shadowclient." + this.moduleId);
+        this.description = new TranslatableString("module.description.shadowclient." + this.moduleId);
     }
 
     public void setEnabled() {
@@ -110,39 +108,30 @@ public abstract class Module {
         setEnabled();
     }
 
-    public void onEnable() {
+    public boolean onEnable() {
         if (showMessage && !this.getClass().isAnnotationPresent(OneClick.class) && !this.getClass().isAnnotationPresent(NoChatMessages.class)) {
-            ShadowClientMain.moduleToggleChatMessage(friendlyName, true);
+            ShadowClientMain.moduleToggleChatMessage(name.getTranslation(), true);
         }
         updateSettingsScreenIfNecessary();
+        return true;
     }
-    public void onDisable() {
+
+    public boolean onDisable() {
         if (showMessage && !this.getClass().isAnnotationPresent(OneClick.class) && !this.getClass().isAnnotationPresent(NoChatMessages.class)) {
-            ShadowClientMain.moduleToggleChatMessage(friendlyName, false);
+            ShadowClientMain.moduleToggleChatMessage(name.getTranslation(), false);
         }
         updateSettingsScreenIfNecessary();
+        return true;
     }
 
     private void updateSettingsScreenIfNecessary() {
         if (mc.currentScreen instanceof SettingsScreen screen && screen.enabledSetting.booleanValue() != enabled) {
-            screen.enabledSetting.setBooleanValue(enabled);
+            screen.enabledSetting.setBooleanValue(enabled, false);
         }
     }
 
     public void onEvent(Event event) {}
 
     public void postInit() {}
-
-    public void reloadTranslations() {
-        this.friendlyName = I18n.translate("module.shadowclient." + this.moduleName);
-        this.description = I18n.translate("module.description.shadowclient." + this.moduleName);
-        reloadKeybindTranslation();
-    }
-
-    public void reloadKeybindTranslation() {
-        if (!this.getClass().isAnnotationPresent(NotKeybindable.class)) {
-            this.keyBindingName = this.keyBinding.isUnbound() ? I18n.translate("name.shadowclient.none") : this.keyBinding.getBoundKeyLocalizedText().getString();
-        }
-    }
 
 }

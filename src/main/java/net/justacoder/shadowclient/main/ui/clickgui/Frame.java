@@ -21,7 +21,6 @@ public class Frame extends FrameChild {
     public final int height;
     public int dragX;
     public int dragY;
-    public String name;
     public boolean dragging;
     public boolean extended;
 
@@ -39,7 +38,6 @@ public class Frame extends FrameChild {
         this.width = width;
         this.height = height;
         this.category = category;
-        reloadTranslation();
         this.dragging = false;
         this.extended = true;
 
@@ -60,10 +58,6 @@ public class Frame extends FrameChild {
 
     }
 
-    public void reloadTranslation() {
-        this.name = category.friendlyName;
-    }
-
     private Frame(ModuleCategory category, int x, int y, int width, int height, boolean __) { // search
         this.x = x;
         this.y = y;
@@ -72,7 +66,6 @@ public class Frame extends FrameChild {
         this.dragging = false;
         this.extended = true;
         this.category = category;
-        reloadTranslation();
 
         children = new ArrayList<>();
 
@@ -101,7 +94,7 @@ public class Frame extends FrameChild {
             context.fillGradient(x, y, x + width, y + height, Colors.CATEGORY_FRAME.color, colorLighter);
         }
 
-        Font.renderString(context, name, x + textOffset, y + textOffset, Colors.TEXT_NORMAL.color);
+        Font.renderString(context, category.name.getTranslation(), x + textOffset, y + textOffset, Colors.TEXT_NORMAL.color);
         Font.renderString(context, extended ? "-" : "+", x + width - textOffset - (float) Font.getWidth("+"), y + textOffset, Colors.TEXT_NORMAL.color);
 
 

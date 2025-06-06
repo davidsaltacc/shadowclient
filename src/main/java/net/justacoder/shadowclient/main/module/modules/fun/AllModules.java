@@ -15,12 +15,12 @@ public class AllModules extends Module {
     }
 
     @Override
-    public void onEnable() {
+    public boolean onEnable() {
         ModuleManager.getAllModules().forEach((n, m) -> {
             if (!m.getClass().isAnnotationPresent(OneClick.class) && !(m instanceof Freecam)) {
                 m.setEnabled();
             }
         });
-        super.onEnable();
+        return super.onEnable();
     }
 }

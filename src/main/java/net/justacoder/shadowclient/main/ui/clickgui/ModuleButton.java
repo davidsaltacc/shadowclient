@@ -1,7 +1,6 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
 import net.justacoder.shadowclient.main.annotations.NoSettingsScreen;
-import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.justacoder.shadowclient.main.ui.clickgui.settings.modules.SettingsScreen;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.gui.DrawContext;
@@ -23,7 +22,7 @@ public class ModuleButton extends FrameChild {
     }
 
     private String getName() {
-        return module.friendlyName;
+        return module.name.getTranslation();
     }
 
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
@@ -55,7 +54,7 @@ public class ModuleButton extends FrameChild {
     public void mouseClicked(double mouseX, double mouseY, int button) {
         if (isHovered(mouseX, mouseY)) {
             if (button == GLFW.GLFW_MOUSE_BUTTON_1) {
-                ShadowClientMain.toggleModuleEnabled(module.moduleName);
+                ShadowClientMain.toggleModuleEnabled(module.moduleId);
             } else if (button == GLFW.GLFW_MOUSE_BUTTON_2 && !module.getClass().isAnnotationPresent(NoSettingsScreen.class)) {
                 ShadowClientMain.mc.setScreen(new SettingsScreen(module));
             }

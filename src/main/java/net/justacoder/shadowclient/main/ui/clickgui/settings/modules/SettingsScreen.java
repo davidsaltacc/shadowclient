@@ -48,7 +48,7 @@ public class SettingsScreen extends Screen {
     public BooleanSetting enabledSetting;
 
     public SettingsScreen(Module module) {
-        super(Text.of(module.friendlyName));
+        super(Text.of(module.name.getTranslation()));
         this.module = module;
 
         enabledSetting = new BooleanSetting("Enabled", module.enabled);
@@ -131,7 +131,7 @@ public class SettingsScreen extends Screen {
 
         context.fill(overlayStartX, overlayStartY, overlayStartX + overlayWidth, overlayStartY + overlayHeight, Colors.MODULE_BUTTON_NORMAL.color);
 
-        Font.renderString(context, module.friendlyName, contentStartX, contentStartY, Colors.TEXT_NORMAL.color, titleFontSize);
+        Font.renderString(context, module.name, contentStartX, contentStartY, Colors.TEXT_NORMAL.color, titleFontSize);
         context.drawHorizontalLine(contentStartX, contentEndX, contentStartY + Font.getHeight(titleFontSize) + 4, Colors.HORIZONTAL_LINE.color);
 
         context.enableScissor(contentStartX, contentStartY + titleOffset, contentEndX, contentEndY);

@@ -106,7 +106,7 @@ public class Config {
             frameobj.addProperty("offset_x", frame.x);
             frameobj.addProperty("offset_y", frame.y);
             frameobj.addProperty("extended", frame.extended);
-            mainuiframe.add(frame.category.name, frameobj);
+            mainuiframe.add(frame.category.id, frameobj);
         });
 
         List<Frame> settingsframes = new ArrayList<>(ShadowClientMain.settingsGui.frames);
@@ -116,7 +116,7 @@ public class Config {
             frameobj.addProperty("offset_x", frame.x);
             frameobj.addProperty("offset_y", frame.y);
             frameobj.addProperty("extended", frame.extended);
-            settingsframe.add(frame.category.name, frameobj);
+            settingsframe.add(frame.category.id, frameobj);
         });
 
         uiframes.add("main", mainuiframe);
@@ -261,8 +261,8 @@ public class Config {
             List<Frame> mainuiframes = new ArrayList<>(ShadowClientMain.clickGui.frames);
             mainuiframes.add(ShadowClientMain.clickGui.searchFrame);
             mainuiframes.forEach(frame -> {
-                if (mainuiframe.has(frame.category.name)) {
-                    JsonObject frameobj = mainuiframe.getAsJsonObject(frame.category.name);
+                if (mainuiframe.has(frame.category.id)) {
+                    JsonObject frameobj = mainuiframe.getAsJsonObject(frame.category.id);
                     frame.extended = frameobj.get("extended").getAsBoolean();
                     frame.x = frameobj.get("offset_x").getAsInt();
                     frame.y = frameobj.get("offset_y").getAsInt();
@@ -272,8 +272,8 @@ public class Config {
             List<Frame> settingsframes = new ArrayList<>(ShadowClientMain.settingsGui.frames);
             settingsframes.add(ShadowClientMain.settingsGui.searchFrame);
             settingsframes.forEach(frame -> {
-                if (settingsframe.has(frame.category.name)) {
-                    JsonObject frameobj = settingsframe.getAsJsonObject(frame.category.name);
+                if (settingsframe.has(frame.category.id)) {
+                    JsonObject frameobj = settingsframe.getAsJsonObject(frame.category.id);
                     frame.extended = frameobj.get("extended").getAsBoolean();
                     frame.x = frameobj.get("offset_x").getAsInt();
                     frame.y = frameobj.get("offset_y").getAsInt();

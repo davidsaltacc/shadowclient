@@ -67,7 +67,8 @@ public class Breadcrumbs extends Module {
     }
 
     @Override
-    public void onDisable() {
+    public boolean onDisable() {
         positions.clear();
+        return super.onDisable();
     }
 }

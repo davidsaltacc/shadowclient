@@ -45,17 +45,17 @@ public class Blink extends Module {
     }
 
     @Override
-    public void onDisable() {
+    public boolean onDisable() {
         if (mc.world != null) {
             processQueuedPackets();
         }
-        super.onDisable();
+        return super.onDisable();
     }
 
     @Override
-    public void onEnable() {
+    public boolean onEnable() {
         lastBlink = System.currentTimeMillis();
-        super.onEnable();
+        return super.onEnable();
     }
 
     @SuppressWarnings("unchecked")

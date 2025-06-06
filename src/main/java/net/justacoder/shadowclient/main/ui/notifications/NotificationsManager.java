@@ -21,8 +21,8 @@ public abstract class NotificationsManager {
         toDelete.add(n);
     }
 
-    public static void reloadTranslations() {
-        notifications.forEach(Notification::reloadTranslations);
+    public static void onReloadTranslations() {
+        notifications.forEach(Notification::onReloadTranslations);
     }
 
     public static void renderNotifications(DrawContext context, int scaledMouseX, int scaledMouseY, float delta) {

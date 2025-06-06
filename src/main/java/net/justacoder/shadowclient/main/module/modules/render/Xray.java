@@ -57,29 +57,29 @@ public class Xray extends Module {
     }
 
     @Override
-    public void onEnable() {
+    public boolean onEnable() {
         if (mc.gameRenderer == null) {
-            return;
+            return true;
         }
         EntityCullingFix.disableCull();
         if (mc.worldRenderer != null) {
             mc.worldRenderer.reload();
         }
         ((LightmapTextureManagerAccessor) mc.gameRenderer.getLightmapTextureManager()).markDirty(true);
-        super.onEnable();
+        return super.onEnable();
     }
 
     @Override
-    public void onDisable() {
+    public boolean onDisable() {
         if (mc.gameRenderer == null) {
-            return;
+            return true;
         }
         EntityCullingFix.enableCull();
         if (mc.worldRenderer != null) {
             mc.worldRenderer.reload();
         }
         ((LightmapTextureManagerAccessor) mc.gameRenderer.getLightmapTextureManager()).markDirty(true);
-        super.onDisable();
+        return super.onDisable();
     }
 
 

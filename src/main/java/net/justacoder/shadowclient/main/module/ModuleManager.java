@@ -2,6 +2,7 @@ package net.justacoder.shadowclient.main.module;
 
 import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.annotations.NotKeybindable;
+import net.justacoder.shadowclient.main.module.modules.world.Timer;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.justacoder.shadowclient.main.annotations.EventListener;
@@ -18,14 +19,11 @@ import net.justacoder.shadowclient.main.module.modules.render.*;
 import net.justacoder.shadowclient.main.module.modules.settings.*;
 import net.justacoder.shadowclient.main.module.modules.world.*;
 import org.jetbrains.annotations.Nullable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class ModuleManager {
 
-    private static final Map<String, Module> modules = new HashMap<>();
+    private static final Map<String, Module> modules = new LinkedHashMap<>();
 
     public static AutoSprint AutoSprintModule;
     public static Spider SpiderModule;
@@ -190,9 +188,9 @@ public abstract class ModuleManager {
     }
 
     public static<M extends Module> M register(M module) {
-        modules.put(module.moduleName, module);
+        modules.put(module.moduleId, module);
         if (!module.getClass().isAnnotationPresent(NotKeybindable.class)) {
-            module.keyBinding = new KeyBinding("module.shadowclient." + module.moduleName, InputUtil.UNKNOWN_KEY.getCode(), "category.shadowclient.clientcategory");
+            module.keyBinding = new KeyBinding("module.shadowclient." + module.moduleId, InputUtil.UNKNOWN_KEY.getCode(), "category.shadowclient.clientcategory");
             ShadowClientMain.registerKeyBinding(module.keyBinding, true);
         }
         if (module.getClass().isAnnotationPresent(EventListener.class)) {

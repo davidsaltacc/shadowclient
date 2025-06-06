@@ -19,17 +19,19 @@ public class SpoofRenderDistance extends Module {
     }
 
     @Override
-    public void onEnable() {
+    public boolean onEnable() {
         if (mc.worldRenderer != null) {
             mc.worldRenderer.reload();
         }
+        return super.onEnable();
     }
 
     @Override
-    public void onDisable() {
+    public boolean onDisable() {
         if (mc.worldRenderer != null) {
             mc.worldRenderer.reload();
         }
+        return super.onDisable();
     }
 
     public int getDistanceBlocks(int original) {

@@ -4,6 +4,7 @@ import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.render.BufferBuilderProvider;
 import net.justacoder.shadowclient.main.render.font.FontRenderer;
 import net.justacoder.shadowclient.main.render.font.FontTextureAtlas;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
@@ -50,6 +51,7 @@ public abstract class Font {
         return registeredFontSizes.contains(size);
     }
 
+
     public static void renderString(DrawContext context, String text, float x, float y, int color) {
         fontRenderer.drawText(context, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, FONT_SIZE, color);
     }
@@ -74,6 +76,32 @@ public abstract class Font {
         fontRenderer.drawText(bufferBuilderProvider, matrices, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, fontSize, color);
     }
 
+
+    public static void renderString(DrawContext context, TranslatableString text, float x, float y, int color) {
+        fontRenderer.drawText(context, text.getTranslation(), x + FONT_OFFSET_X, y + FONT_OFFSET_Y, FONT_SIZE, color);
+    }
+
+    public static void renderString(VertexConsumerProvider.Immediate vertexConsumers, MatrixStack matrices, TranslatableString text, float x, float y, int color) {
+        fontRenderer.drawText(vertexConsumers, matrices, text.getTranslation(), x + FONT_OFFSET_X, y + FONT_OFFSET_Y, FONT_SIZE, color);
+    }
+
+    public static void renderString(BufferBuilderProvider bufferBuilderProvider, MatrixStack matrices, TranslatableString text, float x, float y, int color) {
+        fontRenderer.drawText(bufferBuilderProvider, matrices, text.getTranslation(), x + FONT_OFFSET_X, y + FONT_OFFSET_Y, FONT_SIZE, color);
+    }
+
+    public static void renderString(DrawContext context, TranslatableString text, float x, float y, int color, int fontSize) {
+        fontRenderer.drawText(context, text.getTranslation(), x + FONT_OFFSET_X, y + FONT_OFFSET_Y, fontSize, color);
+    }
+
+    public static void renderString(VertexConsumerProvider.Immediate vertexConsumers, MatrixStack matrices, TranslatableString text, float x, float y, int color, int fontSize) {
+        fontRenderer.drawText(vertexConsumers, matrices, text.getTranslation(), x + FONT_OFFSET_X, y + FONT_OFFSET_Y, fontSize, color);
+    }
+
+    public static void renderString(BufferBuilderProvider bufferBuilderProvider, MatrixStack matrices, TranslatableString text, float x, float y, int color, int fontSize) {
+        fontRenderer.drawText(bufferBuilderProvider, matrices, text.getTranslation(), x + FONT_OFFSET_X, y + FONT_OFFSET_Y, fontSize, color);
+    }
+
+
     public static int getWidth(String text, int fontSize) {
         FontTextureAtlas atlas = fontRenderer.getAtlasForSize(fontSize);
         int width = 0;
@@ -96,6 +124,14 @@ public abstract class Font {
 
     public static int getWidth(Text text, int fontSize) {
         return getWidth(text.getString(), fontSize);
+    }
+
+    public static int getWidth(TranslatableString text) {
+        return getWidth(text.getTranslation());
+    }
+
+    public static int getWidth(TranslatableString text, int fontSize) {
+        return getWidth(text.getTranslation(), fontSize);
     }
 
     public static int getHeight() {

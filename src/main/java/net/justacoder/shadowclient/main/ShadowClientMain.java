@@ -7,6 +7,7 @@ import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.render.Renderer;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
+import net.justacoder.shadowclient.main.translations.Translations;
 import net.justacoder.shadowclient.main.ui.clickgui.settings.modules.SettingsScreen;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.Bootstrap;
@@ -125,12 +126,12 @@ public abstract class ShadowClientMain {
         map.put(category, largestInt + 1);
     }
 
-    public static void reloadTranslations() {
-        ModuleManager.getAllModules().forEach((name, module) -> module.reloadTranslations());
-        for (ModuleCategory category : ModuleCategory.values()) { category.reloadTranslations(); }
-        Frame.allFrames.forEach(Frame::reloadTranslation);
-        NotificationsManager.reloadTranslations();
+    public static void reloadTranslations(String languageCode) {
+
+        NotificationsManager.onReloadTranslations();
         TextField.allTextFields.forEach(TextField::reloadTranslations);
+
+        Translations.reload(languageCode);
     }
 
     public static void initSettingsScreen(ClickGUI gui) {

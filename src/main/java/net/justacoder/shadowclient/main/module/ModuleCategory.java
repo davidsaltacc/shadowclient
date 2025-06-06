@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.main.module;
 
-import net.minecraft.client.resource.language.I18n;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 
 public enum ModuleCategory {
     COMBAT("combat"),
@@ -18,24 +18,17 @@ public enum ModuleCategory {
     SEARCH("search", true);
 
 
-    public final String name;
-    public String friendlyName;
+    public final String id;
+    public TranslatableString name;
     public final boolean hiddenFromMain;
 
-    public void reloadTranslations() {
-        this.friendlyName = I18n.translate("category.module.shadowclient." + name);
+    ModuleCategory(String id) {
+        this(id, false);
     }
 
-    ModuleCategory(String name) {
-        this.name = name;
-        this.friendlyName = "";
-        this.hiddenFromMain = false;
-    }
-
-
-    ModuleCategory(String name, boolean hiddenFromMain) {
-        this.name = name;
-        this.friendlyName = "";
+    ModuleCategory(String id, boolean hiddenFromMain) {
+        this.id = id;
+        this.name = new TranslatableString("category.module.shadowclient." + id);
         this.hiddenFromMain = hiddenFromMain;
     }
 }
