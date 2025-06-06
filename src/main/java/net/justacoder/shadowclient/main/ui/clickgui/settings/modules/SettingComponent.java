@@ -4,7 +4,6 @@ import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.settings.*;
 import net.justacoder.shadowclient.main.ui.clickgui.Colors;
-import net.justacoder.shadowclient.main.ui.clickgui.FrameChild;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.justacoder.shadowclient.main.util.MathUtils;
 import net.justacoder.shadowclient.mixin.KeyBindingAccessor;
@@ -13,7 +12,7 @@ import net.minecraft.client.resource.language.I18n;
 import org.joml.Vector2i;
 import org.lwjgl.glfw.GLFW;
 
-public abstract class SettingComponent extends FrameChild {
+public abstract class SettingComponent {
 
     public final Setting setting;
     protected Vector2i position;
@@ -27,18 +26,28 @@ public abstract class SettingComponent extends FrameChild {
         this.position = position;
     }
 
-    public abstract int getWidth();
+    public void init() {}
 
-    public boolean mayScrollContainer(double mouseX, double mouseY) {
+    public abstract void render(DrawContext context, int mouseX, int mouseY, boolean inBounds, float delta);
+
+    public void mouseClicked(double mouseX, double mouseY, int button, boolean inBounds) {}
+
+    public void mouseReleased(double mouseX, double mouseY, int button, boolean inBounds) {}
+
+    public void mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount, boolean inBounds) {}
+
+    public boolean mayScrollContainer(double mouseX, double mouseY, boolean inBounds) {
         return true;
     }
+
+    public void keyPressed(int keyCode, int scanCode, int modifiers) {}
 
     public boolean interceptKeypresses() {
         return false;
     }
 
-    public boolean isHovered(double mouseX, double mouseY) {
-        return mouseX > position.x && mouseX < position.x + getWidth() && mouseY > position.y  && mouseY < position.y + getHeight();
+    public boolean isHovered(double mouseX, double mouseY, boolean inBounds) {
+        return mouseX > position.x && mouseX < position.x + getWidth() && mouseY > position.y  && mouseY < position.y + getHeight() && inBounds;
     }
 
     public static SettingComponent ofSetting(Setting setting, Vector2i position) {
@@ -53,6 +62,9 @@ public abstract class SettingComponent extends FrameChild {
         };
     }
 
+    public abstract int getHeight();
+    public abstract int getWidth();
+
     public static class BooleanSettingComponent extends SettingComponent {
 
         protected BooleanSettingComponent(Setting setting, Vector2i position) {
@@ -65,7 +77,7 @@ public abstract class SettingComponent extends FrameChild {
         int checkboxFilledPadding = 2;
 
         @Override
-        public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        public void render(DrawContext context, int mouseX, int mouseY, boolean inBounds, float delta) {
 
             Font.renderString(context, setting.name, position.x + checkboxSize + checkboxPaddingRight + 2, position.y + 2 + textPaddingTop, Colors.TEXT_NORMAL.color);
 
@@ -78,8 +90,8 @@ public abstract class SettingComponent extends FrameChild {
         }
 
         @Override
-        public void mouseClicked(double mouseX, double mouseY, int button) {
-            if (mouseX > position.x + 2 && mouseY > position.y + 2 && mouseX < position.x + 2 + checkboxSize && mouseY < position.y + 2 + checkboxSize) {
+        public void mouseClicked(double mouseX, double mouseY, int button, boolean inBounds) {
+            if (mouseX > position.x + 2 && mouseY > position.y + 2 && mouseX < position.x + 2 + checkboxSize && mouseY < position.y + 2 + checkboxSize && inBounds) {
                 ((BooleanSetting) setting).setBooleanValue(!((BooleanSetting) setting).booleanValue());
             }
         }
@@ -119,7 +131,7 @@ public abstract class SettingComponent extends FrameChild {
         }
 
         @Override
-        public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        public void render(DrawContext context, int mouseX, int mouseY, boolean inBounds, float delta) {
 
             int nameWidth = Font.getWidth(setting.name + ": ");
             Font.renderString(context, setting.name + ": ", position.x, position.y + 4, Colors.TEXT_NORMAL.color);
@@ -142,8 +154,8 @@ public abstract class SettingComponent extends FrameChild {
         }
 
         @Override
-        public void mouseClicked(double mouseX, double mouseY, int button) {
-            if (isHovered(mouseX, mouseY)) {
+        public void mouseClicked(double mouseX, double mouseY, int button, boolean inBounds) {
+            if (isHovered(mouseX, mouseY, inBounds)) {
                 EnumSetting enumSetting = (EnumSetting) setting;
 
                 if (button == GLFW.GLFW_MOUSE_BUTTON_1) {
@@ -160,8 +172,8 @@ public abstract class SettingComponent extends FrameChild {
         }
 
         @Override
-        public void mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-            if (isHovered(mouseX, mouseY)) {
+        public void mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount, boolean inBounds) {
+            if (isHovered(mouseX, mouseY, inBounds)) {
                 enumSettingIndex += (int) Math.signum(verticalAmount);
                 loopSettingIndex();
                 EnumSetting enumSetting = (EnumSetting) setting;
@@ -170,8 +182,8 @@ public abstract class SettingComponent extends FrameChild {
         }
 
         @Override
-        public boolean mayScrollContainer(double mouseX, double mouseY) {
-            return !isHovered(mouseX, mouseY);
+        public boolean mayScrollContainer(double mouseX, double mouseY, boolean inBounds) {
+            return !isHovered(mouseX, mouseY, inBounds);
         }
 
         @Override
@@ -198,7 +210,7 @@ public abstract class SettingComponent extends FrameChild {
         private Number oldValue;
 
         @Override
-        public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        public void render(DrawContext context, int mouseX, int mouseY, boolean inBounds, float delta) {
 
             NumberSetting numberSetting = (NumberSetting) setting;
 
@@ -226,14 +238,14 @@ public abstract class SettingComponent extends FrameChild {
         }
 
         @Override
-        public void mouseClicked(double mouseX, double mouseY, int button) {
-            if (isHovered(mouseX, mouseY)) {
+        public void mouseClicked(double mouseX, double mouseY, int button, boolean inBounds) {
+            if (isHovered(mouseX, mouseY, inBounds)) {
                 sliding = true;
             }
         }
 
         @Override
-        public void mouseReleased(double mouseX, double mouseY, int button) {
+        public void mouseReleased(double mouseX, double mouseY, int button, boolean inBounds) {
             if (sliding) {
                 NumberSetting numberSetting = (NumberSetting) setting;
                 sliding = false;
@@ -243,8 +255,8 @@ public abstract class SettingComponent extends FrameChild {
         }
 
         @Override
-        public void mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-            if (isHovered(mouseX, mouseY)) {
+        public void mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount, boolean inBounds) {
+            if (isHovered(mouseX, mouseY, inBounds)) {
                 NumberSetting numberSetting = (NumberSetting) setting;
                 numberSetting.setNumberValue(
                         MathUtils.roundToPlace(
@@ -260,8 +272,8 @@ public abstract class SettingComponent extends FrameChild {
         }
 
         @Override
-        public boolean mayScrollContainer(double mouseX, double mouseY) {
-            return !isHovered(mouseX, mouseY);
+        public boolean mayScrollContainer(double mouseX, double mouseY, boolean inBounds) {
+            return !isHovered(mouseX, mouseY, inBounds);
         }
 
         @Override
@@ -286,7 +298,7 @@ public abstract class SettingComponent extends FrameChild {
         }
 
         @Override
-        public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        public void render(DrawContext context, int mouseX, int mouseY, boolean inBounds, float delta) {
 
             int nameWidth = Font.getWidth(setting.name + ": ") + 2;
             String value = ((StringSetting) setting).stringValue();
@@ -299,8 +311,8 @@ public abstract class SettingComponent extends FrameChild {
         }
 
         @Override
-        public void mouseClicked(double mouseX, double mouseY, int button) {
-            typing = isHovered(mouseX, mouseY);
+        public void mouseClicked(double mouseX, double mouseY, int button, boolean inBounds) {
+            typing = isHovered(mouseX, mouseY, inBounds);
         }
 
         @Override
@@ -347,6 +359,9 @@ public abstract class SettingComponent extends FrameChild {
         }
 
         @Override
+        public void render(DrawContext context, int mouseX, int mouseY, boolean inBounds, float delta) {}
+
+        @Override
         public int getWidth() {
             return 0;
         }
@@ -367,7 +382,7 @@ public abstract class SettingComponent extends FrameChild {
         private boolean configuring = false;
 
         @Override
-        public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        public void render(DrawContext context, int mouseX, int mouseY, boolean inBounds, float delta) {
 
             String text = setting.name + ": ";
             int textWidth = Font.getWidth(text);
@@ -389,8 +404,8 @@ public abstract class SettingComponent extends FrameChild {
         }
 
         @Override
-        public void mouseClicked(double mouseX, double mouseY, int button) {
-            configuring = isHovered(mouseX, mouseY);
+        public void mouseClicked(double mouseX, double mouseY, int button, boolean inBounds) {
+            configuring = isHovered(mouseX, mouseY, inBounds);
         }
 
         @Override

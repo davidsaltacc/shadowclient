@@ -10,7 +10,6 @@ import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 import net.justacoder.shadowclient.main.setting.settings.KeySetting;
 import net.justacoder.shadowclient.main.setting.settings.PaddingSetting;
 import net.justacoder.shadowclient.main.ui.clickgui.Colors;
-import net.justacoder.shadowclient.main.ui.clickgui.FrameChild;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -75,7 +74,7 @@ public class SettingsScreen extends Screen {
     protected void init() {
         rescale();
         updateComponents();
-        components.forEach(FrameChild::init);
+        components.forEach(SettingComponent::init);
     }
 
     public boolean interceptKeypresses() {
@@ -138,7 +137,7 @@ public class SettingsScreen extends Screen {
         context.enableScissor(contentStartX, contentStartY + titleOffset, contentEndX, contentEndY);
         context.getMatrices().push();
         context.getMatrices().translate(0f, scrollY, 0f);
-        components.forEach(component -> component.render(context, mouseX, mouseY, delta));
+        components.forEach(component -> component.render(context, mouseX, mouseY, mouseX > contentStartX && mouseX < contentEndX && mouseY > contentStartY && mouseY < contentEndY, delta));
         context.getMatrices().pop();
         context.disableScissor();
 
@@ -156,13 +155,13 @@ public class SettingsScreen extends Screen {
 
         boolean canScroll = true;
         for (SettingComponent component : components) {
-            if (!component.mayScrollContainer(mouseX, mouseY)) {
+            if (!component.mayScrollContainer(mouseX, mouseY, mouseX > contentStartX && mouseX < contentEndX && mouseYScreen > contentStartY + titleOffset && mouseYScreen < contentEndY)) {
                 canScroll = false;
             }
-            component.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
+            component.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount, mouseX > contentStartX && mouseX < contentEndX && mouseYScreen > contentStartY + titleOffset && mouseYScreen < contentEndY);
         }
 
-        if (canScroll && contentActualHeight > contentEndY - contentStartY && mouseX > overlayStartX && mouseX < overlayStartX + overlayWidth && mouseYScreen > overlayStartY && mouseYScreen < overlayStartY + overlayHeight) {
+        if (canScroll && contentActualHeight > contentEndY - contentStartY && mouseX > contentStartX && mouseX < contentEndX && mouseYScreen > contentStartY + titleOffset && mouseYScreen < contentEndY) {
             scrollY = (float) Math.clamp(scrollY + Math.signum(verticalAmount) * MathHelper.square(verticalAmount) * scrollSpeed, Math.min(0f, -(contentActualHeight - (contentEndY - contentStartY - titleOffset))), 0f);
         }
 
@@ -200,8 +199,9 @@ public class SettingsScreen extends Screen {
         float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor();
         int mouseX = (int) (scaledMouseX * disableScaleFactor);
         int mouseY = (int) (scaledMouseY * disableScaleFactor) - (int) scrollY;
+        int mouseYScreen = mouseY + (int) scrollY;
 
-        components.forEach(component -> component.mouseClicked(mouseX, mouseY, button));
+        components.forEach(component -> component.mouseClicked(mouseX, mouseY, button, mouseX > contentStartX && mouseX < contentEndX && mouseYScreen > contentStartY + titleOffset && mouseYScreen < contentEndY));
 
         return super.mouseClicked(mouseX, mouseY, button);
     }
@@ -212,8 +212,9 @@ public class SettingsScreen extends Screen {
         float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor();
         int mouseX = (int) (scaledMouseX * disableScaleFactor);
         int mouseY = (int) (scaledMouseY * disableScaleFactor) - (int) scrollY;
+        int mouseYScreen = mouseY + (int) scrollY;
 
-        components.forEach(component -> component.mouseReleased(mouseX, mouseY, button));
+        components.forEach(component -> component.mouseReleased(mouseX, mouseY, button, mouseX > contentStartX && mouseX < contentEndX && mouseYScreen > contentStartY + titleOffset && mouseYScreen < contentEndY));
 
         return super.mouseReleased(mouseX, mouseY, button);
     }
