@@ -1,14 +1,16 @@
 package net.justacoder.shadowclient.main.setting;
 
+import net.justacoder.shadowclient.main.translations.TranslatableString;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
 public abstract class Setting {
 
-    public final String name;
+    public final TranslatableString name;
 
-    public Setting(String name) {
+    public Setting(TranslatableString name) {
         this.name = name;
     }
 

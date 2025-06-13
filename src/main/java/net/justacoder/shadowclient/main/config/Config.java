@@ -12,6 +12,7 @@ import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 import net.justacoder.shadowclient.main.setting.settings.EnumSetting;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 import net.justacoder.shadowclient.main.setting.settings.StringSetting;
+import net.justacoder.shadowclient.main.translations.Language;
 import net.justacoder.shadowclient.main.ui.clickgui.Frame;
 import net.justacoder.shadowclient.main.util.FileUtils;
 import net.justacoder.shadowclient.main.util.JavaUtils;
@@ -46,7 +47,6 @@ public class Config {
         Map<String, Module> modules = ModuleManager.getAllModules();
         modules.forEach((name, module) -> {
 
-
                 JsonObject modulejson = new JsonObject();
 
                 if (!module.getClass().isAnnotationPresent(DoNotSaveState.class)) {
@@ -57,18 +57,18 @@ public class Config {
 
                 module.settings.forEach(setting -> {
                     if (setting instanceof BooleanSetting set) {
-                        settings.addProperty(setting.name, set.booleanValue());
+                        settings.addProperty(setting.name.getKey(), set.booleanValue());
                     }
                     if (setting instanceof NumberSetting set) {
-                        settings.addProperty(setting.name, set.numberValue());
+                        settings.addProperty(setting.name.getKey(), set.numberValue());
                     }
                     if (setting instanceof StringSetting set) {
-                        settings.addProperty(setting.name, set.stringValue());
+                        settings.addProperty(setting.name.getKey(), set.stringValue());
                     }
                     if (setting instanceof EnumSetting<?> set) {
                         Enum<?> value = set.getEnumValue();
-                        settings.addProperty(setting.name, value.name());
-                        settings.addProperty(setting.name + "_ENUMPATH", value.getClass().toString());
+                        settings.addProperty(setting.name.getKey(), value.name());
+                        settings.addProperty(setting.name.getKey() + "_ENUMPATH", value.getClass().toString());
                     }
                 });
 
@@ -80,20 +80,17 @@ public class Config {
 
         clientdata.addProperty("version", ShadowClientMain.CLIENT_VERSION);
 
-        Arrays.stream(ShadowClientSettings.class.getDeclaredFields()).forEach(field -> {
-            try {
-                Setting setting = (Setting) field.get(null);
-                if (setting instanceof BooleanSetting set) {
-                    scsettings.addProperty(field.getName(), set.booleanValue());
-                }
-                if (setting instanceof NumberSetting set) {
-                    scsettings.addProperty(field.getName(), set.numberValueEased());
-                }
-                if (setting instanceof StringSetting set) {
-                    scsettings.addProperty(field.getName(), set.stringValue());
-                }
-            } catch (Exception ignored) {}
-        });
+        for (Setting setting : ShadowClientSettings.allSCSettings.values()) {
+            if (setting instanceof BooleanSetting set) {
+                scsettings.addProperty(set.name.getKey(), set.booleanValue());
+            }
+            if (setting instanceof NumberSetting set) {
+                scsettings.addProperty(set.name.getKey(), set.numberValue());
+            }
+            if (setting instanceof StringSetting set) {
+                scsettings.addProperty(set.name.getKey(), set.stringValue());
+            }
+        }
 
         JsonObject uiframes = new JsonObject();
         JsonObject mainuiframe = new JsonObject();
@@ -142,10 +139,7 @@ public class Config {
             return;
         }
 
-        // config breaks when changing from 0.2.0 to 0.3.0
-        text = text.replace("net.shadowclient", "net.justacoder.shadowclient");
-        text = text.replace("WelcomeMsg", "ChatMessages");
-        text = text.replace("XRay$Mode", "Xray$Mode");
+        Language englishUs = new Language("en_us");
 
         JsonObject json = (new Gson()).fromJson(text, JsonObject.class);
         JsonObject clientdata = json.getAsJsonObject("client");
@@ -154,6 +148,11 @@ public class Config {
         String version = clientdata.get("version").getAsString();
         if (!version.equals(ShadowClientMain.CLIENT_VERSION)) {
             ShadowClientMain.warn("Config version " + version + " does not match current version " + ShadowClientMain.CLIENT_VERSION);
+            if (ShadowClientMain.CLIENT_VERSION.equals("0.3.0")) {
+                ShadowClientMain.warn("Upgrade to 0.3.0 detected, resetting config to avoid issues.");
+                saveConfig();
+                return;
+            }
         }
 
         json = json.getAsJsonObject("modules");
@@ -191,7 +190,7 @@ public class Config {
                     if (settingjson.isJsonPrimitive() && settingjson.getAsJsonPrimitive().isNumber()) {
                         Number value = settingjson.getAsNumber();
                         module.settings.forEach(settingobj -> {
-                            if (settingobj.name.equals(setting)) {
+                            if (settingobj.name.getKey().equals(setting) || englishUs.getTranslationFor(settingobj.name.getKey()).equals(setting)) {
                                 settingobj.shouldCallCallbacks(false);
                                 ((NumberSetting) settingobj).setNumberValue(value);
                                 settingobj.shouldCallCallbacks(true);
@@ -201,7 +200,7 @@ public class Config {
                     if (settingjson.isJsonPrimitive() && settingjson.getAsJsonPrimitive().isBoolean()) {
                         boolean value = settingjson.getAsBoolean();
                         module.settings.forEach(settingobj -> {
-                            if (settingobj.name.equals(setting)) {
+                            if (settingobj.name.getKey().equals(setting) || englishUs.getTranslationFor(settingobj.name.getKey()).equals(setting)) {
                                 settingobj.shouldCallCallbacks(false);
                                 ((BooleanSetting) settingobj).setBooleanValue(value);
                                 settingobj.shouldCallCallbacks(true);
@@ -215,7 +214,7 @@ public class Config {
                                 String enumpath = settings.get(setting + "_ENUMPATH").getAsString().replace("class ", "");
                                 String enumvalue = settings.get(setting).getAsString();
                                 module.settings.forEach(settingobj -> {
-                                    if (settingobj.name.equals(setting)) {
+                                    if (settingobj.name.getKey().equals(setting) || englishUs.getTranslationFor(settingobj.name.getKey()).equals(setting)) {
                                         try {
                                             Class<?> enumClass = Class.forName(enumpath);
                                             Enum<?> enumConstant = Enum.valueOf((Class<Enum>) enumClass, enumvalue);
@@ -229,7 +228,7 @@ public class Config {
                                 });
                             } else {
                                 module.settings.forEach(settingobj -> {
-                                    if (settingobj.name.equals(setting) && settingobj instanceof StringSetting) {
+                                    if ((settingobj.name.getKey().equals(setting) || englishUs.getTranslationFor(settingobj.name.getKey()).equals(setting)) && settingobj instanceof StringSetting) {
                                         settingobj.shouldCallCallbacks(false);
                                         ((StringSetting) settingobj).setStringValue(value);
                                         settingobj.shouldCallCallbacks(true);
@@ -292,13 +291,4 @@ public class Config {
         }
     }
 
-    public static @Nullable JsonObject getSCSettings() {
-        String text = FileUtils.readFile(getConfigFile());
-        if (text == null) {
-            saveConfig();
-            return null;
-        }
-        JsonObject json = (new Gson()).fromJson(text, JsonObject.class);
-        return json.getAsJsonObject("settings");
-    }
 }

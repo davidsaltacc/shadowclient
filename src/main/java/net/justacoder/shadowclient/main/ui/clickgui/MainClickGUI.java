@@ -2,6 +2,7 @@ package net.justacoder.shadowclient.main.ui.clickgui;
 
 import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.module.ModuleManager;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.minecraft.client.MinecraftClient;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.ui.clickgui.text.TextField;
@@ -29,7 +30,7 @@ public class MainClickGUI extends ClickGUI {
 
         searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, 0, 0, 200, 26);
         frames.add(searchFrame);
-        searchFrame.children.add(new TextField(searchFrame, 24, "textfield.placeholder.find_module"));
+        searchFrame.children.add(new TextField(searchFrame, 24, new TranslatableString("textfield.placeholder.find_module")));
     }
 
     public void repositionFramesProperly() {

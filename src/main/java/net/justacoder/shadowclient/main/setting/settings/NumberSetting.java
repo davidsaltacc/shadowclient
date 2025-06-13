@@ -2,6 +2,7 @@ package net.justacoder.shadowclient.main.setting.settings;
 
 import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.setting.Setting;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.util.JavaUtils;
 import net.justacoder.shadowclient.main.util.MathUtils;
 import net.justacoder.shadowclient.main.config.hardcoded.Settings;
@@ -96,11 +97,11 @@ public class NumberSetting extends Setting {
         setNumberValue(value);
     }
 
-    public NumberSetting(String name, Number min, Number max, Number defaultValue, int decimalPlaces) {
+    public NumberSetting(TranslatableString name, Number min, Number max, Number defaultValue, int decimalPlaces) {
         this(name, min, max, defaultValue, decimalPlaces, MathUtils.Easing.LINEAR);
     }
 
-    public NumberSetting(String name, Number min, Number max, Number defaultValue, int decimalPlaces, MathUtils.Easing easing) {
+    public NumberSetting(TranslatableString name, Number min, Number max, Number defaultValue, int decimalPlaces, MathUtils.Easing easing) {
         super(name);
         this.minValue = min;
         this.maxValue = max;

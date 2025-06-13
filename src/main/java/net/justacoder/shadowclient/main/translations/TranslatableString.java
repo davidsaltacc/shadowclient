@@ -4,8 +4,9 @@ import net.minecraft.client.resource.language.I18n;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class TranslatableString {
+public class TranslatableString { // "wait what do you mean minecraft already has this"
 
     private static final List<TranslatableString> translatableStrings = new ArrayList<>();
 
@@ -61,4 +62,18 @@ public class TranslatableString {
         }
     }
 
+    @Override
+    public String toString() {
+        return key;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(key);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && this.hashCode() == obj.hashCode();
+    }
 }

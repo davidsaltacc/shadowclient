@@ -1,42 +1,30 @@
 package net.justacoder.shadowclient.main.ui.clickgui.text;
 
 import net.justacoder.shadowclient.main.ShadowClientMain;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.justacoder.shadowclient.mixin.KeyBindingAccessor;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.ui.clickgui.Colors;
 import net.justacoder.shadowclient.main.ui.clickgui.Frame;
 import net.justacoder.shadowclient.main.ui.clickgui.FrameChild;
-import net.minecraft.client.resource.language.I18n;
 import org.lwjgl.glfw.GLFW;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TextField extends FrameChild {
 
     private final Frame frameParent;
     private String text;
-    private final String placeholder;
-    private String friendlyPlaceholder;
+    private final TranslatableString placeholder;
 
     public int offset;
     public boolean captureKeyPresses;
 
-    public static final List<TextField> allTextFields = new ArrayList<>();
-
-    public TextField(Frame parent, int offset, String placeholder) {
+    public TextField(Frame parent, int offset, TranslatableString placeholder) {
         this.frameParent = parent;
         this.offset = offset;
         this.text = "";
         this.placeholder = placeholder;
         captureKeyPresses = false;
-
-        allTextFields.add(this);
-    }
-
-    public void reloadTranslations() {
-        friendlyPlaceholder = I18n.translate(placeholder);
     }
 
     public Frame getParentFrame() {
@@ -54,7 +42,7 @@ public class TextField extends FrameChild {
             context.fill(getParentFrame().x, getParentFrame().y + offset, getParentFrame().x + getParentFrame().width, getParentFrame().y + offset + getParentFrame().height, Colors.MODULE_BUTTON_NORMAL.color);
         }
         int textOffset = (int) ((float) getParentFrame().height / 2 - (float) Font.getHeight() / 2);
-        Font.renderString(context, text.isEmpty() ? friendlyPlaceholder : text.toLowerCase(), getParentFrame().x + textOffset, getParentFrame().y + offset + textOffset, text.isEmpty() ? Colors.TEXT_DISABLED.color : Colors.TEXT_NORMAL.color);
+        Font.renderString(context, text.isEmpty() ? placeholder.getTranslation() : text.toLowerCase(), getParentFrame().x + textOffset, getParentFrame().y + offset + textOffset, text.isEmpty() ? Colors.TEXT_DISABLED.color : Colors.TEXT_NORMAL.color);
     }
 
     @Override

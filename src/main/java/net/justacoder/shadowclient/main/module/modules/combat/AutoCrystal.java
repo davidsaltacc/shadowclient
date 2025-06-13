@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.combat;
 
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.decoration.EndCrystalEntity;
@@ -19,7 +20,7 @@ import java.util.stream.StreamSupport;
 @EventListener({PreTickEvent.class})
 public class AutoCrystal extends Module {
 
-    public final BooleanSetting FACE_CRYSTALS = new BooleanSetting("Face Crystals", false);
+    public final BooleanSetting FACE_CRYSTALS = new BooleanSetting(new TranslatableString("setting.module.shadowclient.autocrystal.face_crystals"), false);
 
     public AutoCrystal() {
         super("autocrystal", ModuleCategory.COMBAT, new String[]{"auto crystal", "auto detonate", "crystal aura", "autocrystal"});

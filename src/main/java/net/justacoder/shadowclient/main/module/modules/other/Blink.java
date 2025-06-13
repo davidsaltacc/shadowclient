@@ -9,6 +9,7 @@ import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.mixininterface.IClientConnection;
 import net.minecraft.network.listener.PacketListener;
 import net.minecraft.network.packet.Packet;
@@ -28,7 +29,7 @@ public class Blink extends Module {
 
     private long lastBlink;
 
-    private final NumberSetting DELAY = new NumberSetting("Delay in seconds", 0.1, 2, 2, 1);
+    private final NumberSetting DELAY = new NumberSetting(new TranslatableString("setting.module.shadowclient.blink.delay"), 0.1, 2, 2, 1);
 
     private final Queue<Packet<?>> outgoingPacketQueue = new ConcurrentLinkedQueue<>();
 

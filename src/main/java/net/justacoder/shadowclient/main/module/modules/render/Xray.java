@@ -1,6 +1,7 @@
 package net.justacoder.shadowclient.main.module.modules.render;
 
 import net.justacoder.shadowclient.main.annotations.DoNotSaveState;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.util.EntityCullingFix;
 import net.justacoder.shadowclient.mixin.LightmapTextureManagerAccessor;
 import net.minecraft.block.Block;
@@ -19,7 +20,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @EventListener({SetOpaqueCubeEvent.class, GetAmbientOcclusionLightLevelEvent.class, ShouldDrawSideEvent.class, RenderBlockEntityEvent.class})
 public class Xray extends Module {
 
-    public EnumSetting<Mode> MODE = new EnumSetting<>("Mode", Mode.All);
+    public EnumSetting<Mode> MODE = new EnumSetting<>(new TranslatableString("setting.module.shadowclient.xray.mode"), Mode.All);
 
     public Xray() {
         super("xray", ModuleCategory.RENDER, new String[]{"xray", "x ray", "ore render", "mine help", "finder", "ore vision"});

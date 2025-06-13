@@ -9,6 +9,7 @@ import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 import net.justacoder.shadowclient.main.setting.settings.KeySetting;
 import net.justacoder.shadowclient.main.setting.settings.PaddingSetting;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.ui.clickgui.Colors;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.MinecraftClient;
@@ -51,7 +52,7 @@ public class SettingsScreen extends Screen {
         super(Text.of(module.name.getTranslation()));
         this.module = module;
 
-        enabledSetting = new BooleanSetting("Enabled", module.enabled);
+        enabledSetting = new BooleanSetting(new TranslatableString("name.shadowclient.enabled"), module.enabled);
         components.add(SettingComponent.ofSetting(enabledSetting, new Vector2i()));
         enabledSetting.addChangeCallback((newValue, ignored) -> {
             if ((boolean) newValue) { module.setEnabled(); }
@@ -59,11 +60,11 @@ public class SettingsScreen extends Screen {
         });
 
         if (!module.getClass().isAnnotationPresent(NotKeybindable.class)) {
-            toggleModuleKeybindComponent = (SettingComponent.KeybindingSettingComponent) SettingComponent.ofSetting(new KeySetting("Keybind", module.keyBinding), new Vector2i());
+            toggleModuleKeybindComponent = (SettingComponent.KeybindingSettingComponent) SettingComponent.ofSetting(new KeySetting(new TranslatableString("name.shadowclient.keybind"), module.keyBinding), new Vector2i());
             components.add(toggleModuleKeybindComponent);
         }
 
-        components.add(SettingComponent.ofSetting(new PaddingSetting(""), new Vector2i()));
+        components.add(SettingComponent.ofSetting(new PaddingSetting(), new Vector2i()));
 
         for (Setting setting : module.getSettings()) {
             components.add(SettingComponent.ofSetting(setting, new Vector2i()));

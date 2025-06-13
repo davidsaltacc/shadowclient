@@ -304,9 +304,9 @@ public abstract class SettingComponent {
             String value = ((StringSetting) setting).stringValue();
             Font.renderString(context, setting.name + ": ", position.x, position.y + 4, Colors.TEXT_NORMAL.color);
 
-            context.fill(position.x + nameWidth, position.y + 2, position.x + nameWidth + Font.getWidth(value.isEmpty() ? setting.name : value) + 4, position.y + getHeight() - 2, Colors.TEXT_SETTING_BACKEND.color);
+            context.fill(position.x + nameWidth, position.y + 2, position.x + nameWidth + Font.getWidth(value.isEmpty() ? setting.name.getTranslation() : value) + 4, position.y + getHeight() - 2, Colors.TEXT_SETTING_BACKEND.color);
 
-            Font.renderString(context, value.isEmpty() ? setting.name : value, position.x + nameWidth + 2, position.y + 4, value.isEmpty() ? Colors.TEXT_DISABLED.color : Colors.TEXT_NORMAL.color);
+            Font.renderString(context, value.isEmpty() ? setting.name.getTranslation() : value, position.x + nameWidth + 2, position.y + 4, value.isEmpty() ? Colors.TEXT_DISABLED.color : Colors.TEXT_NORMAL.color);
 
         }
 
@@ -341,7 +341,7 @@ public abstract class SettingComponent {
         @Override
         public int getWidth() {
             String value = ((StringSetting) setting).stringValue();
-            String text = value.isEmpty() ? setting.name : value;
+            String text = value.isEmpty() ? setting.name.getTranslation() : value;
             return Font.getWidth(text) + 2 + Font.getWidth(text) + 4;
         }
 

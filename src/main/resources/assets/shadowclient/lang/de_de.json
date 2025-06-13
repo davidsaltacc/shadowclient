@@ -3,6 +3,9 @@
     "category.shadowclient.clientcategory": "ShadowClient",
 
     "name.shadowclient.none": "Nichts",
+    "name.shadowclient.empty": "",
+    "name.shadowclient.enabled": "Eingeschaltet",
+    "name.shadowclient.keybind": "Taste",
     "name.shadowclient.sc_warning": "ShadowClient Warnung",
     "name.shadowclient.click_to_dismiss": "Klicke um zu schließen",
 
@@ -12,6 +15,10 @@
 
     "textfield.placeholder.find_module": "Modul Finden",
     "textfield.placeholder.find_setting": "Einstellung Finden",
+
+    "setting.shadowclient.vanillaspoof": "Vanilla-Spoofer",
+    "setting.shadowclient.chatmessages": "Chatnachrichten",
+    "setting.shadowclient.blurbackground": "Unschärfe im Hintergrund",
 
     "module.shadowclient.autosprint": "Auto Sprinten",
     "module.shadowclient.spider": "Spinne",

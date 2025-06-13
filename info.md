@@ -83,6 +83,9 @@
 
 
 ## yet to do:
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! VERY IMPORTANT !!!!!!!!!!!!!!!!! bring german translations up to date
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! VERY IMPORTANT !!!!!!!!!!!!!!!!! test all translations
+- finish the tic-tac-toe thing lol
 - test blink properly, i think i didnt test it fully`
 - scrolling down on the clickgui? and sideways, ig?`
 - anti cobweb

@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.other;
 
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.common.*;
 import net.minecraft.network.packet.c2s.config.ReadyC2SPacket;
@@ -31,9 +32,9 @@ import net.minecraft.network.packet.s2c.query.QueryResponseS2CPacket;
 @EventListener({PacketSentEvent.class, PacketReceivedEvent.class})
 public class PacketLogger extends Module {
 
-    public final EnumSetting<Mode> MODE = new EnumSetting<>("Mode", Mode.ALL);
-    public final StringSetting FILTER = new StringSetting("Filter");
-    public final EnumSetting<FMode> FMODE = new EnumSetting<>("Filter Mode", FMode.WHITELIST);
+    public final EnumSetting<Mode> MODE = new EnumSetting<>(new TranslatableString("setting.module.shadowclient.packetlogger.mode"), Mode.ALL);
+    public final StringSetting FILTER = new StringSetting(new TranslatableString("setting.module.shadowclient.packetlogger.filter"));
+    public final EnumSetting<FMode> FMODE = new EnumSetting<>(new TranslatableString("setting.module.shadowclient.packetlogger.filter_mode"), FMode.WHITELIST);
 
     public PacketLogger() {
         super("packetlogger", ModuleCategory.OTHER, new String[]{"packet logger", "packetlogger"});

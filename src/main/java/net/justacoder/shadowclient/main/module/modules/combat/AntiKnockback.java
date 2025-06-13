@@ -6,11 +6,12 @@ import net.justacoder.shadowclient.main.event.events.KnockbackEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 
 @EventListener({KnockbackEvent.class})
 public class AntiKnockback extends Module {
 
-    public final NumberSetting STRENGTH = new NumberSetting("Strength", 0.01f, 1f, 1f, 2);
+    public final NumberSetting STRENGTH = new NumberSetting(new TranslatableString("setting.module.shadowclient.antiknockback.strength"), 0.01f, 1f, 1f, 2);
 
     public AntiKnockback() {
         super("antiknockback", ModuleCategory.COMBAT, new String[]{"no knockback", "anti knockback", "noknockback"});

@@ -8,6 +8,7 @@ import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -17,9 +18,9 @@ import java.util.Iterator;
 @EventListener({RenderEvent.class, PreTickEvent.class})
 public class Breadcrumbs extends Module {
 
-    public final BooleanSetting DEPTH_TEST = new BooleanSetting("Depth Test", true);
-    public final NumberSetting MIN_SEGMENT_LEN = new NumberSetting("Min. Segment Len.", 0.01f, 5.f, 0.5f, 2, MathUtils.Easing.EASE_IN_CUBIC);
-    public final NumberSetting MAX_POSITIONS = new NumberSetting("Max Breadcrumbs", 2, 8000, 2000, 0);
+    public final BooleanSetting DEPTH_TEST = new BooleanSetting(new TranslatableString("setting.module.shadowclient.breadcrumbs.depth_test"), true);
+    public final NumberSetting MIN_SEGMENT_LEN = new NumberSetting(new TranslatableString("setting.module.shadowclient.breadcrumbs.min_length"), 0.01f, 5.f, 0.5f, 2, MathUtils.Easing.EASE_IN_CUBIC);
+    public final NumberSetting MAX_POSITIONS = new NumberSetting(new TranslatableString("setting.module.shadowclient.breadcrumbs.max_crumbs"), 2, 8000, 2000, 0);
 
     private final ArrayDeque<Vec3d> positions = new ArrayDeque<>(MAX_POSITIONS.intValueEased());
 

@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.fun;
 
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.minecraft.client.render.entity.state.ItemEntityRenderState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
@@ -9,7 +10,7 @@ import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 
 public class FlatItems extends Module {
 
-    public BooleanSetting FACE_PLAYER = new BooleanSetting("Items face you", false);
+    public BooleanSetting FACE_PLAYER = new BooleanSetting(new TranslatableString("setting.module.shadowclient.flatitems.face"), false);
 
     public FlatItems() {
         super("flatitems", ModuleCategory.FUN, new String[]{"flat items", "item physics", "flatitems"});

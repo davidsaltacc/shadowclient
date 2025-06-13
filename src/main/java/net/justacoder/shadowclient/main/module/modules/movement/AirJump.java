@@ -6,6 +6,7 @@ import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 
 @EventListener({PreTickEvent.class})
 public class AirJump extends Module {
@@ -16,7 +17,7 @@ public class AirJump extends Module {
         addSetting(jetpackMode);
     }
 
-    public static final BooleanSetting jetpackMode = new BooleanSetting("Jetpack Mode", false);
+    public static final BooleanSetting jetpackMode = new BooleanSetting(new TranslatableString("setting.module.shadowclient.airjump.jetpack"), false);
 
     @Override
     public void onEvent(Event event) {

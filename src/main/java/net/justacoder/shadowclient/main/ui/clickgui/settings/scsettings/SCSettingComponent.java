@@ -22,7 +22,7 @@ public abstract class SCSettingComponent extends FrameChild {
     }
 
     public boolean isGettingSearchedFor() {
-        return setting.name.toLowerCase().contains(ShadowClientMain.settingsGui.searchingFor.toLowerCase());
+        return setting.name.getTranslation().toLowerCase().contains(ShadowClientMain.settingsGui.searchingFor.toLowerCase());
     }
 
     public int getTextColor() {

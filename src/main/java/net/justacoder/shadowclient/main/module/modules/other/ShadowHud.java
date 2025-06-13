@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.other;
 
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.justacoder.shadowclient.main.annotations.EventListener;
@@ -17,14 +18,14 @@ import net.justacoder.shadowclient.mixin.WorldRendererAccessor;
 @EventListener({PreTickEvent.class})
 public class ShadowHud extends Module {
 
-    public EnumSetting<HudRenderer.Corner> CORNER = new EnumSetting<>("Corner", HudRenderer.Corner.Top_Left);
+    public EnumSetting<HudRenderer.Corner> CORNER = new EnumSetting<>(new TranslatableString("setting.module.shadowclient.shadowhud.corner"), HudRenderer.Corner.Top_Left);
 
-    public BooleanSetting COORDINATES = new BooleanSetting("Coords", true);
-    public BooleanSetting PING = new BooleanSetting("Ping", true);
-    public BooleanSetting SATURATION = new BooleanSetting("Saturation", true);
-    public BooleanSetting ROTATION = new BooleanSetting("Rotation", false);
-    public BooleanSetting FRAMES = new BooleanSetting("FPS", true);
-    public BooleanSetting ENTITIES = new BooleanSetting("Entities", false);
+    public BooleanSetting COORDINATES = new BooleanSetting(new TranslatableString("setting.module.shadowclient.shadowhud.coordinates"), true);
+    public BooleanSetting PING = new BooleanSetting(new TranslatableString("setting.module.shadowclient.shadowhud.ping"), true);
+    public BooleanSetting SATURATION = new BooleanSetting(new TranslatableString("setting.module.shadowclient.shadowhud.saturation"), true);
+    public BooleanSetting ROTATION = new BooleanSetting(new TranslatableString("setting.module.shadowclient.shadowhud.rotation"), false);
+    public BooleanSetting FRAMES = new BooleanSetting(new TranslatableString("setting.module.shadowclient.shadowhud.fps"), true);
+    public BooleanSetting ENTITIES = new BooleanSetting(new TranslatableString("setting.module.shadowclient.shadowhud.entities"), false);
 
     public HudElement COORDINATES_ELEMENT = new HudElement(true, "");
     public HudElement PING_ELEMENT = new HudElement(true, "");

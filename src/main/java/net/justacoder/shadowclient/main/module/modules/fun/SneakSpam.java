@@ -6,11 +6,12 @@ import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 
 @EventListener({PreTickEvent.class})
 public class SneakSpam extends Module {
 
-    public final NumberSetting SPEED = new NumberSetting("Speed", 1, 10, 5, 0);
+    public final NumberSetting SPEED = new NumberSetting(new TranslatableString("setting.module.shadowclient.sneakspam.speed"), 1, 10, 5, 0);
 
     private int timer = 0;
 

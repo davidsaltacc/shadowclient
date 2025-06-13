@@ -3,7 +3,6 @@ package net.justacoder.shadowclient.main.translations;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import net.justacoder.shadowclient.main.util.JavaUtils;
-
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;

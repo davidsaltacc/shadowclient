@@ -1,6 +1,7 @@
 package net.justacoder.shadowclient.main.module.modules.movement;
 
 import net.justacoder.shadowclient.main.event.events.MouseClickedEvent;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.util.BypassUtils;
 import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.item.ItemStack;
@@ -16,7 +17,7 @@ import net.minecraft.util.math.BlockPos;
 @EventListener({MouseClickedEvent.class})
 public class ClickTP extends Module {
 
-    public NumberSetting MAX_DISTANCE = new NumberSetting("Max Distance: ", 1, 100, 10, 2, MathUtils.Easing.EASE_IN_QUADRATIC);
+    public NumberSetting MAX_DISTANCE = new NumberSetting(new TranslatableString("setting.module.shadowclient.clicktp.distance"), 1, 100, 10, 2, MathUtils.Easing.EASE_IN_QUADRATIC);
 
     public ClickTP() {
         super("clicktp", ModuleCategory.MOVEMENT, new String[]{"clicktp", "click teleport"});

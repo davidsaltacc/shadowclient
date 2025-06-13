@@ -6,7 +6,9 @@ import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.render.Renderer;
+import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.translations.Translations;
 import net.justacoder.shadowclient.main.ui.clickgui.settings.modules.SettingsScreen;
 import net.justacoder.shadowclient.main.ui.font.Font;
@@ -127,10 +129,7 @@ public abstract class ShadowClientMain {
     }
 
     public static void reloadTranslations(String languageCode) {
-
         NotificationsManager.onReloadTranslations();
-        TextField.allTextFields.forEach(TextField::reloadTranslations);
-
         Translations.reload(languageCode);
     }
 
@@ -149,13 +148,18 @@ public abstract class ShadowClientMain {
         hideframe.children.add(new ModuleButton("resetdata", hideframe, 104));
         offset += 210;
 
-        settingsframe.children.add(new SCBoolSetting(ShadowClientSettings.VanillaSpoof, settingsframe, 26));
-        settingsframe.children.add(new SCBoolSetting(ShadowClientSettings.ChatMessages, settingsframe, 52));
-        settingsframe.children.add(new SCBoolSetting(ShadowClientSettings.BlurBackground, settingsframe, 78));
+        int offset2 = 0;
+        for (Setting setting : ShadowClientSettings.allSCSettings.values()) {
+            offset2 += 26;
+            settingsframe.children.add(switch (setting) {
+                case BooleanSetting ignored -> new SCBoolSetting(setting, settingsframe, offset2);
+                default -> throw new RuntimeException("Tried to create unsupported SCSetting");
+            });
+        }
 
         gui.searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, offset, 10, 240, 26);
         gui.frames.add(gui.searchFrame);
-        gui.searchFrame.children.add(new TextField(gui.searchFrame, 26, "textfield.placeholder.find_setting"));
+        gui.searchFrame.children.add(new TextField(gui.searchFrame, 26, new TranslatableString("textfield.placeholder.find_setting")));
     }
 
     public static void setModuleEnabled(String name, boolean enabled) {

@@ -1,55 +1,30 @@
 package net.justacoder.shadowclient.main.config;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
-import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
-import net.justacoder.shadowclient.main.setting.settings.StringSetting;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import org.jetbrains.annotations.Nullable;
 
-public class ShadowClientSettings {
+import java.util.HashMap;
+import java.util.Map;
 
-    public static final BooleanSetting VanillaSpoof = new BooleanSetting("Vanilla Spoof", false);
-    public static final BooleanSetting ChatMessages = new BooleanSetting("Chat Messages", true);
-    public static final BooleanSetting BlurBackground = new BooleanSetting("Blur Background", true);
+public class ShadowClientSettings { // TODO rewrite whatever this horrendousness is
+
+    public static final BooleanSetting VanillaSpoof = addSetting(new BooleanSetting(new TranslatableString("setting.shadowclient.vanillaspoof"), false));
+    public static final BooleanSetting ChatMessages = addSetting(new BooleanSetting(new TranslatableString("setting.shadowclient.chatmessages"), true));
+    public static final BooleanSetting BlurBackground = addSetting(new BooleanSetting(new TranslatableString("setting.shadowclient.blurbackground"), true));
 
     public static final int LOADING_SCREEN_BGND_COLOR = -14997957; // TODO make configurable maybe
 
+    public static final Map<String, Setting> allSCSettings = new HashMap<>();
+
+    public static <S extends Setting> S addSetting(S setting) {
+        allSCSettings.put(setting.name.getKey(), setting);
+        return setting;
+    }
+
     public static @Nullable Setting getSetting(String name) {
-        JsonObject settings = Config.getSCSettings();
-        if (settings != null) {
-            if (settings.has(name)) {
-                JsonPrimitive setting = settings.getAsJsonPrimitive(name);
-                try {
-                    Setting settingobj = (Setting) ShadowClientSettings.class.getDeclaredField(name).get(null);
-                    if (setting.isBoolean()) {
-                        ((BooleanSetting) settingobj).setBooleanValue(setting.getAsBoolean());
-                    }
-                    if (setting.isNumber()) {
-                        ((NumberSetting) settingobj).setNumberValue(setting.getAsNumber());
-                    }
-                    if (setting.isString()) {
-                        ((StringSetting) settingobj).setStringValue(setting.getAsString());
-                    }
-                    return settingobj;
-                } catch (Exception ignored) {
-                    return null;
-                }
-            } else {
-                try {
-                    return (Setting) ShadowClientSettings.class.getDeclaredField(name).get(null);
-                } catch (Exception ignored) {
-                    return null;
-                }
-            }
-        } else {
-            try {
-                return (Setting) ShadowClientSettings.class.getDeclaredField(name).get(null);
-            } catch (Exception ignored) {
-                return null;
-            }
-        }
+        return allSCSettings.getOrDefault(name, null);
     }
 
 }

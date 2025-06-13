@@ -1,10 +1,11 @@
 package net.justacoder.shadowclient.main.setting.settings;
 
 import net.justacoder.shadowclient.main.setting.Setting;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 
 public class BooleanSetting extends Setting {
 
-    public BooleanSetting(String name, boolean defaultValue) {
+    public BooleanSetting(TranslatableString name, boolean defaultValue) {
         super(name);
         boolValue = defaultValue;
     }

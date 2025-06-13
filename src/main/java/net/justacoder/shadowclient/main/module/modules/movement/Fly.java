@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.movement;
 
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
@@ -15,7 +16,7 @@ public class Fly extends Module {
     private int toggle = 0;
     private double acceleration = 0.2;
 
-    public final NumberSetting SPEED = new NumberSetting("Speed", 0.1f, 5f, 1f, 1, MathUtils.Easing.EASE_IN_QUADRATIC);
+    public final NumberSetting SPEED = new NumberSetting(new TranslatableString("setting.module.shadowclient.fly.speed"), 0.1f, 5f, 1f, 1, MathUtils.Easing.EASE_IN_QUADRATIC);
 
     public Fly() {
         super("fly", ModuleCategory.MOVEMENT, new String[]{"flyhack", "fly", "flying"});

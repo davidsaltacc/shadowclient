@@ -3,10 +3,11 @@ package net.justacoder.shadowclient.main.module.modules.render;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 
 public class SpoofRenderDistance extends Module {
 
-    private NumberSetting spoofedDistance = new NumberSetting("Spoofed Distance", 2, 32, 8, 0);
+    private NumberSetting spoofedDistance = new NumberSetting(new TranslatableString("setting.module.shadowclient.spoofrenderdistance.distance"), 2, 32, 8, 0);
 
     public SpoofRenderDistance() {
 

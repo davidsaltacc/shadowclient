@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.render;
 
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.BlockHalf;
 import net.minecraft.block.enums.SlabType;
@@ -16,8 +17,8 @@ import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 @EventListener({RenderEvent.class})
 public class LightOverlay extends Module {
 
-    public NumberSetting RADIUS = new NumberSetting("Radius", 1, 25, 10, 0);
-    public NumberSetting VRADIUS = new NumberSetting("Vertical Radius", 1, 25, 1, 0);
+    public NumberSetting RADIUS = new NumberSetting(new TranslatableString("setting.module.shadowclient.lightoverlay.hradius"), 1, 25, 10, 0);
+    public NumberSetting VRADIUS = new NumberSetting(new TranslatableString("setting.module.shadowclient.lightoverlay.vradius"), 1, 25, 1, 0);
 
     public LightOverlay() {
         super("lightoverlay", ModuleCategory.RENDER, new String[]{"lightoverlay", "light overlay", "spawn indicator"});

@@ -7,12 +7,13 @@ import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.minecraft.entity.attribute.EntityAttributes;
 
 @EventListener({PreTickEvent.class})
 public class StepUp extends Module {
 
-    public final NumberSetting HEIGHT = new NumberSetting("Height", 1, 10, 1, 0);
+    public final NumberSetting HEIGHT = new NumberSetting(new TranslatableString("setting.module.shadowclient.stepup.height"), 1, 10, 1, 0);
 
     public StepUp() {
         super("stepup", ModuleCategory.MOVEMENT, new String[]{"stepup", "step up", "step"});

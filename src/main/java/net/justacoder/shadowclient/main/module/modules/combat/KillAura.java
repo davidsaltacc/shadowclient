@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.combat;
 
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Hand;
@@ -15,7 +16,7 @@ import net.justacoder.shadowclient.main.util.WorldUtils;
 @EventListener({PreTickEvent.class})
 public class KillAura extends Module {
 
-    public final BooleanSetting LEGIT = new BooleanSetting("Legit", true);
+    public final BooleanSetting LEGIT = new BooleanSetting(new TranslatableString("setting.module.shadowclient.killaura.legit"), true);
 
     public KillAura() {
         super("killaura", ModuleCategory.COMBAT, new String[]{"killaura", "kill aura", "auto kill", "auto hit"});

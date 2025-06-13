@@ -3,6 +3,7 @@ package net.justacoder.shadowclient.main.module.modules.render;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 import net.justacoder.shadowclient.main.setting.settings.PaddingSetting;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.util.RotationUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.AmbientEntity;
@@ -21,21 +22,21 @@ import org.joml.Quaternionf;
 @EventListener({RenderEvent.class})
 public class Tracers extends Module {
 
-    public final BooleanSetting drawPlayerEntityTracers = new BooleanSetting("Players", true);
-    public final BooleanSetting drawHostileEntityTracers = new BooleanSetting("Hostiles", false);
-    public final BooleanSetting drawPassiveEntityTracers = new BooleanSetting("Passives", false);
-    public final BooleanSetting drawAmbientEntityTracers = new BooleanSetting("Ambients", false);
-    public final BooleanSetting drawOtherEntityTracers = new BooleanSetting("Others", true);
+    public final BooleanSetting drawPlayerEntityTracers = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tracers.players"), true);
+    public final BooleanSetting drawHostileEntityTracers = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tracers.hostiles"), false);
+    public final BooleanSetting drawPassiveEntityTracers = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tracers.passives"), false);
+    public final BooleanSetting drawAmbientEntityTracers = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tracers.ambients"), false);
+    public final BooleanSetting drawOtherEntityTracers = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tracers.others"), true);
 
-    public final BooleanSetting drawNames = new BooleanSetting("Show Names", true);
-    public final BooleanSetting drawDistance = new BooleanSetting("Show Distance", true);
+    public final BooleanSetting drawNames = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tracers.show_names"), true);
+    public final BooleanSetting drawDistance = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tracers.show_distance"), true);
 
-    public final NumberSetting startDistance = new NumberSetting("Text Distance", 0.1, 20, 2, 1);
+    public final NumberSetting startDistance = new NumberSetting(new TranslatableString("setting.module.shadowclient.tracers.text_distance"), 0.1, 20, 2, 1);
 
     public Tracers() {
         super("tracers", ModuleCategory.RENDER, new String[]{"tracers", "lines", "entity tracers", "esp"});
 
-        addSettings(drawPlayerEntityTracers, drawHostileEntityTracers, drawPassiveEntityTracers, drawAmbientEntityTracers, drawOtherEntityTracers, new PaddingSetting(""), drawNames, drawDistance, startDistance);
+        addSettings(drawPlayerEntityTracers, drawHostileEntityTracers, drawPassiveEntityTracers, drawAmbientEntityTracers, drawOtherEntityTracers, new PaddingSetting(), drawNames, drawDistance, startDistance);
     }
 
     public float[] getColor(Entity entity) {
