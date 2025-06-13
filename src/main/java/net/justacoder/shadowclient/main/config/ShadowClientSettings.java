@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ShadowClientSettings { // TODO rewrite whatever this horrendousness is
+public class ShadowClientSettings {
 
     public static final BooleanSetting VanillaSpoof = addSetting(new BooleanSetting(new TranslatableString("setting.shadowclient.vanillaspoof"), false));
     public static final BooleanSetting ChatMessages = addSetting(new BooleanSetting(new TranslatableString("setting.shadowclient.chatmessages"), true));

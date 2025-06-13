@@ -95,7 +95,6 @@
 - spectator mode - spectate someone. make the cameraEntity be someone else
 - seedcrackerX integration? maybe
 - seed xray / "oresim" 
-- translatable setting names
 - unhittable - move player around in a small area real quickly to make them harder to hit
 * clean up the codebase... so much unused stuff
 - rework most of the *Utils classes
