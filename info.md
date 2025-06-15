@@ -44,6 +44,7 @@
 * reworked settings, now a separate screen
 * better keybinding setup for modules
 * color settings for some modules
+* translatable setting names & a better translation system
 
 ### fixes:
 * fixed a lot of ui related bugs
