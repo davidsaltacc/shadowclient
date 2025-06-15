@@ -3,6 +3,7 @@ package net.justacoder.shadowclient.main.ui.clickgui.settings.modules;
 import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.settings.*;
+import net.justacoder.shadowclient.main.ui.clickgui.settings.ColorSelectionScreen;
 import net.justacoder.shadowclient.main.ui.clickgui.Colors;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.justacoder.shadowclient.main.util.MathUtils;
@@ -58,6 +59,8 @@ public abstract class SettingComponent {
             case StringSetting ignored -> new TextSettingComponent(setting, position);
             case PaddingSetting ignored -> new PaddingSettingComponent(setting, position);
             case KeySetting ignored -> new KeybindingSettingComponent(setting, position);
+            case ColorSetting ignored -> new ColorSettingComponent(setting, position);
+            case ButtonSetting ignored -> new ButtonSettingComponent(setting, position);
             default -> throw new RuntimeException("Tried to create a setting component for an unsupported setting type: " + setting.getClass().getName());
         };
     }
@@ -133,8 +136,8 @@ public abstract class SettingComponent {
         @Override
         public void render(DrawContext context, int mouseX, int mouseY, boolean inBounds, float delta) {
 
-            int nameWidth = Font.getWidth(setting.name + ": ");
-            Font.renderString(context, setting.name + ": ", position.x, position.y + 4, Colors.TEXT_NORMAL.color);
+            int nameWidth = Font.getWidth(setting.name.getTranslation() + ": ");
+            Font.renderString(context, setting.name.getTranslation() + ": ", position.x, position.y + 4, Colors.TEXT_NORMAL.color);
 
             String valueName = ((EnumSetting<?>) setting).getEnumValue().name();
 
@@ -268,7 +271,7 @@ public abstract class SettingComponent {
         }
 
         private String getText(NumberSetting numberSetting) {
-            return numberSetting.name + ": " + MathUtils.roundToPlace(numberSetting.doubleValueEased(), numberSetting.decimalPlaces);
+            return numberSetting.name.getTranslation() + ": " + MathUtils.roundToPlace(numberSetting.doubleValueEased(), numberSetting.decimalPlaces);
         }
 
         @Override
@@ -300,11 +303,11 @@ public abstract class SettingComponent {
         @Override
         public void render(DrawContext context, int mouseX, int mouseY, boolean inBounds, float delta) {
 
-            int nameWidth = Font.getWidth(setting.name + ": ") + 2;
+            int nameWidth = Font.getWidth(setting.name.getTranslation() + ": ") + 2;
             String value = ((StringSetting) setting).stringValue();
-            Font.renderString(context, setting.name + ": ", position.x, position.y + 4, Colors.TEXT_NORMAL.color);
+            Font.renderString(context, setting.name.getTranslation() + ": ", position.x, position.y + 4, Colors.TEXT_NORMAL.color);
 
-            context.fill(position.x + nameWidth, position.y + 2, position.x + nameWidth + Font.getWidth(value.isEmpty() ? setting.name.getTranslation() : value) + 4, position.y + getHeight() - 2, Colors.TEXT_SETTING_BACKEND.color);
+            context.fill(position.x + nameWidth, position.y + 2, position.x + nameWidth + Font.getWidth(value.isEmpty() ? setting.name.getTranslation() : value) + 4, position.y + getHeight() - 2, Colors.TEXT_FIELD_BACKGROUND.color);
 
             Font.renderString(context, value.isEmpty() ? setting.name.getTranslation() : value, position.x + nameWidth + 2, position.y + 4, value.isEmpty() ? Colors.TEXT_DISABLED.color : Colors.TEXT_NORMAL.color);
 
@@ -380,11 +383,12 @@ public abstract class SettingComponent {
         }
 
         private boolean configuring = false;
+        private boolean wasConfiguring = false;
 
         @Override
         public void render(DrawContext context, int mouseX, int mouseY, boolean inBounds, float delta) {
 
-            String text = setting.name + ": ";
+            String text = setting.name.getTranslation() + ": ";
             int textWidth = Font.getWidth(text);
             String binding = configuring ? "[Press a key]" : getBindingName(((KeySetting) setting).keyValue());
             int bindingWidth = Font.getWidth(binding);
@@ -403,6 +407,14 @@ public abstract class SettingComponent {
             return configuring;
         }
 
+        public boolean recentlyWasConfiguring() {
+            if (wasConfiguring) {
+                wasConfiguring = false;
+                return true;
+            }
+            return false;
+        }
+
         @Override
         public void mouseClicked(double mouseX, double mouseY, int button, boolean inBounds) {
             configuring = isHovered(mouseX, mouseY, inBounds);
@@ -415,12 +427,17 @@ public abstract class SettingComponent {
                 if (keyCode == ((KeyBindingAccessor) ShadowClientMain.toggleGUIKeyBinding).getBoundKey().getCode()) {
                     return;
                 }
-                ((KeySetting) setting).setKeyValue(keyCode == GLFW.GLFW_KEY_ESCAPE ? -1 : keyCode);
+                if (keyCode != GLFW.GLFW_KEY_ESCAPE) {
+                    ((KeySetting) setting).setKeyValue(keyCode);
+                    wasConfiguring = true;
+                } else {
+                    ((KeySetting) setting).setKeyValue(-1);
+                }
             }
         }
 
         private String getBindingName(int key) {
-            String binding = key == -1 ? null : GLFW.glfwGetKeyName(key, -1).toUpperCase();
+            String binding = key == -1 ? null : (GLFW.glfwGetKeyName(key, -1) == null ? null : GLFW.glfwGetKeyName(key, -1).toUpperCase());
             return binding == null ? I18n.translate("name.shadowclient.none") : binding;
         }
 
@@ -432,6 +449,75 @@ public abstract class SettingComponent {
         @Override
         public int getHeight() {
             return Font.getHeight() + 8; // 2 + line (+ 2*2 padding) + 2
+        }
+
+    }
+
+    public static class ColorSettingComponent extends SettingComponent {
+
+        protected ColorSettingComponent(Setting setting, Vector2i position) {
+            super(setting, position);
+        }
+
+        @Override
+        public void render(DrawContext context, int mouseX, int mouseY, boolean inBounds, float delta) {
+
+            context.fill(position.x, position.y + 2, position.x + getHeight() * 2, position.y + getHeight() - 2, Colors.COLOR_SETTING_BACKGROUND.color);
+            context.fill(position.x + 2, position.y + 4, position.x + getHeight() * 2 - 2, position.y + getHeight() - 4, ((ColorSetting) setting).colorValue());
+
+            Font.renderString(context, " " + setting.name.getTranslation(), position.x + getHeight() * 2, position.y + 4, Colors.TEXT_NORMAL.color);
+
+        }
+
+        @Override
+        public int getHeight() {
+            return Font.getHeight() + 8; // 2 + (box = line, box border = 2*2) + 2
+        }
+
+        @Override
+        public int getWidth() {
+            return getHeight() * 2 + 2 + Font.getWidth(" " + setting.name.getTranslation());
+        }
+
+        @Override
+        public void mouseClicked(double mouseX, double mouseY, int button, boolean inBounds) {
+
+            if (inBounds && mouseX > position.x && mouseX < position.x + getHeight() * 2 && mouseY > position.y + 2 && mouseY < position.y + getHeight() - 2) {
+                ShadowClientMain.mc.setScreen(new ColorSelectionScreen((ColorSetting) setting, ShadowClientMain.mc.currentScreen));
+            }
+
+        }
+    }
+
+    public static class ButtonSettingComponent extends SettingComponent {
+
+        protected ButtonSettingComponent(Setting setting, Vector2i position) {
+            super(setting, position);
+        }
+
+        @Override
+        public void render(DrawContext context, int mouseX, int mouseY, boolean inBounds, float delta) {
+
+            context.fill(position.x, position.y + 2, position.x + Font.getWidth(setting.name.getTranslation()) + 4, position.y + 4 + Font.getHeight() , Colors.BUTTON_SETTING_BACKGROUND.color);
+            Font.renderString(context, setting.name.getTranslation(), position.x + 2, position.y + 4, Colors.TEXT_NORMAL.color);
+
+        }
+
+        @Override
+        public void mouseClicked(double mouseX, double mouseY, int button, boolean inBounds) {
+            if (isHovered(mouseX, mouseY, inBounds)) {
+                ((ButtonSetting) setting).press();
+            }
+        }
+
+        @Override
+        public int getWidth() {
+            return Font.getWidth(setting.name) + 4;
+        }
+
+        @Override
+        public int getHeight() {
+            return Font.getHeight() + 8; // 4 + line + 4
         }
 
     }

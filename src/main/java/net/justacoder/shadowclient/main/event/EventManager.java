@@ -1,12 +1,10 @@
 package net.justacoder.shadowclient.main.event;
 
 import net.justacoder.shadowclient.main.ShadowClientMain;
-import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.justacoder.shadowclient.main.event.events.PostTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleManager;
-import net.justacoder.shadowclient.main.ui.clickgui.ClickGUI;
-import net.justacoder.shadowclient.main.ui.clickgui.settings.modules.SettingsScreen;
+import net.justacoder.shadowclient.main.ui.ShadowClientScreen;
 import net.justacoder.shadowclient.main.util.JavaUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +25,7 @@ public class EventManager {
             if (evt instanceof PostTickEvent && ShadowClientMain.toggleGUIKeyBinding.wasPressed()) {
                 if (ShadowClientMain.mc.currentScreen == null) {
                     ShadowClientMain.mc.setScreen(ShadowClientMain.clickGui);
-                } else if (ShadowClientMain.mc.currentScreen instanceof ClickGUI || ShadowClientMain.mc.currentScreen instanceof SettingsScreen) {
+                } else if (ShadowClientMain.mc.currentScreen instanceof ShadowClientScreen) {
                     ShadowClientMain.mc.setScreen(null);
                 }
             }

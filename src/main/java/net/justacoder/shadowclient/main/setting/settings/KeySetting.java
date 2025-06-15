@@ -28,4 +28,8 @@ public class KeySetting extends Setting {
         callCallbacks(this.keyValue(), old);
     }
 
+    @Override
+    public void reset() {
+        setKeyValue(keyBinding.getDefaultKey().getCode());
+    }
 }

@@ -1,6 +1,9 @@
 package net.justacoder.shadowclient.main.module.modules.render;
 
+import net.justacoder.shadowclient.main.setting.settings.ColorSetting;
+import net.justacoder.shadowclient.main.setting.settings.PaddingSetting;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
+import net.justacoder.shadowclient.main.util.ColorUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.BlockHalf;
 import net.minecraft.block.enums.SlabType;
@@ -20,10 +23,18 @@ public class LightOverlay extends Module {
     public NumberSetting RADIUS = new NumberSetting(new TranslatableString("setting.module.shadowclient.lightoverlay.hradius"), 1, 25, 10, 0);
     public NumberSetting VRADIUS = new NumberSetting(new TranslatableString("setting.module.shadowclient.lightoverlay.vradius"), 1, 25, 1, 0);
 
+    public ColorSetting COLOR_NEVER_SPAWN = new ColorSetting(new TranslatableString("setting.module.shadowclient.lightoverlay.color_never"), -16711936);
+    public ColorSetting COLOR_POSSIBLE_SPAWN = new ColorSetting(new TranslatableString("setting.module.shadowclient.lightoverlay.color_possible"), -256);
+    public ColorSetting COLOR_ALWAYS_SPAWN = new ColorSetting(new TranslatableString("setting.module.shadowclient.lightoverlay.color_always"), -65536);
+
     public LightOverlay() {
         super("lightoverlay", ModuleCategory.RENDER, new String[]{"lightoverlay", "light overlay", "spawn indicator"});
 
-        addSettings(RADIUS, VRADIUS);
+        addSettings(
+                RADIUS, VRADIUS,
+                new PaddingSetting(),
+                COLOR_NEVER_SPAWN, COLOR_POSSIBLE_SPAWN, COLOR_ALWAYS_SPAWN
+        );
     }
 
     @Override
@@ -63,12 +74,10 @@ public class LightOverlay extends Module {
         float y = pos.getY() + 0.008f;
         float z = pos.getZ();
         float[] color;
-        if (level == 1) {
-            color = new float[]{1f, 1f, 0f, 1f};
-        } else if (level == 2) {
-            color = new float[]{1f, 0f, 0f, 1f};
-        } else {
-            color = new float[]{0f, 1f, 0f, 1f};
+        switch (level) {
+            case 1 -> color = ColorUtils.int2RGBAfloat(COLOR_POSSIBLE_SPAWN.colorValue());
+            case 2 -> color = ColorUtils.int2RGBAfloat(COLOR_ALWAYS_SPAWN.colorValue());
+            default -> color = ColorUtils.int2RGBAfloat(COLOR_NEVER_SPAWN.colorValue());
         }
         event.renderer.drawLine(x, y, z, x, y, z + 1, color, true);
         event.renderer.drawLine(x, y, z + 1, x + 1, y, z + 1, color, true);

@@ -29,7 +29,7 @@ public abstract class NotificationsManager {
 
         UIRenderUtils.beforeUIRender(context);
 
-        float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor(); // see ClickGUI.render() for the reason using enableGuiScaleFactor()
+        float disableScaleFactor = UIRenderUtils.guiScaleFactor(); // see ClickGUI.render() for the reason using enableGuiScaleFactor()
         int mouseX = (int) (scaledMouseX * disableScaleFactor);
         int mouseY = (int) (scaledMouseY * disableScaleFactor);
 
@@ -45,7 +45,7 @@ public abstract class NotificationsManager {
 
     public static void mouseClicked(double scaledMouseX, double scaledMouseY, int button) {
 
-        float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor(); // see ClickGUI.render() for the reason using enableGuiScaleFactor()
+        float disableScaleFactor = UIRenderUtils.guiScaleFactor(); // see ClickGUI.render() for the reason using enableGuiScaleFactor()
         int mouseX = (int) (scaledMouseX * disableScaleFactor);
         int mouseY = (int) (scaledMouseY * disableScaleFactor);
 

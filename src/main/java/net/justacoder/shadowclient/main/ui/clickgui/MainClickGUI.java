@@ -1,15 +1,9 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
-import net.justacoder.shadowclient.main.ShadowClientMain;
-import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.minecraft.client.MinecraftClient;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
-import net.justacoder.shadowclient.main.ui.clickgui.text.TextField;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
-import org.lwjgl.glfw.GLFW;
-
+import net.justacoder.shadowclient.main.ui.clickgui.text.FrameTextField;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +24,7 @@ public class MainClickGUI extends ClickGUI {
 
         searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, 0, 0, 200, 26);
         frames.add(searchFrame);
-        searchFrame.children.add(new TextField(searchFrame, 24, new TranslatableString("textfield.placeholder.find_module")));
+        searchFrame.children.add(new FrameTextField(searchFrame, 24, new TranslatableString("textfield.placeholder.find_module")));
     }
 
     public void repositionFramesProperly() {
@@ -66,7 +60,7 @@ public class MainClickGUI extends ClickGUI {
         }
     }
 
-    public List<FrameChild> getAllTextFields() {
+    public List<FrameChild> getAllModuleTextFields() {
         List<FrameChild> textFields = new ArrayList<>();
         for (Frame frame : frames) {
             textFields.addAll(frame.getAllTextFields());
@@ -75,10 +69,10 @@ public class MainClickGUI extends ClickGUI {
     }
 
     public boolean isAnyTextFieldCapturing() {
-        List<FrameChild> allTextFields = getAllTextFields();
+        List<FrameChild> allTextFields = getAllModuleTextFields();
         for (FrameChild textField : allTextFields) {
-            if (textField.getClass() == TextField.class) {
-                if (((TextField) textField).captureKeyPresses) {
+            if (textField.getClass() == FrameTextField.class) {
+                if (((FrameTextField) textField).captureKeyPresses) {
                     return true;
                 }
             }

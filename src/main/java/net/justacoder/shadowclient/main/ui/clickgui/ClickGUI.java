@@ -3,16 +3,17 @@ package net.justacoder.shadowclient.main.ui.clickgui;
 import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.config.ShadowClientSettings;
 import net.justacoder.shadowclient.main.render.UIRenderUtils;
+import net.justacoder.shadowclient.main.ui.ShadowClientScreen;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
-import net.justacoder.shadowclient.main.ui.clickgui.text.TextField;
+import net.justacoder.shadowclient.main.ui.clickgui.text.FrameTextField;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClickGUI extends Screen {
+public class ClickGUI extends Screen implements ShadowClientScreen {
 
     public final List<Frame> frames;
 
@@ -42,7 +43,7 @@ public class ClickGUI extends Screen {
 
         this.applyBlur();
 
-        float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor(); // technically we disable, but we use enable() because we need to multiply the coordinates instead of downscaling
+        float disableScaleFactor = UIRenderUtils.guiScaleFactor(); // technically we disable, but we use enable() because we need to multiply the coordinates instead of downscaling
         int mouseX = (int) (scaledMouseX * disableScaleFactor);
         int mouseY = (int) (scaledMouseY * disableScaleFactor);
 
@@ -63,7 +64,7 @@ public class ClickGUI extends Screen {
     @Override
     public boolean mouseClicked(double scaledMouseX, double scaledMouseY, int button) {
 
-        float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor(); // see render() for reason of using enable...()
+        float disableScaleFactor = UIRenderUtils.guiScaleFactor(); // see render() for reason of using enable...()
         int mouseX = (int) (scaledMouseX * disableScaleFactor);
         int mouseY = (int) (scaledMouseY * disableScaleFactor);
 
@@ -77,7 +78,7 @@ public class ClickGUI extends Screen {
     @Override
     public boolean mouseReleased(double scaledMouseX, double scaledMouseY, int button) {
 
-        float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor();
+        float disableScaleFactor = UIRenderUtils.guiScaleFactor();
         int mouseX = (int) (scaledMouseX * disableScaleFactor);
         int mouseY = (int) (scaledMouseY * disableScaleFactor);
 
@@ -111,16 +112,16 @@ public class ClickGUI extends Screen {
             frame.keyPressed(keyCode, scanCode, modifiers);
         }
 
-        searching = !((TextField) searchFrame.children.getFirst()).getText().isEmpty();
+        searching = !((FrameTextField) searchFrame.children.getFirst()).getText().isEmpty();
 
         if (searching) {
-            searchingFor = ((TextField) searchFrame.children.getFirst()).getText();
+            searchingFor = ((FrameTextField) searchFrame.children.getFirst()).getText();
         }
 
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
-    public List<FrameChild> getAllTextFields() {
+    public List<FrameChild> getAllModuleTextFields() {
         List<FrameChild> textFields = new ArrayList<>();
         for (Frame frame : frames) {
             textFields.addAll(frame.getAllTextFields());
@@ -129,14 +130,19 @@ public class ClickGUI extends Screen {
     }
 
     public boolean isAnyTextFieldCapturing() {
-        List<FrameChild> allTextFields = getAllTextFields();
+        List<FrameChild> allTextFields = getAllModuleTextFields();
         for (FrameChild textField : allTextFields) {
-            if (textField.getClass() == TextField.class) {
-                if (((TextField) textField).captureKeyPresses) {
+            if (textField.getClass() == FrameTextField.class) {
+                if (((FrameTextField) textField).captureKeyPresses) {
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean capturesKeypress(int key) {
+        return key == GLFW.GLFW_KEY_ESCAPE || isAnyTextFieldCapturing();
     }
 }

@@ -7,9 +7,11 @@ import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.render.UIRenderUtils;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
+import net.justacoder.shadowclient.main.setting.settings.ButtonSetting;
 import net.justacoder.shadowclient.main.setting.settings.KeySetting;
 import net.justacoder.shadowclient.main.setting.settings.PaddingSetting;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
+import net.justacoder.shadowclient.main.ui.ShadowClientScreen;
 import net.justacoder.shadowclient.main.ui.clickgui.Colors;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.MinecraftClient;
@@ -22,7 +24,7 @@ import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SettingsScreen extends Screen {
+public class SettingsScreen extends Screen implements ShadowClientScreen {
 
     public final Module module;
     public final List<SettingComponent> components = new ArrayList<>();
@@ -64,6 +66,8 @@ public class SettingsScreen extends Screen {
             components.add(toggleModuleKeybindComponent);
         }
 
+        components.add(SettingComponent.ofSetting(new ButtonSetting(new TranslatableString("name.shadowclient.reset_all_settings"), () -> module.getSettings().forEach(Setting::reset)), new Vector2i()));
+
         components.add(SettingComponent.ofSetting(new PaddingSetting(), new Vector2i()));
 
         for (Setting setting : module.getSettings()) {
@@ -78,7 +82,11 @@ public class SettingsScreen extends Screen {
         components.forEach(SettingComponent::init);
     }
 
-    public boolean interceptKeypresses() {
+    @Override
+    public boolean capturesKeypress(int key) {
+        if (key == GLFW.GLFW_KEY_ESCAPE) {
+            return true;
+        }
         boolean intercept = false;
         for (SettingComponent component : components) {
             if (component.interceptKeypresses()) {
@@ -98,10 +106,10 @@ public class SettingsScreen extends Screen {
     }
 
     public void rescale() {
-        overlayWidth = (int) Math.min(1000, width * UIRenderUtils.enableGuiScaleFactor() - 100);
-        overlayHeight = (int) Math.min(700, height * UIRenderUtils.enableGuiScaleFactor() - 100);
-        overlayStartX = (int) (width * UIRenderUtils.enableGuiScaleFactor() / 2 - (float) overlayWidth / 2);
-        overlayStartY = (int) (height * UIRenderUtils.enableGuiScaleFactor() / 2 - (float) overlayHeight / 2);
+        overlayWidth = (int) Math.min(1000, width * UIRenderUtils.guiScaleFactor() - 100);
+        overlayHeight = (int) Math.min(700, height * UIRenderUtils.guiScaleFactor() - 100);
+        overlayStartX = (int) (width * UIRenderUtils.guiScaleFactor() / 2 - (float) overlayWidth / 2);
+        overlayStartY = (int) (height * UIRenderUtils.guiScaleFactor() / 2 - (float) overlayHeight / 2);
         contentStartX = overlayStartX + padding;
         contentStartY = overlayStartY + padding;
         contentEndX = overlayStartX + overlayWidth - padding;
@@ -124,7 +132,7 @@ public class SettingsScreen extends Screen {
 
         this.applyBlur();
 
-        float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor(); // ClickGUI#L47
+        float disableScaleFactor = UIRenderUtils.guiScaleFactor(); // ClickGUI#L47
         int mouseX = (int) (scaledMouseX * disableScaleFactor);
         int mouseY = (int) (scaledMouseY * disableScaleFactor);
 
@@ -149,7 +157,7 @@ public class SettingsScreen extends Screen {
     @Override
     public boolean mouseScrolled(double scaledMouseX, double scaledMouseY, double horizontalAmount, double verticalAmount) {
 
-        float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor();
+        float disableScaleFactor = UIRenderUtils.guiScaleFactor();
         int mouseX = (int) (scaledMouseX * disableScaleFactor);
         int mouseY = (int) (scaledMouseY * disableScaleFactor) - (int) scrollY;
         int mouseYScreen = mouseY + (int) scrollY;
@@ -197,7 +205,7 @@ public class SettingsScreen extends Screen {
     @Override
     public boolean mouseClicked(double scaledMouseX, double scaledMouseY, int button) {
 
-        float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor();
+        float disableScaleFactor = UIRenderUtils.guiScaleFactor();
         int mouseX = (int) (scaledMouseX * disableScaleFactor);
         int mouseY = (int) (scaledMouseY * disableScaleFactor) - (int) scrollY;
         int mouseYScreen = mouseY + (int) scrollY;
@@ -210,7 +218,7 @@ public class SettingsScreen extends Screen {
     @Override
     public boolean mouseReleased(double scaledMouseX, double scaledMouseY, int button) {
 
-        float disableScaleFactor = UIRenderUtils.enableGuiScaleFactor();
+        float disableScaleFactor = UIRenderUtils.guiScaleFactor();
         int mouseX = (int) (scaledMouseX * disableScaleFactor);
         int mouseY = (int) (scaledMouseY * disableScaleFactor) - (int) scrollY;
         int mouseYScreen = mouseY + (int) scrollY;

@@ -6,7 +6,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.annotations.Hidden;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.module.ModuleManager;
-import net.justacoder.shadowclient.main.ui.clickgui.text.TextField;
+import net.justacoder.shadowclient.main.ui.clickgui.text.FrameTextField;
 import net.justacoder.shadowclient.main.util.ColorUtils;
 import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
@@ -172,8 +172,8 @@ public class Frame extends FrameChild {
 
             if (child.getClass().equals(ModuleButton.class)) {
                 ((ModuleButton) child).offset = offset;
-            } else if (child.getClass().equals(TextField.class)) {
-                ((TextField) child).offset = offset;
+            } else if (child.getClass().equals(FrameTextField.class)) {
+                ((FrameTextField) child).offset = offset;
             }
             offset += height;
         }
@@ -182,7 +182,7 @@ public class Frame extends FrameChild {
     public List<FrameChild> getAllTextFields() {
         List<FrameChild> textFields = new ArrayList<>();
         for (FrameChild child : children) {
-            if (child.getClass() == TextField.class) {
+            if (child.getClass() == FrameTextField.class) {
                 textFields.add(child);
             }
         }

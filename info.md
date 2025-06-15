@@ -42,6 +42,8 @@
 * in airjump you can toggle between normal and "jetpack" mode (hold)
 * heavily improved and bugfixed freecam
 * reworked settings, now a separate screen
+* better keybinding setup for modules
+* color settings for some modules
 
 ### fixes:
 * fixed a lot of ui related bugs
@@ -83,8 +85,7 @@
 
 
 ## yet to do:
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! VERY IMPORTANT !!!!!!!!!!!!!!!!! bring german translations up to date
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! VERY IMPORTANT !!!!!!!!!!!!!!!!! test all translations
+* test if it is still necessary to include fabric api (i dont think so)
 - finish the tic-tac-toe thing lol
 - test blink properly, i think i didnt test it fully`
 - scrolling down on the clickgui? and sideways, ig?`
@@ -123,6 +124,7 @@
 * add cooldown to air jump (configurable)
 * make more things translatable
 * CHANGE PACKET LOG TO NOT LOG INTO IN GAME CHAT - make new notification type, smaller, disappearing
+* INSTEAD OF MANUALLY GETTING THE NAME OF EACH PACKET, DON'T THEY HAVE LIKE A CODEC N SHIT ANYWAY? TRY TO MAYBE UHH DO THAT BETTER
 * breadcrumbs render only mode
 * sticky aim - decrease the mouse sensitivity when aiming near enemies
 * fix searching for settings in the client settings screen, I think it is broken (modulebutton class is the only one that has uhh the thing)

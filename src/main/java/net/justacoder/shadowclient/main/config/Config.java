@@ -8,10 +8,7 @@ import net.justacoder.shadowclient.main.annotations.OneClick;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.setting.Setting;
-import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
-import net.justacoder.shadowclient.main.setting.settings.EnumSetting;
-import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
-import net.justacoder.shadowclient.main.setting.settings.StringSetting;
+import net.justacoder.shadowclient.main.setting.settings.*;
 import net.justacoder.shadowclient.main.translations.Language;
 import net.justacoder.shadowclient.main.ui.clickgui.Frame;
 import net.justacoder.shadowclient.main.util.FileUtils;
@@ -65,6 +62,9 @@ public class Config {
                     if (setting instanceof StringSetting set) {
                         settings.addProperty(setting.name.getKey(), set.stringValue());
                     }
+                    if (setting instanceof ColorSetting set) {
+                        settings.addProperty(setting.name.getKey(), set.colorValue());
+                    }
                     if (setting instanceof EnumSetting<?> set) {
                         Enum<?> value = set.getEnumValue();
                         settings.addProperty(setting.name.getKey(), value.name());
@@ -80,7 +80,7 @@ public class Config {
 
         clientdata.addProperty("version", ShadowClientMain.CLIENT_VERSION);
 
-        for (Setting setting : ShadowClientSettings.allSCSettings.values()) {
+        for (Setting setting : ShadowClientSettings.getAllSCSettings().values()) {
             if (setting instanceof BooleanSetting set) {
                 scsettings.addProperty(set.name.getKey(), set.booleanValue());
             }
@@ -192,7 +192,11 @@ public class Config {
                         module.settings.forEach(settingobj -> {
                             if (settingobj.name.getKey().equals(setting) || englishUs.getTranslationFor(settingobj.name.getKey()).equals(setting)) {
                                 settingobj.shouldCallCallbacks(false);
-                                ((NumberSetting) settingobj).setNumberValue(value);
+                                if (settingobj instanceof NumberSetting set) {
+                                    set.setNumberValue(value.doubleValue());
+                                } else if (settingobj instanceof ColorSetting set) {
+                                    set.setColorValue(value.intValue());
+                                }
                                 settingobj.shouldCallCallbacks(true);
                             }
                         });

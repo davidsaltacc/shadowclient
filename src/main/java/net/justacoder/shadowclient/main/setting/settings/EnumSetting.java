@@ -6,10 +6,12 @@ import net.justacoder.shadowclient.main.translations.TranslatableString;
 public class EnumSetting<E extends Enum<E>> extends Setting {
 
     private E enumValue;
+    private E defaultValue;
 
     public EnumSetting(TranslatableString name, E defaultEnumValue) {
         super(name);
         this.enumValue = defaultEnumValue;
+        this.defaultValue = defaultEnumValue;
     }
 
     public void setEnumValue(E value) {
@@ -19,5 +21,10 @@ public class EnumSetting<E extends Enum<E>> extends Setting {
     }
     public E getEnumValue() {
         return this.enumValue;
+    }
+
+    @Override
+    public void reset() {
+        setEnumValue(defaultValue);
     }
 }

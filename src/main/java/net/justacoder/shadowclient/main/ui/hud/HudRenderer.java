@@ -20,7 +20,7 @@ public class HudRenderer {
         }
         AtomicInteger offset;
         switch (corner) {
-            case Bottom_Left, Bottom_Right -> offset = new AtomicInteger(context.getScaledWindowHeight() - elements.get(0).getHeight() - 4);
+            case Bottom_Left, Bottom_Right -> offset = new AtomicInteger(context.getScaledWindowHeight() * (int) UIRenderUtils.guiScaleFactor() - elements.get(0).getHeight() - 4);
             default -> offset = new AtomicInteger();
         }
         List<HudElement> el = new ArrayList<>(elements);

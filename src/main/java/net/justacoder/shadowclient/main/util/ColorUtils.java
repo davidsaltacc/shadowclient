@@ -20,6 +20,10 @@ public abstract class ColorUtils {
         return new int[]{(color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF};
     }
 
+    public static float[] int2RGBAfloat(int color) {
+        return new float[]{((color >> 16) & 0xFF) / 255f, ((color >> 8) & 0xFF) / 255f, (color & 0xFF) / 255f, ((color >> 24) & 0xFF) / 255f};
+    }
+
     public static int[] RGBFloatToRGBInt(float r, float g, float b) {
         int[] color = new int[3];
 

@@ -36,5 +36,7 @@ public abstract class Setting {
         return callCallbacks;
     }
 
+    public abstract void reset();
+
 }
 

@@ -6,10 +6,18 @@ import net.justacoder.shadowclient.main.translations.TranslatableString;
 public class StringSetting extends Setting {
 
     private String stringValue;
+    private String defaultValue;
 
     public StringSetting(TranslatableString name) {
         super(name);
         this.stringValue = "";
+        this.defaultValue = "";
+    }
+
+    public StringSetting(TranslatableString name, String defaultValue) {
+        super(name);
+        this.stringValue = defaultValue;
+        this.defaultValue = defaultValue;
     }
 
     public String stringValue() {
@@ -20,5 +28,10 @@ public class StringSetting extends Setting {
         String old = stringValue;
         this.stringValue = value;
         callCallbacks(value, old);
+    }
+
+    @Override
+    public void reset() {
+        setStringValue(defaultValue);
     }
 }

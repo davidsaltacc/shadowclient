@@ -10,6 +10,7 @@ import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.translations.Translations;
+import net.justacoder.shadowclient.main.ui.ShadowClientScreen;
 import net.justacoder.shadowclient.main.ui.clickgui.settings.modules.SettingsScreen;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.Bootstrap;
@@ -27,7 +28,7 @@ import net.justacoder.shadowclient.main.ui.clickgui.Frame;
 import net.justacoder.shadowclient.main.ui.clickgui.MainClickGUI;
 import net.justacoder.shadowclient.main.ui.clickgui.ModuleButton;
 import net.justacoder.shadowclient.main.ui.clickgui.settings.scsettings.components.SCBoolSetting;
-import net.justacoder.shadowclient.main.ui.clickgui.text.TextField;
+import net.justacoder.shadowclient.main.ui.clickgui.text.FrameTextField;
 import net.justacoder.shadowclient.main.ui.notifications.Notification;
 import net.justacoder.shadowclient.main.ui.notifications.NotificationsManager;
 import net.justacoder.shadowclient.main.util.ChatUtils;
@@ -149,7 +150,7 @@ public abstract class ShadowClientMain {
         offset += 210;
 
         int offset2 = 0;
-        for (Setting setting : ShadowClientSettings.allSCSettings.values()) {
+        for (Setting setting : ShadowClientSettings.getAllSCSettings().values()) {
             offset2 += 26;
             settingsframe.children.add(switch (setting) {
                 case BooleanSetting ignored -> new SCBoolSetting(setting, settingsframe, offset2);
@@ -159,7 +160,7 @@ public abstract class ShadowClientMain {
 
         gui.searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, offset, 10, 240, 26);
         gui.frames.add(gui.searchFrame);
-        gui.searchFrame.children.add(new TextField(gui.searchFrame, 26, new TranslatableString("textfield.placeholder.find_setting")));
+        gui.searchFrame.children.add(new FrameTextField(gui.searchFrame, 26, new TranslatableString("textfield.placeholder.find_setting")));
     }
 
     public static void setModuleEnabled(String name, boolean enabled) {
@@ -214,7 +215,7 @@ public abstract class ShadowClientMain {
     }
 
     public static void onWorldJoined() {
-        if (!((BooleanSetting) ShadowClientSettings.getSetting("ChatMessages")).booleanValue()) {
+        if (!(ShadowClientSettings.ChatMessages.booleanValue())) {
             return;
         }
         ChatUtils.sendMessageClient("§9§l§u" + CLIENT_NAME + " §o" + CLIENT_VERSION + "§r\nType " + CLIENT_COMMAND_PREFIX + "help for useful help.");
@@ -222,17 +223,14 @@ public abstract class ShadowClientMain {
 
     public static void keyPressed(int keyCode, int scanCode, int action) {
         ModuleManager.getAllModules().forEach((name, module) -> {
-            if (!module.getClass().isAnnotationPresent(NotKeybindable.class) && module.keyBinding.matchesKey(keyCode, scanCode) && action == GLFW.GLFW_PRESS && !(ShadowClientMain.mc.currentScreen instanceof SettingsScreen screen && screen.toggleModuleKeybindComponent != null && screen.toggleModuleKeybindComponent.isConfiguring())) {
+            if (!module.getClass().isAnnotationPresent(NotKeybindable.class) && module.keyBinding.wasPressed() && !(ShadowClientMain.mc.currentScreen instanceof SettingsScreen screen && screen.toggleModuleKeybindComponent != null && screen.toggleModuleKeybindComponent.recentlyWasConfiguring())) {
                 module.toggle();
             }
         });
     }
 
     public static @Nullable Screen allowKeyPress(@Nullable Screen screen, int key) {
-        if (screen instanceof ClickGUI && !clickGui.isAnyTextFieldCapturing() && !settingsGui.isAnyTextFieldCapturing() || (screen instanceof SettingsScreen sscreen && !sscreen.interceptKeypresses())) {
-            if (key == GLFW.GLFW_KEY_ESCAPE) {
-                return screen;
-            }
+        if (screen instanceof ShadowClientScreen scs && !scs.capturesKeypress(key)) {
             return null;
         }
         return screen;

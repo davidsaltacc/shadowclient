@@ -17,6 +17,7 @@ public class NumberSetting extends Setting {
     public final MathUtils.Easing easing;
 
     protected Number value;
+    protected Number defaultValue;
     protected Number minValue;
     protected Number maxValue;
 
@@ -106,6 +107,7 @@ public class NumberSetting extends Setting {
         this.minValue = min;
         this.maxValue = max;
         this.value = defaultValue;
+        this.defaultValue = defaultValue;
         this.decimalPlaces = decimalPlaces;
         this.easing = easing;
     }
@@ -122,4 +124,8 @@ public class NumberSetting extends Setting {
         }
     }
 
+    @Override
+    public void reset() {
+        setNumberValue(defaultValue);
+    }
 }

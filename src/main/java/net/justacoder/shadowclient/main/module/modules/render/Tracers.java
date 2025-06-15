@@ -1,9 +1,11 @@
 package net.justacoder.shadowclient.main.module.modules.render;
 
 import net.justacoder.shadowclient.main.module.ModuleManager;
+import net.justacoder.shadowclient.main.setting.settings.ColorSetting;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 import net.justacoder.shadowclient.main.setting.settings.PaddingSetting;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
+import net.justacoder.shadowclient.main.util.ColorUtils;
 import net.justacoder.shadowclient.main.util.RotationUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.AmbientEntity;
@@ -28,6 +30,12 @@ public class Tracers extends Module {
     public final BooleanSetting drawAmbientEntityTracers = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tracers.ambients"), false);
     public final BooleanSetting drawOtherEntityTracers = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tracers.others"), true);
 
+    public final ColorSetting playerTracerColor = new ColorSetting(new TranslatableString("setting.module.shadowclient.tracers.players_color"), -65536);
+    public final ColorSetting hostileTracerColor = new ColorSetting(new TranslatableString("setting.module.shadowclient.tracers.hostiles_color"), -33024);
+    public final ColorSetting passiveTracerColor = new ColorSetting(new TranslatableString("setting.module.shadowclient.tracers.passives_color"), -16711936);
+    public final ColorSetting ambientTracerColor = new ColorSetting(new TranslatableString("setting.module.shadowclient.tracers.ambients_color"), -16776999);
+    public final ColorSetting otherTracerColor = new ColorSetting(new TranslatableString("setting.module.shadowclient.tracers.others_color"), -16711681);
+
     public final BooleanSetting drawNames = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tracers.show_names"), true);
     public final BooleanSetting drawDistance = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tracers.show_distance"), true);
 
@@ -36,16 +44,22 @@ public class Tracers extends Module {
     public Tracers() {
         super("tracers", ModuleCategory.RENDER, new String[]{"tracers", "lines", "entity tracers", "esp"});
 
-        addSettings(drawPlayerEntityTracers, drawHostileEntityTracers, drawPassiveEntityTracers, drawAmbientEntityTracers, drawOtherEntityTracers, new PaddingSetting(), drawNames, drawDistance, startDistance);
+        addSettings(
+                drawPlayerEntityTracers, drawHostileEntityTracers, drawPassiveEntityTracers, drawAmbientEntityTracers, drawOtherEntityTracers,
+                new PaddingSetting(),
+                playerTracerColor, hostileTracerColor, passiveTracerColor, ambientTracerColor, otherTracerColor,
+                new PaddingSetting(),
+                drawNames, drawDistance, startDistance
+        );
     }
 
     public float[] getColor(Entity entity) {
         return switch (entity) {
-            case PlayerEntity ignored -> new float[]{1f, 0f, 0f, 1f};
-            case Monster ignored -> new float[]{1f, 0.5f, 0f, 1f};
-            case PassiveEntity ignored -> new float[]{0f, 1f, 0f, 1f};
-            case AmbientEntity ignored -> new float[]{0f, 0f, 0.85f, 1f};
-            case null, default -> new float[]{0f, 1f, 1f, 1f};
+            case PlayerEntity ignored -> ColorUtils.int2RGBAfloat(playerTracerColor.colorValue());
+            case Monster ignored -> ColorUtils.int2RGBAfloat(hostileTracerColor.colorValue());
+            case PassiveEntity ignored -> ColorUtils.int2RGBAfloat(passiveTracerColor.colorValue());
+            case AmbientEntity ignored -> ColorUtils.int2RGBAfloat(ambientTracerColor.colorValue());
+            case null, default -> ColorUtils.int2RGBAfloat(otherTracerColor.colorValue());
         };
     }
 

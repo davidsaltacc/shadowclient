@@ -51,6 +51,10 @@ public abstract class Font {
         return registeredFontSizes.contains(size);
     }
 
+    public static List<Integer> getRegisteredFontSizes() {
+        return registeredFontSizes;
+    }
+
 
     public static void renderString(DrawContext context, String text, float x, float y, int color) {
         fontRenderer.drawText(context, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, FONT_SIZE, color);

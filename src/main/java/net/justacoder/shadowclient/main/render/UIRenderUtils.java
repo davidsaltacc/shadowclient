@@ -5,21 +5,21 @@ import net.minecraft.client.gui.DrawContext;
 
 public abstract class UIRenderUtils {
 
-    public static float disableGuiScaleFactor() {
-        return 1f / enableGuiScaleFactor();
+    public static float guiScaleDivisor() {
+        return 1f / guiScaleFactor();
     }
 
-    public static float enableGuiScaleFactor() {
+    public static float guiScaleFactor() {
         return (float) ShadowClientMain.mc.getWindow().getScaleFactor();
     }
 
     public static void beforeUIRender(DrawContext context) {
-        float scaleFac = disableGuiScaleFactor();
+        float scaleFac = guiScaleDivisor();
         context.getMatrices().scale(scaleFac, scaleFac, 1);
     }
 
     public static void afterUIRender(DrawContext context) {
-        float scaleFac = enableGuiScaleFactor();
+        float scaleFac = guiScaleFactor();
         context.getMatrices().scale(scaleFac, scaleFac, 1);
     }
 

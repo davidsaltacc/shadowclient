@@ -1,5 +1,8 @@
 package net.justacoder.shadowclient.main.module.modules.render;
 
+import net.justacoder.shadowclient.main.setting.settings.ColorSetting;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
+import net.justacoder.shadowclient.main.util.ColorUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.*;
@@ -22,9 +25,16 @@ import java.util.function.Predicate;
 
 @EventListener({RenderEvent.class})
 public class Trajectories extends Module {
+
     public Trajectories() {
         super("trajectories", ModuleCategory.RENDER, new String[]{"trajectories", "bow aim laser", "aim assist"});
+
+        addSettings(NOTHING_HIT, ENTITY_HIT, BLOCK_HIT);
     }
+
+    private final ColorSetting NOTHING_HIT = new ColorSetting(new TranslatableString("setting.module.shadowclient.trajectories.color_nothing"), -1);
+    private final ColorSetting ENTITY_HIT = new ColorSetting(new TranslatableString("setting.module.shadowclient.trajectories.color_entity"), -65536);
+    private final ColorSetting BLOCK_HIT = new ColorSetting(new TranslatableString("setting.module.shadowclient.trajectories.color_block"), -15052545);
 
     @Override
     public void onEvent(Event event) {
@@ -34,9 +44,9 @@ public class Trajectories extends Module {
         Trajectory traj = getTrajectory(evt.renderer);
 
         float[] color = switch (traj.hitType) {
-            case HitResult.Type.ENTITY -> new float[]{1f, 0.1f, 0.1f, 0.8f};
-            case HitResult.Type.BLOCK -> new float[]{0.1f, 0.3f, 1f, 0.8f};
-            default -> new float[]{1f, 1f, 1f, 0.8f};
+            case HitResult.Type.ENTITY -> ColorUtils.int2RGBAfloat(ENTITY_HIT.colorValue());
+            case HitResult.Type.BLOCK -> ColorUtils.int2RGBAfloat(BLOCK_HIT.colorValue());
+            default -> ColorUtils.int2RGBAfloat(NOTHING_HIT.colorValue());
         };
 
         evt.renderer.drawLineList(traj.path, color, false);

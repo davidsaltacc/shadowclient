@@ -7,8 +7,10 @@ import net.justacoder.shadowclient.main.event.events.RenderEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
+import net.justacoder.shadowclient.main.setting.settings.ColorSetting;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
+import net.justacoder.shadowclient.main.util.ColorUtils;
 import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -21,13 +23,14 @@ public class Breadcrumbs extends Module {
     public final BooleanSetting DEPTH_TEST = new BooleanSetting(new TranslatableString("setting.module.shadowclient.breadcrumbs.depth_test"), true);
     public final NumberSetting MIN_SEGMENT_LEN = new NumberSetting(new TranslatableString("setting.module.shadowclient.breadcrumbs.min_length"), 0.01f, 5.f, 0.5f, 2, MathUtils.Easing.EASE_IN_CUBIC);
     public final NumberSetting MAX_POSITIONS = new NumberSetting(new TranslatableString("setting.module.shadowclient.breadcrumbs.max_crumbs"), 2, 8000, 2000, 0);
+    public final ColorSetting CRUMBS_COLOR = new ColorSetting(new TranslatableString("setting.module.shadowclient.breadcrumbs.color"), -1);
 
     private final ArrayDeque<Vec3d> positions = new ArrayDeque<>(MAX_POSITIONS.intValueEased());
 
     public Breadcrumbs() {
         super("breadcrumbs", ModuleCategory.RENDER, new String[]{"breadcrumbs", "trails", "player trails"});
 
-        addSettings(DEPTH_TEST, MIN_SEGMENT_LEN, MAX_POSITIONS);
+        addSettings(DEPTH_TEST, MIN_SEGMENT_LEN, MAX_POSITIONS, CRUMBS_COLOR);
 
         MAX_POSITIONS.addChangeCallback((newValue, oldValue) -> {
             if ((double) newValue < (double) oldValue) {
@@ -59,7 +62,7 @@ public class Breadcrumbs extends Module {
                 Vec3d pos1 = iter.next();
                 while (iter.hasNext()) {
                     Vec3d pos2 = iter.next();
-                    evt.renderer.drawLine(pos1.x, pos1.y, pos1.z, pos2.x, pos2.y, pos2.z, new float[]{1, 1, 1, 1}, DEPTH_TEST.booleanValue());
+                    evt.renderer.drawLine(pos1.x, pos1.y, pos1.z, pos2.x, pos2.y, pos2.z, ColorUtils.int2RGBAfloat(CRUMBS_COLOR.colorValue()), DEPTH_TEST.booleanValue());
                     pos1 = pos2;
                 }
             }

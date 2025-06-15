@@ -10,7 +10,7 @@ import net.justacoder.shadowclient.main.ui.clickgui.Frame;
 import net.justacoder.shadowclient.main.ui.clickgui.FrameChild;
 import org.lwjgl.glfw.GLFW;
 
-public class TextField extends FrameChild {
+public class FrameTextField extends FrameChild {
 
     private final Frame frameParent;
     private String text;
@@ -19,7 +19,7 @@ public class TextField extends FrameChild {
     public int offset;
     public boolean captureKeyPresses;
 
-    public TextField(Frame parent, int offset, TranslatableString placeholder) {
+    public FrameTextField(Frame parent, int offset, TranslatableString placeholder) {
         this.frameParent = parent;
         this.offset = offset;
         this.text = "";

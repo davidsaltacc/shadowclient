@@ -48,8 +48,7 @@ public abstract class MinecraftClientMixin {
      */
     @Overwrite
     public static ModStatus getModStatus() {
-        Setting setting = ShadowClientSettings.getSetting("VanillaSpoof");
-        if (setting != null && ((BooleanSetting) setting).booleanValue()) {
+        if (ShadowClientSettings.VanillaSpoof.booleanValue()) {
             return new ModStatus(ModStatus.Confidence.PROBABLY_NOT, "Client jar signature and brand is untouched");
         }
         return ModStatus.check("vanilla", ClientBrandRetriever::getClientModName, "Client", MinecraftClient.class);

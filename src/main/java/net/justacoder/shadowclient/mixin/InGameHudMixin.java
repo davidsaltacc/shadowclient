@@ -7,6 +7,7 @@ import net.minecraft.util.Identifier;
 import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import net.justacoder.shadowclient.main.ui.hud.HudRenderer;
+import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -27,7 +28,7 @@ public abstract class InGameHudMixin {
 
     @Inject(method = "render", at = @At("TAIL"))
     private void onRender(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
-        if (ShadowClientMain.mc.currentScreen == null && ModuleManager.ShadowHudModule.enabled && !((DebugHudAccessor) ShadowClientMain.mc.getDebugHud()).debugEnabled()) {
+        if (ShadowClientMain.mc.currentScreen == null && ModuleManager.ShadowHudModule.enabled && !((DebugHudAccessor) ShadowClientMain.mc.getDebugHud()).debugEnabled() && MinecraftClient.isHudEnabled()) {
             HudRenderer.onHudRender(context, tickCounter.getTickDelta(false));
         }
     }

@@ -7,10 +7,12 @@ public class BooleanSetting extends Setting {
 
     public BooleanSetting(TranslatableString name, boolean defaultValue) {
         super(name);
-        boolValue = defaultValue;
+        this.boolValue = defaultValue;
+        this.defaultValue = defaultValue;
     }
 
     private boolean boolValue;
+    private boolean defaultValue;
 
     public boolean booleanValue() {
         return boolValue;
@@ -28,4 +30,8 @@ public class BooleanSetting extends Setting {
         setBooleanValue(value, true);
     }
 
+    @Override
+    public void reset() {
+        setBooleanValue(defaultValue);
+    }
 }

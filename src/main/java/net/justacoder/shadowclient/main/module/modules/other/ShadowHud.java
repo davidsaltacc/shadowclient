@@ -20,7 +20,7 @@ public class ShadowHud extends Module {
 
     public EnumSetting<HudRenderer.Corner> CORNER = new EnumSetting<>(new TranslatableString("setting.module.shadowclient.shadowhud.corner"), HudRenderer.Corner.Top_Left);
 
-    public BooleanSetting COORDINATES = new BooleanSetting(new TranslatableString("setting.module.shadowclient.shadowhud.coordinates"), true);
+    public BooleanSetting COORDINATES = new BooleanSetting(new TranslatableString("setting.module.shadowclient.shadowhud.coords"), true);
     public BooleanSetting PING = new BooleanSetting(new TranslatableString("setting.module.shadowclient.shadowhud.ping"), true);
     public BooleanSetting SATURATION = new BooleanSetting(new TranslatableString("setting.module.shadowclient.shadowhud.saturation"), true);
     public BooleanSetting ROTATION = new BooleanSetting(new TranslatableString("setting.module.shadowclient.shadowhud.rotation"), false);
