@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.mixin;
 
+import net.justacoder.shadowclient.main.ui.notifications.push.PushNotificationManager;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.RenderTickCounter;
@@ -28,8 +29,11 @@ public abstract class InGameHudMixin {
 
     @Inject(method = "render", at = @At("TAIL"))
     private void onRender(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
-        if (ShadowClientMain.mc.currentScreen == null && ModuleManager.ShadowHudModule.enabled && !((DebugHudAccessor) ShadowClientMain.mc.getDebugHud()).debugEnabled() && MinecraftClient.isHudEnabled()) {
-            HudRenderer.onHudRender(context, tickCounter.getTickDelta(false));
+        if (ShadowClientMain.mc.currentScreen == null && !((DebugHudAccessor) ShadowClientMain.mc.getDebugHud()).debugEnabled() && MinecraftClient.isHudEnabled()) {
+            PushNotificationManager.renderNotifications(context, tickCounter.getTickDelta(false));
+            if (ModuleManager.ShadowHudModule.enabled) {
+                HudRenderer.onHudRender(context, tickCounter.getTickDelta(false));
+            }
         }
     }
 

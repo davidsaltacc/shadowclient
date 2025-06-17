@@ -13,6 +13,7 @@ import net.justacoder.shadowclient.main.translations.Translations;
 import net.justacoder.shadowclient.main.ui.ShadowClientScreen;
 import net.justacoder.shadowclient.main.ui.clickgui.settings.modules.SettingsScreen;
 import net.justacoder.shadowclient.main.ui.font.Font;
+import net.justacoder.shadowclient.main.ui.notifications.push.PushNotificationManager;
 import net.minecraft.Bootstrap;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -131,6 +132,7 @@ public abstract class ShadowClientMain {
 
     public static void reloadTranslations(String languageCode) {
         NotificationsManager.onReloadTranslations();
+        PushNotificationManager.onReloadTranslations();
         Translations.reload(languageCode);
     }
 

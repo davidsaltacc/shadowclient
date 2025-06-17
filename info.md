@@ -45,6 +45,7 @@
 * better keybinding setup for modules
 * color settings for some modules
 * translatable setting names & a better translation system
+* better packet logger
 
 ### fixes:
 * fixed a lot of ui related bugs
@@ -86,6 +87,12 @@
 
 
 ## yet to do:
+* compressed config (basic gzip or something, store as .json.gz or something)
+* be able to change what corner the notifications appear in
+* forget the SCSettings thing, we have settings screens now.....
+- resource usage in shadowhud
+- possible that you can block with a shield and attack at the same time?
+- no mining slowdown in air or water (pretend we are on the ground, maybe?)
 * test if it is still necessary to include fabric api (i dont think so)
 - finish the tic-tac-toe thing lol
 - test blink properly, i think i didnt test it fully`
@@ -165,9 +172,7 @@
 * fix autowalk not sprinting, even when sprint key is pressed
 * instead of having entity type settings like [hostile: false, players: true, ...] instead just make a universal EntitiesSetting as well as BlocksSetting (for xray, + a whitelist/blacklist toggle)
 * no jump cooldown (be able to hold space under trees)
-* eased sliders (sliders, but with easing, so it's easier to configure some values)
 * ui animations !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-* use setting change callbacks instead of manual changing, I didn't know we had callbacks lol
 
 
 

@@ -64,7 +64,7 @@ public class TranslatableString { // "wait what do you mean minecraft already ha
 
     @Override
     public String toString() {
-        return key;
+        return "TranslatableString(\"" + key + "\")";
     }
 
     @Override
