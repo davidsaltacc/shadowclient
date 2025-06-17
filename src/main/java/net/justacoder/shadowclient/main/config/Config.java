@@ -11,10 +11,13 @@ import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.settings.*;
 import net.justacoder.shadowclient.main.translations.Language;
 import net.justacoder.shadowclient.main.ui.clickgui.Frame;
+import net.justacoder.shadowclient.main.util.CompressionUtils;
 import net.justacoder.shadowclient.main.util.FileUtils;
 import net.justacoder.shadowclient.main.util.JavaUtils;
 import org.jetbrains.annotations.Nullable;
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -23,8 +26,12 @@ public class Config {
     public static boolean configLoaded;
     public static boolean resetUi = false;
 
-    public static File getConfigFile() {
+    public static File getOldConfigFile() {
         return FabricLoader.getInstance().getConfigDir().resolve(ShadowClientMain.CLIENT_MOD_ID + ".config.json").toFile();
+    }
+
+    public static File getConfigFile() {
+        return FabricLoader.getInstance().getConfigDir().resolve(ShadowClientMain.CLIENT_MOD_ID + ".config.json.gz").toFile();
     }
 
     public static void saveConfig() {
@@ -127,16 +134,37 @@ public class Config {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String out = gson.toJson(json);
 
-        FileUtils.writeFile(getConfigFile(), out);
+        try {
+            byte[] compressed = CompressionUtils.compressGZIP(out);
+            FileUtils.writeFile(getConfigFile(), compressed);
+            FileUtils.removeFile(getOldConfigFile());
+        } catch (IOException e) {
+            ShadowClientMain.info("Failed to compress config, saving in old uncompressed format.");
+            FileUtils.writeFile(getOldConfigFile(), out);
+        }
     }
 
     @SuppressWarnings("unchecked")
     public static void loadConfig() {
-        String text = FileUtils.readFile(getConfigFile());
-        if (text == null) {
-            ShadowClientMain.info("Failed to find config file, creating new one.");
-            saveConfig();
-            return;
+
+        String text;
+        byte[] contents = FileUtils.readFileBytes(getConfigFile());
+
+        if (contents == null) {
+            text = FileUtils.readFile(getOldConfigFile());
+            if (text == null) {
+                ShadowClientMain.info("Failed to find config file, creating new one.");
+                saveConfig();
+                return;
+            }
+        } else {
+            try {
+                text = CompressionUtils.decompressGZIP(contents);
+            } catch (IOException e) {
+                ShadowClientMain.info("Failed to read config file, resetting.");
+                saveConfig();
+                return;
+            }
         }
 
         Language englishUs = new Language("en_us");
@@ -253,9 +281,6 @@ public class Config {
             }
         });
 
-        if (!version.equals(ShadowClientMain.CLIENT_VERSION)) {
-            resetUi = true;
-        }
         if (uisettings != null) {
             JsonObject uiframes = uisettings.getAsJsonObject("frames");
             JsonObject mainuiframe = uiframes.getAsJsonObject("main");

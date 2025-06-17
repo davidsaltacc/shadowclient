@@ -79,4 +79,8 @@ public class CircularList<T> implements Iterable<T> {
     public String toString() {
         return items.toString();
     }
+
+    public void clear() {
+        items.clear();
+    }
 }

@@ -20,8 +20,13 @@ public abstract class PushNotificationManager {
         appearTimes.add(System.currentTimeMillis());
     }
     public static void removeNotification(int index) {
-        notifications.remove(index);
-        appearTimes.remove(index);
+        try {
+            notifications.remove(index);
+            appearTimes.remove(index);
+        } catch (Exception e) { // idk
+            notifications.clear();
+            appearTimes.clear();
+        }
     }
     public static void dismissNotification(int index) {
         toDelete.add(index);
