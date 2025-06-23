@@ -70,7 +70,6 @@ public abstract class ShadowClientMain {
     public static void init() {
         try {
             info("Starting " + CLIENT_NAME + " " + CLIENT_VERSION);
-            CompatibilityMethods.init();
             toggleGUIKeyBinding = registerKeyBinding(
                 new KeyBinding(
                     "key." + CLIENT_MOD_ID + ".togglegui",
