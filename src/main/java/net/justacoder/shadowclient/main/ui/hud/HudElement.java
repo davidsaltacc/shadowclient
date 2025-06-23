@@ -4,7 +4,7 @@ import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.ShadowClientMain;
-import net.justacoder.shadowclient.main.ui.clickgui.Colors;
+import net.justacoder.shadowclient.main.ui.Colors;
 
 public class HudElement {
     public boolean shouldBeRendered;

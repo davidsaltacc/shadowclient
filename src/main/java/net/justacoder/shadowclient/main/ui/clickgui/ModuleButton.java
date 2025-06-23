@@ -1,6 +1,7 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
 import net.justacoder.shadowclient.main.annotations.NoSettingsScreen;
+import net.justacoder.shadowclient.main.ui.Colors;
 import net.justacoder.shadowclient.main.ui.clickgui.settings.modules.SettingsScreen;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.gui.DrawContext;

@@ -1,7 +1,7 @@
 package net.justacoder.shadowclient.main.ui.notifications.push;
 
 import net.justacoder.shadowclient.main.translations.TranslatableString;
-import net.justacoder.shadowclient.main.ui.clickgui.Colors;
+import net.justacoder.shadowclient.main.ui.Colors;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.gui.DrawContext;
 

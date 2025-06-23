@@ -5,7 +5,7 @@ import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.ShadowClientMain;
-import net.justacoder.shadowclient.main.ui.clickgui.Colors;
+import net.justacoder.shadowclient.main.ui.Colors;
 import net.minecraft.client.render.RenderLayer;
 
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class Notification {
             offset.addAndGet(10 + Font.getHeight());
         });
         context.drawHorizontalLine(offsetX + 10, offsetX + w - 10, offsetY + offset.get(), Colors.HORIZONTAL_LINE.color);
-        Font.renderString(context, dismissText, offsetX + 10, offsetY + offset.get() + 10, Colors.TEXT_DISABLED.color);
+        Font.renderString(context, dismissText, offsetX + 10, offsetY + offset.get() + 10, Colors.NOTIFICATION_CLICK_TO_DISMISS.color);
 
     }
 

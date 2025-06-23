@@ -3,7 +3,7 @@ package net.justacoder.shadowclient.main.ui.text;
 import net.justacoder.shadowclient.main.render.UIRenderUtils;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.ui.ShadowClientScreen;
-import net.justacoder.shadowclient.main.ui.clickgui.Colors;
+import net.justacoder.shadowclient.main.ui.Colors;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;

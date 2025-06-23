@@ -131,8 +131,6 @@
 * a way to reset ui positions (only positions, not the settings)
 * add cooldown to air jump (configurable)
 * make more things translatable
-* CHANGE PACKET LOG TO NOT LOG INTO IN GAME CHAT - make new notification type, smaller, disappearing
-* INSTEAD OF MANUALLY GETTING THE NAME OF EACH PACKET, DON'T THEY HAVE LIKE A CODEC N SHIT ANYWAY? TRY TO MAYBE UHH DO THAT BETTER
 * breadcrumbs render only mode
 * sticky aim - decrease the mouse sensitivity when aiming near enemies
 * fix searching for settings in the client settings screen, I think it is broken (modulebutton class is the only one that has uhh the thing)

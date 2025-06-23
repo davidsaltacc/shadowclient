@@ -6,7 +6,7 @@ import net.justacoder.shadowclient.main.render.UIRenderUtils;
 import net.justacoder.shadowclient.main.setting.settings.ColorSetting;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.ui.ShadowClientScreen;
-import net.justacoder.shadowclient.main.ui.clickgui.Colors;
+import net.justacoder.shadowclient.main.ui.Colors;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.justacoder.shadowclient.main.ui.text.TextField;
 import net.justacoder.shadowclient.main.util.ColorUtils;

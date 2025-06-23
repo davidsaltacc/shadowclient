@@ -3,7 +3,7 @@ package net.justacoder.shadowclient.main.ui.clickgui.settings.scsettings;
 import net.minecraft.client.MinecraftClient;
 import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.setting.Setting;
-import net.justacoder.shadowclient.main.ui.clickgui.Colors;
+import net.justacoder.shadowclient.main.ui.Colors;
 import net.justacoder.shadowclient.main.ui.clickgui.Frame;
 import net.justacoder.shadowclient.main.ui.clickgui.FrameChild;
 
