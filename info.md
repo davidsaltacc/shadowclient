@@ -22,6 +22,7 @@
 * spoof view distance
 * no fog
 * blink
+* stepdown
 
 ### removed modules:
 * super secret shaders, minecraft removed them 
@@ -127,7 +128,6 @@
 - boatfly faster turning
 - how do game detect if swimming? can be used to exploit? swimming -> freely moveable basically
 - logoff spot visualizer
-* click to dismiss is STILL unreadable.
 * a way to reset ui positions (only positions, not the settings)
 * add cooldown to air jump (configurable)
 * make more things translatable
@@ -156,7 +156,6 @@
 * hack list in hud
 * blink mode so it prioritizes blinks in hidden spots
 * anti book/shulker ban (if possible)
-* stepdown / fast fall (like stepup but reverse)
 * fastswim
 * more ice speed
 * jesus
@@ -172,9 +171,19 @@
 * no jump cooldown (be able to hold space under trees)
 * ui animations !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-
-
-
+## noteworthy for me in general
+* packets can be spammed if built up, as long as its not more than 5 packets more than last tick
+* if the difference between distance player moved (squared) and player actual velocity (squared) bigger than q * 100 (q being the number of packets sent MORE than last tick, ideally 5), then player gets set back
+* this may be exploited to allow for somewhat faster movement already by just sending five more movement packets (but not any more!) than last tick
+* if player pos moved up since last tick AND the player onGround state is true, but in the packet is not, a serverside jump is always triggered for the player 
+* that does things as: incrementing jump stat, add exhaustion, setting velocity (not adding, just setting to whatever is higher, current velocity or max jump) AND, most maybe importantly, adding minor horizontal velocity based on the direction you face in, with seemingly no limitation??
+* these "moved too quickly" and "too many movement packets" checks happen IF tickManager.shouldTick() is true, which seems to be always true on server worlds, but packets can be processed at any time
+* i probably shouldn't be writing all this down here for everyone to see, but then again it is an open source client
+* "moved wrongly" check happens every time a packet gets sent, not after shouldTick is true
+* moved wrongly gets triggered if: l^2 + m^2 + n^2 > 0.0625, where m gets reduced to 0 if distance to 0 is below 0.5, l,m,n are difference between server and client movement (player.move gets called, if the error is high enough, it gives a player moved wrongly, move() comes from Entity directly, therefore probably the same as on the client)
+* if didn't move wrongly OR space around player isnt empty (serverWorld.isSpaceEmpty), ALL THAT AND ALWAYS the player doesn't bump / clip / idk into something with the movement requested (isPlayerNotCollidingWithBlocks), THEN the movement is allowed, else teleported back
+* if the teleport back happens, it also calls handleFall, with what i think is the movement back to the original position where player was before the packet. (this happens after the player got moved forward to confirm movement errors/differences) noteworthy is that it still calls it with packet.onGround and not whatever onGround originally was before the packet
+* thats it mostly for vanilla movement anticheat
 
 
 
