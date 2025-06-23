@@ -3,6 +3,7 @@ package net.justacoder.shadowclient.main;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModMetadata;
+import net.justacoder.shadowclient.compat.CompatibilityMethods;
 import net.justacoder.shadowclient.main.annotations.NotKeybindable;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.render.Renderer;
@@ -69,6 +70,7 @@ public abstract class ShadowClientMain {
     public static void init() {
         try {
             info("Starting " + CLIENT_NAME + " " + CLIENT_VERSION);
+            CompatibilityMethods.init();
             toggleGUIKeyBinding = registerKeyBinding(
                 new KeyBinding(
                     "key." + CLIENT_MOD_ID + ".togglegui",
@@ -89,7 +91,7 @@ public abstract class ShadowClientMain {
             info("Finished " + CLIENT_NAME + " initialization");
 
         } catch (Exception e) {
-            error("Error starting client: \n" + JavaUtils.stackTraceFromThrowable(e));
+            throw new RuntimeException("Error starting client: \n" + JavaUtils.stackTraceFromThrowable(e));
         }
     }
 

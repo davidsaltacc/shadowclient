@@ -46,6 +46,7 @@
 * color settings for some modules
 * translatable setting names & a better translation system
 * better packet logger
+* compressed config file (unnecessary? yes. do I do it anyway? yes)
 
 ### fixes:
 * fixed a lot of ui related bugs
@@ -87,7 +88,6 @@
 
 
 ## yet to do:
-* compressed config (basic gzip or something, store as .json.gz or something)
 * be able to change what corner the notifications appear in
 * forget the SCSettings thing, we have settings screens now.....
 - resource usage in shadowhud

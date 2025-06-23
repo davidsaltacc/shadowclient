@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.mixin;
 
+import net.justacoder.shadowclient.main.annotations.ModdedMixin;
 import net.justacoder.shadowclient.main.event.EventManager;
 import net.justacoder.shadowclient.main.event.events.ShouldDrawSideEvent;
 import net.minecraft.block.BlockState;
@@ -14,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Pseudo
+@ModdedMixin(modId = "sodium")
 @Mixin(
     targets = {
             "net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.DefaultFluidRenderer", // > v6

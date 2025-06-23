@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.mixin;
 
+import net.justacoder.shadowclient.main.annotations.ModdedMixin;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -13,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Pseudo
+@ModdedMixin(modId = "sodium")
 @Mixin(targets = {
     "net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockOcclusionCache", // > v6
     "me.jellysquid.mods.sodium.client.render.chunk.compile.pipeline.BlockOcclusionCache", // > v5

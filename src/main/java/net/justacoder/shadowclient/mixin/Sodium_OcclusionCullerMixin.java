@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.mixin;
 
+import net.justacoder.shadowclient.main.annotations.ModdedMixin;
 import net.justacoder.shadowclient.main.module.ModuleManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
@@ -7,6 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Pseudo
+@ModdedMixin(modId = "sodium")
 @Mixin(
     targets = {
             "net.caffeinemc.mods.sodium.client.render.chunk.occlusion.OcclusionCuller", // > v6
