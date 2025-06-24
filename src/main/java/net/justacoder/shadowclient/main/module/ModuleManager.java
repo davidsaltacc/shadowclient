@@ -57,7 +57,6 @@ public abstract class ModuleManager {
     public static SaveData SaveDataModule;
     public static LoadData LoadDataModule;
     public static ShowSettings ShowSettingsModule;
-    public static HideSettings HideSettingsModule;
     public static ResetData ResetDataModule;
     public static KillAura KillAuraModule;
     public static PacketLogger PacketLoggerModule;
@@ -139,7 +138,6 @@ public abstract class ModuleManager {
         SaveDataModule = register(new SaveData());
         LoadDataModule = register(new LoadData());
         ShowSettingsModule = register(new ShowSettings());
-        HideSettingsModule = register(new HideSettings());
         ResetDataModule = register(new ResetData());
         KillAuraModule = register(new KillAura());
         PacketLoggerModule = register(new PacketLogger());

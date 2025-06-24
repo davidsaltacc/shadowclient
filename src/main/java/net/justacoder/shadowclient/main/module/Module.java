@@ -2,7 +2,7 @@ package net.justacoder.shadowclient.main.module;
 
 import net.justacoder.shadowclient.main.annotations.NoChatMessages;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
-import net.justacoder.shadowclient.main.ui.clickgui.settings.modules.SettingsScreen;
+import net.justacoder.shadowclient.main.ui.settings.modules.SettingsScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.justacoder.shadowclient.main.ShadowClientMain;
@@ -125,7 +125,7 @@ public abstract class Module {
     }
 
     private void updateSettingsScreenIfNecessary() {
-        if (mc.currentScreen instanceof SettingsScreen screen && screen.enabledSetting.booleanValue() != enabled) {
+        if (mc.currentScreen instanceof SettingsScreen screen && screen.enabledSetting != null && screen.enabledSetting.booleanValue() != enabled) {
             screen.enabledSetting.setBooleanValue(enabled, false);
         }
     }

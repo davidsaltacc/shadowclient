@@ -13,12 +13,12 @@ public abstract class SplashOverlayMixin {
 
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashOverlay;withAlpha(II)I"))
     private int onWithAlpha(int color, int alpha) {
-        return ShadowClientSettings.LOADING_SCREEN_BGND_COLOR;
+        return ShadowClientSettings.loadingScreenBackgroundColor.colorValue();
     }
 
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/GlStateManager;_clearColor(FFFF)V"))
     private void onClearColor(float red, float green, float blue, float alpha) {
-        int[] c = ColorUtils.int2RGBA(ShadowClientSettings.LOADING_SCREEN_BGND_COLOR);
+        int[] c = ColorUtils.int2RGBA(ShadowClientSettings.loadingScreenBackgroundColor.colorValue());
         float[] cf = ColorUtils.RGBIntToRGBFloat(c[0], c[1], c[2]);
         GlStateManager._clearColor(cf[0], cf[1], cf[2], 1.0f);
     }

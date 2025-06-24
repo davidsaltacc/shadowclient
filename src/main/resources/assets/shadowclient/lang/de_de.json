@@ -17,6 +17,7 @@
     "name.shadowclient.color_selection.okay": "Okay",
     "name.shadowclient.module.packetlogger.sent": "EMPFANGEN",
     "name.shadowclient.module.packetlogger.received": "GESENDET",
+    "name.shadowclient.sc_settings": "ShadowClient-Einstellungen",
 
     "warning.shadowclient.optifine": "Optifine ist installiert. Einige Module funktionieren möglicherweise nicht wie vorgesehen.",
     "warning.shadowclient.sodium": "Sodium ist installiert. Einige Module funktionieren möglicherweise nicht wie vorgesehen.",
@@ -28,6 +29,7 @@
     "setting.shadowclient.vanillaspoof": "Vanilla-Spoofer",
     "setting.shadowclient.chatmessages": "Chatnachrichten",
     "setting.shadowclient.blurbackground": "Unschärfe im Hintergrund",
+    "setting.shadowclient.loading_background_color": "Ladebildschirm-Hintergrundfarbe",
 
     "module.shadowclient.autosprint": "Auto Sprinten",
     "module.shadowclient.spider": "Spinne",

@@ -113,16 +113,6 @@ public class Config {
             mainuiframe.add(frame.category.id, frameobj);
         });
 
-        List<Frame> settingsframes = new ArrayList<>(ShadowClientMain.settingsGui.frames);
-        settingsframes.add(ShadowClientMain.settingsGui.searchFrame);
-        settingsframes.forEach(frame -> {
-            JsonObject frameobj = new JsonObject();
-            frameobj.addProperty("offset_x", frame.x);
-            frameobj.addProperty("offset_y", frame.y);
-            frameobj.addProperty("extended", frame.extended);
-            settingsframe.add(frame.category.id, frameobj);
-        });
-
         uiframes.add("main", mainuiframe);
         uiframes.add("settings", settingsframe);
         uisettings.add("frames", uiframes);
@@ -284,24 +274,12 @@ public class Config {
         if (uisettings != null) {
             JsonObject uiframes = uisettings.getAsJsonObject("frames");
             JsonObject mainuiframe = uiframes.getAsJsonObject("main");
-            JsonObject settingsframe = uiframes.getAsJsonObject("settings");
 
             List<Frame> mainuiframes = new ArrayList<>(ShadowClientMain.clickGui.frames);
             mainuiframes.add(ShadowClientMain.clickGui.searchFrame);
             mainuiframes.forEach(frame -> {
                 if (mainuiframe.has(frame.category.id)) {
                     JsonObject frameobj = mainuiframe.getAsJsonObject(frame.category.id);
-                    frame.extended = frameobj.get("extended").getAsBoolean();
-                    frame.x = frameobj.get("offset_x").getAsInt();
-                    frame.y = frameobj.get("offset_y").getAsInt();
-                }
-            });
-
-            List<Frame> settingsframes = new ArrayList<>(ShadowClientMain.settingsGui.frames);
-            settingsframes.add(ShadowClientMain.settingsGui.searchFrame);
-            settingsframes.forEach(frame -> {
-                if (settingsframe.has(frame.category.id)) {
-                    JsonObject frameobj = settingsframe.getAsJsonObject(frame.category.id);
                     frame.extended = frameobj.get("extended").getAsBoolean();
                     frame.x = frameobj.get("offset_x").getAsInt();
                     frame.y = frameobj.get("offset_y").getAsInt();

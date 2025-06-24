@@ -11,11 +11,8 @@ public enum ModuleCategory {
     FUN("fun"),
     OTHER("other"),
     MENUS("menus"),
-
-
-    SETTINGS("settings", true),
-    OPTIONS("options", true),   // not really module categories
-    SEARCH("search", true);
+    
+    SEARCH("search", true); // not really module categories
 
 
     public final String id;

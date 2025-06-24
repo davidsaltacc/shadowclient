@@ -4,14 +4,10 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.justacoder.shadowclient.main.annotations.NotKeybindable;
-import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.render.Renderer;
-import net.justacoder.shadowclient.main.setting.Setting;
-import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
-import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.translations.Translations;
 import net.justacoder.shadowclient.main.ui.ShadowClientScreen;
-import net.justacoder.shadowclient.main.ui.clickgui.settings.modules.SettingsScreen;
+import net.justacoder.shadowclient.main.ui.settings.modules.SettingsScreen;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.justacoder.shadowclient.main.ui.notifications.push.PushNotificationManager;
 import net.minecraft.Bootstrap;
@@ -24,12 +20,7 @@ import net.justacoder.shadowclient.main.command.CommandManager;
 import net.justacoder.shadowclient.main.config.Config;
 import net.justacoder.shadowclient.main.config.ShadowClientSettings;
 import net.justacoder.shadowclient.main.module.ModuleManager;
-import net.justacoder.shadowclient.main.ui.clickgui.ClickGUI;
-import net.justacoder.shadowclient.main.ui.clickgui.Frame;
 import net.justacoder.shadowclient.main.ui.clickgui.MainClickGUI;
-import net.justacoder.shadowclient.main.ui.clickgui.ModuleButton;
-import net.justacoder.shadowclient.main.ui.clickgui.settings.scsettings.components.SCBoolSetting;
-import net.justacoder.shadowclient.main.ui.clickgui.text.FrameTextField;
 import net.justacoder.shadowclient.main.ui.notifications.Notification;
 import net.justacoder.shadowclient.main.ui.notifications.NotificationsManager;
 import net.justacoder.shadowclient.main.util.ChatUtils;
@@ -51,7 +42,6 @@ public abstract class ShadowClientMain {
     public static final String CLIENT_COMMAND_PREFIX = "sc/";
 
     public static MainClickGUI clickGui;
-    public static ClickGUI settingsGui;
 
     public static final MinecraftClient mc = MinecraftClient.getInstance();
     public static final Logger logger = LoggerFactory.getLogger(CLIENT_NAME);
@@ -68,7 +58,7 @@ public abstract class ShadowClientMain {
 
     public static void init() {
         try {
-            info("Starting " + CLIENT_NAME + " " + CLIENT_VERSION);
+            info("Initializing " + CLIENT_NAME + " " + CLIENT_VERSION);
             toggleGUIKeyBinding = registerKeyBinding(
                 new KeyBinding(
                     "key." + CLIENT_MOD_ID + ".togglegui",
@@ -80,14 +70,10 @@ public abstract class ShadowClientMain {
             CommandManager.registerCommands();
             ModuleManager.registerModules();
             clickGui = new MainClickGUI();
-            settingsGui = new ClickGUI("Settings");
-            initSettingsScreen(settingsGui);
             mayWriteConfig = true;
             Runtime.getRuntime().addShutdownHook(new Thread(ShadowClientMain::closed));
             Config.loadConfig();
             registerAllFontSizes();
-            info("Finished " + CLIENT_NAME + " initialization");
-
         } catch (Exception e) {
             throw new RuntimeException("Error starting client: \n" + JavaUtils.stackTraceFromThrowable(e));
         }
@@ -134,35 +120,6 @@ public abstract class ShadowClientMain {
         NotificationsManager.onReloadTranslations();
         PushNotificationManager.onReloadTranslations();
         Translations.reload(languageCode);
-    }
-
-    public static void initSettingsScreen(ClickGUI gui) {
-        int offset = 10;
-
-        Frame settingsframe = Frame.createWithoutAddingModules(ModuleCategory.SETTINGS, offset, 10, 200, 26);
-        gui.frames.add(settingsframe);
-        offset += 210;
-
-        Frame hideframe = Frame.createWithoutAddingModules(ModuleCategory.OPTIONS, offset, 10, 200, 26);
-        gui.frames.add(hideframe);
-        hideframe.children.add(new ModuleButton("hidesettings", hideframe, 26));
-        hideframe.children.add(new ModuleButton("loaddata", hideframe, 52));
-        hideframe.children.add(new ModuleButton("savedata", hideframe, 78));
-        hideframe.children.add(new ModuleButton("resetdata", hideframe, 104));
-        offset += 210;
-
-        int offset2 = 0;
-        for (Setting setting : ShadowClientSettings.getAllSCSettings().values()) {
-            offset2 += 26;
-            settingsframe.children.add(switch (setting) {
-                case BooleanSetting ignored -> new SCBoolSetting(setting, settingsframe, offset2);
-                default -> throw new RuntimeException("Tried to create unsupported SCSetting");
-            });
-        }
-
-        gui.searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, offset, 10, 240, 26);
-        gui.frames.add(gui.searchFrame);
-        gui.searchFrame.children.add(new FrameTextField(gui.searchFrame, 26, TranslatableString.of("textfield.placeholder.find_setting")));
     }
 
     public static void setModuleEnabled(String name, boolean enabled) {

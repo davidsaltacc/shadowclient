@@ -1,4 +1,4 @@
-package net.justacoder.shadowclient.main.ui.clickgui.settings;
+package net.justacoder.shadowclient.main.ui.settings;
 
 import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.config.ShadowClientSettings;
@@ -218,7 +218,9 @@ public class ColorSelectionScreen extends Screen implements ShadowClientScreen {
             } else if (mouseY > okayY && mouseY < okayY + Font.getHeight() + 4) {
                 setting.setColorValue(Color.HSBtoRGB(colorH, colorS, colorV), true);
                 ShadowClientMain.mc.setScreen(parent);
+                return super.mouseClicked(scaledMouseX, scaledMouseY, button);
             }
+            this.mouseMoved(scaledMouseX, scaledMouseY);
         } else {
             slidingHue = slidingSaturation = slidingBrightness = false;
         }

@@ -48,6 +48,8 @@
 * translatable setting names & a better translation system
 * better packet logger
 * compressed config file (unnecessary? yes. do I do it anyway? yes)
+* shadowclient settings are now in a setting screen
+* loading screen background color is configurable now
 
 ### fixes:
 * fixed a lot of ui related bugs
@@ -91,7 +93,6 @@
 ## yet to do:
 * module sorting!!!
 * be able to change what corner the notifications appear in
-* forget the SCSettings thing, we have settings screens now.....
 - resource usage in shadowhud
 - possible that you can block with a shield and attack at the same time?
 - no mining slowdown in air or water (pretend we are on the ground, maybe?)

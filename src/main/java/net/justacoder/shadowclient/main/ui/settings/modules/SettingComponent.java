@@ -1,9 +1,9 @@
-package net.justacoder.shadowclient.main.ui.clickgui.settings.modules;
+package net.justacoder.shadowclient.main.ui.settings.modules;
 
 import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.settings.*;
-import net.justacoder.shadowclient.main.ui.clickgui.settings.ColorSelectionScreen;
+import net.justacoder.shadowclient.main.ui.settings.ColorSelectionScreen;
 import net.justacoder.shadowclient.main.ui.Colors;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.justacoder.shadowclient.main.util.MathUtils;

@@ -1,4 +1,4 @@
-package net.justacoder.shadowclient.main.ui.clickgui.settings.modules;
+package net.justacoder.shadowclient.main.ui.settings.modules;
 
 import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.annotations.NotKeybindable;
@@ -22,11 +22,13 @@ import net.minecraft.util.math.MathHelper;
 import org.joml.Vector2i;
 import org.lwjgl.glfw.GLFW;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SettingsScreen extends Screen implements ShadowClientScreen {
 
     public final Module module;
+    public TranslatableString title;
     public final List<SettingComponent> components = new ArrayList<>();
 
     public static final int titleFontSize = 16;
@@ -51,28 +53,57 @@ public class SettingsScreen extends Screen implements ShadowClientScreen {
     public BooleanSetting enabledSetting;
 
     public SettingsScreen(Module module) {
-        super(Text.of(module.name.getTranslation()));
+        super(Text.of(module != null ? module.name.getTranslation() : "Setting Screen"));
         this.module = module;
+        this.title = module != null ? module.name : null;
 
-        enabledSetting = new BooleanSetting(TranslatableString.of("name.shadowclient.enabled"), module.enabled);
-        components.add(SettingComponent.ofSetting(enabledSetting, new Vector2i()));
-        enabledSetting.addChangeCallback((newValue, ignored) -> {
-            if ((boolean) newValue) { module.setEnabled(); }
-            else { module.setDisabled(); }
-        });
+        if (module != null) {
 
-        if (!module.getClass().isAnnotationPresent(NotKeybindable.class)) {
-            toggleModuleKeybindComponent = (SettingComponent.KeybindingSettingComponent) SettingComponent.ofSetting(new KeySetting(TranslatableString.of("name.shadowclient.keybind"), module.keyBinding), new Vector2i());
-            components.add(toggleModuleKeybindComponent);
+            enabledSetting = new BooleanSetting(TranslatableString.of("name.shadowclient.enabled"), module.enabled);
+            components.add(SettingComponent.ofSetting(enabledSetting, new Vector2i()));
+            enabledSetting.addChangeCallback((newValue, ignored) -> {
+                if ((boolean) newValue) {
+                    module.setEnabled();
+                } else {
+                    module.setDisabled();
+                }
+            });
+
+            if (!module.getClass().isAnnotationPresent(NotKeybindable.class)) {
+                toggleModuleKeybindComponent = (SettingComponent.KeybindingSettingComponent) SettingComponent.ofSetting(new KeySetting(TranslatableString.of("name.shadowclient.keybind"), module.keyBinding), new Vector2i());
+                components.add(toggleModuleKeybindComponent);
+            }
+
+            components.add(SettingComponent.ofSetting(new ButtonSetting(TranslatableString.of("name.shadowclient.reset_all_settings"), () -> module.getSettings().forEach(Setting::reset)), new Vector2i()));
+
+            components.add(SettingComponent.ofSetting(new PaddingSetting(), new Vector2i()));
+
+            for (Setting setting : module.getSettings()) {
+                components.add(SettingComponent.ofSetting(setting, new Vector2i()));
+            }
+
+        }
+    }
+
+    public static class ModuleLess extends SettingsScreen {
+
+        public ModuleLess(TranslatableString title, List<SettingComponent> components) {
+            super(null);
+            this.title = title;
+            this.components.clear();
+            this.components.addAll(components);
         }
 
-        components.add(SettingComponent.ofSetting(new ButtonSetting(TranslatableString.of("name.shadowclient.reset_all_settings"), () -> module.getSettings().forEach(Setting::reset)), new Vector2i()));
+    }
 
-        components.add(SettingComponent.ofSetting(new PaddingSetting(), new Vector2i()));
-
-        for (Setting setting : module.getSettings()) {
-            components.add(SettingComponent.ofSetting(setting, new Vector2i()));
-        }
+    public static Screen createSCSettings() {
+        List<SettingComponent> components1 = new ArrayList<>();
+        components1.add(SettingComponent.ofSetting(new ButtonSetting(TranslatableString.of("name.shadowclient.reset_all_settings"), () -> ShadowClientSettings.getAllSCSettings().values().forEach(Setting::reset)), new Vector2i(0, 0)));
+        components1.addAll(ShadowClientSettings.getAllSCSettings().values().stream().map(setting -> SettingComponent.ofSetting(setting, new Vector2i(0, 0))).toList());
+        return new SettingsScreen.ModuleLess(
+                TranslatableString.of("name.shadowclient.sc_settings"),
+                components1
+        );
     }
 
     @Override
@@ -140,7 +171,7 @@ public class SettingsScreen extends Screen implements ShadowClientScreen {
 
         context.fill(overlayStartX, overlayStartY, overlayStartX + overlayWidth, overlayStartY + overlayHeight, Colors.MODULE_BUTTON_NORMAL.color);
 
-        Font.renderString(context, module.name, contentStartX, contentStartY, Colors.TEXT_NORMAL.color, titleFontSize);
+        Font.renderString(context, title, contentStartX, contentStartY, Colors.TEXT_NORMAL.color, titleFontSize);
         context.drawHorizontalLine(contentStartX, contentEndX, contentStartY + Font.getHeight(titleFontSize) + 4, Colors.HORIZONTAL_LINE.color);
 
         context.enableScissor(contentStartX, contentStartY + titleOffset, contentEndX, contentEndY);
