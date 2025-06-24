@@ -30,6 +30,8 @@
     "setting.shadowclient.chatmessages": "Chat Messages",
     "setting.shadowclient.blurbackground": "Blur Background",
     "setting.shadowclient.loading_background_color": "Loading Screen Background Color",
+    "setting.shadowclient.module_sorting": "Module Sorting",
+    "setting.shadowclient.module_sorting_direction": "Module Sorting Direction",
 
     "module.shadowclient.autosprint": "Autosprint",
     "module.shadowclient.spider": "Spider",

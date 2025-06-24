@@ -1,5 +1,7 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
+import net.justacoder.shadowclient.main.config.ShadowClientSettings;
+import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.ui.Colors;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.minecraft.client.MinecraftClient;
@@ -45,18 +47,43 @@ public class Frame extends FrameChild {
         children = new ArrayList<>();
 
         int offset = height;
-        for (String modulename : ModuleManager.getAllModuleNamesInCategory(category)) {
-            if (ModuleManager.getModule(modulename).getClass().isAnnotationPresent(Hidden.class) ) {
+        for (Module module : ModuleManager.getAllModulesInCategory(category)) {
+            if (module.getClass().isAnnotationPresent(Hidden.class) ) {
                 continue;
             }
-            ModuleButton button = new ModuleButton(modulename, this, offset);
+            ModuleButton button = new ModuleButton(module, this, offset);
             children.add(button);
-            ModuleManager.getModule(modulename).moduleButton = button;
+            module.moduleButton = button;
             offset += height;
         }
 
+        resortModules();
+
         allFrames.add(this);
 
+    }
+
+    public void resortModules() {
+        List<FrameChild> orderedChildren = new ArrayList<>(children);
+        if (ShadowClientSettings.moduleSorting.getEnumValue() == ShadowClientSettings.ModuleSorting.ALPHABETICAL) {
+            orderedChildren.sort((c1, c2) -> {
+                if (c1 instanceof ModuleButton mb1 && c2 instanceof ModuleButton mb2) {
+                    return mb1.module.name.getTranslation().compareTo(mb2.module.name.getTranslation());
+                } else {
+                    return -(int) 10e7;
+                }
+            });
+        }
+        if (ShadowClientSettings.moduleSortingDirection.getEnumValue() == ShadowClientSettings.ModuleSortingDirection.DESCENDING) {
+            orderedChildren = orderedChildren.reversed();
+        }
+        int offset = height;
+        for (FrameChild child : orderedChildren) {
+            if (child instanceof ModuleButton button) {
+                button.offset = offset;
+                offset += height;
+            }
+        }
     }
 
     private Frame(ModuleCategory category, int x, int y, int width, int height, boolean __) { // search
@@ -164,19 +191,6 @@ public class Frame extends FrameChild {
         if (dragging) {
             x = (int) (mouseX - dragX);
             y = (int) (mouseY - dragY);
-        }
-    }
-
-    public void updateButtons() {
-        int offset = height;
-        for (FrameChild child : children) {
-
-            if (child.getClass().equals(ModuleButton.class)) {
-                ((ModuleButton) child).offset = offset;
-            } else if (child.getClass().equals(FrameTextField.class)) {
-                ((FrameTextField) child).offset = offset;
-            }
-            offset += height;
         }
     }
 

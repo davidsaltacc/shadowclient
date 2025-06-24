@@ -205,13 +205,13 @@ public abstract class ModuleManager {
         return modules.get(name);
     }
 
-    public static List<String> getAllModuleNamesInCategory(ModuleCategory category) {
+    public static List<Module> getAllModulesInCategory(ModuleCategory category) {
 
-        List<String> categoryModules = new ArrayList<>();
+        List<Module> categoryModules = new ArrayList<>();
 
         getAllModules().forEach((name, module) -> {
             if (module.category == category) {
-                categoryModules.add(name);
+                categoryModules.add(module);
             }
         });
 

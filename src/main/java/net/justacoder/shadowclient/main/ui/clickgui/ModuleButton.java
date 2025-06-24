@@ -16,8 +16,8 @@ public class ModuleButton extends FrameChild {
     public final Frame parent;
     public int offset;
 
-    public ModuleButton(String modulename, Frame parent, int offset) {
-        this.module = ModuleManager.getModule(modulename);
+    public ModuleButton(Module module, Frame parent, int offset) {
+        this.module = module;
         this.parent = parent;
         this.offset = offset;
     }
