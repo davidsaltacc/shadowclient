@@ -26,6 +26,7 @@ public class ShadowHud extends Module {
     public BooleanSetting ROTATION = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.shadowhud.rotation"), false);
     public BooleanSetting FRAMES = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.shadowhud.fps"), true);
     public BooleanSetting ENTITIES = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.shadowhud.entities"), false);
+    public BooleanSetting MEMORY = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.shadowhud.memory"), false);
 
     public HudElement COORDINATES_ELEMENT = new HudElement(true, "");
     public HudElement PING_ELEMENT = new HudElement(true, "");
@@ -33,11 +34,12 @@ public class ShadowHud extends Module {
     public HudElement ROTATION_ELEMENT = new HudElement(false, "");
     public HudElement FRAMES_ELEMENT = new HudElement(true, "");
     public HudElement ENTITIES_ELEMENT = new HudElement(false, "");
+    public HudElement MEMORY_ELEMENT = new HudElement(false, "");
 
     public ShadowHud() {
-        super("shadowhud", ModuleCategory.OTHER, new String[]{"shadowhud", "shadow hud", "minihud", "hud", "coordinates", "coords"});
+        super("shadowhud", ModuleCategory.OTHER, new String[]{"shadowhud", "shadow hud", "minihud", "hud", "coordinates", "coords", "performance monitor"});
 
-        addSettings(CORNER, COORDINATES, PING, SATURATION, ROTATION, FRAMES, ENTITIES);
+        addSettings(CORNER, COORDINATES, PING, SATURATION, ROTATION, FRAMES, ENTITIES, MEMORY);
 
         CORNER.addChangeCallback((newV, ignored) -> HudRenderer.setCorner((HudRenderer.Corner) newV));
 
@@ -47,6 +49,7 @@ public class ShadowHud extends Module {
         ROTATION.addChangeCallback((newV, ignored) -> ROTATION_ELEMENT.shouldBeRendered((boolean) newV));
         FRAMES.addChangeCallback((newV, ignored) -> FRAMES_ELEMENT.shouldBeRendered((boolean) newV));
         ENTITIES.addChangeCallback((newV, ignored) -> ENTITIES_ELEMENT.shouldBeRendered((boolean) newV));
+        MEMORY.addChangeCallback((newV, ignored) -> MEMORY_ELEMENT.shouldBeRendered((boolean) newV));
 
         HudRenderer.addElement(COORDINATES_ELEMENT);
         HudRenderer.addElement(ROTATION_ELEMENT);
@@ -54,6 +57,8 @@ public class ShadowHud extends Module {
         HudRenderer.addElement(SATURATION_ELEMENT);
         HudRenderer.addElement(FRAMES_ELEMENT);
         HudRenderer.addElement(ENTITIES_ELEMENT);
+        HudRenderer.addElement(MEMORY_ELEMENT);
+
     }
 
     @Override
@@ -66,6 +71,7 @@ public class ShadowHud extends Module {
         ROTATION_ELEMENT.shouldBeRendered(ROTATION.booleanValue());
         FRAMES_ELEMENT.shouldBeRendered(FRAMES.booleanValue());
         ENTITIES_ELEMENT.shouldBeRendered(ENTITIES.booleanValue());
+        MEMORY_ELEMENT.shouldBeRendered(MEMORY.booleanValue());
 
         return super.onEnable();
     }
@@ -90,6 +96,9 @@ public class ShadowHud extends Module {
         }
         if (ENTITIES.booleanValue()) {
             ENTITIES_ELEMENT.setTextContent(((WorldRendererAccessor) mc.worldRenderer).getRenderedEntitiesCount() + " entities rendered, " + mc.world.getRegularEntityCount() + " loaded");
+        }
+        if (MEMORY.booleanValue()) {
+            MEMORY_ELEMENT.setTextContent("Memory: " + (int) ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024L / 1024L) + "MB / " + (int) (Runtime.getRuntime().maxMemory() / 1024L / 1024L) + "MB");
         }
     }
 

@@ -269,6 +269,7 @@
     "setting.module.shadowclient.shadowhud.rotation": "Rotation",
     "setting.module.shadowclient.shadowhud.fps": "FPS",
     "setting.module.shadowclient.shadowhud.entities": "Entiäten",
+    "setting.module.shadowclient.shadowhud.memory": "Arbeitsspeicher",
     "setting.module.shadowclient.cheststeal.delay": "Verzögerung",
     "setting.module.shadowclient.weathercontrol.disable_rain": "Kein Regen",
     "setting.module.shadowclient.weathercontrol.change_time": "Tageszeit ändern",

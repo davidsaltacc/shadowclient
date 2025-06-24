@@ -93,7 +93,6 @@
 ## yet to do:
 * better names for enum settings. 
 * be able to change what corner the notifications appear in
-- resource usage in shadowhud
 - possible that you can block with a shield and attack at the same time?
 - no mining slowdown in air or water (pretend we are on the ground, maybe?)
 * test if it is still necessary to include fabric api (i dont think so)
