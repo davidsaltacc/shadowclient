@@ -109,6 +109,7 @@
     "module.shadowclient.spoofrenderdistance": "Spoof View Distance",
     "module.shadowclient.wallinteract": "Wall Interact",
     "module.shadowclient.nofog": "No Fog",
+    "module.shadowclient.stepdown": "Stepdown",
 
     "module.description.shadowclient.autosprint": "Automatically sprint instead of walking.",
     "module.description.shadowclient.spider": "Get the ability to climb up walls.",
@@ -190,6 +191,7 @@
     "module.description.shadowclient.spoofrenderdistance": "Renders less chunks than your actual render distance (entities stay loaded).",
     "module.description.shadowclient.wallinteract": "Lets you interact with things and hit them, through solid blocks.",
     "module.description.shadowclient.nofog": "Removes the fog for a clearer view.",
+    "module.description.shadowclient.stepdown": "Lets you fall down short ledges much faster.",
 
     "category.module.shadowclient.combat": "Combat",
     "category.module.shadowclient.player": "Player",
@@ -286,6 +288,7 @@
     "setting.module.shadowclient.wallinteract.sneak_disables": "Sneak Disables",
     "setting.module.shadowclient.nofog.sky_fog": "Remove sky fog too",
     "setting.module.shadowclient.tictactoegame.ai_starts": "AI Starts",
-    "setting.module.shadowclient.tictactoegame.difficulty": "Difficulty"
+    "setting.module.shadowclient.tictactoegame.difficulty": "Difficulty",
+    "setting.module.shadowclient.stepup.max_distance": "Maximum Distance"
 
 }

@@ -104,6 +104,7 @@ public abstract class ModuleManager {
     public static SpoofRenderDistance SpoofRenderDistanceModule;
     public static WallInteract WallInteractModule;
     public static NoFog NoFogModule;
+    public static StepDown StepDownModule;
 
     public static void registerModules() {
         AutoSprintModule = register(new AutoSprint());
@@ -185,6 +186,7 @@ public abstract class ModuleManager {
         SpoofRenderDistanceModule = register(new SpoofRenderDistance());
         WallInteractModule = register(new WallInteract());
         NoFogModule = register(new NoFog());
+        StepDownModule = register(new StepDown());
     }
 
     public static<M extends Module> M register(M module) {
