@@ -14,7 +14,7 @@ import net.justacoder.shadowclient.main.util.EntityUtils;
 @EventListener({PreTickEvent.class})
 public class Parkour extends Module {
 
-    public final NumberSetting EDGE_DIST = new NumberSetting(new TranslatableString("setting.module.shadowclient.parkour.edge_distance"), 0.001f, 0.25f, 0.001f, 3, MathUtils.Easing.EASE_IN_QUADRATIC);
+    public final NumberSetting EDGE_DIST = new NumberSetting(TranslatableString.of("setting.module.shadowclient.parkour.edge_distance"), 0.001f, 0.25f, 0.001f, 3, MathUtils.Easing.EASE_IN_QUADRATIC);
 
     public Parkour() {
         super("parkour", ModuleCategory.MOVEMENT, new String[]{"parkour", "autojump", "auto jump", "auto parkour"});

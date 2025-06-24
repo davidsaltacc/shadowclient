@@ -23,7 +23,7 @@ public class StepDown extends Module {
         addSetting(MAX_DISTANCE);
     }
 
-    private static final NumberSetting MAX_DISTANCE = new NumberSetting(new TranslatableString("setting.module.shadowclient.stepup.max_distance"), 1, 10, 1, 0);
+    private static final NumberSetting MAX_DISTANCE = new NumberSetting(TranslatableString.of("setting.module.shadowclient.stepup.max_distance"), 1, 10, 1, 0);
 
     @Override
     public void onEvent(Event event) {

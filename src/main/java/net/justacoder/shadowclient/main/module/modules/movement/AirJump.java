@@ -17,7 +17,7 @@ public class AirJump extends Module {
         addSetting(jetpackMode);
     }
 
-    public static final BooleanSetting jetpackMode = new BooleanSetting(new TranslatableString("setting.module.shadowclient.airjump.jetpack"), false);
+    public static final BooleanSetting jetpackMode = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.airjump.jetpack"), false);
 
     @Override
     public void onEvent(Event event) {

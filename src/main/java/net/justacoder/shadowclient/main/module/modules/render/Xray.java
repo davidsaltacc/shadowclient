@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @EventListener({SetOpaqueCubeEvent.class, GetAmbientOcclusionLightLevelEvent.class, ShouldDrawSideEvent.class, RenderBlockEntityEvent.class})
 public class Xray extends Module {
 
-    public EnumSetting<Mode> MODE = new EnumSetting<>(new TranslatableString("setting.module.shadowclient.xray.mode"), Mode.All);
+    public EnumSetting<Mode> MODE = new EnumSetting<>(TranslatableString.of("setting.module.shadowclient.xray.mode"), Mode.All);
 
     public Xray() {
         super("xray", ModuleCategory.RENDER, new String[]{"xray", "x ray", "ore render", "mine help", "finder", "ore vision"});

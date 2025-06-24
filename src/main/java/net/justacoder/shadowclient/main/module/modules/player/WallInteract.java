@@ -15,6 +15,6 @@ public class WallInteract extends Module {
 
     }
 
-    public final BooleanSetting disableOnSneak = new BooleanSetting(new TranslatableString("setting.module.shadowclient.wallinteract.sneak_disables"), true);
+    public final BooleanSetting disableOnSneak = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.wallinteract.sneak_disables"), true);
 
 }

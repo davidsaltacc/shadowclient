@@ -24,7 +24,7 @@ public class MainClickGUI extends ClickGUI {
 
         searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, 0, 0, 200, 26);
         frames.add(searchFrame);
-        searchFrame.children.add(new FrameTextField(searchFrame, 24, new TranslatableString("textfield.placeholder.find_module")));
+        searchFrame.children.add(new FrameTextField(searchFrame, 24, TranslatableString.of("textfield.placeholder.find_module")));
     }
 
     public void repositionFramesProperly() {

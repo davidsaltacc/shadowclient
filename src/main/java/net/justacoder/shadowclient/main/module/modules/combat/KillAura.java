@@ -16,7 +16,7 @@ import net.justacoder.shadowclient.main.util.WorldUtils;
 @EventListener({PreTickEvent.class})
 public class KillAura extends Module {
 
-    public final BooleanSetting LEGIT = new BooleanSetting(new TranslatableString("setting.module.shadowclient.killaura.legit"), true);
+    public final BooleanSetting LEGIT = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.killaura.legit"), true);
 
     public KillAura() {
         super("killaura", ModuleCategory.COMBAT, new String[]{"killaura", "kill aura", "auto kill", "auto hit"});

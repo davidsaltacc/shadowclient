@@ -9,9 +9,9 @@ import java.util.Map;
 
 public class ShadowClientSettings {
 
-    public static final BooleanSetting VanillaSpoof = addSetting(new BooleanSetting(new TranslatableString("setting.shadowclient.vanillaspoof"), false));
-    public static final BooleanSetting ChatMessages = addSetting(new BooleanSetting(new TranslatableString("setting.shadowclient.chatmessages"), true));
-    public static final BooleanSetting BlurBackground = addSetting(new BooleanSetting(new TranslatableString("setting.shadowclient.blurbackground"), true));
+    public static final BooleanSetting VanillaSpoof = addSetting(new BooleanSetting(TranslatableString.of("setting.shadowclient.vanillaspoof"), false));
+    public static final BooleanSetting ChatMessages = addSetting(new BooleanSetting(TranslatableString.of("setting.shadowclient.chatmessages"), true));
+    public static final BooleanSetting BlurBackground = addSetting(new BooleanSetting(TranslatableString.of("setting.shadowclient.blurbackground"), true));
 
     public static final int LOADING_SCREEN_BGND_COLOR = -14997957; // TODO make configurable maybe
 

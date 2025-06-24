@@ -10,7 +10,7 @@ import net.justacoder.shadowclient.main.util.MathUtils;
 @DoNotSaveState
 public class Timer extends Module {
 
-    public final NumberSetting MULTIPLIER = new NumberSetting(new TranslatableString("setting.module.shadowclient.timer.multiplier"), 0.1f, 10f, 2f, 1, MathUtils.Easing.EASE_IN_QUADRATIC);
+    public final NumberSetting MULTIPLIER = new NumberSetting(TranslatableString.of("setting.module.shadowclient.timer.multiplier"), 0.1f, 10f, 2f, 1, MathUtils.Easing.EASE_IN_QUADRATIC);
 
     public Timer() {
         super("timer", ModuleCategory.WORLD, new String[]{"timer", "timer hack", "timerhack", "speedup", "speed up"});

@@ -15,6 +15,6 @@ public class AutoSneak extends Module {
 
     }
 
-    public final BooleanSetting serverSideOnly = new BooleanSetting(new TranslatableString("setting.module.shadowclient.autosneak.server_only"), false);
+    public final BooleanSetting serverSideOnly = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.autosneak.server_only"), false);
 
 }

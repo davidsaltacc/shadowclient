@@ -19,7 +19,7 @@ public class Notification {
 
     public MinecraftClient mc;
 
-    private TranslatableString dismissText = new TranslatableString("name.shadowclient.click_to_dismiss");
+    private TranslatableString dismissText = TranslatableString.of("name.shadowclient.click_to_dismiss");
 
     public int width = -999;
     public int height = -999;
@@ -27,17 +27,17 @@ public class Notification {
     public int offY;
 
     public Notification(String title, List<String> desc) {
-        this.title = new TranslatableString(title);
+        this.title = TranslatableString.of(title);
         this.desc = new ArrayList<>();
         desc.forEach(s -> {
-            this.desc.add(new TranslatableString(s));
+            this.desc.add(TranslatableString.of(s));
         });
         this.mc = ShadowClientMain.mc;
     }
     public Notification(String title, String desc) {
-        this.title = new TranslatableString(title);
+        this.title = TranslatableString.of(title);
         this.desc = new ArrayList<>();
-        this.desc.add(new TranslatableString(desc));
+        this.desc.add(TranslatableString.of(desc));
         this.mc = ShadowClientMain.mc;
     }
 

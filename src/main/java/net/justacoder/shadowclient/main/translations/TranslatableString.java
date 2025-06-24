@@ -1,32 +1,39 @@
 package net.justacoder.shadowclient.main.translations;
 
-import net.minecraft.client.resource.language.I18n;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class TranslatableString { // "wait what do you mean minecraft already has this"
 
-    private static final List<TranslatableString> translatableStrings = new ArrayList<>();
+    private static final Map<String, TranslatableString> translatableStrings = new HashMap<>();
 
     String key;
     String translation;
 
-    public TranslatableString(String key) {
-        this(key, true);
-    }
-
-    public TranslatableString(String key, boolean pregenerateTranslation) {
+    private TranslatableString(String key, boolean pregenerateTranslation) {
         this.key = key;
         if (pregenerateTranslation) {
             reload();
         }
-        translatableStrings.add(this);
+    }
+
+    public static TranslatableString of(String key, boolean pregenerateTranslation) {
+        if (translatableStrings.containsKey(key)) {
+            return translatableStrings.get(key);
+        } else {
+            TranslatableString string = new TranslatableString(key, pregenerateTranslation);
+            translatableStrings.put(key, string);
+            return string;
+        }
+    }
+
+    public static TranslatableString of(String key) {
+        return of(key, true);
     }
 
     public static void removeString(TranslatableString instance) {
-        translatableStrings.remove(instance);
+        translatableStrings.remove(instance.getKey());
     }
 
     public String getKey() {
@@ -42,24 +49,12 @@ public class TranslatableString { // "wait what do you mean minecraft already ha
     }
 
     public static void reloadAll() {
-        translatableStrings.forEach(TranslatableString::reload);
+        translatableStrings.forEach((s, translatableString) -> translatableString.reload());
     }
 
     public void setKey(String key) {
         this.key = key;
         reload();
-    }
-
-    public static class VanillaBacked extends TranslatableString {
-
-        public VanillaBacked(String key) {
-            super(key);
-        }
-
-        @Override
-        public void reload() {
-            this.translation = I18n.translate(key);
-        }
     }
 
     @Override

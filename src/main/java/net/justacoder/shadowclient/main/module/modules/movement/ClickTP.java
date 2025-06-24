@@ -17,7 +17,7 @@ import net.minecraft.util.math.BlockPos;
 @EventListener({MouseClickedEvent.class})
 public class ClickTP extends Module {
 
-    public NumberSetting MAX_DISTANCE = new NumberSetting(new TranslatableString("setting.module.shadowclient.clicktp.distance"), 1, 100, 10, 2, MathUtils.Easing.EASE_IN_QUADRATIC);
+    public NumberSetting MAX_DISTANCE = new NumberSetting(TranslatableString.of("setting.module.shadowclient.clicktp.distance"), 1, 100, 10, 2, MathUtils.Easing.EASE_IN_QUADRATIC);
 
     public ClickTP() {
         super("clicktp", ModuleCategory.MOVEMENT, new String[]{"clicktp", "click teleport"});

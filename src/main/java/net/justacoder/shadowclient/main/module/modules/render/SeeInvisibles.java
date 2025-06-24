@@ -12,11 +12,11 @@ import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 
 public class SeeInvisibles extends Module {
 
-    public final BooleanSetting seePlayerEntities = new BooleanSetting(new TranslatableString("setting.module.shadowclient.seeinvisibles.players"), true);
-    public final BooleanSetting seeHostileEntities = new BooleanSetting(new TranslatableString("setting.module.shadowclient.seeinvisibles.hostiles"), false);
-    public final BooleanSetting seePassiveEntities = new BooleanSetting(new TranslatableString("setting.module.shadowclient.seeinvisibles.passives"), false);
-    public final BooleanSetting seeAmbientEntities = new BooleanSetting(new TranslatableString("setting.module.shadowclient.seeinvisibles.ambients"), false);
-    public final BooleanSetting seeOtherEntities = new BooleanSetting(new TranslatableString("setting.module.shadowclient.seeinvisibles.others"), false);
+    public final BooleanSetting seePlayerEntities = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.seeinvisibles.players"), true);
+    public final BooleanSetting seeHostileEntities = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.seeinvisibles.hostiles"), false);
+    public final BooleanSetting seePassiveEntities = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.seeinvisibles.passives"), false);
+    public final BooleanSetting seeAmbientEntities = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.seeinvisibles.ambients"), false);
+    public final BooleanSetting seeOtherEntities = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.seeinvisibles.others"), false);
 
     public SeeInvisibles() {
         super("seeinvisibles", ModuleCategory.RENDER, new String[]{"see invisibles", "anti invisible", "seeinvisibles"});

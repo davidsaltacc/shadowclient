@@ -11,7 +11,7 @@ import net.justacoder.shadowclient.main.translations.TranslatableString;
 @EventListener({KnockbackEvent.class})
 public class AntiKnockback extends Module {
 
-    public final NumberSetting STRENGTH = new NumberSetting(new TranslatableString("setting.module.shadowclient.antiknockback.strength"), 0.01f, 1f, 1f, 2);
+    public final NumberSetting STRENGTH = new NumberSetting(TranslatableString.of("setting.module.shadowclient.antiknockback.strength"), 0.01f, 1f, 1f, 2);
 
     public AntiKnockback() {
         super("antiknockback", ModuleCategory.COMBAT, new String[]{"no knockback", "anti knockback", "noknockback"});

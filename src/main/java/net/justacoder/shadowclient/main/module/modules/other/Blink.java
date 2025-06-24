@@ -29,7 +29,7 @@ public class Blink extends Module {
 
     private long lastBlink;
 
-    private final NumberSetting DELAY = new NumberSetting(new TranslatableString("setting.module.shadowclient.blink.delay"), 0.1, 2, 2, 1);
+    private final NumberSetting DELAY = new NumberSetting(TranslatableString.of("setting.module.shadowclient.blink.delay"), 0.1, 2, 2, 1);
 
     private final Queue<Packet<?>> outgoingPacketQueue = new ConcurrentLinkedQueue<>();
 

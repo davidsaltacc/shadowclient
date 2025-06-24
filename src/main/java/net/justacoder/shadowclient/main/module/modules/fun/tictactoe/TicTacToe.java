@@ -10,8 +10,8 @@ import net.justacoder.shadowclient.main.translations.TranslatableString;
 @OneClick
 public class TicTacToe extends Module {
 
-    public final BooleanSetting AI_STARTS = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tictactoegame.ai_starts"), false);
-    public final NumberSetting DIFFICULTY = new NumberSetting(new TranslatableString("setting.module.shadowclient.tictactoegame.difficulty"), 0, 5, 5, 0);
+    public final BooleanSetting AI_STARTS = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.tictactoegame.ai_starts"), false);
+    public final NumberSetting DIFFICULTY = new NumberSetting(TranslatableString.of("setting.module.shadowclient.tictactoegame.difficulty"), 0, 5, 5, 0);
 
     public TicTacToe() {
         super("tictactoegame", ModuleCategory.FUN, new String[]{"tic tac toe", "tictactoe", "games"});

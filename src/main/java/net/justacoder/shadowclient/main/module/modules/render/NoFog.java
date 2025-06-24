@@ -12,6 +12,6 @@ public class NoFog extends Module {
         addSetting(SKY);
     }
 
-    public final BooleanSetting SKY = new BooleanSetting(new TranslatableString("setting.module.shadowclient.nofog.sky_fog"), false);
+    public final BooleanSetting SKY = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.nofog.sky_fog"), false);
 
 }

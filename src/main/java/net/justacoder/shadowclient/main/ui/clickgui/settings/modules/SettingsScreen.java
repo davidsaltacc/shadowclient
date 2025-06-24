@@ -54,7 +54,7 @@ public class SettingsScreen extends Screen implements ShadowClientScreen {
         super(Text.of(module.name.getTranslation()));
         this.module = module;
 
-        enabledSetting = new BooleanSetting(new TranslatableString("name.shadowclient.enabled"), module.enabled);
+        enabledSetting = new BooleanSetting(TranslatableString.of("name.shadowclient.enabled"), module.enabled);
         components.add(SettingComponent.ofSetting(enabledSetting, new Vector2i()));
         enabledSetting.addChangeCallback((newValue, ignored) -> {
             if ((boolean) newValue) { module.setEnabled(); }
@@ -62,11 +62,11 @@ public class SettingsScreen extends Screen implements ShadowClientScreen {
         });
 
         if (!module.getClass().isAnnotationPresent(NotKeybindable.class)) {
-            toggleModuleKeybindComponent = (SettingComponent.KeybindingSettingComponent) SettingComponent.ofSetting(new KeySetting(new TranslatableString("name.shadowclient.keybind"), module.keyBinding), new Vector2i());
+            toggleModuleKeybindComponent = (SettingComponent.KeybindingSettingComponent) SettingComponent.ofSetting(new KeySetting(TranslatableString.of("name.shadowclient.keybind"), module.keyBinding), new Vector2i());
             components.add(toggleModuleKeybindComponent);
         }
 
-        components.add(SettingComponent.ofSetting(new ButtonSetting(new TranslatableString("name.shadowclient.reset_all_settings"), () -> module.getSettings().forEach(Setting::reset)), new Vector2i()));
+        components.add(SettingComponent.ofSetting(new ButtonSetting(TranslatableString.of("name.shadowclient.reset_all_settings"), () -> module.getSettings().forEach(Setting::reset)), new Vector2i()));
 
         components.add(SettingComponent.ofSetting(new PaddingSetting(), new Vector2i()));
 

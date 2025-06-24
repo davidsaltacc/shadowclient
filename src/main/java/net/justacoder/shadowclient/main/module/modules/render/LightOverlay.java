@@ -20,12 +20,12 @@ import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 @EventListener({RenderEvent.class})
 public class LightOverlay extends Module {
 
-    public NumberSetting RADIUS = new NumberSetting(new TranslatableString("setting.module.shadowclient.lightoverlay.hradius"), 1, 25, 10, 0);
-    public NumberSetting VRADIUS = new NumberSetting(new TranslatableString("setting.module.shadowclient.lightoverlay.vradius"), 1, 25, 1, 0);
+    public NumberSetting RADIUS = new NumberSetting(TranslatableString.of("setting.module.shadowclient.lightoverlay.hradius"), 1, 25, 10, 0);
+    public NumberSetting VRADIUS = new NumberSetting(TranslatableString.of("setting.module.shadowclient.lightoverlay.vradius"), 1, 25, 1, 0);
 
-    public ColorSetting COLOR_NEVER_SPAWN = new ColorSetting(new TranslatableString("setting.module.shadowclient.lightoverlay.color_never"), -16711936);
-    public ColorSetting COLOR_POSSIBLE_SPAWN = new ColorSetting(new TranslatableString("setting.module.shadowclient.lightoverlay.color_possible"), -256);
-    public ColorSetting COLOR_ALWAYS_SPAWN = new ColorSetting(new TranslatableString("setting.module.shadowclient.lightoverlay.color_always"), -65536);
+    public ColorSetting COLOR_NEVER_SPAWN = new ColorSetting(TranslatableString.of("setting.module.shadowclient.lightoverlay.color_never"), -16711936);
+    public ColorSetting COLOR_POSSIBLE_SPAWN = new ColorSetting(TranslatableString.of("setting.module.shadowclient.lightoverlay.color_possible"), -256);
+    public ColorSetting COLOR_ALWAYS_SPAWN = new ColorSetting(TranslatableString.of("setting.module.shadowclient.lightoverlay.color_always"), -65536);
 
     public LightOverlay() {
         super("lightoverlay", ModuleCategory.RENDER, new String[]{"lightoverlay", "light overlay", "spawn indicator"});

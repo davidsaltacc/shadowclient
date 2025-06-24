@@ -17,17 +17,17 @@ import net.justacoder.shadowclient.main.util.ChatUtils;
 @EventListener({PacketSentEvent.class, PacketReceivedEvent.class})
 public class PacketLogger extends Module {
 
-    public final EnumSetting<Mode> MODE = new EnumSetting<>(new TranslatableString("setting.module.shadowclient.packetlogger.mode"), Mode.ALL);
-    public final StringSetting FILTER = new StringSetting(new TranslatableString("setting.module.shadowclient.packetlogger.filter"));
-    public final EnumSetting<FMode> FMODE = new EnumSetting<>(new TranslatableString("setting.module.shadowclient.packetlogger.filter_mode"), FMode.WHITELIST);
+    public final EnumSetting<Mode> MODE = new EnumSetting<>(TranslatableString.of("setting.module.shadowclient.packetlogger.mode"), Mode.ALL);
+    public final StringSetting FILTER = new StringSetting(TranslatableString.of("setting.module.shadowclient.packetlogger.filter"));
+    public final EnumSetting<FMode> FMODE = new EnumSetting<>(TranslatableString.of("setting.module.shadowclient.packetlogger.filter_mode"), FMode.WHITELIST);
 
     public PacketLogger() {
         super("packetlogger", ModuleCategory.OTHER, new String[]{"packet logger", "packetlogger"});
         addSettings(MODE, FILTER, FMODE);
     }
 
-    private static final TranslatableString SENT_TEXT = new TranslatableString("name.shadowclient.module.packetlogger.sent");
-    private static final TranslatableString RECEIVED_TEXT = new TranslatableString("name.shadowclient.module.packetlogger.received");
+    private static final TranslatableString SENT_TEXT = TranslatableString.of("name.shadowclient.module.packetlogger.sent");
+    private static final TranslatableString RECEIVED_TEXT = TranslatableString.of("name.shadowclient.module.packetlogger.received");
 
     public String packetName(Packet<?> cl) {
         return cl.getPacketType().id().getPath();

@@ -20,7 +20,7 @@ import net.minecraft.util.math.Vec3d;
 @EventListener({DamageEvent.class, PreTickEvent.class, MouseClickedEvent.class, MouseMoveEvent.class})
 public class Freecam extends Module {
 
-    public NumberSetting SPEED = new NumberSetting(new TranslatableString("setting.module.shadowclient.freecam.speed"), 0.05f, 8, 1, 2, MathUtils.Easing.EASE_IN_QUADRATIC);
+    public NumberSetting SPEED = new NumberSetting(TranslatableString.of("setting.module.shadowclient.freecam.speed"), 0.05f, 8, 1, 2, MathUtils.Easing.EASE_IN_QUADRATIC);
 
     public Freecam() {
         super("freecam", ModuleCategory.RENDER, new String[]{"freecam", "camera fly", "free cam"});

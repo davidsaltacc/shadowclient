@@ -7,7 +7,7 @@ import net.justacoder.shadowclient.main.translations.TranslatableString;
 
 public class ExtendedCameraDistance extends Module {
 
-    public NumberSetting DISTANCE = new NumberSetting(new TranslatableString("setting.module.shadowclient.extcamdistance.distance"), -5, 50, 10, 1);
+    public NumberSetting DISTANCE = new NumberSetting(TranslatableString.of("setting.module.shadowclient.extcamdistance.distance"), -5, 50, 10, 1);
 
     public ExtendedCameraDistance() {
         super("extcamdistance", ModuleCategory.RENDER, new String[]{"extended camera distance", "extcamdistance", "cam distance", "bigger camera distance"});

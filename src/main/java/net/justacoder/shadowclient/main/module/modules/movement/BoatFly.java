@@ -15,7 +15,7 @@ import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 @EventListener({PreTickEvent.class})
 public class BoatFly extends Module {
 
-    NumberSetting SPEED = new NumberSetting(new TranslatableString("setting.module.shadowclient.boatfly.speed"), 0.02f, 10, 0.4,  2, MathUtils.Easing.EASE_IN_QUADRATIC);
+    NumberSetting SPEED = new NumberSetting(TranslatableString.of("setting.module.shadowclient.boatfly.speed"), 0.02f, 10, 0.4,  2, MathUtils.Easing.EASE_IN_QUADRATIC);
 
     public BoatFly() {
         super("boatfly", ModuleCategory.MOVEMENT, new String[]{"boat fly", "boatfly", "fly hack", "flyhack"});

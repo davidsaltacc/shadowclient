@@ -28,7 +28,7 @@ public enum ModuleCategory {
 
     ModuleCategory(String id, boolean hiddenFromMain) {
         this.id = id;
-        this.name = new TranslatableString("category.module.shadowclient." + id);
+        this.name = TranslatableString.of("category.module.shadowclient." + id);
         this.hiddenFromMain = hiddenFromMain;
     }
 }

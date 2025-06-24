@@ -13,7 +13,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 @EventListener({PreTickEvent.class})
 public class StepUp extends Module {
 
-    public final NumberSetting HEIGHT = new NumberSetting(new TranslatableString("setting.module.shadowclient.stepup.height"), 1, 10, 1, 0);
+    public final NumberSetting HEIGHT = new NumberSetting(TranslatableString.of("setting.module.shadowclient.stepup.height"), 1, 10, 1, 0);
 
     public StepUp() {
         super("stepup", ModuleCategory.MOVEMENT, new String[]{"stepup", "step up", "step"});

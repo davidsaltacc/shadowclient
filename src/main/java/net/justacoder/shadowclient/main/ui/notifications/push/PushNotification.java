@@ -15,7 +15,7 @@ public class PushNotification {
     public int offY;
 
     public PushNotification(String text) {
-        this.text = new TranslatableString(text);
+        this.text = TranslatableString.of(text);
     }
 
     public void onReloadTranslations() {

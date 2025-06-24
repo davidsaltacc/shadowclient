@@ -7,7 +7,7 @@ import net.justacoder.shadowclient.main.translations.TranslatableString;
 
 public class HighJump extends Module {
 
-    NumberSetting HEIGHT = new NumberSetting(new TranslatableString("setting.module.shadowclient.highjump.height"), 0, 10, 2, 1);
+    NumberSetting HEIGHT = new NumberSetting(TranslatableString.of("setting.module.shadowclient.highjump.height"), 0, 10, 2, 1);
 
     public HighJump() {
         super("highjump", ModuleCategory.MOVEMENT, new String[]{"high jump", "super jump", "highjump"});

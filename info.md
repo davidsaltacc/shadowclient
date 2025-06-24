@@ -89,6 +89,7 @@
 
 
 ## yet to do:
+* module sorting!!!
 * be able to change what corner the notifications appear in
 * forget the SCSettings thing, we have settings screens now.....
 - resource usage in shadowhud

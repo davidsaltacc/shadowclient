@@ -32,9 +32,9 @@ public class Trajectories extends Module {
         addSettings(NOTHING_HIT, ENTITY_HIT, BLOCK_HIT);
     }
 
-    private final ColorSetting NOTHING_HIT = new ColorSetting(new TranslatableString("setting.module.shadowclient.trajectories.color_nothing"), -1);
-    private final ColorSetting ENTITY_HIT = new ColorSetting(new TranslatableString("setting.module.shadowclient.trajectories.color_entity"), -65536);
-    private final ColorSetting BLOCK_HIT = new ColorSetting(new TranslatableString("setting.module.shadowclient.trajectories.color_block"), -15052545);
+    private final ColorSetting NOTHING_HIT = new ColorSetting(TranslatableString.of("setting.module.shadowclient.trajectories.color_nothing"), -1);
+    private final ColorSetting ENTITY_HIT = new ColorSetting(TranslatableString.of("setting.module.shadowclient.trajectories.color_entity"), -65536);
+    private final ColorSetting BLOCK_HIT = new ColorSetting(TranslatableString.of("setting.module.shadowclient.trajectories.color_block"), -15052545);
 
     @Override
     public void onEvent(Event event) {

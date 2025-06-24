@@ -79,12 +79,12 @@ public class ColorSelectionScreen extends Screen implements ShadowClientScreen {
     private boolean slidingSaturation = false;
     private boolean slidingBrightness = false;
 
-    private static final TranslatableString hueName = new TranslatableString("name.shadowclient.color_selection.hue");
-    private static final TranslatableString saturationName = new TranslatableString("name.shadowclient.color_selection.saturation");
-    private static final TranslatableString brightnessName = new TranslatableString("name.shadowclient.color_selection.brightness");
-    private static final TranslatableString colorName = new TranslatableString("name.shadowclient.color_selection.color");
-    private static final TranslatableString colorHexName = new TranslatableString("name.shadowclient.color_selection.color_hex");
-    private static final TranslatableString okayText = new TranslatableString("name.shadowclient.color_selection.okay");
+    private static final TranslatableString hueName = TranslatableString.of("name.shadowclient.color_selection.hue");
+    private static final TranslatableString saturationName = TranslatableString.of("name.shadowclient.color_selection.saturation");
+    private static final TranslatableString brightnessName = TranslatableString.of("name.shadowclient.color_selection.brightness");
+    private static final TranslatableString colorName = TranslatableString.of("name.shadowclient.color_selection.color");
+    private static final TranslatableString colorHexName = TranslatableString.of("name.shadowclient.color_selection.color_hex");
+    private static final TranslatableString okayText = TranslatableString.of("name.shadowclient.color_selection.okay");
 
     private TextField colorField;
 

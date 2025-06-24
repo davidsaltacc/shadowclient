@@ -162,7 +162,7 @@ public abstract class ShadowClientMain {
 
         gui.searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, offset, 10, 240, 26);
         gui.frames.add(gui.searchFrame);
-        gui.searchFrame.children.add(new FrameTextField(gui.searchFrame, 26, new TranslatableString("textfield.placeholder.find_setting")));
+        gui.searchFrame.children.add(new FrameTextField(gui.searchFrame, 26, TranslatableString.of("textfield.placeholder.find_setting")));
     }
 
     public static void setModuleEnabled(String name, boolean enabled) {

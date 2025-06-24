@@ -20,7 +20,7 @@ import java.util.stream.StreamSupport;
 @EventListener({PreTickEvent.class})
 public class AutoCrystal extends Module {
 
-    public final BooleanSetting FACE_CRYSTALS = new BooleanSetting(new TranslatableString("setting.module.shadowclient.autocrystal.face_crystals"), false);
+    public final BooleanSetting FACE_CRYSTALS = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.autocrystal.face_crystals"), false);
 
     public AutoCrystal() {
         super("autocrystal", ModuleCategory.COMBAT, new String[]{"auto crystal", "auto detonate", "crystal aura", "autocrystal"});

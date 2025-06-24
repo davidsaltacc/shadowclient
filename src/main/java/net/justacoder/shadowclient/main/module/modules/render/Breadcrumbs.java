@@ -20,10 +20,10 @@ import java.util.Iterator;
 @EventListener({RenderEvent.class, PreTickEvent.class})
 public class Breadcrumbs extends Module {
 
-    public final BooleanSetting DEPTH_TEST = new BooleanSetting(new TranslatableString("setting.module.shadowclient.breadcrumbs.depth_test"), true);
-    public final NumberSetting MIN_SEGMENT_LEN = new NumberSetting(new TranslatableString("setting.module.shadowclient.breadcrumbs.min_length"), 0.01f, 5.f, 0.5f, 2, MathUtils.Easing.EASE_IN_CUBIC);
-    public final NumberSetting MAX_POSITIONS = new NumberSetting(new TranslatableString("setting.module.shadowclient.breadcrumbs.max_crumbs"), 2, 8000, 2000, 0);
-    public final ColorSetting CRUMBS_COLOR = new ColorSetting(new TranslatableString("setting.module.shadowclient.breadcrumbs.color"), -1);
+    public final BooleanSetting DEPTH_TEST = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.breadcrumbs.depth_test"), true);
+    public final NumberSetting MIN_SEGMENT_LEN = new NumberSetting(TranslatableString.of("setting.module.shadowclient.breadcrumbs.min_length"), 0.01f, 5.f, 0.5f, 2, MathUtils.Easing.EASE_IN_CUBIC);
+    public final NumberSetting MAX_POSITIONS = new NumberSetting(TranslatableString.of("setting.module.shadowclient.breadcrumbs.max_crumbs"), 2, 8000, 2000, 0);
+    public final ColorSetting CRUMBS_COLOR = new ColorSetting(TranslatableString.of("setting.module.shadowclient.breadcrumbs.color"), -1);
 
     private final ArrayDeque<Vec3d> positions = new ArrayDeque<>(MAX_POSITIONS.intValueEased());
 

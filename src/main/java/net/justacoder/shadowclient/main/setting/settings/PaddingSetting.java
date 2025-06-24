@@ -5,7 +5,7 @@ import net.justacoder.shadowclient.main.translations.TranslatableString;
 
 public class PaddingSetting extends Setting {
     public PaddingSetting() {
-        super(new TranslatableString("name.shadowclient.empty"));
+        super(TranslatableString.of("name.shadowclient.empty"));
     }
 
     @Override

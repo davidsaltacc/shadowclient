@@ -7,7 +7,7 @@ import net.justacoder.shadowclient.main.translations.TranslatableString;
 
 public class SpoofRenderDistance extends Module {
 
-    private NumberSetting spoofedDistance = new NumberSetting(new TranslatableString("setting.module.shadowclient.spoofrenderdistance.distance"), 2, 32, 8, 0);
+    private NumberSetting spoofedDistance = new NumberSetting(TranslatableString.of("setting.module.shadowclient.spoofrenderdistance.distance"), 2, 32, 8, 0);
 
     public SpoofRenderDistance() {
 

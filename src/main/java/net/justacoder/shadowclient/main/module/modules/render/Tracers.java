@@ -24,22 +24,22 @@ import org.joml.Quaternionf;
 @EventListener({RenderEvent.class})
 public class Tracers extends Module {
 
-    public final BooleanSetting drawPlayerEntityTracers = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tracers.players"), true);
-    public final BooleanSetting drawHostileEntityTracers = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tracers.hostiles"), false);
-    public final BooleanSetting drawPassiveEntityTracers = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tracers.passives"), false);
-    public final BooleanSetting drawAmbientEntityTracers = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tracers.ambients"), false);
-    public final BooleanSetting drawOtherEntityTracers = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tracers.others"), true);
+    public final BooleanSetting drawPlayerEntityTracers = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.tracers.players"), true);
+    public final BooleanSetting drawHostileEntityTracers = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.tracers.hostiles"), false);
+    public final BooleanSetting drawPassiveEntityTracers = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.tracers.passives"), false);
+    public final BooleanSetting drawAmbientEntityTracers = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.tracers.ambients"), false);
+    public final BooleanSetting drawOtherEntityTracers = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.tracers.others"), true);
 
-    public final ColorSetting playerTracerColor = new ColorSetting(new TranslatableString("setting.module.shadowclient.tracers.players_color"), -65536);
-    public final ColorSetting hostileTracerColor = new ColorSetting(new TranslatableString("setting.module.shadowclient.tracers.hostiles_color"), -33024);
-    public final ColorSetting passiveTracerColor = new ColorSetting(new TranslatableString("setting.module.shadowclient.tracers.passives_color"), -16711936);
-    public final ColorSetting ambientTracerColor = new ColorSetting(new TranslatableString("setting.module.shadowclient.tracers.ambients_color"), -16776999);
-    public final ColorSetting otherTracerColor = new ColorSetting(new TranslatableString("setting.module.shadowclient.tracers.others_color"), -16711681);
+    public final ColorSetting playerTracerColor = new ColorSetting(TranslatableString.of("setting.module.shadowclient.tracers.players_color"), -65536);
+    public final ColorSetting hostileTracerColor = new ColorSetting(TranslatableString.of("setting.module.shadowclient.tracers.hostiles_color"), -33024);
+    public final ColorSetting passiveTracerColor = new ColorSetting(TranslatableString.of("setting.module.shadowclient.tracers.passives_color"), -16711936);
+    public final ColorSetting ambientTracerColor = new ColorSetting(TranslatableString.of("setting.module.shadowclient.tracers.ambients_color"), -16776999);
+    public final ColorSetting otherTracerColor = new ColorSetting(TranslatableString.of("setting.module.shadowclient.tracers.others_color"), -16711681);
 
-    public final BooleanSetting drawNames = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tracers.show_names"), true);
-    public final BooleanSetting drawDistance = new BooleanSetting(new TranslatableString("setting.module.shadowclient.tracers.show_distance"), true);
+    public final BooleanSetting drawNames = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.tracers.show_names"), true);
+    public final BooleanSetting drawDistance = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.tracers.show_distance"), true);
 
-    public final NumberSetting startDistance = new NumberSetting(new TranslatableString("setting.module.shadowclient.tracers.text_distance"), 0.1, 20, 2, 1);
+    public final NumberSetting startDistance = new NumberSetting(TranslatableString.of("setting.module.shadowclient.tracers.text_distance"), 0.1, 20, 2, 1);
 
     public Tracers() {
         super("tracers", ModuleCategory.RENDER, new String[]{"tracers", "lines", "entity tracers", "esp"});

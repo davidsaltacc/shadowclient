@@ -50,8 +50,8 @@ public abstract class Module {
         this.moduleId = id;
         this.category = category;
         this.searchTags = searchTags;
-        this.name = new TranslatableString("module.shadowclient." + this.moduleId);
-        this.description = new TranslatableString("module.description.shadowclient." + this.moduleId);
+        this.name = TranslatableString.of("module.shadowclient." + this.moduleId);
+        this.description = TranslatableString.of("module.description.shadowclient." + this.moduleId);
     }
 
     public void setEnabled() {

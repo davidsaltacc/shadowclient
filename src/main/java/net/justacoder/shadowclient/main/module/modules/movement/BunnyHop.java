@@ -11,8 +11,8 @@ import net.justacoder.shadowclient.main.translations.TranslatableString;
 
 @EventListener({PreTickEvent.class})
 public class BunnyHop extends Module {
-    public final EnumSetting<JumpWhen> MODE = new EnumSetting<>(new TranslatableString("setting.module.shadowclient.bunnyhop.mode"), JumpWhen.ALWAYS);
-    public final NumberSetting MINVEL = new NumberSetting(new TranslatableString("setting.module.shadowclient.bunnyhop.minimum_velocity"), 0f, 0.3f, 0.075f, 3);
+    public final EnumSetting<JumpWhen> MODE = new EnumSetting<>(TranslatableString.of("setting.module.shadowclient.bunnyhop.mode"), JumpWhen.ALWAYS);
+    public final NumberSetting MINVEL = new NumberSetting(TranslatableString.of("setting.module.shadowclient.bunnyhop.minimum_velocity"), 0f, 0.3f, 0.075f, 3);
 
     public boolean pressed = false;
 

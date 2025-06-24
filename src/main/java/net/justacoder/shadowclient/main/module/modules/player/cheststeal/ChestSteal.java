@@ -8,7 +8,7 @@ import net.justacoder.shadowclient.main.util.MathUtils;
 
 public class ChestSteal extends Module {
 
-    public NumberSetting DELAY = new NumberSetting(new TranslatableString("setting.module.shadowclient.cheststeal.delay"), 0, 200, 10, 0, MathUtils.Easing.EASE_IN_OUT_QUADRATIC);
+    public NumberSetting DELAY = new NumberSetting(TranslatableString.of("setting.module.shadowclient.cheststeal.delay"), 0, 200, 10, 0, MathUtils.Easing.EASE_IN_OUT_QUADRATIC);
 
     public ChestSteal() {
         super("cheststeal", ModuleCategory.PLAYER, new String[]{"chest steal", "cheststeal"});

@@ -9,7 +9,7 @@ import net.justacoder.shadowclient.main.translations.TranslatableString;
 @DoNotSaveState
 public class Zoom extends Module {
 
-    public NumberSetting FOV = new NumberSetting(new TranslatableString("setting.module.shadowclient.zoom.fov"), 1f, 179.9f, 90f, 0);
+    public NumberSetting FOV = new NumberSetting(TranslatableString.of("setting.module.shadowclient.zoom.fov"), 1f, 179.9f, 90f, 0);
 
     public Zoom() {
         super("zoom", ModuleCategory.RENDER, new String[]{"zoom", "fov", "increase fov", "decrease fov", "increase zoom", "decrease zoom", "zoom in", "zoom out"});

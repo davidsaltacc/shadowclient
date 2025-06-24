@@ -18,17 +18,17 @@ import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 @DoNotSaveState
 public class EntitiesESP extends Module {
 
-    public final BooleanSetting drawPlayerEntityOutlines = new BooleanSetting(new TranslatableString("setting.module.shadowclient.entitiesesp.players"), true);
-    public final BooleanSetting drawHostileEntityOutlines = new BooleanSetting(new TranslatableString("setting.module.shadowclient.entitiesesp.hostiles"), true);
-    public final BooleanSetting drawPassiveEntityOutlines = new BooleanSetting(new TranslatableString("setting.module.shadowclient.entitiesesp.passives"), false);
-    public final BooleanSetting drawAmbientEntityOutlines = new BooleanSetting(new TranslatableString("setting.module.shadowclient.entitiesesp.ambients"), true);
-    public final BooleanSetting drawOtherEntityOutlines = new BooleanSetting(new TranslatableString("setting.module.shadowclient.entitiesesp.others"), false);
+    public final BooleanSetting drawPlayerEntityOutlines = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.entitiesesp.players"), true);
+    public final BooleanSetting drawHostileEntityOutlines = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.entitiesesp.hostiles"), true);
+    public final BooleanSetting drawPassiveEntityOutlines = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.entitiesesp.passives"), false);
+    public final BooleanSetting drawAmbientEntityOutlines = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.entitiesesp.ambients"), true);
+    public final BooleanSetting drawOtherEntityOutlines = new BooleanSetting(TranslatableString.of("setting.module.shadowclient.entitiesesp.others"), false);
 
-    public final ColorSetting playerOutlineColor = new ColorSetting(new TranslatableString("setting.module.shadowclient.entitiesesp.players_color"), -65536);
-    public final ColorSetting hostileOutlineColor = new ColorSetting(new TranslatableString("setting.module.shadowclient.entitiesesp.hostiles_color"), -33024);
-    public final ColorSetting passiveOutlineColor = new ColorSetting(new TranslatableString("setting.module.shadowclient.entitiesesp.passives_color"), -16711936);
-    public final ColorSetting ambientOutlineColor = new ColorSetting(new TranslatableString("setting.module.shadowclient.entitiesesp.ambients_color"), -16776999);
-    public final ColorSetting otherOutlineColor = new ColorSetting(new TranslatableString("setting.module.shadowclient.entitiesesp.others_color"), -16711681);
+    public final ColorSetting playerOutlineColor = new ColorSetting(TranslatableString.of("setting.module.shadowclient.entitiesesp.players_color"), -65536);
+    public final ColorSetting hostileOutlineColor = new ColorSetting(TranslatableString.of("setting.module.shadowclient.entitiesesp.hostiles_color"), -33024);
+    public final ColorSetting passiveOutlineColor = new ColorSetting(TranslatableString.of("setting.module.shadowclient.entitiesesp.passives_color"), -16711936);
+    public final ColorSetting ambientOutlineColor = new ColorSetting(TranslatableString.of("setting.module.shadowclient.entitiesesp.ambients_color"), -16776999);
+    public final ColorSetting otherOutlineColor = new ColorSetting(TranslatableString.of("setting.module.shadowclient.entitiesesp.others_color"), -16711681);
 
     public EntitiesESP() {
         super("entitiesesp", ModuleCategory.RENDER, new String[]{"entitiesesp", "esp", "entity esp", "entities esp", "wallhack", "wall hack"});
