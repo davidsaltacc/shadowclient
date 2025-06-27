@@ -1,6 +1,7 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
 import net.justacoder.shadowclient.main.translations.TranslatableString;
+import net.justacoder.shadowclient.main.ui.animation.Animatable;
 import net.minecraft.client.MinecraftClient;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.ui.clickgui.text.FrameTextField;
@@ -25,6 +26,14 @@ public class MainClickGUI extends ClickGUI {
         searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, 0, 0, 200, 26);
         frames.add(searchFrame);
         searchFrame.children.add(new FrameTextField(searchFrame, 24, TranslatableString.of("textfield.placeholder.find_module")));
+    }
+
+    @Override
+    public void onDisplayed() {
+        frames.forEach(frame -> {
+            frame.setOpens(frame.extended);
+            frame.setAnimProgress(0); // .startAnimation would set it to 1 for non-extended ones, but we don't want any animation for them
+        });
     }
 
     public void repositionFramesProperly() {

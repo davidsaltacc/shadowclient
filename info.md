@@ -101,7 +101,6 @@
 - scrolling down on the clickgui? and sideways, ig?`
 - anti cobweb
 - ping spoof
-- test: do tracers render towards spectators too?
 - is it possible to dynamically grow the font atlas?
 - spectator mode - spectate someone. make the cameraEntity be someone else
 - seedcrackerX integration? maybe
@@ -111,13 +110,11 @@
 - rework most of the *Utils classes
 * noclip
 - redo the splash texts. fuuucking hell
-- less annotations, more constructor params
-- top bar right click simulator
 - reset breadcrumbs on leave
 - optimize breadcrumbs rendering
 - how do wardens detect sound? I need smt against them
 - WARDEN STATUS CHECKER!!!!
-- highlighter: is this chest looted (was the loot generated already)
+- highlighter: is this chest looted (was the loot generated already) - unsure if possible, works in singleplayer but probably not in multiplayer. maybe on servers, just query the contents as if opened, and then cache? unload from cache if chunk gets unloaded, maybe, with new ChunkUnloadedEvent or something idk, then have a ChunkLinkedBlockCache or something, (Map<BlockPos, someData>, idk figure something out)
 - killaura filter
 - bow shit (extreme speed before shooting gives big damage, aswell as aim shit)
 - how does dolphins grace work?
@@ -136,16 +133,12 @@
 * sticky aim - decrease the mouse sensitivity when aiming near enemies
 * fix searching for settings in the client settings screen, I think it is broken (modulebutton class is the only one that has uhh the thing)
 * better module settings - dedicated screen?
-* optimize the font rendering so it doesn't switch textures for each character
-* optimize clickGui. insane lag on low-end devices - caching? maybe use a debugger/profiler
-* rewrite some of the old modules
 * rewrite some gui code
 * auto updater?
 * optimize light overlay with caching / just don't update every single fucking frame???
 * positionSetting (+ setHere button)
 * killaura mob types
 * voidESP
-* fix blink
 * simple shadowcl <-> shadowcl encrypted chat (simple maybe key-based encoding so messages don't show in server logs)
 * different modes for flight (creative flight-like)
 * arrow dodge
@@ -170,7 +163,6 @@
 * fix autowalk not sprinting, even when sprint key is pressed
 * instead of having entity type settings like [hostile: false, players: true, ...] instead just make a universal EntitiesSetting as well as BlocksSetting (for xray, + a whitelist/blacklist toggle)
 * no jump cooldown (be able to hold space under trees)
-* ui animations !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 ## noteworthy for me in general
 * packets can be spammed if built up, as long as its not more than 5 packets more than last tick

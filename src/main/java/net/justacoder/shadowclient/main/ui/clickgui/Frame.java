@@ -3,7 +3,9 @@ package net.justacoder.shadowclient.main.ui.clickgui;
 import net.justacoder.shadowclient.main.config.ShadowClientSettings;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.ui.Colors;
+import net.justacoder.shadowclient.main.ui.animation.Animatable;
 import net.justacoder.shadowclient.main.ui.font.Font;
+import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.annotations.Hidden;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Frame extends FrameChild {
+public class Frame extends FrameChild implements Animatable {
 
     public int x;
     public int y;
@@ -26,6 +28,10 @@ public class Frame extends FrameChild {
     public int dragY;
     public boolean dragging;
     public boolean extended;
+
+    public double animProgress = 1;
+    public double animDuration = 0.5;
+    public boolean opens = true;
 
     public ModuleCategory category;
 
@@ -108,6 +114,7 @@ public class Frame extends FrameChild {
         return new Frame(category, x, y, width, height, false);
     }
 
+    @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         int textOffset = (int) ((float) height / 2 - (float) Font.getHeight() / 2);
 
@@ -126,11 +133,21 @@ public class Frame extends FrameChild {
         Font.renderString(context, extended ? "-" : "+", x + width - textOffset - (float) Font.getWidth("+"), y + textOffset, Colors.TEXT_NORMAL.color);
 
 
-        if (extended) {
+        if (extended || animProgress > 0) {
+            int totalHeight = 0;
+            for (FrameChild child : children) {
+                totalHeight += child.getHeight();
+            }
+            int h = y + height + (int) Math.floor(totalHeight * (opens ? MathUtils.Easing.EASE_OUT_CUBIC : MathUtils.Easing.EASE_IN_CUBIC).eased(animProgress));
+            context.enableScissor(x, y + height, x + width, h);
             for (FrameChild child : children) {
                 child.render(context, mouseX, mouseY, delta);
             }
+            context.disableScissor();
         }
+
+        progressAnimation();
+
     }
 
     public void renderDescriptions(DrawContext context, int mouseX, int mouseY, float delta) {
@@ -143,6 +160,7 @@ public class Frame extends FrameChild {
         }
     }
 
+    @Override
     public void mouseClicked(double mouseX, double mouseY, int button) {
         if (isHovered(mouseX, mouseY)) {
             if (button == GLFW.GLFW_MOUSE_BUTTON_1) {
@@ -151,6 +169,8 @@ public class Frame extends FrameChild {
                 dragY = (int) (mouseY - y);
             } else if (button == GLFW.GLFW_MOUSE_BUTTON_2) {
                 extended = !extended;
+                setOpens(extended);
+                startAnimation();
             }
         }
 
@@ -210,5 +230,29 @@ public class Frame extends FrameChild {
             children.forEach(child -> height.set(height.get() + child.getHeight()));
         }
         return height.get();
+    }
+
+    public void setOpens(boolean opens) {
+        this.opens = opens;
+    }
+
+    @Override
+    public void setAnimProgress(double progress) {
+        this.animProgress = progress;
+    }
+
+    @Override
+    public double getAnimProgress() {
+        return animProgress;
+    }
+
+    @Override
+    public double getAnimDuration() {
+        return animDuration;
+    }
+
+    @Override
+    public boolean animProgressesUp() {
+        return opens;
     }
 }
