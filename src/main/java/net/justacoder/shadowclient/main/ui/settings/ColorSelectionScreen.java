@@ -7,9 +7,11 @@ import net.justacoder.shadowclient.main.setting.settings.ColorSetting;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.ui.ShadowClientScreen;
 import net.justacoder.shadowclient.main.ui.Colors;
+import net.justacoder.shadowclient.main.ui.animation.Animatable;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.justacoder.shadowclient.main.ui.text.TextField;
 import net.justacoder.shadowclient.main.util.ColorUtils;
+import net.justacoder.shadowclient.main.util.MathUtils;
 import net.justacoder.shadowclient.mixin.DrawContextAccessor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -23,7 +25,7 @@ import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFW;
 import java.awt.Color;
 
-public class ColorSelectionScreen extends Screen implements ShadowClientScreen {
+public class ColorSelectionScreen extends Screen implements ShadowClientScreen, Animatable {
 
     private ColorSetting setting;
     private Screen parent;
@@ -90,6 +92,9 @@ public class ColorSelectionScreen extends Screen implements ShadowClientScreen {
 
     private static final Identifier HUE_GRADIENT = Identifier.of("shadowclient", "textures/gui/hue_gradient.png");
 
+    public double animProgress = 0;
+    public double animDuration = 0.4;
+
     private void rescale() {
         contentWidth = 300;
         contentHeight = 235;
@@ -98,6 +103,11 @@ public class ColorSelectionScreen extends Screen implements ShadowClientScreen {
         contentStartY = (int) (height * UIRenderUtils.guiScaleFactor() / 2f - contentHeight / 2f);
         contentEndX = (int) (width * UIRenderUtils.guiScaleFactor() / 2f + contentWidth / 2f);
         contentEndY = (int) (height * UIRenderUtils.guiScaleFactor() / 2f + contentHeight / 2f);
+    }
+
+    @Override
+    public void onDisplayed() {
+        startAnimation();
     }
 
     @Override
@@ -146,6 +156,11 @@ public class ColorSelectionScreen extends Screen implements ShadowClientScreen {
         this.applyBlur();
 
         UIRenderUtils.beforeUIRender(context);
+
+        context.getMatrices().push();
+        if (animProgress < 1) {
+            context.getMatrices().translate(0, (1 - MathUtils.Easing.EASE_OUT_QUADRATIC.eased(animProgress)) * 35, 0);
+        }
 
         context.fill(contentStartX - padding, contentStartY - padding, contentEndX + padding, contentEndY + padding, Colors.MODULE_BUTTON_NORMAL.color);
 
@@ -198,6 +213,10 @@ public class ColorSelectionScreen extends Screen implements ShadowClientScreen {
         offset += Font.getHeight() + 4;
 
         UIRenderUtils.afterUIRender(context);
+
+        context.getMatrices().pop();
+
+        progressAnimation();
 
     }
 
@@ -290,4 +309,28 @@ public class ColorSelectionScreen extends Screen implements ShadowClientScreen {
     public boolean capturesKeypress(int key) {
         return colorField.capturesKeypress(key) || key == GLFW.GLFW_KEY_ESCAPE;
     }
+
+    @Override
+    public void setAnimProgress(double progress) {
+        animProgress = progress;
+    }
+
+    @Override
+    public double getAnimProgress() {
+        return animProgress;
+    }
+
+    @Override
+    public double getAnimDuration() {
+        return animDuration;
+    }
+
+    @Override
+    public boolean animProgressesUp() {
+        return true;
+    }
+
+    @Override
+    public void setAnimProgressesUp(boolean up) {}
+
 }

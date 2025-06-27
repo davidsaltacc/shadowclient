@@ -30,6 +30,7 @@ public class MainClickGUI extends ClickGUI {
 
     @Override
     public void onDisplayed() {
+        super.onDisplayed();
         frames.forEach(frame -> {
             frame.setOpens(frame.extended);
             frame.setAnimProgress(0); // .startAnimation would set it to 1 for non-extended ones, but we don't want any animation for them

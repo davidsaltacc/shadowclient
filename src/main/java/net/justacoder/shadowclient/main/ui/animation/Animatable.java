@@ -18,5 +18,6 @@ public interface Animatable {
     double getAnimProgress();
     double getAnimDuration();
     boolean animProgressesUp();
+    void setAnimProgressesUp(boolean up);
 
 }

@@ -255,4 +255,7 @@ public class Frame extends FrameChild implements Animatable {
     public boolean animProgressesUp() {
         return opens;
     }
+
+    @Override
+    public void setAnimProgressesUp(boolean up) {}
 }

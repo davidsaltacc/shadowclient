@@ -2,19 +2,24 @@ package net.justacoder.shadowclient.main.ui.clickgui;
 
 import net.justacoder.shadowclient.main.annotations.NoSettingsScreen;
 import net.justacoder.shadowclient.main.ui.Colors;
+import net.justacoder.shadowclient.main.ui.animation.Animatable;
 import net.justacoder.shadowclient.main.ui.settings.modules.SettingsScreen;
 import net.justacoder.shadowclient.main.ui.font.Font;
+import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.module.Module;
-import net.justacoder.shadowclient.main.module.ModuleManager;
 import org.lwjgl.glfw.GLFW;
 
-public class ModuleButton extends FrameChild {
+public class ModuleButton extends FrameChild implements Animatable {
 
     public final Module module;
     public final Frame parent;
     public int offset;
+
+    public double animProgress = 0;
+    public double animDuration = 0.5;
+    public boolean descOpens = true;
 
     public ModuleButton(Module module, Frame parent, int offset) {
         this.module = module;
@@ -34,10 +39,16 @@ public class ModuleButton extends FrameChild {
         if (hovered) {
            color = Colors.MODULE_BUTTON_HOVERED.color;
         }
+        if (descOpens != hovered) {
+            descOpens = hovered;
+        }
+
         context.fill(parent.x, parent.y + offset, parent.x + parent.width, parent.y + offset + parent.height, color);
         int textOffset = (int) ((float) parent.height / 2 - Font.getHeight() / 2);
 
         Font.renderString(context, getName(), parent.x + textOffset, parent.y + offset + textOffset, getTextColor());
+
+        progressAnimation();
 
     }
 
@@ -47,9 +58,14 @@ public class ModuleButton extends FrameChild {
         int width = Font.getWidth(module.description);
         int textOffset = (int) ((float) parent.height / 2 - Font.getHeight() / 2);
 
-        context.fill(parent.x + parent.width, parent.y + offset, parent.x + parent.width + width + textOffset * 2, parent.y + offset + parent.height, color);
+        int w = (int) Math.floor((width + textOffset * 2) * (descOpens ? MathUtils.Easing.EASE_OUT_CUBIC : MathUtils.Easing.EASE_IN_CUBIC).eased(animProgress));
 
+        context.enableScissor(parent.x + parent.width, parent.y + offset, parent.x + parent.width + w, parent.y + offset + parent.height);
+
+        context.fill(parent.x + parent.width, parent.y + offset, parent.x + parent.width + width + textOffset * 2, parent.y + offset + parent.height, color);
         Font.renderString(context, module.description, parent.x + parent.width + textOffset, parent.y + offset + textOffset, Colors.TEXT_NORMAL.color);
+
+        context.disableScissor();
     }
 
     public void mouseClicked(double mouseX, double mouseY, int button) {
@@ -98,4 +114,26 @@ public class ModuleButton extends FrameChild {
         }
     }
 
+    @Override
+    public void setAnimProgress(double progress) {
+        animProgress = progress;
+    }
+
+    @Override
+    public double getAnimProgress() {
+        return animProgress;
+    }
+
+    @Override
+    public double getAnimDuration() {
+        return animDuration;
+    }
+
+    @Override
+    public boolean animProgressesUp() {
+        return descOpens;
+    }
+
+    @Override
+    public void setAnimProgressesUp(boolean up) {}
 }

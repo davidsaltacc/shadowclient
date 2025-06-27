@@ -30,7 +30,9 @@ public class AnimationStateContainer implements Animatable { // it is preferred 
         return rises;
     }
 
+    @Override
     public void setAnimProgressesUp(boolean up) {
         rises = up;
     }
+
 }

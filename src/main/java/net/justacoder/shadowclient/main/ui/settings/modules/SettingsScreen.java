@@ -13,7 +13,9 @@ import net.justacoder.shadowclient.main.setting.settings.PaddingSetting;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.ui.ShadowClientScreen;
 import net.justacoder.shadowclient.main.ui.Colors;
+import net.justacoder.shadowclient.main.ui.animation.Animatable;
 import net.justacoder.shadowclient.main.ui.font.Font;
+import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -25,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SettingsScreen extends Screen implements ShadowClientScreen {
+public class SettingsScreen extends Screen implements ShadowClientScreen, Animatable {
 
     public final Module module;
     public TranslatableString title;
@@ -48,6 +50,9 @@ public class SettingsScreen extends Screen implements ShadowClientScreen {
 
     private float scrollY = 0;
     private float scrollSpeed = 10;
+
+    public double animProgress = 0;
+    public double animDuration = 0.4;
 
     public SettingComponent.KeybindingSettingComponent toggleModuleKeybindComponent = null;
     public BooleanSetting enabledSetting;
@@ -83,6 +88,11 @@ public class SettingsScreen extends Screen implements ShadowClientScreen {
             }
 
         }
+    }
+
+    @Override
+    public void onDisplayed() {
+        startAnimation();
     }
 
     public static class ModuleLess extends SettingsScreen {
@@ -169,6 +179,11 @@ public class SettingsScreen extends Screen implements ShadowClientScreen {
 
         UIRenderUtils.beforeUIRender(context);
 
+        context.getMatrices().push();
+        if (animProgress < 1) {
+            context.getMatrices().translate(0, (1 - MathUtils.Easing.EASE_OUT_QUADRATIC.eased(animProgress)) * 35, 0);
+        }
+
         context.fill(overlayStartX, overlayStartY, overlayStartX + overlayWidth, overlayStartY + overlayHeight, Colors.MODULE_BUTTON_NORMAL.color);
 
         Font.renderString(context, title, contentStartX, contentStartY, Colors.TEXT_NORMAL.color, titleFontSize);
@@ -181,7 +196,11 @@ public class SettingsScreen extends Screen implements ShadowClientScreen {
         context.getMatrices().pop();
         context.disableScissor();
 
+        context.getMatrices().pop();
+
         UIRenderUtils.afterUIRender(context);
+
+        progressAnimation();
 
     }
 
@@ -270,5 +289,28 @@ public class SettingsScreen extends Screen implements ShadowClientScreen {
             super.applyBlur();
         }
     }
+
+    @Override
+    public void setAnimProgress(double progress) {
+        animProgress = progress;
+    }
+
+    @Override
+    public double getAnimProgress() {
+        return animProgress;
+    }
+
+    @Override
+    public double getAnimDuration() {
+        return animDuration;
+    }
+
+    @Override
+    public boolean animProgressesUp() {
+        return true;
+    }
+
+    @Override
+    public void setAnimProgressesUp(boolean up) {}
 
 }
