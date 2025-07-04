@@ -1,15 +1,19 @@
 package net.justacoder.shadowclient.main.ui.settings.modules;
 
 import net.justacoder.shadowclient.main.ShadowClientMain;
+import net.justacoder.shadowclient.main.render.UIRenderUtils;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.settings.*;
+import net.justacoder.shadowclient.main.ui.ShadowClientScreen;
 import net.justacoder.shadowclient.main.ui.settings.ColorSelectionScreen;
 import net.justacoder.shadowclient.main.ui.Colors;
 import net.justacoder.shadowclient.main.ui.font.Font;
+import net.justacoder.shadowclient.main.ui.text.TextField;
 import net.justacoder.shadowclient.main.util.MathUtils;
 import net.justacoder.shadowclient.mixin.KeyBindingAccessor;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.resource.language.I18n;
+import org.joml.Vector2f;
 import org.joml.Vector2i;
 import org.lwjgl.glfw.GLFW;
 
@@ -43,7 +47,7 @@ public abstract class SettingComponent {
 
     public void keyPressed(int keyCode, int scanCode, int modifiers) {}
 
-    public boolean interceptKeypresses() {
+    public boolean interceptKeypresses(int key) {
         return false;
     }
 
@@ -51,12 +55,12 @@ public abstract class SettingComponent {
         return mouseX > position.x && mouseX < position.x + getWidth() && mouseY > position.y  && mouseY < position.y + getHeight() && inBounds;
     }
 
-    public static SettingComponent ofSetting(Setting setting, Vector2i position) {
+    public static SettingComponent ofSetting(ShadowClientScreen screen, Setting setting, Vector2i position) {
         return switch (setting) {
             case BooleanSetting ignored -> new BooleanSettingComponent(setting, position);
             case EnumSetting<?> ignored -> new EnumSettingComponent(setting, position);
             case NumberSetting ignored -> new NumberSettingComponent(setting, position);
-            case StringSetting ignored -> new TextSettingComponent(setting, position);
+            case StringSetting ignored -> new TextSettingComponent(screen, setting, position);
             case PaddingSetting ignored -> new PaddingSettingComponent(setting, position);
             case KeySetting ignored -> new KeybindingSettingComponent(setting, position);
             case ColorSetting ignored -> new ColorSettingComponent(setting, position);
@@ -66,6 +70,9 @@ public abstract class SettingComponent {
     }
 
     public abstract int getHeight();
+
+    public void charTyped(char key, int modifiers) {}
+
     public abstract int getWidth();
 
     public static class BooleanSettingComponent extends SettingComponent {
@@ -293,64 +300,55 @@ public abstract class SettingComponent {
 
     public static class TextSettingComponent extends SettingComponent {
 
-        private boolean typing;
+        final TextField field;
 
-        protected TextSettingComponent(Setting setting, Vector2i position) {
+        protected TextSettingComponent(ShadowClientScreen screen, Setting setting, Vector2i position) {
             super(setting, position);
-            this.typing = false;
+            this.field = new TextField(screen, ((StringSetting) setting).stringValue(), setting.name, new Vector2f(position), new Vector2f(getWidth(), getHeight()), newS -> ((StringSetting) setting).setStringValue(newS));
+        }
+
+        @Override
+        public void updatePosition(Vector2i position) {
+            super.updatePosition(position);
+            field.setPosition(new Vector2f(position));
         }
 
         @Override
         public void render(DrawContext context, int mouseX, int mouseY, boolean inBounds, float delta) {
-
-            int nameWidth = Font.getWidth(setting.name.getTranslation() + ": ") + 2;
-            String value = ((StringSetting) setting).stringValue();
-            Font.renderString(context, setting.name.getTranslation() + ": ", position.x, position.y + 4, Colors.TEXT_NORMAL.color);
-
-            context.fill(position.x + nameWidth, position.y + 2, position.x + nameWidth + Font.getWidth(value.isEmpty() ? setting.name.getTranslation() : value) + 4, position.y + getHeight() - 2, Colors.TEXT_FIELD_BACKGROUND.color);
-
-            Font.renderString(context, value.isEmpty() ? setting.name.getTranslation() : value, position.x + nameWidth + 2, position.y + 4, value.isEmpty() ? Colors.TEXT_DISABLED.color : Colors.TEXT_NORMAL.color);
-
+            field.render(context);
         }
 
         @Override
         public void mouseClicked(double mouseX, double mouseY, int button, boolean inBounds) {
-            typing = isHovered(mouseX, mouseY, inBounds);
-        }
-
-        @Override
-        public void keyPressed(int keyCode, int scanCode, int modifiers) {
-            StringSetting stringSetting = (StringSetting) setting;
-            if (typing) {
-                if (keyCode == GLFW.GLFW_KEY_BACKSPACE) {
-                    if (!stringSetting.stringValue().isEmpty()) {
-                        stringSetting.setStringValue(stringSetting.stringValue().substring(0, stringSetting.stringValue().length() - 1));
-                    }
-                    return;
-                }
-                if (keyCode == GLFW.GLFW_KEY_ENTER || keyCode == ((KeyBindingAccessor) ShadowClientMain.toggleGUIKeyBinding).getBoundKey().getCode() || keyCode == GLFW.GLFW_KEY_ESCAPE) {
-                    typing = false;
-                    return;
-                }
-                stringSetting.setStringValue(stringSetting.stringValue() + ("" + (char) keyCode).toLowerCase());
+            if (inBounds) {
+                double divisor = UIRenderUtils.guiScaleDivisor();
+                field.mouseClicked(mouseX * divisor, mouseY * divisor, button);
             }
         }
 
         @Override
-        public boolean interceptKeypresses() {
-            return typing;
+        public void keyPressed(int keyCode, int scanCode, int modifiers) {
+            field.keyPressed(keyCode, scanCode, modifiers);
+        }
+
+        @Override
+        public boolean interceptKeypresses(int key) {
+            return field.capturesKeypress(key);
+        }
+
+        @Override
+        public void charTyped(char key, int modifiers) {
+            field.charTyped(key, modifiers);
         }
 
         @Override
         public int getWidth() {
-            String value = ((StringSetting) setting).stringValue();
-            String text = value.isEmpty() ? setting.name.getTranslation() : value;
-            return Font.getWidth(text) + 2 + Font.getWidth(text) + 4;
+            return 250;
         }
 
         @Override
         public int getHeight() {
-            return Font.getHeight() + 8; // 2 + (line + 2*2 padding) + 2
+            return 20;
         }
 
     }
@@ -399,7 +397,7 @@ public abstract class SettingComponent {
         }
 
         @Override
-        public boolean interceptKeypresses() {
+        public boolean interceptKeypresses(int key) {
             return configuring;
         }
 

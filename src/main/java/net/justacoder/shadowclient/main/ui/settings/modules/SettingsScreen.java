@@ -65,7 +65,7 @@ public class SettingsScreen extends Screen implements ShadowClientScreen, Animat
         if (module != null) {
 
             enabledSetting = new BooleanSetting(TranslatableString.of("name.shadowclient.enabled"), module.enabled);
-            components.add(SettingComponent.ofSetting(enabledSetting, new Vector2i()));
+            components.add(SettingComponent.ofSetting(this, enabledSetting, new Vector2i()));
             enabledSetting.addChangeCallback((newValue, ignored) -> {
                 if ((boolean) newValue) {
                     module.setEnabled();
@@ -75,16 +75,16 @@ public class SettingsScreen extends Screen implements ShadowClientScreen, Animat
             });
 
             if (!module.getClass().isAnnotationPresent(NotKeybindable.class)) {
-                toggleModuleKeybindComponent = (SettingComponent.KeybindingSettingComponent) SettingComponent.ofSetting(new KeySetting(TranslatableString.of("name.shadowclient.keybind"), module.keyBinding), new Vector2i());
+                toggleModuleKeybindComponent = (SettingComponent.KeybindingSettingComponent) SettingComponent.ofSetting(this, new KeySetting(TranslatableString.of("name.shadowclient.keybind"), module.keyBinding), new Vector2i());
                 components.add(toggleModuleKeybindComponent);
             }
 
-            components.add(SettingComponent.ofSetting(new ButtonSetting(TranslatableString.of("name.shadowclient.reset_all_settings"), () -> module.getSettings().forEach(Setting::reset)), new Vector2i()));
+            components.add(SettingComponent.ofSetting(this, new ButtonSetting(TranslatableString.of("name.shadowclient.reset_all_settings"), () -> module.getSettings().forEach(Setting::reset)), new Vector2i()));
 
-            components.add(SettingComponent.ofSetting(new PaddingSetting(), new Vector2i()));
+            components.add(SettingComponent.ofSetting(this, new PaddingSetting(), new Vector2i()));
 
             for (Setting setting : module.getSettings()) {
-                components.add(SettingComponent.ofSetting(setting, new Vector2i()));
+                components.add(SettingComponent.ofSetting(this, setting, new Vector2i()));
             }
 
         }
@@ -107,13 +107,15 @@ public class SettingsScreen extends Screen implements ShadowClientScreen, Animat
     }
 
     public static Screen createSCSettings() {
-        List<SettingComponent> components1 = new ArrayList<>();
-        components1.add(SettingComponent.ofSetting(new ButtonSetting(TranslatableString.of("name.shadowclient.reset_all_settings"), () -> ShadowClientSettings.getAllSCSettings().values().forEach(Setting::reset)), new Vector2i(0, 0)));
-        components1.addAll(ShadowClientSettings.getAllSCSettings().values().stream().map(setting -> SettingComponent.ofSetting(setting, new Vector2i(0, 0))).toList());
-        return new SettingsScreen.ModuleLess(
+        SettingsScreen screen = new SettingsScreen.ModuleLess(
                 TranslatableString.of("name.shadowclient.sc_settings"),
-                components1
+                Collections.emptyList()
         );
+        List<SettingComponent> components1 = new ArrayList<>();
+        components1.add(SettingComponent.ofSetting(screen, new ButtonSetting(TranslatableString.of("name.shadowclient.reset_all_settings"), () -> ShadowClientSettings.getAllSCSettings().values().forEach(Setting::reset)), new Vector2i(0, 0)));
+        components1.addAll(ShadowClientSettings.getAllSCSettings().values().stream().map(setting -> SettingComponent.ofSetting(screen, setting, new Vector2i(0, 0))).toList());
+        screen.components.addAll(components1);
+        return screen;
     }
 
     @Override
@@ -130,7 +132,7 @@ public class SettingsScreen extends Screen implements ShadowClientScreen, Animat
         }
         boolean intercept = false;
         for (SettingComponent component : components) {
-            if (component.interceptKeypresses()) {
+            if (component.interceptKeypresses(key)) {
                 intercept = true;
             }
         }
@@ -236,13 +238,13 @@ public class SettingsScreen extends Screen implements ShadowClientScreen, Animat
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 
         if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
-            boolean configuring = false;
+            boolean capture = false;
             for (SettingComponent component : components) {
-                if (component instanceof SettingComponent.KeybindingSettingComponent settingComponent && settingComponent.isConfiguring()) {
-                    configuring = true;
+                if (component.interceptKeypresses(keyCode)) {
+                    capture = true;
                 }
             }
-            if (!configuring) {
+            if (!capture) {
                 client.setScreen(ShadowClientMain.clickGui);
             }
         }
@@ -276,6 +278,12 @@ public class SettingsScreen extends Screen implements ShadowClientScreen, Animat
         components.forEach(component -> component.mouseReleased(mouseX, mouseY, button, mouseX > contentStartX && mouseX < contentEndX && mouseYScreen > contentStartY + titleOffset && mouseYScreen < contentEndY));
 
         return super.mouseReleased(mouseX, mouseY, button);
+    }
+
+    @Override
+    public boolean charTyped(char chr, int modifiers) {
+        components.forEach(component -> component.charTyped(chr, modifiers));
+        return super.charTyped(chr, modifiers);
     }
 
     @Override

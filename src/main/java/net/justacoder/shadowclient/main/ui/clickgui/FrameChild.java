@@ -24,4 +24,5 @@ public abstract class FrameChild {
 
     public abstract int getHeight();
 
+    public void charTyped(char c, int mod) {}
 }

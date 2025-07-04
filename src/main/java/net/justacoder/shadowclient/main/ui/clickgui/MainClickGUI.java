@@ -1,13 +1,10 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
 import net.justacoder.shadowclient.main.translations.TranslatableString;
-import net.justacoder.shadowclient.main.ui.animation.Animatable;
 import net.minecraft.client.MinecraftClient;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.ui.clickgui.text.FrameTextField;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class MainClickGUI extends ClickGUI {
 
@@ -20,21 +17,12 @@ public class MainClickGUI extends ClickGUI {
             if (category.hiddenFromMain) {
                 continue;
             }
-            frames.add(Frame.create(category, 0, 0, 200, 26));
+            frames.add(Frame.create(this, category, 0, 0, 200, 26));
         }
 
-        searchFrame = Frame.createWithoutAddingModules(ModuleCategory.SEARCH, 0, 0, 200, 26);
+        searchFrame = Frame.createWithoutAddingModules(this, ModuleCategory.SEARCH, 0, 0, 200, 26);
         frames.add(searchFrame);
-        searchFrame.children.add(new FrameTextField(searchFrame, 24, TranslatableString.of("textfield.placeholder.find_module")));
-    }
-
-    @Override
-    public void onDisplayed() {
-        super.onDisplayed();
-        frames.forEach(frame -> {
-            frame.setOpens(frame.extended);
-            frame.setAnimProgress(0); // .startAnimation would set it to 1 for non-extended ones, but we don't want any animation for them
-        });
+        searchFrame.children.add(new FrameTextField(searchFrame, 26, TranslatableString.of("textfield.placeholder.find_module")));
     }
 
     public void repositionFramesProperly() {
@@ -70,23 +58,4 @@ public class MainClickGUI extends ClickGUI {
         }
     }
 
-    public List<FrameChild> getAllModuleTextFields() {
-        List<FrameChild> textFields = new ArrayList<>();
-        for (Frame frame : frames) {
-            textFields.addAll(frame.getAllTextFields());
-        }
-        return textFields;
-    }
-
-    public boolean isAnyTextFieldCapturing() {
-        List<FrameChild> allTextFields = getAllModuleTextFields();
-        for (FrameChild textField : allTextFields) {
-            if (textField.getClass() == FrameTextField.class) {
-                if (((FrameTextField) textField).captureKeyPresses) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 }

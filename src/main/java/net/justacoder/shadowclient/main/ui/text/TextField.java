@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 
 public class TextField {
 
-    public TextField(ShadowClientScreen screen, String defaultText, TranslatableString placeholder, Vector2f position, Vector2f size, Consumer<String> changedCallback) { // TODO also use this instead of FrameTextFields
+    public TextField(ShadowClientScreen screen, String defaultText, TranslatableString placeholder, Vector2f position, Vector2f size, Consumer<String> changedCallback) {
         screen.addTextField(this);
         this.position = position;
         this.size = size;
@@ -24,7 +24,7 @@ public class TextField {
         this.cursorPos = text.length();
     }
 
-    private boolean typing = false;
+    public boolean typing = false;
     private int cursorPos = 0;
     private String text;
     private TranslatableString placeholder;
@@ -34,6 +34,9 @@ public class TextField {
 
     public void setPosition(Vector2f position) {
         this.position = position;
+    }
+    public Vector2f getPosition() {
+        return this.position;
     }
 
     public void setSize(Vector2f size) {
@@ -45,12 +48,17 @@ public class TextField {
         this.cursorPos = text.length();
     }
 
+    public String getText() {
+        return text;
+    }
+
     public void render(DrawContext context) {
 
         context.fill((int) position.x, (int) position.y, (int) (position.x + size.x), (int) (position.y + size.y), Colors.TEXT_FIELD_BACKGROUND.color);
-        Font.renderString(context, text.isEmpty() ? placeholder.getTranslation() : text, position.x + 2, position.y + size.y / 2 - (float) Font.getHeight() / 2, text.isEmpty() ? Colors.TEXT_DISABLED.color : Colors.TEXT_NORMAL.color);
+        int textOffset = (int) ((size.y - Font.getHeight()) / 2);
+        Font.renderString(context, text.isEmpty() ? placeholder.getTranslation() : text, position.x + textOffset, position.y + size.y / 2 - (float) Font.getHeight() / 2, text.isEmpty() ? Colors.TEXT_DISABLED.color : Colors.TEXT_NORMAL.color);
         if (typing) {
-            float cursorOffset = 2 + Font.getWidth(text.substring(0, cursorPos));
+            float cursorOffset = textOffset + Font.getWidth(text.substring(0, cursorPos));
             context.fill((int) (position.x + cursorOffset), (int) (position.y + size.y / 2 - (float) Font.getHeight() / 2), (int) (position.x + cursorOffset + 1), (int) (position.y + size.y / 2 + (float) Font.getHeight() / 2), Colors.TEXT_NORMAL.color);
         }
 
@@ -120,6 +128,10 @@ public class TextField {
     }
 
     public boolean capturesKeypress(int key) {
+        return typing;
+    }
+
+    public boolean capturesKeypress() {
         return typing;
     }
 

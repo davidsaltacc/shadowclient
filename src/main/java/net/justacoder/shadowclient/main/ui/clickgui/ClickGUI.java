@@ -4,6 +4,7 @@ import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.config.ShadowClientSettings;
 import net.justacoder.shadowclient.main.render.UIRenderUtils;
 import net.justacoder.shadowclient.main.ui.ShadowClientScreen;
+import net.justacoder.shadowclient.main.util.JavaUtils;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
@@ -29,6 +30,15 @@ public class ClickGUI extends Screen implements ShadowClientScreen {
         searchingFor = "";
         searchFrame = null;
 
+    }
+
+    @Override
+    public void onDisplayed() {
+        super.onDisplayed();
+        frames.forEach(frame -> {
+            frame.setOpens(frame.extended);
+            frame.setAnimProgress(0); // .startAnimation would set it to 1 for non-extended ones, but we don't want any animation for them
+        });
     }
 
     @Override
@@ -96,17 +106,21 @@ public class ClickGUI extends Screen implements ShadowClientScreen {
 
     @Override
     public boolean shouldCloseOnEsc() {
-        return this instanceof MainClickGUI;
+        return !isAnyTextFieldCapturing() && (this instanceof MainClickGUI);
     }
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
 
-        if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
-            if (!(this instanceof MainClickGUI)) {
-                client.setScreen(ShadowClientMain.clickGui);
-            }
+        if (!isAnyTextFieldCapturing() && (this instanceof MainClickGUI)) {
+            return super.keyPressed(keyCode, scanCode, modifiers);
         }
+
+        if (keyCode == GLFW.GLFW_KEY_ESCAPE && !isAnyTextFieldCapturing() && !(this instanceof MainClickGUI)) {
+            client.setScreen(ShadowClientMain.clickGui);
+        }
+
+        boolean k = super.keyPressed(keyCode, scanCode, modifiers);
 
         for (Frame frame : frames) {
             frame.keyPressed(keyCode, scanCode, modifiers);
@@ -118,7 +132,15 @@ public class ClickGUI extends Screen implements ShadowClientScreen {
             searchingFor = ((FrameTextField) searchFrame.children.getFirst()).getText();
         }
 
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return k;
+    }
+
+    @Override
+    public boolean charTyped(char chr, int modifiers) {
+        for (Frame frame : frames) {
+            frame.charTyped(chr, modifiers);
+        }
+        return super.charTyped(chr, modifiers);
     }
 
     public List<FrameChild> getAllModuleTextFields() {
@@ -132,10 +154,8 @@ public class ClickGUI extends Screen implements ShadowClientScreen {
     public boolean isAnyTextFieldCapturing() {
         List<FrameChild> allTextFields = getAllModuleTextFields();
         for (FrameChild textField : allTextFields) {
-            if (textField.getClass() == FrameTextField.class) {
-                if (((FrameTextField) textField).captureKeyPresses) {
-                    return true;
-                }
+            if (textField.getClass() == FrameTextField.class && ((FrameTextField) textField).interceptsKeypresses()) {
+                return true;
             }
         }
         return false;

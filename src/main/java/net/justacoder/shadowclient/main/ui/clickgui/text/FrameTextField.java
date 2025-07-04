@@ -1,84 +1,70 @@
 package net.justacoder.shadowclient.main.ui.clickgui.text;
 
-import net.justacoder.shadowclient.main.ShadowClientMain;
+import net.justacoder.shadowclient.main.render.UIRenderUtils;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
-import net.justacoder.shadowclient.main.ui.font.Font;
-import net.justacoder.shadowclient.mixin.KeyBindingAccessor;
+import net.justacoder.shadowclient.main.ui.text.TextField;
+import net.justacoder.shadowclient.main.util.JavaUtils;
 import net.minecraft.client.gui.DrawContext;
-import net.justacoder.shadowclient.main.ui.Colors;
 import net.justacoder.shadowclient.main.ui.clickgui.Frame;
 import net.justacoder.shadowclient.main.ui.clickgui.FrameChild;
-import org.lwjgl.glfw.GLFW;
+import org.joml.Vector2f;
 
 public class FrameTextField extends FrameChild {
 
     private final Frame frameParent;
-    private String text;
-    private final TranslatableString placeholder;
-
-    public int offset;
-    public boolean captureKeyPresses;
+    private TextField textField;
+    private int offset;
 
     public FrameTextField(Frame parent, int offset, TranslatableString placeholder) {
         this.frameParent = parent;
         this.offset = offset;
-        this.text = "";
-        this.placeholder = placeholder;
-        captureKeyPresses = false;
+        textField = new TextField(parent.getScreen(), "", placeholder, new Vector2f(getParentFrame().x, getParentFrame().y + offset), new Vector2f(getParentFrame().width, getParentFrame().height), text -> {
+            // TODO use this properly
+        });
     }
 
     public Frame getParentFrame() {
         return frameParent;
     }
 
-    public boolean isHovered(double mouseX, double mouseY) {
-        return mouseX > getParentFrame().x && mouseX < getParentFrame().x + getParentFrame().width && mouseY > getParentFrame().y + offset && mouseY < getParentFrame().y + offset + getParentFrame().height;
-    }
-
+    @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        if (isHovered(mouseX, mouseY)) {
-            context.fill(getParentFrame().x, getParentFrame().y + offset, getParentFrame().x + getParentFrame().width, getParentFrame().y + offset + getParentFrame().height, Colors.MODULE_BUTTON_HOVERED.color);
-        } else {
-            context.fill(getParentFrame().x, getParentFrame().y + offset, getParentFrame().x + getParentFrame().width, getParentFrame().y + offset + getParentFrame().height, Colors.MODULE_BUTTON_NORMAL.color);
+        if (textField.getPosition().x != getParentFrame().x || textField.getPosition().y != getParentFrame().y + offset) {
+            textField.setPosition(new Vector2f(getParentFrame().x, getParentFrame().y + offset));
         }
-        int textOffset = (int) ((float) getParentFrame().height / 2 - (float) Font.getHeight() / 2);
-        Font.renderString(context, text.isEmpty() ? placeholder.getTranslation() : text.toLowerCase(), getParentFrame().x + textOffset, getParentFrame().y + offset + textOffset, text.isEmpty() ? Colors.TEXT_DISABLED.color : Colors.TEXT_NORMAL.color);
+        textField.render(context);
     }
 
     @Override
     public void mouseClicked(double mouseX, double mouseY, int button) {
-        captureKeyPresses = isHovered(mouseX, mouseY);
+        textField.mouseClicked(mouseX / UIRenderUtils.guiScaleFactor(), mouseY / UIRenderUtils.guiScaleFactor(), button);
     }
 
     @Override
     public void keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (captureKeyPresses) {
-            if (keyCode == GLFW.GLFW_KEY_BACKSPACE) {
-                if (!text.isEmpty()) {
-                    text = text.substring(0, text.length() - 1);
-                }
-                return;
-            }
-            if (keyCode == GLFW.GLFW_KEY_ENTER || keyCode == ((KeyBindingAccessor) ShadowClientMain.toggleGUIKeyBinding).getBoundKey().getCode() || keyCode == GLFW.GLFW_KEY_ESCAPE) {
-                captureKeyPresses = false;
-                return;
-            }
-            text += (char) keyCode;
-        }
+        textField.keyPressed(keyCode, scanCode, modifiers);
     }
 
     public String getText() {
-        return text;
+        return textField.getText();
     }
 
     public void setText(String text) {
-        this.text = text;
+        textField.setText(text);
     }
-
 
     @Override
     public int getHeight() {
         return getParentFrame().height;
+    }
+
+    public boolean interceptsKeypresses() {
+        return textField.capturesKeypress();
+    }
+
+    @Override
+    public void charTyped(char c, int mod) {
+        textField.charTyped(c, mod);
     }
 
 }

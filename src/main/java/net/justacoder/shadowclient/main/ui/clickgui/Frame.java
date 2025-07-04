@@ -3,6 +3,7 @@ package net.justacoder.shadowclient.main.ui.clickgui;
 import net.justacoder.shadowclient.main.config.ShadowClientSettings;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.ui.Colors;
+import net.justacoder.shadowclient.main.ui.ShadowClientScreen;
 import net.justacoder.shadowclient.main.ui.animation.Animatable;
 import net.justacoder.shadowclient.main.ui.font.Font;
 import net.justacoder.shadowclient.main.util.MathUtils;
@@ -41,7 +42,10 @@ public class Frame extends FrameChild implements Animatable {
 
     public static final List<Frame> allFrames = new ArrayList<>();
 
-    private Frame(ModuleCategory category, int x, int y, int width, int height) {
+    private final ShadowClientScreen screen;
+
+    private Frame(ShadowClientScreen screen, ModuleCategory category, int x, int y, int width, int height) {
+        this.screen = screen;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -92,7 +96,8 @@ public class Frame extends FrameChild implements Animatable {
         }
     }
 
-    private Frame(ModuleCategory category, int x, int y, int width, int height, boolean __) { // search
+    private Frame(ShadowClientScreen screen, ModuleCategory category, int x, int y, int width, int height, boolean __) { // search
+        this.screen = screen;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -106,12 +111,12 @@ public class Frame extends FrameChild implements Animatable {
         allFrames.add(this);
     }
 
-    public static Frame create(ModuleCategory category, int x, int y, int width, int height) {
-        return new Frame(category, x, y, width, height);
+    public static Frame create(ShadowClientScreen screen, ModuleCategory category, int x, int y, int width, int height) {
+        return new Frame(screen, category, x, y, width, height);
     }
 
-    public static Frame createWithoutAddingModules(ModuleCategory category, int x, int y, int width, int height) {
-        return new Frame(category, x, y, width, height, false);
+    public static Frame createWithoutAddingModules(ShadowClientScreen screen, ModuleCategory category, int x, int y, int width, int height) {
+        return new Frame(screen, category, x, y, width, height, false);
     }
 
     @Override
@@ -203,6 +208,15 @@ public class Frame extends FrameChild implements Animatable {
         }
     }
 
+    @Override
+    public void charTyped(char c, int mod) {
+        if (extended) {
+            for (FrameChild child : children) {
+                child.charTyped(c, mod);
+            }
+        }
+    }
+
     public boolean isHovered(double mouseX, double mouseY) {
         return mouseX > x && mouseX < x + width && mouseY > y && mouseY < y + height;
     }
@@ -258,4 +272,8 @@ public class Frame extends FrameChild implements Animatable {
 
     @Override
     public void setAnimProgressesUp(boolean up) {}
+
+    public ShadowClientScreen getScreen() {
+        return screen;
+    }
 }
