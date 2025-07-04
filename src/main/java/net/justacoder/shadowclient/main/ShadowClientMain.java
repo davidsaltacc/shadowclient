@@ -74,9 +74,6 @@ public abstract class ShadowClientMain {
             Runtime.getRuntime().addShutdownHook(new Thread(ShadowClientMain::closed));
             Config.loadConfig();
             registerAllFontSizes();
-            notification("Notification 01", "This is an example notification for testing purposes.");
-            notification("Notification 02", "This is another example notification for testing purposes.");
-            notification("Notification 03", "This is yet another example notification for testing purposes.");
         } catch (Exception e) {
             throw new RuntimeException("Error starting client: \n" + JavaUtils.stackTraceFromThrowable(e));
         }
