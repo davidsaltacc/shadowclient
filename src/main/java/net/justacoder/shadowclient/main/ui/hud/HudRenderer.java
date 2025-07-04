@@ -1,6 +1,8 @@
 package net.justacoder.shadowclient.main.ui.hud;
 
 import net.justacoder.shadowclient.main.render.UIRenderUtils;
+import net.justacoder.shadowclient.main.setting.SettingEnum;
+import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.minecraft.client.gui.DrawContext;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -56,7 +58,21 @@ public class HudRenderer {
         corner = c;
     }
 
-    public enum Corner {
-        Top_Left, Top_Right, Bottom_Left, Bottom_Right
+    public enum Corner implements SettingEnum {
+        Top_Left("name.settingenum.shadowclient.hud_corner.top_left"),
+        Top_Right("name.settingenum.shadowclient.hud_corner.top_right"),
+        Bottom_Left("name.settingenum.shadowclient.hud_corner.bottom_left"),
+        Bottom_Right("name.settingenum.shadowclient.hud_corner.bottom_right");
+
+        Corner(String key) {
+            this.name = TranslatableString.of(key);
+        }
+
+        private TranslatableString name;
+
+        @Override
+        public TranslatableString fullName() {
+            return name;
+        }
     }
 }

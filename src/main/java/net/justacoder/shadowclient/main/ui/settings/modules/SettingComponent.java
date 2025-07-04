@@ -3,6 +3,7 @@ package net.justacoder.shadowclient.main.ui.settings.modules;
 import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.render.UIRenderUtils;
 import net.justacoder.shadowclient.main.setting.Setting;
+import net.justacoder.shadowclient.main.setting.SettingEnum;
 import net.justacoder.shadowclient.main.setting.settings.*;
 import net.justacoder.shadowclient.main.ui.ShadowClientScreen;
 import net.justacoder.shadowclient.main.ui.settings.ColorSelectionScreen;
@@ -146,7 +147,7 @@ public abstract class SettingComponent {
             int nameWidth = Font.getWidth(setting.name.getTranslation() + ": ");
             Font.renderString(context, setting.name.getTranslation() + ": ", position.x, position.y + 4, Colors.TEXT_NORMAL.color);
 
-            String valueName = ((EnumSetting<?>) setting).getEnumValue().name();
+            String valueName = ((SettingEnum) ((EnumSetting<?>) setting).getEnumValue()).fullName().getTranslation();
 
             context.fill(position.x + nameWidth, position.y + 2, position.x + nameWidth + Font.getWidth(valueName) + 4, position.y + 4 + Font.getHeight() , Colors.ENUM_SETTING_BACKGROUND.color);
             Font.renderString(context, valueName, position.x + nameWidth + 2, position.y + 4, Colors.TEXT_NORMAL.color);
@@ -198,7 +199,7 @@ public abstract class SettingComponent {
 
         @Override
         public int getWidth() {
-            return Font.getWidth(setting.name + ": " + ((EnumSetting<?>) setting).getEnumValue().name());
+            return Font.getWidth(setting.name + ": " + ((SettingEnum) ((EnumSetting<?>) setting).getEnumValue()).fullName().getTranslation());
         }
 
         @Override

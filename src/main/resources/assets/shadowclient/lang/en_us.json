@@ -294,6 +294,27 @@
     "setting.module.shadowclient.nofog.sky_fog": "Remove sky fog too",
     "setting.module.shadowclient.tictactoegame.ai_starts": "AI Starts",
     "setting.module.shadowclient.tictactoegame.difficulty": "Difficulty",
-    "setting.module.shadowclient.stepup.max_distance": "Maximum Distance"
+    "setting.module.shadowclient.stepup.max_distance": "Maximum Distance",
 
+    "name.settingenum.shadowclient.corner.top_left": "Top Left",
+    "name.settingenum.shadowclient.corner.top_right": "Top Right",
+    "name.settingenum.shadowclient.corner.bottom_left": "Bottom Left",
+    "name.settingenum.shadowclient.corner.bottom_right": "Bottom Right",
+    "name.settingenum.shadowclient.packetlogger.fmode.blacklist": "Blacklist",
+    "name.settingenum.shadowclient.packetlogger.fmode.whitelist": "Whitelist",
+    "name.settingenum.shadowclient.packetlogger.mode.all": "All",
+    "name.settingenum.shadowclient.packetlogger.mode.sent": "Sent",
+    "name.settingenum.shadowclient.packetlogger.mode.received": "Received",
+    "name.settingenum.shadowclient.bunnyhop.mode.always": "Always",
+    "name.settingenum.shadowclient.bunnyhop.mode.sprinting": "Sprinting",
+    "name.settingenum.shadowclient.bunnyhop.mode.walking": "Walking",
+    "name.settingenum.shadowclient.xray.mode.all": "All",
+    "name.settingenum.shadowclient.xray.mode.ores": "Ores",
+    "name.settingenum.shadowclient.xray.mode.functional": "Functional",
+    "name.settingenum.shadowclient.xray.mode.natural": "Naturally Spawning",
+    "name.settingenum.shadowclient.xray.mode.no_ground": "No Ground Blocks",
+    "name.settingenum.shadowclient.module_sorting.creation": "Creation Order",
+    "name.settingenum.shadowclient.module_sorting.alphabetically": "Alphabetically",
+    "name.settingenum.shadowclient.module_sorting_direction.ascending": "Ascending",
+    "name.settingenum.shadowclient.module_sorting_direction.descending": "Descending"
 }

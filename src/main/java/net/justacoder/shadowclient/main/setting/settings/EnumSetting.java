@@ -1,6 +1,7 @@
 package net.justacoder.shadowclient.main.setting.settings;
 
 import net.justacoder.shadowclient.main.setting.Setting;
+import net.justacoder.shadowclient.main.setting.SettingEnum;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
 
 public class EnumSetting<E extends Enum<E>> extends Setting {
@@ -10,6 +11,9 @@ public class EnumSetting<E extends Enum<E>> extends Setting {
 
     public EnumSetting(TranslatableString name, E defaultEnumValue) {
         super(name);
+        if (!(defaultEnumValue instanceof SettingEnum)) {
+            throw new RuntimeException("Tried to create enum setting, but provided an enum that doesn't implement SettingEnum.");
+        }
         this.enumValue = defaultEnumValue;
         this.defaultValue = defaultEnumValue;
     }

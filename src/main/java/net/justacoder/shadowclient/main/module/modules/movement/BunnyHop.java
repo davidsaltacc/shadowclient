@@ -5,6 +5,7 @@ import net.justacoder.shadowclient.main.event.Event;
 import net.justacoder.shadowclient.main.event.events.PreTickEvent;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
+import net.justacoder.shadowclient.main.setting.SettingEnum;
 import net.justacoder.shadowclient.main.setting.settings.EnumSetting;
 import net.justacoder.shadowclient.main.setting.settings.NumberSetting;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
@@ -53,16 +54,19 @@ public class BunnyHop extends Module {
         return super.onDisable();
     }
 
-    public enum JumpWhen {
-        ALWAYS("Always"), SPRINTING("Sprinting"), WALKING("Walking");
+    public enum JumpWhen implements SettingEnum {
+        ALWAYS("name.settingenum.shadowclient.bunnyhop.mode.always"),
+        SPRINTING("name.settingenum.shadowclient.bunnyhop.mode.sprinting"),
+        WALKING("name.settingenum.shadowclient.bunnyhop.mode.walking");
 
-        public final String name;
-        JumpWhen(String name) {
-            this.name = name;
+        private TranslatableString fullName;
+        JumpWhen(String key) {
+            this.fullName = TranslatableString.of(key);
         }
+
         @Override
-        public String toString() {
-            return name;
+        public TranslatableString fullName() {
+            return fullName;
         }
     }
 }

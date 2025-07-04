@@ -1,6 +1,7 @@
 package net.justacoder.shadowclient.main.config;
 
 import net.justacoder.shadowclient.main.setting.Setting;
+import net.justacoder.shadowclient.main.setting.SettingEnum;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
 import net.justacoder.shadowclient.main.setting.settings.ColorSetting;
 import net.justacoder.shadowclient.main.setting.settings.EnumSetting;
@@ -52,14 +53,34 @@ public class ShadowClientSettings {
         return allSCSettings;
     }
 
-    public enum ModuleSorting {
-        CREATION_ORDER,
-        ALPHABETICAL
+    public enum ModuleSorting implements SettingEnum {
+        CREATION_ORDER("name.settingenum.shadowclient.module_sorting.creation"),
+        ALPHABETICAL("name.settingenum.shadowclient.module_sorting.alphabetically");
+
+        private TranslatableString fullName;
+        ModuleSorting(String key) {
+            this.fullName = TranslatableString.of(key);
+        }
+
+        @Override
+        public TranslatableString fullName() {
+            return fullName;
+        }
     }
 
-    public enum ModuleSortingDirection {
-        ASCENDING,
-        DESCENDING
+    public enum ModuleSortingDirection implements SettingEnum {
+        ASCENDING("name.settingenum.shadowclient.module_sorting_direction.ascending"),
+        DESCENDING("name.settingenum.shadowclient.module_sorting_direction.descending");
+
+        private TranslatableString fullName;
+        ModuleSortingDirection(String key) {
+            this.fullName = TranslatableString.of(key);
+        }
+
+        @Override
+        public TranslatableString fullName() {
+            return fullName;
+        }
     }
 
 }

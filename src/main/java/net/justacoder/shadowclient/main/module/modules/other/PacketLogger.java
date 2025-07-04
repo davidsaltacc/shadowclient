@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.module.modules.other;
 
+import net.justacoder.shadowclient.main.setting.SettingEnum;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.ui.notifications.push.PushNotification;
 import net.justacoder.shadowclient.main.ui.notifications.push.PushNotificationManager;
@@ -67,36 +68,36 @@ public class PacketLogger extends Module {
         }
     }
 
-    public enum Mode {
-        ALL("All"),
-        RECEIVED("Received"),
-        SENT("Sent");
+    public enum Mode implements SettingEnum {
+        ALL("name.settingenum.shadowclient.packetlogger.mode.all"),
+        RECEIVED("name.settingenum.shadowclient.packetlogger.mode.received"),
+        SENT("name.settingenum.shadowclient.packetlogger.mode.sent");
 
 
-        final String name;
-        Mode(String name) {
-            this.name = name;
+        private TranslatableString fullName;
+        Mode(String key) {
+            this.fullName = TranslatableString.of(key);
         }
 
         @Override
-        public String toString() {
-            return this.name;
+        public TranslatableString fullName() {
+            return fullName;
         }
     }
 
-    public enum FMode {
-        BLACKLIST("Blacklist"),
-        WHITELIST("Whitelist");
+    public enum FMode implements SettingEnum {
+        BLACKLIST("name.settingenum.shadowclient.packetlogger.fmode.blacklist"),
+        WHITELIST("name.settingenum.shadowclient.packetlogger.fmode.whitelist");
 
 
-        final String name;
-        FMode(String name) {
-            this.name = name;
+        private TranslatableString fullName;
+        FMode(String key) {
+            this.fullName = TranslatableString.of(key);
         }
 
         @Override
-        public String toString() {
-            return this.name;
+        public TranslatableString fullName() {
+            return fullName;
         }
     }
 

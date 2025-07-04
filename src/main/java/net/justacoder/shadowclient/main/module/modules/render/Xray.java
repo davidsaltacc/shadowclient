@@ -1,6 +1,7 @@
 package net.justacoder.shadowclient.main.module.modules.render;
 
 import net.justacoder.shadowclient.main.annotations.DoNotSaveState;
+import net.justacoder.shadowclient.main.setting.SettingEnum;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.util.EntityCullingFix;
 import net.justacoder.shadowclient.mixin.LightmapTextureManagerAccessor;
@@ -97,7 +98,7 @@ public class Xray extends Module {
         return Collections.binarySearch(MODE.getEnumValue().blocks, Registries.BLOCK.getId(block).toString()) >= 0;
     }
 
-    public enum Mode {
+    public enum Mode implements SettingEnum {
         All(
             new ArrayList<>(List.of(
                 "minecraft:ancient_debris", "minecraft:chest",
@@ -148,7 +149,7 @@ public class Xray extends Module {
                 "minecraft:light_gray_bed", "minecraft:cyan_bed", "minecraft:purple_bed",
                 "minecraft:blue_bed", "minecraft:brown_bed", "minecraft:green_bed",
                 "minecraft:red_bed", "minecraft:black_bed"
-            ))
+            )), "name.settingenum.shadowclient.xray.mode.all"
         ), Ores(
             new ArrayList<>(List.of(
                 "minecraft:ancient_debris", "minecraft:coal_block", "minecraft:coal_ore",
@@ -164,7 +165,7 @@ public class Xray extends Module {
                 "minecraft:raw_copper_block", "minecraft:raw_gold_block", "minecraft:raw_iron_block",
                 "minecraft:redstone_block", "minecraft:redstone_ore", "minecraft:suspicious_gravel",
                 "minecraft:suspicious_sand", "minecraft:lava", "minecraft:water"
-            ))
+            )), "name.settingenum.shadowclient.xray.mode.ores"
         ), Functional(
             new ArrayList<>(List.of(
                 "minecraft:chest", "minecraft:glowstone", "minecraft:nether_portal",
@@ -183,7 +184,7 @@ public class Xray extends Module {
                 "minecraft:light_gray_bed", "minecraft:cyan_bed", "minecraft:purple_bed",
                 "minecraft:blue_bed", "minecraft:brown_bed", "minecraft:green_bed",
                 "minecraft:red_bed", "minecraft:black_bed"
-            ))
+            )), "name.settingenum.shadowclient.xray.mode.functional"
         ), NaturallySpawning(
             new ArrayList<>(List.of(
                 "minecraft:chest", "minecraft:glowstone", "minecraft:end_portal_frame",
@@ -211,16 +212,23 @@ public class Xray extends Module {
                 "minecraft:light_gray_bed", "minecraft:cyan_bed", "minecraft:purple_bed",
                 "minecraft:blue_bed", "minecraft:brown_bed", "minecraft:green_bed",
                 "minecraft:red_bed", "minecraft:black_bed"
-            ))
+            )), "name.settingenum.shadowclient.xray.mode.natural"
         ),
         No_GroundBlocks(
-            new ArrayList<>()
+            new ArrayList<>(), "name.settingenum.shadowclient.xray.mode.no_ground"
         );
 
-        public final List<String> blocks;
+        private final List<String> blocks;
+        private TranslatableString fullName;
 
-        Mode(List<String> blocks) {
+        Mode(List<String> blocks, String key) {
             this.blocks = blocks;
+            this.fullName = TranslatableString.of(key);
+        }
+
+        @Override
+        public TranslatableString fullName() {
+            return fullName;
         }
     }
 }
