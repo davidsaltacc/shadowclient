@@ -91,11 +91,10 @@
 
 
 ## yet to do:
-* better names for enum settings. 
-* be able to change what corner the notifications appear in
+* better config saving. have each thing that has to be saved in the config, have its own methods to read and write to a string, that way we don't always have to add to Config.save and .load
+* use #c:ores & #minecraft:ores for xray! tags are a thing
 - possible that you can block with a shield and attack at the same time?
 - no mining slowdown in air or water (pretend we are on the ground, maybe?)
-* test if it is still necessary to include fabric api (i dont think so)
 - finish the tic-tac-toe thing lol
 - test blink properly, i think i didnt test it fully`
 - scrolling down on the clickgui? and sideways, ig?`
@@ -131,9 +130,6 @@
 * make more things translatable
 * breadcrumbs render only mode
 * sticky aim - decrease the mouse sensitivity when aiming near enemies
-* fix searching for settings in the client settings screen, I think it is broken (modulebutton class is the only one that has uhh the thing)
-* better module settings - dedicated screen?
-* rewrite some gui code
 * auto updater?
 * optimize light overlay with caching / just don't update every single fucking frame???
 * positionSetting (+ setHere button)
