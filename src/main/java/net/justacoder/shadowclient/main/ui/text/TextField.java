@@ -10,6 +10,8 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.StringHelper;
 import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFW;
+
+import java.util.List;
 import java.util.function.Consumer;
 
 public class TextField {
@@ -23,6 +25,18 @@ public class TextField {
         this.placeholder = placeholder;
         this.cursorPos = text.length();
     }
+
+    private static final List<Character> WHITESPACE = List.of(
+            (char) 0,
+            (char) 9,
+            (char) 10,
+            (char) 11,
+            (char) 12,
+            (char) 13,
+            (char) 32,
+            (char) 133,
+            (char) 160
+    );
 
     public boolean typing = false;
     private int cursorPos = 0;
@@ -77,18 +91,63 @@ public class TextField {
     public void keyPressed(int keyCode, int scanCode, int modifiers) {
         if (typing) {
 
-            if (modifiers == GLFW.GLFW_MOD_CONTROL) {
-                if (keyCode == GLFW.GLFW_KEY_X) {
+            if ((modifiers & GLFW.GLFW_MOD_CONTROL) != 0) {
+                if (keyCode == GLFW.GLFW_KEY_X || keyCode == GLFW.GLFW_KEY_C) {
                     MinecraftClient.getInstance().keyboard.setClipboard(text);
-                    text = "";
-                    changedCallback.accept(text);
+                    if (keyCode == GLFW.GLFW_KEY_X) {
+                        text = "";
+                        changedCallback.accept(text);
+                    }
                 } else if (keyCode == GLFW.GLFW_KEY_V) {
                     String beforeCursor = text.substring(0, cursorPos);
                     String afterCursor = text.substring(cursorPos);
                     text = beforeCursor + MinecraftClient.getInstance().keyboard.getClipboard() + afterCursor;
                     changedCallback.accept(text);
+                } else if (keyCode == GLFW.GLFW_KEY_LEFT) {
+                    int nextWhitespace = cursorPos;
+                    if (nextWhitespace > 0 && WHITESPACE.contains(text.charAt(nextWhitespace - 1))) {
+                        nextWhitespace--;
+                    }
+                    while (nextWhitespace > 0 && !WHITESPACE.contains(text.charAt(nextWhitespace - 1))) {
+                        nextWhitespace--;
+                    }
+                    cursorPos = Math.clamp(nextWhitespace, 0, text.length());
+                } else if (keyCode == GLFW.GLFW_KEY_RIGHT) {
+                    int nextWhitespace = cursorPos;
+                    if (nextWhitespace < text.length() && WHITESPACE.contains(text.charAt(nextWhitespace))) {
+                        nextWhitespace++;
+                    }
+                    while (nextWhitespace < text.length() && !WHITESPACE.contains(text.charAt(nextWhitespace))) {
+                        nextWhitespace++;
+                    }
+                    cursorPos = Math.clamp(nextWhitespace, 0, text.length());
+                } else if (keyCode == GLFW.GLFW_KEY_BACKSPACE) {
+                    int nextWhitespace = cursorPos;
+                    if (nextWhitespace > 0 && WHITESPACE.contains(text.charAt(nextWhitespace - 1))) {
+                        nextWhitespace--;
+                    }
+                    while (nextWhitespace > 0 && !WHITESPACE.contains(text.charAt(nextWhitespace - 1))) {
+                        nextWhitespace--;
+                    }
+                    String beforeWhitespace = text.substring(0, nextWhitespace);
+                    String afterCursor = text.substring(cursorPos);
+                    cursorPos = nextWhitespace;
+                    text = beforeWhitespace + afterCursor;
+                    changedCallback.accept(text);
+                } else if (keyCode == GLFW.GLFW_KEY_DELETE) {
+                    int nextWhitespace = cursorPos;
+                    if (nextWhitespace < text.length() && WHITESPACE.contains(text.charAt(nextWhitespace))) {
+                        nextWhitespace++;
+                    }
+                    while (nextWhitespace < text.length() && !WHITESPACE.contains(text.charAt(nextWhitespace))) {
+                        nextWhitespace++;
+                    }
+                    String beforeCursor = text.substring(0, cursorPos);
+                    String afterWhitespace = text.substring(nextWhitespace);
+                    text = beforeCursor + afterWhitespace;
+                    changedCallback.accept(text);
                 }
-            } else if (modifiers == 0) {
+            } else if (modifiers == 0 || (modifiers & GLFW.GLFW_MOD_SHIFT) != 0 || (modifiers & GLFW.GLFW_MOD_ALT) != 0) {
                 if (keyCode == GLFW.GLFW_KEY_LEFT) {
                     cursorPos = Math.clamp(cursorPos - 1, 0, text.length());
                 } else if (keyCode == GLFW.GLFW_KEY_RIGHT) {
