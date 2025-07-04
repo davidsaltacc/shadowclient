@@ -15,10 +15,13 @@ import net.justacoder.shadowclient.main.util.CompressionUtils;
 import net.justacoder.shadowclient.main.util.FileUtils;
 import net.justacoder.shadowclient.main.util.JavaUtils;
 import org.jetbrains.annotations.Nullable;
+
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Config {
@@ -96,6 +99,13 @@ public class Config {
             }
             if (setting instanceof StringSetting set) {
                 scsettings.addProperty(set.name.getKey(), set.stringValue());
+            }
+            if (setting instanceof ColorSetting set) {
+                scsettings.addProperty(set.name.getKey(), set.colorValue());
+            }
+            if (setting instanceof EnumSetting<?> set) {
+                scsettings.addProperty(set.name.getKey(), set.getEnumValue().name());
+                scsettings.addProperty(set.name.getKey() + "_ENUMPATH", set.getEnumValue().getClass().toString());
             }
         }
 
@@ -181,17 +191,36 @@ public class Config {
 
         if (scsettings != null) {
             scsettings.keySet().forEach(setting -> {
-                JsonPrimitive value = scsettings.getAsJsonPrimitive(setting);
+                JsonPrimitive primitive = scsettings.getAsJsonPrimitive(setting);
                 Setting settingobj = ShadowClientSettings.getSetting(setting);
                 if (settingobj != null) {
-                    if (value.isBoolean()) {
-                        ((BooleanSetting) settingobj).setBooleanValue(value.getAsBoolean());
+                    if (primitive.isBoolean()) {
+                        ((BooleanSetting) settingobj).setBooleanValue(primitive.getAsBoolean());
                     }
-                    if (value.isNumber()) {
-                        ((NumberSetting) settingobj).setNumberValue(value.getAsNumber());
+                    if (primitive.isNumber()) {
+                        if (settingobj instanceof ColorSetting cs) {
+                            cs.setColorValue(primitive.getAsInt());
+                        } else {
+                            ((NumberSetting) settingobj).setNumberValue(primitive.getAsNumber());
+                        }
                     }
-                    if (value.isString()) {
-                        ((StringSetting) settingobj).setStringValue(value.getAsString());
+                    if (primitive.isString()) {
+                        if (settingobj instanceof EnumSetting es) {
+                            String enumpath = scsettings.get(setting + "_ENUMPATH").getAsString().replace("class ", "");
+                            String enumvalue = primitive.getAsString();
+                            try {
+                                Class<?> enumClass = Class.forName(enumpath);
+                                Enum<?> enumConstant = Enum.valueOf((Class<Enum>) enumClass, enumvalue);
+                                es.shouldCallCallbacks(false);
+                                es.setEnumValue(enumConstant);
+                                es.shouldCallCallbacks(true);
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        } else {
+                            ((StringSetting) settingobj).setStringValue(primitive.getAsString());
+                        }
+
                     }
                 }
             });
