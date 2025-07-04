@@ -20,6 +20,8 @@ public class ShadowClientSettings {
     public static final ColorSetting loadingScreenBackgroundColor;
     public static final EnumSetting<ModuleSorting> moduleSorting;
     public static final EnumSetting<ModuleSortingDirection> moduleSortingDirection;
+    public static final EnumSetting<NotificationCorner> notificationCorner;
+    public static final EnumSetting<PushNotificationCorner> pushNotificationCorner;
 
     static {
         VanillaSpoof = addSetting(new BooleanSetting(TranslatableString.of("setting.shadowclient.vanillaspoof"), false));
@@ -30,6 +32,8 @@ public class ShadowClientSettings {
         addSetting(new PaddingSetting());
         moduleSorting = addSetting(new EnumSetting<>(TranslatableString.of("setting.shadowclient.module_sorting"), ModuleSorting.CREATION_ORDER));
         moduleSortingDirection = addSetting(new EnumSetting<>(TranslatableString.of("setting.shadowclient.module_sorting_direction"), ModuleSortingDirection.ASCENDING));
+        notificationCorner = addSetting(new EnumSetting<>(TranslatableString.of("setting.shadowclient.notification_corner"), NotificationCorner.Top_Left));
+        pushNotificationCorner = addSetting(new EnumSetting<>(TranslatableString.of("setting.shadowclient.push_notifis_corner"), PushNotificationCorner.Top_Left));
 
         moduleSorting.addChangeCallback((__, ___) -> Frame.allFrames.forEach(Frame::resortModules));
         moduleSortingDirection.addChangeCallback((__, ___) -> Frame.allFrames.forEach(Frame::resortModules));
@@ -80,6 +84,42 @@ public class ShadowClientSettings {
         @Override
         public TranslatableString fullName() {
             return fullName;
+        }
+    }
+
+    public enum NotificationCorner implements SettingEnum {
+        Top_Left("name.settingenum.shadowclient.corner.top_left"),
+        Top_Right("name.settingenum.shadowclient.corner.top_right"),
+        Bottom_Left("name.settingenum.shadowclient.corner.bottom_left"),
+        Bottom_Right("name.settingenum.shadowclient.corner.bottom_right");
+
+        NotificationCorner(String key) {
+            this.name = TranslatableString.of(key);
+        }
+
+        private TranslatableString name;
+
+        @Override
+        public TranslatableString fullName() {
+            return name;
+        }
+    }
+
+    public enum PushNotificationCorner implements SettingEnum {
+        Top_Left("name.settingenum.shadowclient.corner.top_left"),
+        Top_Right("name.settingenum.shadowclient.corner.top_right"),
+        Bottom_Left("name.settingenum.shadowclient.corner.bottom_left"),
+        Bottom_Right("name.settingenum.shadowclient.corner.bottom_right");
+
+        PushNotificationCorner(String key) {
+            this.name = TranslatableString.of(key);
+        }
+
+        private TranslatableString name;
+
+        @Override
+        public TranslatableString fullName() {
+            return name;
         }
     }
 

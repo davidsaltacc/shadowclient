@@ -59,10 +59,10 @@ public class HudRenderer {
     }
 
     public enum Corner implements SettingEnum {
-        Top_Left("name.settingenum.shadowclient.hud_corner.top_left"),
-        Top_Right("name.settingenum.shadowclient.hud_corner.top_right"),
-        Bottom_Left("name.settingenum.shadowclient.hud_corner.bottom_left"),
-        Bottom_Right("name.settingenum.shadowclient.hud_corner.bottom_right");
+        Top_Left("name.settingenum.shadowclient.corner.top_left"),
+        Top_Right("name.settingenum.shadowclient.corner.top_right"),
+        Bottom_Left("name.settingenum.shadowclient.corner.bottom_left"),
+        Bottom_Right("name.settingenum.shadowclient.corner.bottom_right");
 
         Corner(String key) {
             this.name = TranslatableString.of(key);

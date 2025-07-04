@@ -32,6 +32,8 @@
     "setting.shadowclient.loading_background_color": "Ladebildschirm-Hintergrundfarbe",
     "setting.shadowclient.module_sorting": "Reihenfolge der Module",
     "setting.shadowclient.module_sorting_direction": "Richtung der Sortierung der Module",
+    "setting.shadowclient.notification_corner": "Ecke der Notifikationen",
+    "setting.shadowclient.push_notifis_corner": "Ecke der Push-Notifikationan",
 
     "module.shadowclient.autosprint": "Auto Sprinten",
     "module.shadowclient.spider": "Spinne",

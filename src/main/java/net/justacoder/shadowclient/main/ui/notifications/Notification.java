@@ -21,17 +21,13 @@ public class Notification {
 
     private TranslatableString dismissText = TranslatableString.of("name.shadowclient.click_to_dismiss");
 
-    public int width = -999;
-    public int height = -999;
     public int offX;
     public int offY;
 
     public Notification(String title, List<String> desc) {
         this.title = TranslatableString.of(title);
         this.desc = new ArrayList<>();
-        desc.forEach(s -> {
-            this.desc.add(TranslatableString.of(s));
-        });
+        desc.forEach(s -> this.desc.add(TranslatableString.of(s)));
         this.mc = ShadowClientMain.mc;
     }
     public Notification(String title, String desc) {
@@ -42,7 +38,6 @@ public class Notification {
     }
 
     public void onReloadTranslations() {
-        width = -999;
         getWidth();
     }
 
@@ -65,18 +60,12 @@ public class Notification {
     }
 
     public int getHeight() {
-        if (height == -999) {
-            height = 30 + Font.getHeight() + (Font.getHeight() + 20) * desc.size();
-        }
-        return height;
+        return 50 + Font.getHeight() * 2 + (Font.getHeight() + 10) * desc.size();
     }
     public int getWidth() {
-        if (width == -999) {
-            int[] longest = {Math.max(Font.getWidth(dismissText), Font.getWidth(title)) };
-            desc.forEach(line -> longest[0] = Math.max(Font.getWidth(line), longest[0]));
-            width = longest[0] + 20;
-        }
-        return width;
+        int[] longest = {Math.max(Font.getWidth(dismissText), Font.getWidth(title)) };
+        desc.forEach(line -> longest[0] = Math.max(Font.getWidth(line), longest[0]));
+        return longest[0] + 20;
     }
 
     public boolean isHovered(int mouseX, int mouseY, int offsetX, int offsetY) {
