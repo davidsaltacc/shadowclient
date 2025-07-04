@@ -3,11 +3,11 @@ package net.justacoder.shadowclient.main.ui.clickgui.text;
 import net.justacoder.shadowclient.main.render.UIRenderUtils;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.ui.text.TextField;
-import net.justacoder.shadowclient.main.util.JavaUtils;
 import net.minecraft.client.gui.DrawContext;
 import net.justacoder.shadowclient.main.ui.clickgui.Frame;
 import net.justacoder.shadowclient.main.ui.clickgui.FrameChild;
 import org.joml.Vector2f;
+import java.util.function.Consumer;
 
 public class FrameTextField extends FrameChild {
 
@@ -15,12 +15,10 @@ public class FrameTextField extends FrameChild {
     private TextField textField;
     private int offset;
 
-    public FrameTextField(Frame parent, int offset, TranslatableString placeholder) {
+    public FrameTextField(Frame parent, int offset, TranslatableString placeholder, Consumer<String> changeCallback) {
         this.frameParent = parent;
         this.offset = offset;
-        textField = new TextField(parent.getScreen(), "", placeholder, new Vector2f(getParentFrame().x, getParentFrame().y + offset), new Vector2f(getParentFrame().width, getParentFrame().height), text -> {
-            // TODO use this properly
-        });
+        textField = new TextField(parent.getScreen(), "", placeholder, new Vector2f(getParentFrame().x, getParentFrame().y + offset), new Vector2f(getParentFrame().width, getParentFrame().height), changeCallback);
     }
 
     public Frame getParentFrame() {
@@ -65,6 +63,10 @@ public class FrameTextField extends FrameChild {
     @Override
     public void charTyped(char c, int mod) {
         textField.charTyped(c, mod);
+    }
+
+    public boolean isTyping() {
+        return textField.typing;
     }
 
 }

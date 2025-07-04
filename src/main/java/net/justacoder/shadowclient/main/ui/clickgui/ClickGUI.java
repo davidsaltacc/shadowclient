@@ -4,13 +4,11 @@ import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.config.ShadowClientSettings;
 import net.justacoder.shadowclient.main.render.UIRenderUtils;
 import net.justacoder.shadowclient.main.ui.ShadowClientScreen;
-import net.justacoder.shadowclient.main.util.JavaUtils;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import net.justacoder.shadowclient.main.ui.clickgui.text.FrameTextField;
 import org.lwjgl.glfw.GLFW;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +27,16 @@ public class ClickGUI extends Screen implements ShadowClientScreen {
         searching = false;
         searchingFor = "";
         searchFrame = null;
+
+    }
+
+    protected void searchChanged(String search) {
+
+        searching = !search.isEmpty();
+
+        if (searching) {
+            searchingFor = search;
+        }
 
     }
 
@@ -124,12 +132,6 @@ public class ClickGUI extends Screen implements ShadowClientScreen {
 
         for (Frame frame : frames) {
             frame.keyPressed(keyCode, scanCode, modifiers);
-        }
-
-        searching = !((FrameTextField) searchFrame.children.getFirst()).getText().isEmpty();
-
-        if (searching) {
-            searchingFor = ((FrameTextField) searchFrame.children.getFirst()).getText();
         }
 
         return k;
