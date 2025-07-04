@@ -27,6 +27,7 @@ public class FontTextureAtlas {
     private int currentY = 0;
     private int lineHeight = 0;
 
+    private boolean initialized = false;
     private long ftLibrary;
     private ByteBuffer fontBuffer;
     private FT_Face face;
@@ -49,6 +50,8 @@ public class FontTextureAtlas {
         FT_Done_Face(face);
         FT_Done_FreeType(ftLibrary);
         MemoryUtil.memFree(fontBuffer);
+
+        initialized = true;
 
     }
 
@@ -81,7 +84,11 @@ public class FontTextureAtlas {
     }
 
     public Glyph getGlyph(char c) {
-        return glyphMap.computeIfAbsent(c, this::createGlyph);
+        if (!initialized) {
+            return glyphMap.computeIfAbsent(c, this::createGlyph);
+        } else {
+            return glyphMap.getOrDefault(c, glyphMap.get((char) 0));
+        }
     }
 
     private Glyph createGlyph(char c) {
