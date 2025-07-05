@@ -50,6 +50,11 @@
 * compressed config file (unnecessary? yes. do I do it anyway? yes)
 * shadowclient settings are now in a setting screen
 * loading screen background color is configurable now
+* a few ui animations
+* added an actual icon, may or may not use in more places in the future
+* improved, now way better text input fields,
+* memory usage in shadowhud
+* add option to sort modules in clickGUI
 
 ### fixes:
 * fixed a lot of ui related bugs
@@ -72,7 +77,6 @@
 * fix module descriptions sometimes rendering underneath module buttons
 * fix modules going off-screen on small screens
 * update trajectories to treat water like a solid block for the fishing rod
-* fix a crash with meteor (if you for some reason were to use them together)
 * vanilla spoof also now doesn't change the window name
 * fix setting change callbacks not being called if the set value exceeded the maximum
 * fix shadowhud showing the saturation with floating point errors
