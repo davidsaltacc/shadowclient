@@ -1,12 +1,13 @@
 package net.justacoder.shadowclient.main.setting;
 
+import net.justacoder.shadowclient.main.config.ConfigSaveable;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public abstract class Setting {
+public abstract class Setting implements ConfigSaveable {
 
     public final TranslatableString name;
 

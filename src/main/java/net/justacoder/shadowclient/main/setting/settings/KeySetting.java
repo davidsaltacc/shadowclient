@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.setting.settings;
 
+import com.google.gson.JsonObject;
 import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
@@ -32,4 +33,12 @@ public class KeySetting extends Setting {
     public void reset() {
         setKeyValue(keyBinding.getDefaultKey().getCode());
     }
+
+    @Override
+    public JsonObject writeConfig() {
+        return null;
+    }
+
+    @Override
+    public void readConfig(JsonObject in) {}
 }

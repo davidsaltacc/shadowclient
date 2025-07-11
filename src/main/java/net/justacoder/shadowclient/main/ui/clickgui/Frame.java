@@ -1,5 +1,7 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
+import com.google.gson.JsonObject;
+import net.justacoder.shadowclient.main.config.ConfigSaveable;
 import net.justacoder.shadowclient.main.config.ShadowClientSettings;
 import net.justacoder.shadowclient.main.module.Module;
 import net.justacoder.shadowclient.main.ui.Colors;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Frame extends FrameChild implements Animatable {
+public class Frame extends FrameChild implements Animatable, ConfigSaveable {
 
     public int x;
     public int y;
@@ -275,5 +277,21 @@ public class Frame extends FrameChild implements Animatable {
 
     public ShadowClientScreen getScreen() {
         return screen;
+    }
+
+    @Override
+    public JsonObject writeConfig() {
+        JsonObject object = new JsonObject();
+        object.addProperty("x", x);
+        object.addProperty("y", y);
+        object.addProperty("open", extended);
+        return object;
+    }
+
+    @Override
+    public void readConfig(JsonObject in) {
+        x = in.get("x").getAsInt();
+        y = in.get("y").getAsInt();
+        extended = in.get("open").getAsBoolean();
     }
 }

@@ -1,9 +1,11 @@
 package net.justacoder.shadowclient.main.setting.settings;
 
+import com.google.gson.JsonObject;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.SettingEnum;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
 
+@SuppressWarnings("unchecked")
 public class EnumSetting<E extends Enum<E>> extends Setting {
 
     private E enumValue;
@@ -30,5 +32,17 @@ public class EnumSetting<E extends Enum<E>> extends Setting {
     @Override
     public void reset() {
         setEnumValue(defaultValue);
+    }
+
+    @Override
+    public JsonObject writeConfig() {
+        JsonObject object = new JsonObject();
+        object.addProperty("value", enumValue.name());
+        return object;
+    }
+
+    @Override
+    public void readConfig(JsonObject in) {
+        enumValue = (E) Enum.valueOf(enumValue.getClass(), in.get("value").getAsString());
     }
 }

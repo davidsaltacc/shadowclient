@@ -80,7 +80,7 @@
 * vanilla spoof also now doesn't change the window name
 * fix setting change callbacks not being called if the set value exceeded the maximum
 * fix shadowhud showing the saturation with floating point errors
-* others
+* better config saving
 
 ### other misc. changes:
 * made clickgui independent of the gui scale
@@ -95,7 +95,6 @@
 
 
 ## yet to do:
-* better config saving. have each thing that has to be saved in the config, have its own methods to read and write to a string, that way we don't always have to add to Config.save and .load
 * use #c:ores & #minecraft:ores for xray! tags are a thing
 - possible that you can block with a shield and attack at the same time?
 - no mining slowdown in air or water (pretend we are on the ground, maybe?)

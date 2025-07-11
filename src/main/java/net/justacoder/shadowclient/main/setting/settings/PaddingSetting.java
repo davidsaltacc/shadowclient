@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.setting.settings;
 
+import com.google.gson.JsonObject;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
 
@@ -10,5 +11,14 @@ public class PaddingSetting extends Setting {
 
     @Override
     public void reset() {}
+
+    @Override
+    public JsonObject writeConfig() {
+        return null;
+    }
+
+    @Override
+    public void readConfig(JsonObject in) {}
+
     // TODO yeah we are going to need to make a better system for registering a setting UI. what the fuck do you mean "padding setting" (empty setting that adds padding)??????????
 }

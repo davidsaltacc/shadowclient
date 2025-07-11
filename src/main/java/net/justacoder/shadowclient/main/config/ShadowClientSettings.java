@@ -1,5 +1,8 @@
 package net.justacoder.shadowclient.main.config;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.setting.SettingEnum;
 import net.justacoder.shadowclient.main.setting.settings.BooleanSetting;
@@ -12,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ShadowClientSettings {
+public class ShadowClientSettings implements ConfigSaveable {
 
     public static final BooleanSetting VanillaSpoof;
     public static final BooleanSetting ChatMessages;
@@ -55,6 +58,33 @@ public class ShadowClientSettings {
 
     public static Map<String, Setting> getAllSCSettings() {
         return allSCSettings;
+    }
+
+    public static ShadowClientSettings getInstance() {
+        return INSTANCE;
+    }
+
+    public static final ShadowClientSettings INSTANCE = new ShadowClientSettings();
+
+    @Override
+    public JsonObject writeConfig() {
+        JsonObject object = new JsonObject();
+        allSCSettings.forEach((name, setting) -> object.add(name, setting.writeConfig()));
+        return object;
+    }
+
+    @Override
+    public void readConfig(JsonObject in) {
+        allSCSettings.forEach((name, setting) -> {
+            try {
+                JsonElement element = in.get(name);
+                if (element != null) {
+                    setting.readConfig(element.getAsJsonObject());
+                }
+            } catch (Exception e) {
+                ShadowClientMain.error("Failed to read config for setting " + name + ": " + e);
+            }
+        });
     }
 
     public enum ModuleSorting implements SettingEnum {

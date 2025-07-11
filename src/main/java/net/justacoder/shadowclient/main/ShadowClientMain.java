@@ -46,8 +46,6 @@ public abstract class ShadowClientMain {
     public static final MinecraftClient mc = MinecraftClient.getInstance();
     public static final Logger logger = LoggerFactory.getLogger(CLIENT_NAME);
 
-    public static boolean configDeleted = false;
-
     public static final List<KeyBinding> keyBindings = new ArrayList<>();
     public static final List<KeyBinding> moduleKeyBindings = new ArrayList<>();
 
@@ -81,9 +79,7 @@ public abstract class ShadowClientMain {
 
     public static void closed() {
         Thread.currentThread().setName("ShadowClient Shutdown");
-        if (!configDeleted) {
-            Config.saveConfig();
-        }
+        Config.saveConfig();
     }
 
     public static void registerAllFontSizes() {

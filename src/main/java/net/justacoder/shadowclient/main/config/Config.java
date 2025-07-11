@@ -46,6 +46,101 @@ public class Config {
         ShadowClientMain.info("Saving config");
 
         JsonObject json = new JsonObject();
+
+        JsonObject modules = new JsonObject();
+        JsonObject clientData = new JsonObject();
+
+        ModuleManager.getAllModules().forEach((name, module) -> modules.add(name, module.writeConfig()));
+
+        clientData.addProperty("version", ShadowClientMain.CLIENT_VERSION);
+
+        JsonObject shadowClientSettings = ShadowClientSettings.getInstance().writeConfig();
+
+        JsonObject gui = ShadowClientMain.clickGui.writeConfig();
+
+        json.add("modules", modules);
+        json.add("client", clientData);
+        json.add("settings", shadowClientSettings);
+        json.add("clickgui", gui);
+
+        Gson gson = new GsonBuilder().create();
+        String out = gson.toJson(json);
+
+        try {
+            byte[] compressed = CompressionUtils.compressGZIP(out);
+            FileUtils.writeFile(getConfigFile(), compressed);
+            FileUtils.removeFile(getOldConfigFile());
+        } catch (IOException e) {
+            ShadowClientMain.info("Failed to compress config, saving in old uncompressed format.");
+            FileUtils.writeFile(getOldConfigFile(), out);
+        }
+
+    }
+
+    public static void loadConfig() {
+
+        String text;
+        byte[] contents = FileUtils.readFileBytes(getConfigFile());
+
+        if (contents == null) {
+            text = FileUtils.readFile(getOldConfigFile());
+            if (text == null) {
+                ShadowClientMain.info("Failed to find config file, creating new one.");
+                saveConfig();
+                return;
+            }
+        } else {
+            try {
+                text = CompressionUtils.decompressGZIP(contents);
+            } catch (IOException e) {
+                ShadowClientMain.info("Failed to read config file, resetting.");
+                saveConfig();
+                return;
+            }
+        }
+
+        JsonObject json = (new Gson()).fromJson(text, JsonObject.class);
+        JsonObject clientData = json.getAsJsonObject("client");
+        String version = clientData.get("version").getAsString();
+
+        if (!version.equals(ShadowClientMain.CLIENT_VERSION)) {
+            ShadowClientMain.warn("Config version " + version + " does not match current version " + ShadowClientMain.CLIENT_VERSION);
+            if (ShadowClientMain.CLIENT_VERSION.equals("0.3.0")) {
+                ShadowClientMain.warn("Upgrade to 0.3.0 detected, resetting config to avoid issues.");
+                saveConfig();
+                return;
+            }
+        }
+
+        JsonObject modules = json.getAsJsonObject("modules");
+        JsonObject shadowClientSettings = json.getAsJsonObject("settings");
+        JsonObject gui = json.getAsJsonObject("clickgui");
+
+        ModuleManager.getAllModules().forEach((name, module) -> {
+            try {
+                module.readConfig(modules.get(name).getAsJsonObject());
+            } catch (Exception e) {
+                ShadowClientMain.error("Failed to read config for module " + module.name.getKey() + ": " + e);
+            }
+        });
+
+        ShadowClientSettings.getInstance().readConfig(shadowClientSettings);
+
+        ShadowClientMain.clickGui.readConfig(gui);
+
+        configLoaded = true;
+
+    }
+
+    public static void saveConfigOld() {
+
+        if (!ShadowClientMain.mayWriteConfig) {
+            return;
+        }
+
+        ShadowClientMain.info("Saving config");
+
+        JsonObject json = new JsonObject();
         JsonObject modulescontainer = new JsonObject();
         JsonObject clientdata = new JsonObject();
         JsonObject scsettings = new JsonObject();
@@ -111,7 +206,6 @@ public class Config {
 
         JsonObject uiframes = new JsonObject();
         JsonObject mainuiframe = new JsonObject();
-        JsonObject settingsframe = new JsonObject();
 
         List<Frame> mainuiframes = new ArrayList<>(ShadowClientMain.clickGui.frames);
         mainuiframes.add(ShadowClientMain.clickGui.searchFrame);
@@ -124,7 +218,6 @@ public class Config {
         });
 
         uiframes.add("main", mainuiframe);
-        uiframes.add("settings", settingsframe);
         uisettings.add("frames", uiframes);
         json.add("client", clientdata);
         json.add("settings", scsettings);
@@ -145,7 +238,7 @@ public class Config {
     }
 
     @SuppressWarnings("unchecked")
-    public static void loadConfig() {
+    public static void loadConfigOld() {
 
         String text;
         byte[] contents = FileUtils.readFileBytes(getConfigFile());
@@ -317,14 +410,6 @@ public class Config {
         }
 
         configLoaded = true;
-    }
-
-    public static void resetConfig() {
-        if (getConfigFile().delete()) {
-            ShadowClientMain.configDeleted = true;
-        } else {
-            ShadowClientMain.error("Failed to delete config file.");
-        }
     }
 
 }

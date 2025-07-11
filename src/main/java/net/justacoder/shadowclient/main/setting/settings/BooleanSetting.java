@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.setting.settings;
 
+import com.google.gson.JsonObject;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
 
@@ -33,5 +34,17 @@ public class BooleanSetting extends Setting {
     @Override
     public void reset() {
         setBooleanValue(defaultValue);
+    }
+
+    @Override
+    public JsonObject writeConfig() {
+        JsonObject object = new JsonObject();
+        object.addProperty("value", boolValue);
+        return object;
+    }
+
+    @Override
+    public void readConfig(JsonObject in) {
+        boolValue = in.get("value").getAsBoolean();
     }
 }

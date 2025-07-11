@@ -1,12 +1,15 @@
 package net.justacoder.shadowclient.main.ui.clickgui;
 
+import com.google.gson.JsonObject;
+import net.justacoder.shadowclient.main.ShadowClientMain;
+import net.justacoder.shadowclient.main.config.ConfigSaveable;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.minecraft.client.MinecraftClient;
 import net.justacoder.shadowclient.main.module.ModuleCategory;
 import net.justacoder.shadowclient.main.ui.clickgui.text.FrameTextField;
 import java.util.Arrays;
 
-public class MainClickGUI extends ClickGUI {
+public class MainClickGUI extends ClickGUI implements ConfigSaveable {
 
     public final MinecraftClient mc = MinecraftClient.getInstance();
 
@@ -58,4 +61,23 @@ public class MainClickGUI extends ClickGUI {
         }
     }
 
+    @Override
+    public JsonObject writeConfig() {
+        JsonObject object = new JsonObject();
+        JsonObject frames = new JsonObject();
+        this.frames.forEach(frame -> frames.add(frame.category.id, frame.writeConfig()));
+        object.add("frames", frames);
+        return object;
+    }
+
+    @Override
+    public void readConfig(JsonObject in) {
+        this.frames.forEach(frame -> {
+            try {
+                frame.readConfig(in.get("frames").getAsJsonObject().get(frame.category.id).getAsJsonObject());
+            } catch (Exception e) {
+                ShadowClientMain.error("Failed to read config for ClickGUI frame " + frame.category.id + ": " + e);
+            }
+        });
+    }
 }

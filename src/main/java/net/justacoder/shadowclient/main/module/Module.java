@@ -1,6 +1,11 @@
 package net.justacoder.shadowclient.main.module;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import net.justacoder.shadowclient.main.annotations.DoNotSaveState;
 import net.justacoder.shadowclient.main.annotations.NoChatMessages;
+import net.justacoder.shadowclient.main.config.ConfigSaveable;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
 import net.justacoder.shadowclient.main.ui.settings.modules.SettingsScreen;
 import net.minecraft.client.MinecraftClient;
@@ -14,7 +19,7 @@ import net.justacoder.shadowclient.main.ui.clickgui.ModuleButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Module {
+public abstract class Module implements ConfigSaveable {
 
     public final ModuleCategory category;
     public final String moduleId;
@@ -134,4 +139,32 @@ public abstract class Module {
 
     public void postInit() {}
 
+    @Override
+    public JsonObject writeConfig() {
+        JsonObject object = new JsonObject();
+        if (!this.getClass().isAnnotationPresent(DoNotSaveState.class)) {
+            object.addProperty("enabled", enabled);
+        }
+        JsonObject settingsJson = new JsonObject();
+        settings.forEach(setting -> settingsJson.add(setting.name.getKey(), setting.writeConfig()));
+        object.add("settings", settingsJson);
+        return object;
+    }
+
+    @Override
+    public void readConfig(JsonObject in) {
+        if (!this.getClass().isAnnotationPresent(OneClick.class) && !this.getClass().isAnnotationPresent(DoNotSaveState.class)) {
+            ShadowClientMain.setModuleEnabled(moduleId, in.get("enabled").getAsBoolean(), true, false);
+        }
+        settings.forEach(setting -> {
+            try {
+                JsonElement el = in.get("settings").getAsJsonObject().get(setting.name.getKey());
+                if (el != null) {
+                    setting.readConfig(el.getAsJsonObject());
+                }
+            } catch (Exception e) {
+                ShadowClientMain.error("Failed to read config for setting " + setting.name.getKey() + ": " + e);
+            }
+        });
+    }
 }

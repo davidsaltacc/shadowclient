@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.setting.settings;
 
+import com.google.gson.JsonObject;
 import net.justacoder.shadowclient.main.ShadowClientMain;
 import net.justacoder.shadowclient.main.setting.Setting;
 import net.justacoder.shadowclient.main.translations.TranslatableString;
@@ -127,5 +128,17 @@ public class NumberSetting extends Setting {
     @Override
     public void reset() {
         setNumberValue(defaultValue);
+    }
+
+    @Override
+    public JsonObject writeConfig() {
+        JsonObject object = new JsonObject();
+        object.addProperty("value", value);
+        return object;
+    }
+
+    @Override
+    public void readConfig(JsonObject in) {
+        value = in.get("value").getAsNumber();
     }
 }
