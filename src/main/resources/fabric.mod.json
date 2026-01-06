@@ -1,35 +1,35 @@
 {
-	"schemaVersion": 1,
-	"id": "shadowclient",
-	"version": "${version}",
-	"name": "ShadowClient",
-	"description": "utility and cheat thing for block game",
-	"authors": [
-		"justacoder"
-	],
-	"license": "MIT License",
-	"icon": "assets/shadowclient/icon.png",
-	"environment": "client",
-	"entrypoints": {
-		"client": [
-			"net.justacoder.shadowclient.fabric.FabricInitializer"
-		]
-	},
-	"mixins": [
-		{
-			"config": "shadowclient.mixins.json",
-			"environment": "client"
-		}
-	],
-	"accessWidener" : "shadowclient.accesswidener",
-	"depends": {
-		"fabricloader": ">=0.16",
-		"minecraft": "1.21.4",
-		"java": ">=21"
-	},
-	"breaks": {
-		"wurst": "*",
-		"meteor-client": "*",
-		"optifabric": "*"
-	}
+  "schemaVersion": 1,
+  "id": "${id}",
+  "version": "${version}",
+  "name": "${name}",
+  "description": "cheat thing for block game i think",
+  "authors": [
+    "justacoder"
+  ],
+  "license": "GPLv3",
+  "icon": "assets/shadowclient/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.justacoder.shadowclient.fabric.FabricLaunch"
+    ]
+  },
+  "mixins": [
+    {
+      "config": "shadowclient.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "accessWidener": "shadowclient.accesswidener",
+  "depends": {
+    "fabricloader": ">=0.15",
+    "minecraft": "${minecraft}",
+    "java": ">=21"
+  },
+  "breaks": {
+    "wurst": "*",
+    "meteor-client": "*",
+    "optifabric": "*"
+  }
 }
