@@ -85,6 +85,15 @@ tasks {
         into(rootProject.layout.buildDirectory.file("libs/${project.property("mod.version")}"))
         dependsOn("build")
     }
+
+    jar {
+        manifest {
+            attributes(
+                "Main-Class" to "net.justacoder.shadowclient.main.InitializationPoints"
+            )
+        }
+    }
+
 }
 
 /*

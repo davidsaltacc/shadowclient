@@ -1,10 +1,12 @@
 {
-  "required": true,
-  "package": "net.justacoder.shadowclient.mixin",
-  "compatibilityLevel": "${java}",
-  "client": [
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+    "required": true,
+    "package": "net.justacoder.shadowclient.mixin",
+    "compatibilityLevel": "${java}",
+    "client": [
+        "KeyboardMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "plugin": "net.justacoder.shadowclient.mixin.plugin.SCMixinPlugin"
 }

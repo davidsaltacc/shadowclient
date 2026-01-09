@@ -1,7 +1,10 @@
 # shadowclient 0.3.0 changelog
 
+## full rewrite
+* it was a mess, it had to be done
+
 ### version change
-* moved to minecraft 1.21.4
+* moved to minecraft 1.21.11
 
 ### newly added modules:
 * wall interact

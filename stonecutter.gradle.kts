@@ -1,6 +1,6 @@
 plugins {
     id("dev.kikugie.stonecutter")
-    id("fabric-loom") version "1.13-SNAPSHOT" apply false
+    id("fabric-loom") version "1.14-SNAPSHOT" apply false
     // id("me.modmuss50.mod-publish-plugin") version "1.0.+" apply false
 }
 
@@ -17,6 +17,7 @@ stonecutter tasks {
 // See https://stonecutter.kikugie.dev/wiki/config/params
 stonecutter parameters {
     swaps["mod_version"] = "\"" + property("mod.version") + "\";"
+    swaps["mod_name"] = "\"" + property("mod.name") + "\";"
     swaps["minecraft"] = "\"" + node.metadata.version + "\";"
     constants["release"] = property("mod.id") != "template"
     dependencies["fapi"] = node.project.property("deps.fabric_api") as String
