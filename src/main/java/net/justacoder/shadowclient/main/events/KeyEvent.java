@@ -1,29 +1,31 @@
 package net.justacoder.shadowclient.main.events;
 
+import net.justacoder.shadowclient.main.keybinds.Key;
+
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
 
-public class KeyEvent extends Event {
+public class KeyEvent implements Event {
 
-    public final int keyCode;
-    public final int scanCode;
+    public final Key key;
     public final int action;
-    public final int modifiers;
 
     public KeyEvent(int keyCode, int scanCode, int action, int modifiers) {
-        this.keyCode = keyCode;
-        this.scanCode = scanCode;
+        this.key = new Key(keyCode, scanCode, modifiers);
         this.action = action;
-        this.modifiers = modifiers;
     }
 
+    // --------- copy paste below part into any new event ---------
     private static final CopyOnWriteArrayList<Consumer<KeyEvent>> listeners = new CopyOnWriteArrayList<>();
-
     public static void subscribe(Consumer<KeyEvent> l) {
         listeners.add(l);
     }
-
+    private boolean fired = false;
     public final KeyEvent fire() {
+        if (fired) {
+            throw new RuntimeException("Tried to fire event that was already fired");
+        }
+        fired = true;
         for (var l : listeners) {
             l.accept(this);
         }

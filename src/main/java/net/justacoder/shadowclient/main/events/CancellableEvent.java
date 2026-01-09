@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.main.events;
 
-public abstract class CancellableEvent extends Event {
+public abstract class CancellableEvent implements Event {
 
     private boolean cancelled = false;
 
