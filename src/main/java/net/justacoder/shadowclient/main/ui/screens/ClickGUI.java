@@ -26,7 +26,7 @@ public class ClickGUI extends Screen implements JsonSerializableUiElement {
     @Override
     protected void applyBlur(DrawContext context) {
         if (HopefullyLaterConfigurableSettings.BLUR_BACKGROUND) {
-            applyBlur(context);
+            super.applyBlur(context);
         }
     }
 
