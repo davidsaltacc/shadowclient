@@ -3,7 +3,8 @@
     "package": "net.justacoder.shadowclient.mixin",
     "compatibilityLevel": "${java}",
     "client": [
-        "KeyboardMixin"
+        "KeyboardMixin",
+        "MinecraftClientMixin"
     ],
     "injectors": {
         "defaultRequire": 1

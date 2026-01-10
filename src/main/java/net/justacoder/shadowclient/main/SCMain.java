@@ -29,7 +29,7 @@ public abstract class SCMain {
                 if (mc.currentScreen instanceof ClickGUI) {
                     mc.setScreen(null);
                 } else {
-                    mc.setScreen(new ClickGUI(Text.of("ShadowClient ClickGUI"))); // TODO later actually make method that constructs the ClickGUI with all the modules etc
+                    mc.setScreen(new ClickGUI(Text.of("ShadowClient ClickGUI"), "clickgui-main")); // TODO later actually make method that constructs the ClickGUI with all the modules etc
                 }
             }
         });
