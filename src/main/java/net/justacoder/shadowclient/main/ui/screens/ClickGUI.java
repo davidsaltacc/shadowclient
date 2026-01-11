@@ -5,6 +5,7 @@ import net.justacoder.shadowclient.main.HopefullyLaterConfigurableSettings;
 import net.justacoder.shadowclient.main.ui.JsonSerializableUiElement;
 import net.justacoder.shadowclient.main.ui.parts.ClickGUIFrame;
 import net.justacoder.shadowclient.main.util.UiRenderUtils;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
@@ -21,6 +22,11 @@ public class ClickGUI extends Screen implements JsonSerializableUiElement {
         super(title);
         this.id = id;
         this.frames = frames;
+    }
+
+    @Override
+    public boolean shouldPause() {
+        return false;
     }
 
     @Override
@@ -52,6 +58,22 @@ public class ClickGUI extends Screen implements JsonSerializableUiElement {
         frames.forEach(frame -> frame.render(context, mouseX, mouseY, deltaTicks));
         UiRenderUtils.afterUIRender(context);
 
+    }
+
+    @Override
+    public boolean mouseClicked(Click click, boolean doubled) {
+
+        float disableScaleFactor = UiRenderUtils.guiScaleFactor();
+
+        Click scaledClick = new Click(
+                click.x() * disableScaleFactor,
+                click.y() * disableScaleFactor,
+                click.buttonInfo()
+        );
+
+        frames.forEach(frame -> frame.mouseClicked(scaledClick, doubled));
+
+        return super.mouseClicked(click, doubled);
     }
 
     @Override

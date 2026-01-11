@@ -1,22 +1,41 @@
 package net.justacoder.shadowclient.main.ui.parts;
 
 import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.ui.ClickableUiElement;
 import net.justacoder.shadowclient.main.ui.DrawableUiElement;
 import net.justacoder.shadowclient.main.ui.JsonSerializableUiElement;
 import net.minecraft.client.gui.DrawContext;
-import org.jspecify.annotations.NonNull;
+import org.jetbrains.annotations.NotNull;
 
-public abstract class AbstractClickGUIFrameChild implements JsonSerializableUiElement, DrawableUiElement {
+public abstract class AbstractClickGUIFrameChild implements JsonSerializableUiElement, DrawableUiElement, ClickableUiElement {
 
     private final String id;
+    protected ClickGUIFrame parent;
+    private int offsetY;
 
     protected AbstractClickGUIFrameChild(String id) {
         this.id = id;
     }
 
+    public void setParent(ClickGUIFrame parent) {
+        this.parent = parent;
+    }
+
+    public void setOffsetY(int offsetY) { // offset from the parent frame (from the lower edge outwards)
+        this.offsetY = offsetY;
+    }
+
     @Override
-    public @NonNull String getId() {
+    public @NotNull String getId() {
         return id;
+    }
+
+    public boolean isHovered(int mouseX, int mouseY) {
+        return
+                mouseX > parent.getX() &&
+                mouseX < parent.getX() + parent.getWidth() &&
+                mouseY > parent.getY() + parent.getHeight() + offsetY &&
+                mouseY < parent.getY() + parent.getHeight() + offsetY + this.getHeight();
     }
 
     @Override
@@ -26,7 +45,7 @@ public abstract class AbstractClickGUIFrameChild implements JsonSerializableUiEl
         render(context, 0, 0, mouseX, mouseY, deltaTicks);
     }
 
-    public abstract void render(DrawContext context, int posX, int posY, int scaledMouseX, int scaledMouseY, float deltaTicks);
+    public abstract void render(DrawContext context, int posX, int posY, int mouseX, int mouseY, float deltaTicks);
 
     public abstract int getHeight();
 

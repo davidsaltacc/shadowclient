@@ -4,16 +4,18 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import net.justacoder.shadowclient.main.render.font.Font;
 import net.justacoder.shadowclient.main.translation.TranslatableString;
+import net.justacoder.shadowclient.main.ui.ClickableUiElement;
 import net.justacoder.shadowclient.main.ui.Colors;
 import net.justacoder.shadowclient.main.ui.DrawableUiElement;
 import net.justacoder.shadowclient.main.ui.JsonSerializableUiElement;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 // TODO only a ClickGUIFrame can be placed inside a clickgui, and any AbstractClickGUIFrameChild can be put under a ClickGUIFrame
-public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiElement {
+public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiElement, ClickableUiElement {
 
     private final String id;
     private final TranslatableString name;
@@ -33,6 +35,16 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
         this.width = width;
         this.height = height;
         this.children = children;
+        this.children.forEach(child -> child.setParent(this));
+        updateChildren();
+    }
+
+    public void updateChildren() { // update stuff like remembered offset etc., call this when modifying children
+        int offset = 0;
+        for (AbstractClickGUIFrameChild child : children) {
+            child.setOffsetY(offset);
+            offset += child.getHeight();
+        }
     }
 
     @Override
@@ -68,6 +80,17 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
     }
 
     @Override
+    public void mouseClicked(Click click, boolean doubled) {
+
+        if (extended) {
+            for (AbstractClickGUIFrameChild child : children) {
+                child.mouseClicked(click, doubled);
+            }
+        }
+
+    }
+
+    @Override
     public @NotNull JsonObject serialize() {
 
         JsonObject data = new JsonObject();
@@ -98,6 +121,22 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
         x = in.get("pos_x").getAsInt();
         y = in.get("pos_y").getAsInt();
 
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
 }
