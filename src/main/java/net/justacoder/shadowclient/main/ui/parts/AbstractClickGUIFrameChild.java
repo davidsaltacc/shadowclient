@@ -1,13 +1,13 @@
 package net.justacoder.shadowclient.main.ui.parts;
 
 import net.justacoder.shadowclient.main.SCMain;
-import net.justacoder.shadowclient.main.ui.ClickableUiElement;
+import net.justacoder.shadowclient.main.ui.MouseInteractableUiElement;
 import net.justacoder.shadowclient.main.ui.DrawableUiElement;
 import net.justacoder.shadowclient.main.ui.JsonSerializableUiElement;
 import net.minecraft.client.gui.DrawContext;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class AbstractClickGUIFrameChild implements JsonSerializableUiElement, DrawableUiElement, ClickableUiElement {
+public abstract class AbstractClickGUIFrameChild implements JsonSerializableUiElement, DrawableUiElement, MouseInteractableUiElement {
 
     private final String id;
     protected ClickGUIFrame parent;

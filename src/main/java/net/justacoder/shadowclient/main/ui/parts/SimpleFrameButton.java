@@ -1,10 +1,10 @@
 package net.justacoder.shadowclient.main.ui.parts;
 
 import com.google.gson.JsonObject;
-import net.justacoder.shadowclient.main.SCMain;
 import net.justacoder.shadowclient.main.render.font.Font;
 import net.justacoder.shadowclient.main.translation.TranslatableString;
 import net.justacoder.shadowclient.main.ui.Colors;
+import net.justacoder.shadowclient.main.ui.animation.AnimationStateContainer;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import org.jetbrains.annotations.NotNull;
@@ -15,10 +15,14 @@ public class SimpleFrameButton extends AbstractClickGUIFrameChild {
     private final TranslatableString text;
     private final Runnable handler;
 
+    private final AnimationStateContainer hoveredAnimationContainer = new AnimationStateContainer(0.25);
+
     public SimpleFrameButton(String id, TranslatableString text, Runnable handler) {
         super(id);
         this.text = text;
         this.handler = handler;
+        hoveredAnimationContainer.setAnimProgressesUp(false);
+        hoveredAnimationContainer.endAnimation();
     }
 
     @Override
@@ -29,10 +33,7 @@ public class SimpleFrameButton extends AbstractClickGUIFrameChild {
                 posY,
                 posX + parent.getWidth(),
                 posY + this.getHeight(),
-                (isHovered(mouseX, mouseY) ?
-                        Colors.FRAME_CHILD_BACKGROUND_HOVERED :
-                        Colors.FRAME_CHILD_BACKGROUND_NORMAL
-                ).getColor()
+                Colors.FRAME_CHILD_BACKGROUND_NORMAL.lerpWithOther(hoveredAnimationContainer.getAnimProgress(), Colors.FRAME_CHILD_BACKGROUND_HOVERED.getColor())
         );
 
         Font.renderString(
@@ -43,6 +44,8 @@ public class SimpleFrameButton extends AbstractClickGUIFrameChild {
                 Colors.TEXT_NORMAL.getColor()
         );
 
+        hoveredAnimationContainer.progressAnimation(deltaTicks);
+
     }
 
     @Override
@@ -52,6 +55,11 @@ public class SimpleFrameButton extends AbstractClickGUIFrameChild {
             handler.run();
         }
 
+    }
+
+    @Override
+    public void mouseMoved(double mouseX, double mouseY) {
+        hoveredAnimationContainer.setAnimProgressesUp(isHovered((int) mouseX, (int) mouseY));
     }
 
     @Override

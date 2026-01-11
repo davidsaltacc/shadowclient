@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import net.justacoder.shadowclient.main.render.font.Font;
 import net.justacoder.shadowclient.main.translation.TranslatableString;
-import net.justacoder.shadowclient.main.ui.ClickableUiElement;
+import net.justacoder.shadowclient.main.ui.MouseInteractableUiElement;
 import net.justacoder.shadowclient.main.ui.Colors;
 import net.justacoder.shadowclient.main.ui.DrawableUiElement;
 import net.justacoder.shadowclient.main.ui.JsonSerializableUiElement;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 // TODO only a ClickGUIFrame can be placed inside a clickgui, and any AbstractClickGUIFrameChild can be put under a ClickGUIFrame
-public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiElement, ClickableUiElement {
+public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiElement, MouseInteractableUiElement {
 
     private final String id;
     private final TranslatableString name;
@@ -85,6 +85,17 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
         if (extended) {
             for (AbstractClickGUIFrameChild child : children) {
                 child.mouseClicked(click, doubled);
+            }
+        }
+
+    }
+
+    @Override
+    public void mouseMoved(double mouseX, double mouseY) {
+
+        if (extended) {
+            for (AbstractClickGUIFrameChild child : children) {
+                child.mouseMoved(mouseX, mouseY);
             }
         }
 

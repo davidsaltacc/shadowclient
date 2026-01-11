@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class MiscUtils {
+public abstract class MiscUtils {
 
     public static List<StackWalker.StackFrame> getStack() {
         return StackWalker.getInstance().walk(Stream::toList);

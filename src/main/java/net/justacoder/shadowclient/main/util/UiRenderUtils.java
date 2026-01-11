@@ -3,7 +3,7 @@ package net.justacoder.shadowclient.main.util;
 import net.justacoder.shadowclient.main.SCMain;
 import net.minecraft.client.gui.DrawContext;
 
-public class UiRenderUtils {
+public abstract class UiRenderUtils {
 
     public static float guiScaleDivisor() {
         return 1f / guiScaleFactor();

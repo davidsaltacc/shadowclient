@@ -1,6 +1,8 @@
 package net.justacoder.shadowclient.main.ui.animation;
 
-public class AnimationStateContainer implements Animatable { // it is preferred to implement animatable directly. this is used if multiple separate animations need to be played in a single class
+public class AnimationStateContainer implements Animatable {
+    // it is preferred to implement animatable directly. this is used if multiple separate animations need to be played in a single class
+    // TODO maybe abolish the Animatable completely and also make something like a MultipleAnimationStateContainer too
 
     private double animProgress = 1;
     private final double animDuration;
