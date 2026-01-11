@@ -10,11 +10,13 @@ import net.justacoder.shadowclient.main.ui.DrawableUiElement;
 import net.justacoder.shadowclient.main.ui.JsonSerializableUiElement;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.cursor.StandardCursors;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiElement, MouseInteractableUiElement {
+    // TODO fully implement functionality - dragging, (un)extending
 
     private final String id;
     private final TranslatableString name;
@@ -65,6 +67,12 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
                 Colors.TEXT_NORMAL.getColor()
         );
 
+        if (isHovered(mouseX, mouseY)) {
+
+            context.setCursor(StandardCursors.POINTING_HAND);
+
+        }
+
         if (extended) {
 
             int posY = y + height;
@@ -98,6 +106,14 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
             }
         }
 
+    }
+
+    public boolean isHovered(int mouseX, int mouseY) {
+        return
+                mouseX > x &&
+                mouseX < x + width &&
+                mouseY > y &&
+                mouseY < y + height;
     }
 
     @Override

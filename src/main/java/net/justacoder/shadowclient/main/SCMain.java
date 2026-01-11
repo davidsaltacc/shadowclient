@@ -28,6 +28,7 @@ public abstract class SCMain {
     public static void init() {
 
         info("Loading {} version {} for Minecraft {}", NAME, VERSION, MINECRAFT);
+        info("This project was proudly made without the use of generative AI.");
 
         KeyEvent.subscribe(data -> {
             if (OPEN_GUI_KEYBIND.matches(data.key) && data.action == GLFW.GLFW_PRESS && mc.canCurrentScreenInterruptOtherScreen()) {
@@ -44,9 +45,19 @@ public abstract class SCMain {
                                     200,
                                     26,
                                     List.of(new SimpleFrameButton(
-                                            "framebutton-test_button",
+                                            "framebutton-test_button1",
                                             TranslatableString.of("ui.frame.button.test"),
-                                            () -> info("test button pressed!")
+                                            () -> info("test button 1 pressed!")
+                                    ),
+                                            new SimpleFrameButton(
+                                            "framebutton-test_button2",
+                                            TranslatableString.of("ui.frame.button.test2"),
+                                            () -> info("test button 2 pressed!")
+                                    ),
+                                            new SimpleFrameButton(
+                                            "framebutton-test_button3",
+                                            TranslatableString.of("ui.frame.button.test3"),
+                                            () -> info("test button 3 pressed!")
                                     ))
                             )))
                     );

@@ -8,6 +8,7 @@ import net.justacoder.shadowclient.main.ui.animation.AnimationStateContainer;
 import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.cursor.StandardCursors;
 import org.jetbrains.annotations.NotNull;
 
 public class SimpleFrameButton extends AbstractClickGUIFrameChild {
@@ -15,7 +16,7 @@ public class SimpleFrameButton extends AbstractClickGUIFrameChild {
     private final TranslatableString text;
     private final Runnable handler;
 
-    private final AnimationStateContainer hoveredAnimationContainer = new AnimationStateContainer(1, false, MathUtils.Easing.EASE_OUT_CUBIC);
+    private final AnimationStateContainer hoveredAnimationContainer = new AnimationStateContainer(0.5, false, MathUtils.Easing.EASE_IN_OUT_CUBIC);
 
     public SimpleFrameButton(String id, TranslatableString text, Runnable handler) {
         super(id);
@@ -41,6 +42,10 @@ public class SimpleFrameButton extends AbstractClickGUIFrameChild {
                 posY + getHeight() / 2 - Font.getHeight() / 2,
                 Colors.TEXT_NORMAL.getColor()
         );
+
+        if (isHovered(mouseX, mouseY)) {
+            context.setCursor(StandardCursors.POINTING_HAND);
+        }
 
         hoveredAnimationContainer.progressAnimation(deltaTicks);
 

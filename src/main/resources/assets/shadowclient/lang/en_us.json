@@ -1,5 +1,7 @@
 {
     "ui.frame.test01": "Test 01",
 
-    "ui.frame.button.test": "A Test Button"
+    "ui.frame.button.test": "A Test Button",
+    "ui.frame.button.test2": "Another Test Button",
+    "ui.frame.button.test3": "Yet Another Test Button"
 }
