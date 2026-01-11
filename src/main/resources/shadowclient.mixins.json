@@ -4,6 +4,7 @@
     "compatibilityLevel": "${java}",
     "client": [
         "KeyboardMixin",
+        "LanguageManagerMixin",
         "MinecraftClientMixin"
     ],
     "injectors": {

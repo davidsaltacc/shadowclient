@@ -1,6 +1,7 @@
 package net.justacoder.shadowclient.main.render.font;
 
 import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.util.MiscUtils;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
 
@@ -30,8 +31,7 @@ public abstract class Font {
             SCMain.info("Finished initializing font renderer");
 
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to initialize font " + FONT_PATH + " " + e);
+            throw new RuntimeException("Failed to initialize font " + FONT_PATH + " " + MiscUtils.stackTraceFromThrowable(e));
         }
     }
 
