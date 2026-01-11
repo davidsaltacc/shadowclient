@@ -5,24 +5,22 @@ import net.justacoder.shadowclient.main.render.font.Font;
 import net.justacoder.shadowclient.main.translation.TranslatableString;
 import net.justacoder.shadowclient.main.ui.Colors;
 import net.justacoder.shadowclient.main.ui.animation.AnimationStateContainer;
+import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import org.jetbrains.annotations.NotNull;
 
 public class SimpleFrameButton extends AbstractClickGUIFrameChild {
-    // TODO finish implementing this, add animations and other stuff to it too, so we can build all underlying systems for the rest of the ui
 
     private final TranslatableString text;
     private final Runnable handler;
 
-    private final AnimationStateContainer hoveredAnimationContainer = new AnimationStateContainer(0.25);
+    private final AnimationStateContainer hoveredAnimationContainer = new AnimationStateContainer(1, false, MathUtils.Easing.EASE_OUT_CUBIC);
 
     public SimpleFrameButton(String id, TranslatableString text, Runnable handler) {
         super(id);
         this.text = text;
         this.handler = handler;
-        hoveredAnimationContainer.setAnimProgressesUp(false);
-        hoveredAnimationContainer.endAnimation();
     }
 
     @Override
@@ -33,7 +31,7 @@ public class SimpleFrameButton extends AbstractClickGUIFrameChild {
                 posY,
                 posX + parent.getWidth(),
                 posY + this.getHeight(),
-                Colors.FRAME_CHILD_BACKGROUND_NORMAL.lerpWithOther(hoveredAnimationContainer.getAnimProgress(), Colors.FRAME_CHILD_BACKGROUND_HOVERED.getColor())
+                Colors.FRAME_CHILD_BACKGROUND_NORMAL.lerpWithOther(hoveredAnimationContainer.getAnimProgressEased(), Colors.FRAME_CHILD_BACKGROUND_HOVERED.getColor())
         );
 
         Font.renderString(

@@ -14,7 +14,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-// TODO only a ClickGUIFrame can be placed inside a clickgui, and any AbstractClickGUIFrameChild can be put under a ClickGUIFrame
 public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiElement, MouseInteractableUiElement {
 
     private final String id;

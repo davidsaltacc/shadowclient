@@ -1,6 +1,7 @@
 package net.justacoder.shadowclient.main.render.font;
 
 import net.justacoder.shadowclient.main.SCMain;
+import net.justacoder.shadowclient.main.translation.TranslatableString;
 import net.justacoder.shadowclient.main.util.MiscUtils;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
@@ -80,15 +81,13 @@ public abstract class Font {
     }
 
 
-    // TODO uncomment once we bring back translatable strings
+    public static int getWidth(TranslatableString text) {
+        return getWidth(text.getTranslation());
+    }
 
-    //public static int getWidth(TranslatableString text) {
-    //    return getWidth(text.getTranslation());
-    //}
-
-    //public static int getWidth(TranslatableString text, int fontSize) {
-    //    return getWidth(text.getTranslation(), fontSize);
-    //}
+    public static int getWidth(TranslatableString text, int fontSize) {
+        return getWidth(text.getTranslation(), fontSize);
+    }
 
     public static int getHeight() {
         return FONT_SIZE;
