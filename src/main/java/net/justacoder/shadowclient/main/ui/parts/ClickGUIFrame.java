@@ -8,10 +8,13 @@ import net.justacoder.shadowclient.main.ui.MouseInteractableUiElement;
 import net.justacoder.shadowclient.main.ui.Colors;
 import net.justacoder.shadowclient.main.ui.DrawableUiElement;
 import net.justacoder.shadowclient.main.ui.JsonSerializableUiElement;
+import net.justacoder.shadowclient.main.ui.animation.AnimationStateContainer;
+import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.cursor.StandardCursors;
 import org.jetbrains.annotations.NotNull;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
 
@@ -26,6 +29,8 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
     private int width;
     private int height;
     private final List<AbstractClickGUIFrameChild> children;
+
+    private final AnimationStateContainer extendedAnimationContainer = new AnimationStateContainer(0.2, true, MathUtils.Easing.EASE_IN_OUT_CUBIC);
 
     public ClickGUIFrame(String id, TranslatableString name, int defaultX, int defaultY, boolean defaultExtended, int width, int height, List<AbstractClickGUIFrameChild> children) {
         this.id = id;
@@ -73,26 +78,48 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
 
         }
 
-        if (extended) {
+        if (extendedAnimationContainer.getAnimProgressEased() > 0) {
 
+            int scissorHeight = 0;
             int posY = y + height;
+
+            for (AbstractClickGUIFrameChild child : children) {
+                scissorHeight += child.getHeight();
+            }
+
+            context.enableScissor(x, y + height, x + width, y + height + (int) (scissorHeight * extendedAnimationContainer.getAnimProgressEased()));
 
             for (AbstractClickGUIFrameChild child : children) {
                 child.render(context, x, posY, mouseX, mouseY, deltaTicks);
                 posY += child.getHeight();
             }
 
+            context.disableScissor();
+
         }
+
+        extendedAnimationContainer.progressAnimation(deltaTicks);
 
     }
 
     @Override
     public void mouseClicked(Click click, boolean doubled) {
 
-        if (extended) {
-            for (AbstractClickGUIFrameChild child : children) {
-                child.mouseClicked(click, doubled);
+        if (isHovered((int) click.x(), (int) click.y())) {
+
+            if (click.button() == GLFW.GLFW_MOUSE_BUTTON_RIGHT) {
+                extended = !extended;
+                extendedAnimationContainer.setAnimProgressesUp(extended);
             }
+
+        } else {
+
+            if (extended) {
+                for (AbstractClickGUIFrameChild child : children) {
+                    child.mouseClicked(click, doubled);
+                }
+            }
+
         }
 
     }
@@ -128,6 +155,7 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
 
         data.add("pos_x", new JsonPrimitive(x));
         data.add("pos_y", new JsonPrimitive(y));
+        data.add("extended", new JsonPrimitive(extended));
 
         return data;
     }
@@ -146,6 +174,7 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
 
         x = in.get("pos_x").getAsInt();
         y = in.get("pos_y").getAsInt();
+        extended = in.get("extended").getAsBoolean();
 
     }
 

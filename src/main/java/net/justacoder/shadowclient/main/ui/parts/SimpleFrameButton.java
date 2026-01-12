@@ -16,7 +16,7 @@ public class SimpleFrameButton extends AbstractClickGUIFrameChild {
     private final TranslatableString text;
     private final Runnable handler;
 
-    private final AnimationStateContainer hoveredAnimationContainer = new AnimationStateContainer(0.5, false, MathUtils.Easing.EASE_IN_OUT_CUBIC);
+    private final AnimationStateContainer hoveredAnimationContainer = new AnimationStateContainer(0.3, false, MathUtils.Easing.EASE_IN_OUT_CUBIC);
 
     public SimpleFrameButton(String id, TranslatableString text, Runnable handler) {
         super(id);
