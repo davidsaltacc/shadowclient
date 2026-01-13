@@ -2,6 +2,7 @@
 
 ## full rewrite
 * it was a mess, it had to be done
+* this means no backwards compatibility with old configs. your config will be completely reset
 
 ### version change
 * moved to minecraft 1.21.11

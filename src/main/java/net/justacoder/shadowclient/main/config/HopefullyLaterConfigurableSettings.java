@@ -1,4 +1,4 @@
-package net.justacoder.shadowclient.main;
+package net.justacoder.shadowclient.main.config;
 
 // TODO
 public class HopefullyLaterConfigurableSettings {

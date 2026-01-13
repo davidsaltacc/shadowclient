@@ -3,14 +3,14 @@ package net.justacoder.shadowclient.main.util;
 import net.justacoder.shadowclient.main.SCMain;
 import org.lwjgl.system.MemoryUtil;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.io.*;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 public abstract class MiscUtils {
 
@@ -48,6 +48,41 @@ public abstract class MiscUtils {
 
     public static int getScreenHeight() {
         return SCMain.mc.getWindow().getMonitor().findClosestVideoMode(SCMain.mc.getWindow().getFullscreenVideoMode()).getHeight();
+    }
+
+    public static byte[] compressGZIP(String input) throws IOException {
+
+        if (input == null || input.isEmpty()) {
+            return new byte[0];
+        }
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        GZIPOutputStream gzOs = new GZIPOutputStream(os);
+        gzOs.write(input.getBytes(StandardCharsets.UTF_8));
+        gzOs.close();
+
+        return os.toByteArray();
+
+    }
+
+    public static String decompressGZIP(byte[] input) throws IOException {
+
+        if (input == null || input.length == 0) {
+            return "";
+        }
+
+        GZIPInputStream gzIs = new GZIPInputStream(new ByteArrayInputStream(input));
+        BufferedReader bufReader = new BufferedReader(new InputStreamReader(gzIs, StandardCharsets.UTF_8));
+
+        StringBuilder output = new StringBuilder();
+        String line;
+
+        while ((line = bufReader.readLine()) != null) {
+            output.append(line);
+        }
+
+        return output.toString();
+
     }
 
 }

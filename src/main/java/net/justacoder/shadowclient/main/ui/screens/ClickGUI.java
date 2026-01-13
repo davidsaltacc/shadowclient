@@ -1,7 +1,7 @@
 package net.justacoder.shadowclient.main.ui.screens;
 
 import com.google.gson.JsonObject;
-import net.justacoder.shadowclient.main.HopefullyLaterConfigurableSettings;
+import net.justacoder.shadowclient.main.config.HopefullyLaterConfigurableSettings;
 import net.justacoder.shadowclient.main.ui.JsonSerializableUiElement;
 import net.justacoder.shadowclient.main.ui.parts.ClickGUIFrame;
 import net.justacoder.shadowclient.main.util.UiRenderUtils;
