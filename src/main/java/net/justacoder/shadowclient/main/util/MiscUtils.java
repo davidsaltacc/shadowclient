@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.util;
 
+import net.justacoder.shadowclient.main.SCMain;
 import org.lwjgl.system.MemoryUtil;
 
 import java.io.IOException;
@@ -39,6 +40,14 @@ public abstract class MiscUtils {
         ByteBuffer direct = MemoryUtil.memAlloc(data.length);
         direct.put(data).flip();
         return direct;
+    }
+
+    public static int getScreenWidth() {
+        return SCMain.mc.getWindow().getMonitor().findClosestVideoMode(SCMain.mc.getWindow().getFullscreenVideoMode()).getWidth();
+    }
+
+    public static int getScreenHeight() {
+        return SCMain.mc.getWindow().getMonitor().findClosestVideoMode(SCMain.mc.getWindow().getFullscreenVideoMode()).getHeight();
     }
 
 }

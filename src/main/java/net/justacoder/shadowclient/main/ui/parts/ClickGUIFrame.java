@@ -2,6 +2,7 @@ package net.justacoder.shadowclient.main.ui.parts;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import net.justacoder.shadowclient.main.SCMain;
 import net.justacoder.shadowclient.main.render.font.Font;
 import net.justacoder.shadowclient.main.translation.TranslatableString;
 import net.justacoder.shadowclient.main.ui.MouseInteractableUiElement;
@@ -13,6 +14,7 @@ import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.cursor.StandardCursors;
+import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
@@ -143,8 +145,16 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
         }
 
         if (dragging) {
-            x = (int) (mouseX - draggingAtX);
-            y = (int) (mouseY - draggingAtY);
+            x = MathHelper.clamp(
+                    (int) (mouseX - draggingAtX),
+                    0,
+                    SCMain.mc.getWindow().getWidth() - width
+            );
+            y = MathHelper.clamp(
+                    (int) (mouseY - draggingAtY),
+                    0,
+                    SCMain.mc.getWindow().getHeight() - height
+            );
         }
 
     }
