@@ -19,7 +19,6 @@ import org.lwjgl.glfw.GLFW;
 import java.util.List;
 
 public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiElement, MouseInteractableUiElement {
-    // TODO fully implement functionality - dragging, (un)extending
 
     private final String id;
     private final TranslatableString name;
@@ -28,6 +27,9 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
     private boolean extended;
     private int width;
     private int height;
+    private boolean dragging;
+    private int draggingAtX;
+    private int draggingAtY;
     private final List<AbstractClickGUIFrameChild> children;
 
     private final AnimationStateContainer extendedAnimationContainer = new AnimationStateContainer(0.2, true, MathUtils.Easing.EASE_IN_OUT_CUBIC);
@@ -40,6 +42,9 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
         this.extended = defaultExtended;
         this.width = width;
         this.height = height;
+        this.dragging = false;
+        this.draggingAtX = 0;
+        this.draggingAtY = 0;
         this.children = children;
         this.children.forEach(child -> child.setParent(this));
         updateChildren();
@@ -110,6 +115,10 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
             if (click.button() == GLFW.GLFW_MOUSE_BUTTON_RIGHT) {
                 extended = !extended;
                 extendedAnimationContainer.setAnimProgressesUp(extended);
+            } else if (click.button() == GLFW.GLFW_MOUSE_BUTTON_LEFT) {
+                dragging = true;
+                draggingAtX = (int) click.x() - x;
+                draggingAtY = (int) click.y() - y;
             }
 
         } else {
@@ -131,6 +140,22 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
             for (AbstractClickGUIFrameChild child : children) {
                 child.mouseMoved(mouseX, mouseY);
             }
+        }
+
+        if (dragging) {
+            x = (int) (mouseX - draggingAtX);
+            y = (int) (mouseY - draggingAtY);
+        }
+
+    }
+
+    @Override
+    public void mouseReleased(Click click) {
+
+        if (click.button() == GLFW.GLFW_MOUSE_BUTTON_LEFT) {
+            dragging = false;
+            draggingAtX = 0;
+            draggingAtY = 0;
         }
 
     }

@@ -88,6 +88,22 @@ public class ClickGUI extends Screen implements JsonSerializableUiElement {
     }
 
     @Override
+    public boolean mouseReleased(Click click) {
+
+        float disableScaleFactor = UiRenderUtils.guiScaleFactor();
+
+        Click scaledClick = new Click(
+                click.x() * disableScaleFactor,
+                click.y() * disableScaleFactor,
+                click.buttonInfo()
+        );
+
+        frames.forEach(frame -> frame.mouseReleased(scaledClick));
+
+        return super.mouseReleased(click);
+    }
+
+    @Override
     public @NotNull JsonObject serialize() {
         JsonObject data = new JsonObject();
         frames.forEach(frame -> data.add(frame.getId(), frame.serialize()));

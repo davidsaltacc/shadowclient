@@ -61,6 +61,9 @@ public class SimpleFrameButton extends AbstractClickGUIFrameChild {
     }
 
     @Override
+    public void mouseReleased(Click click) {}
+
+    @Override
     public void mouseMoved(double mouseX, double mouseY) {
         hoveredAnimationContainer.setAnimProgressesUp(isHovered((int) mouseX, (int) mouseY));
     }
