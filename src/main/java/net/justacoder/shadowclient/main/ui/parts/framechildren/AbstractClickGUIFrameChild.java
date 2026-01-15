@@ -1,9 +1,10 @@
-package net.justacoder.shadowclient.main.ui.parts;
+package net.justacoder.shadowclient.main.ui.parts.framechildren;
 
 import net.justacoder.shadowclient.main.SCMain;
 import net.justacoder.shadowclient.main.ui.MouseInteractableUiElement;
 import net.justacoder.shadowclient.main.ui.DrawableUiElement;
 import net.justacoder.shadowclient.main.ui.JsonSerializableUiElement;
+import net.justacoder.shadowclient.main.ui.parts.ClickGUIFrame;
 import net.minecraft.client.gui.DrawContext;
 import org.jetbrains.annotations.NotNull;
 

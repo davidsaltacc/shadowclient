@@ -1,10 +1,11 @@
 package net.justacoder.shadowclient.main;
 
+import net.justacoder.shadowclient.main.config.ConfigManager;
 import net.justacoder.shadowclient.main.events.KeyEvent;
 import net.justacoder.shadowclient.main.keybinds.Key;
 import net.justacoder.shadowclient.main.translation.TranslatableString;
 import net.justacoder.shadowclient.main.ui.parts.ClickGUIFrame;
-import net.justacoder.shadowclient.main.ui.parts.SimpleFrameButton;
+import net.justacoder.shadowclient.main.ui.parts.framechildren.SimpleFrameButton;
 import net.justacoder.shadowclient.main.ui.screens.ClickGUI;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
@@ -29,6 +30,8 @@ public abstract class SCMain {
 
         info("Loading {} version {} for Minecraft {}", NAME, VERSION, MINECRAFT);
         info("This project was proudly made without the use of generative AI.");
+
+        info("{} config directory at {}", NAME, ConfigManager.SC_CONFIG_DIR.toString());
 
         KeyEvent.subscribe(data -> {
             if (OPEN_GUI_KEYBIND.matches(data.key) && data.action == GLFW.GLFW_PRESS && mc.canCurrentScreenInterruptOtherScreen()) {

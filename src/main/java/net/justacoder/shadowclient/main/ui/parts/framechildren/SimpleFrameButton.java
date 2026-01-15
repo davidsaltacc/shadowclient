@@ -1,4 +1,4 @@
-package net.justacoder.shadowclient.main.ui.parts;
+package net.justacoder.shadowclient.main.ui.parts.framechildren;
 
 import com.google.gson.JsonObject;
 import net.justacoder.shadowclient.main.render.font.Font;
@@ -10,6 +10,7 @@ import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.cursor.StandardCursors;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class SimpleFrameButton extends AbstractClickGUIFrameChild {
 
@@ -77,6 +78,6 @@ public class SimpleFrameButton extends AbstractClickGUIFrameChild {
     public @NotNull JsonObject serialize() { return new JsonObject(); }
 
     @Override
-    public void deserialize(@NotNull JsonObject in) {}
+    public void deserialize(@Nullable JsonObject in) {}
 
 }

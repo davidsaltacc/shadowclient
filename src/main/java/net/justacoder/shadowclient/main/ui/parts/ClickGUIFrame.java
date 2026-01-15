@@ -10,12 +10,14 @@ import net.justacoder.shadowclient.main.ui.Colors;
 import net.justacoder.shadowclient.main.ui.DrawableUiElement;
 import net.justacoder.shadowclient.main.ui.JsonSerializableUiElement;
 import net.justacoder.shadowclient.main.ui.animation.AnimationStateContainer;
+import net.justacoder.shadowclient.main.ui.parts.framechildren.AbstractClickGUIFrameChild;
 import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.cursor.StandardCursors;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
@@ -50,6 +52,7 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
         this.children = children;
         this.children.forEach(child -> child.setParent(this));
         updateChildren();
+        extendedAnimationContainer.restartAnimation();
     }
 
     public void updateChildren() { // update stuff like remembered offset etc., call this when modifying children
@@ -201,15 +204,19 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
     }
 
     @Override
-    public void deserialize(@NotNull JsonObject in) {
+    public void deserialize(@Nullable JsonObject in) {
 
         JsonObject childrenData = in.get("children").getAsJsonObject();
 
-        childrenData.keySet().forEach(key -> children.stream().findFirst().ifPresent(child -> child.deserialize(childrenData.get(key).getAsJsonObject())));
+        childrenData.keySet().forEach(key -> children.stream().filter(child -> child.getId() == key).findFirst().ifPresent(child -> child.deserialize(childrenData.get(key).getAsJsonObject())));
 
         x = in.get("pos_x").getAsInt();
         y = in.get("pos_y").getAsInt();
         extended = in.get("extended").getAsBoolean();
+        extendedAnimationContainer.setAnimProgressesUp(extended);
+        if (extended) {
+            extendedAnimationContainer.restartAnimation();
+        }
 
     }
 
