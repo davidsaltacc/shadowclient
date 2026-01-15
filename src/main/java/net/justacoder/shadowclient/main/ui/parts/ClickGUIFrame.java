@@ -1,5 +1,6 @@
 package net.justacoder.shadowclient.main.ui.parts;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import net.justacoder.shadowclient.main.SCMain;
@@ -206,9 +207,19 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
     @Override
     public void deserialize(@Nullable JsonObject in) {
 
-        JsonObject childrenData = in.get("children").getAsJsonObject();
+        if (in == null) {
+            return;
+        }
 
-        childrenData.keySet().forEach(key -> children.stream().filter(child -> child.getId() == key).findFirst().ifPresent(child -> child.deserialize(childrenData.get(key).getAsJsonObject())));
+        JsonElement childrenElement = in.get("children");
+
+        if (childrenElement == null) {
+            return;
+        }
+
+        JsonObject childrenData = childrenElement.getAsJsonObject();
+
+        childrenData.getAsJsonObject().keySet().forEach(key -> children.stream().filter(child -> child.getId() == key).findFirst().ifPresent(child -> child.deserialize(childrenData.get(key).getAsJsonObject())));
 
         x = in.get("pos_x").getAsInt();
         y = in.get("pos_y").getAsInt();
