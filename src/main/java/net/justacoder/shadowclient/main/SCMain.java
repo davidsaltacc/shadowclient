@@ -6,7 +6,8 @@ import net.justacoder.shadowclient.main.keybinds.Key;
 import net.justacoder.shadowclient.main.translation.TranslatableString;
 import net.justacoder.shadowclient.main.ui.parts.ClickGUIFrame;
 import net.justacoder.shadowclient.main.ui.parts.framechildren.SimpleFrameButton;
-import net.justacoder.shadowclient.main.ui.screens.ClickGUI;
+import net.justacoder.shadowclient.main.ui.screens.ClickGUIScreen;
+import net.justacoder.shadowclient.main.ui.screens.GenericScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
@@ -42,11 +43,11 @@ public abstract class SCMain {
 
         KeyEvent.subscribe(data -> {
             if (OPEN_GUI_KEYBIND.matches(data.key) && data.action == GLFW.GLFW_PRESS && mc.canCurrentScreenInterruptOtherScreen()) {
-                if (mc.currentScreen instanceof ClickGUI) {
+                if (mc.currentScreen instanceof ClickGUIScreen) {
                     mc.setScreen(null);
                 } else {
                     mc.setScreen(
-                            new ClickGUI(Text.of("ShadowClient ClickGUI"), "clickgui-main", List.of(new ClickGUIFrame(
+                            new ClickGUIScreen(Text.of("ShadowClient ClickGUI"), "clickgui-main", List.of(new ClickGUIFrame(
                                     "clickguiframe-test01",
                                     TranslatableString.of("ui.frame.test01"),
                                     5,
@@ -57,7 +58,7 @@ public abstract class SCMain {
                                     List.of(new SimpleFrameButton(
                                             "framebutton-test_button1",
                                             TranslatableString.of("ui.frame.button.test"),
-                                            () -> info("test button 1 pressed!")
+                                            () -> mc.setScreen(new GenericScreen("genericscreen-testscreen", Text.of("GenericScreen with Containers"), List.of()))
                                     ),
                                             new SimpleFrameButton(
                                             "framebutton-test_button2",

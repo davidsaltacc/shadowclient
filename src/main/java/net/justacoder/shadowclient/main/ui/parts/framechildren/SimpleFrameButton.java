@@ -70,6 +70,9 @@ public class SimpleFrameButton extends AbstractClickGUIFrameChild {
     }
 
     @Override
+    public void mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {}
+
+    @Override
     public int getHeight() {
         return 26;
     }

@@ -1,0 +1,14 @@
+just some personal notes to keep track of some things
+
+- ui ids should typically be "type-id"
+
+- UI CONCEPT
+it kind of sucks, but i guess the rewrite at least made it a tiny bit better
+
+anything that is a screen and is related to our client extends SCScreen
+screen types are split in two for our client
+
+1. we have ClickGUI screens, which contain multiple draggable frames which contain frame children
+2. we have Generic screens (need a good name), which contain one or multiple Containers, which are responsible for positioning children (ContainerChildren or something).
+   (if Containers can contain other Containers is not decided yet)
+
