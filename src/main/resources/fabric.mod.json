@@ -13,6 +13,9 @@
     "entrypoints": {
         "main": [
             "net.justacoder.shadowclient.fabric.FabricLaunch"
+        ],
+        "preLaunch": [
+            "net.justacoder.shadowclient.fabric.FabricPreLaunch"
         ]
     },
     "mixins": [

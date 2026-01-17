@@ -87,7 +87,13 @@ public class ClickGUI extends SCScreen {
     @Override
     public void deserialize(@Nullable JsonObject in) {
         if (in != null) {
-            in.keySet().forEach(key -> frames.stream().filter(child -> child.getId() == key).findFirst().ifPresent(frame -> frame.deserialize(in.get(key).getAsJsonObject())));
+            in.keySet().forEach(key ->
+                    frames.stream().filter(
+                            child -> child.getId().equals(key)
+                    ).findFirst().ifPresent(
+                            frame -> frame.deserialize(in.get(key).getAsJsonObject())
+                    )
+            );
         }
     }
 

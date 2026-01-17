@@ -1,15 +1,25 @@
 package net.justacoder.shadowclient.main;
 
+import net.justacoder.shadowclient.main.config.ConfigManager;
+import net.minecraft.client.MinecraftClient;
+
 import javax.swing.*;
 
-public class InitializationPoints {
+public class LifecyclePoints {
 
     public static void veryEarly() {
-
+        // do not put anything in here that references MinecraftClient indirectly (also not SCMain), as most mixins will not even be loaded at this point and things will break
     }
 
     public static void fabricLaunch() {
         SCMain.init();
+    }
+
+    public static void preFabricLaunch() {}
+
+    public static void minecraftClientCreated() {
+        SCMain.mc = MinecraftClient.getInstance();
+        ConfigManager.loadConfig();
     }
 
     public static void main(String[] args) {
@@ -25,6 +35,10 @@ public class InitializationPoints {
         parent.setSize(400, 150);
         parent.setVisible(true);
 
+    }
+
+    public static void shutdown() {
+        ConfigManager.saveConfig();
     }
 
 }

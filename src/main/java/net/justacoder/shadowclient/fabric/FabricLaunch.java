@@ -1,13 +1,13 @@
 package net.justacoder.shadowclient.fabric;
 
 import net.fabricmc.api.ModInitializer;
-import net.justacoder.shadowclient.main.InitializationPoints;
+import net.justacoder.shadowclient.main.LifecyclePoints;
 
 public class FabricLaunch implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        InitializationPoints.fabricLaunch();
+        LifecyclePoints.fabricLaunch();
     }
 
 }

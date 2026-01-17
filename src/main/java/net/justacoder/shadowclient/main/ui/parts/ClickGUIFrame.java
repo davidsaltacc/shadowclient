@@ -219,7 +219,13 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
 
         JsonObject childrenData = childrenElement.getAsJsonObject();
 
-        childrenData.getAsJsonObject().keySet().forEach(key -> children.stream().filter(child -> child.getId() == key).findFirst().ifPresent(child -> child.deserialize(childrenData.get(key).getAsJsonObject())));
+        childrenData.getAsJsonObject().keySet().forEach(
+                key -> children.stream().filter(
+                        child -> child.getId().equals(key)
+                ).findFirst().ifPresent(
+                        child -> child.deserialize(childrenData.get(key).getAsJsonObject())
+                )
+        );
 
         x = in.get("pos_x").getAsInt();
         y = in.get("pos_y").getAsInt();

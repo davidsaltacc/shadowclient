@@ -1,6 +1,6 @@
 package net.justacoder.shadowclient.mixin.plugin;
 
-import net.justacoder.shadowclient.main.InitializationPoints;
+import net.justacoder.shadowclient.main.LifecyclePoints;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -12,7 +12,7 @@ public class SCMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public void onLoad(String s) {
-        InitializationPoints.veryEarly();
+        LifecyclePoints.veryEarly();
     }
 
     @Override

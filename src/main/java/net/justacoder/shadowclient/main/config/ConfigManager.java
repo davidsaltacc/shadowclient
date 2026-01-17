@@ -3,6 +3,7 @@ package net.justacoder.shadowclient.main.config;
 import com.google.gson.*;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.SemanticVersion;
+import net.fabricmc.loader.api.Version;
 import net.fabricmc.loader.api.VersionParsingException;
 import net.justacoder.shadowclient.main.SCMain;
 import net.justacoder.shadowclient.main.util.MiscUtils;
@@ -64,6 +65,17 @@ public class ConfigManager {
 
     public static void saveConfig() {
 
+        SCMain.info("Saving config");
+
+        if (!SC_CONFIG_DIR.exists()) {
+            try {
+                Files.createDirectory(SC_CONFIG_DIR.toPath());
+            } catch (IOException e) {
+                SCMain.info("Error creating config directory, skipping config load.");
+                SCMain.error(MiscUtils.stackTraceFromThrowable(e));
+            }
+        }
+
         JsonObject newMeta = new JsonObject();
         newMeta.add("client_version", new JsonPrimitive(SCMain.VERSION));
         newMeta.add("game_version", new JsonPrimitive(SharedConstants.getGameVersion().id()));
@@ -83,12 +95,12 @@ public class ConfigManager {
             String jsonData = gson.toJson(data);
 
             Path path = Paths.get(SC_CONFIG_DIR.getAbsolutePath(), fullFilename);
-            byte[] dataBytes = jsonData.getBytes();
 
             try {
-                Files.write(path, dataBytes);
+                Files.writeString(path, jsonData);
             } catch (IOException e) {
-                SCMain.error("Failed to save config to {}: {}", path.toFile().getAbsolutePath(), MiscUtils.stackTraceFromThrowable(e));
+                SCMain.error("Failed to save config to {}.", path.toFile().getAbsolutePath());
+                SCMain.error(MiscUtils.stackTraceFromThrowable(e));
             }
 
         }
@@ -97,9 +109,25 @@ public class ConfigManager {
 
     public static void loadConfig() {
 
+        SCMain.info("Loading config");
 
-        JsonObject metadataData = new JsonObject(); // TODO actually load
-        // read the ConfigType.CLIENT_METADATA file to metadataData
+        Path path = Paths.get(SC_CONFIG_DIR.getAbsolutePath(), ConfigType.CLIENT_METADATA.getFilename() + ".json");
+        String metadataString;
+
+        if (!path.toFile().exists()) {
+            SCMain.info("No existing config found, skipping config load.");
+            return;
+        }
+
+        try {
+            metadataString = Files.readString(path);
+        } catch (IOException e) {
+            SCMain.error("Failed to read config from {}, skipping config load.", path.toFile().getAbsolutePath());
+            SCMain.error(MiscUtils.stackTraceFromThrowable(e));
+            return;
+        }
+
+        JsonObject metadataData = (new Gson()).fromJson(metadataString, JsonObject.class);
 
         JsonElement metadataElement = metadataData.get("data");
         if (metadataElement == null || !metadataElement.isJsonObject()) {
@@ -120,9 +148,12 @@ public class ConfigManager {
             SemanticVersion currentClientSemVer = SemanticVersion.parse(currentClientVersion);
             SemanticVersion currentGameSemVer = SemanticVersion.parse(currentGameVersion);
 
-            // TODO switch from 0.2 to 0.3 - not picked up anyway, config path changed.
-            // TODO switch from new client version to older - bigger warn
-            // TODO switch anything else - small warn
+            if (currentClientSemVer.compareTo((Version) oldClientSemVer) < 0) {
+                SCMain.warn("WARNING! Switching to older versions of the client may break things. Loading older configs on newer versions is supported, but loading newer config on old versions is not guaranteed to work without issues.");
+            }
+            if (currentGameSemVer.compareTo((Version) oldGameSemVer) != 0) {
+                SCMain.warn("Game version changed since last load. Things may be a bit different or may break. If not done already, please update the client.");
+            }
 
         } catch (UnsupportedOperationException e) {
             SCMain.warn("Error parsing config metadata file. Skipping config load");
@@ -140,12 +171,21 @@ public class ConfigManager {
                 continue;
             }
 
-            // TODO load type
+            path = Paths.get(SC_CONFIG_DIR.getAbsolutePath(), type.getFilename() + ".json");
+            String typeDataString;
+
+            try {
+                typeDataString = Files.readString(path);
+            } catch (IOException e) {
+                SCMain.error("Failed to read config from {}.", path.toFile().getAbsolutePath());
+                SCMain.error(MiscUtils.stackTraceFromThrowable(e));
+                continue;
+            }
+
+            type.setData((new Gson()).fromJson(typeDataString, JsonObject.class));
 
         }
 
     }
-
-    // TODO load config in veryEarly init point and save config on exit, and possibly ClickGUI close? (probably just add a shutdown hook like before) (also add asynchronous saving, please)
 
 }

@@ -9,6 +9,7 @@ import net.justacoder.shadowclient.main.ui.parts.framechildren.SimpleFrameButton
 import net.justacoder.shadowclient.main.ui.screens.ClickGUI;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,7 @@ public abstract class SCMain {
     public static final String NAME = /*$ mod_name*/ "ShadowClient";
     public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
 
-    public static final MinecraftClient mc = MinecraftClient.getInstance();
+    public static @Nullable MinecraftClient mc = null;
 
     public static final Key OPEN_GUI_KEYBIND = new Key(GLFW.GLFW_KEY_RIGHT_SHIFT);
 
@@ -32,6 +33,12 @@ public abstract class SCMain {
         info("This project was proudly made without the use of generative AI.");
 
         info("{} config directory at {}", NAME, ConfigManager.SC_CONFIG_DIR.toString());
+
+        if (mc == null) {
+            throw new RuntimeException("This should not happen (SCMain.mc was null on init() call)");
+        }
+
+        Runtime.getRuntime().addShutdownHook(new Thread(LifecyclePoints::shutdown, NAME + " Shutdown"));
 
         KeyEvent.subscribe(data -> {
             if (OPEN_GUI_KEYBIND.matches(data.key) && data.action == GLFW.GLFW_PRESS && mc.canCurrentScreenInterruptOtherScreen()) {
