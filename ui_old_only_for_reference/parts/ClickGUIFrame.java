@@ -1,4 +1,4 @@
-package net.justacoder.shadowclient.main.ui.parts;
+package net.justacoder.shadowclient.main.ui_old.parts;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -6,12 +6,12 @@ import com.google.gson.JsonPrimitive;
 import net.justacoder.shadowclient.main.SCMain;
 import net.justacoder.shadowclient.main.render.font.Font;
 import net.justacoder.shadowclient.main.translation.TranslatableString;
-import net.justacoder.shadowclient.main.ui.MouseInteractableUiElement;
+import net.justacoder.shadowclient.main.ui_old.MouseInteractableUiElement;
 import net.justacoder.shadowclient.main.ui.Colors;
-import net.justacoder.shadowclient.main.ui.DrawableUiElement;
-import net.justacoder.shadowclient.main.ui.JsonSerializableUiElement;
+import net.justacoder.shadowclient.main.ui_old.DrawableUiElement;
+import net.justacoder.shadowclient.main.ui.JsonSerializableUiPart;
 import net.justacoder.shadowclient.main.ui.animation.AnimationStateContainer;
-import net.justacoder.shadowclient.main.ui.parts.framechildren.AbstractClickGUIFrameChild;
+import net.justacoder.shadowclient.main.ui_old.parts.framechildren.AbstractClickGUIFrameChild;
 import net.justacoder.shadowclient.main.util.MathUtils;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
@@ -23,7 +23,7 @@ import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
 
-public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiElement, MouseInteractableUiElement {
+public class ClickGUIFrame implements JsonSerializableUiPart, DrawableUiElement, MouseInteractableUiElement {
 
     private final String id;
     private final TranslatableString name;
@@ -159,6 +159,17 @@ public class ClickGUIFrame implements JsonSerializableUiElement, DrawableUiEleme
                     0,
                     SCMain.mc.getWindow().getHeight() - height
             );
+        }
+
+    }
+
+    @Override
+    public void mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+
+        if (extended) {
+            for (AbstractClickGUIFrameChild child : children) {
+                child.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
+            }
         }
 
     }

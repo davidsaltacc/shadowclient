@@ -5,9 +5,10 @@ import net.justacoder.shadowclient.main.translation.TranslatableString;
 import net.justacoder.shadowclient.main.util.MiscUtils;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
+import net.minecraft.util.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ConcurrentMap;
 
 public abstract class Font {
 
@@ -27,7 +28,15 @@ public abstract class Font {
 
             fontRenderer = new FontRenderer(FONT_PATH);
 
-            registeredFontSizes.forEach(size -> fontRenderer.getAtlasForSize(size));
+            registeredFontSizes.forEach(size -> {
+                fontRenderer.getAtlasForSize(size);
+                stringWidthCaches.put(size, new LinkedHashMap<>(1001, .75f, true) {
+                    @Override
+                    public boolean removeEldestEntry(Map.Entry<String, Integer> eldest) {
+                        return size() > 1000;
+                    }
+                });
+            });
 
             SCMain.info("Finished initializing font renderer");
 
@@ -56,16 +65,31 @@ public abstract class Font {
         fontRenderer.drawText(context, text, x + FONT_OFFSET_X, y + FONT_OFFSET_Y, FONT_SIZE, color);
     }
 
+    private static final Map<Integer, Map<String, Integer>> stringWidthCaches = new HashMap<>();
+
     public static int getWidth(String text, int fontSize) {
-        FontTextureAtlas atlas = fontRenderer.getAtlasForSize(fontSize);
-        int width = 0;
 
-        for (char c : text.toCharArray()) {
-            FontTextureAtlas.Glyph glyph = atlas.getGlyph(c);
-            width += glyph.advance();
+        int cached = stringWidthCaches.get(fontSize).getOrDefault(text, -1);
+
+        if (cached != -1) {
+
+            return cached;
+
+        } else {
+
+            FontTextureAtlas atlas = fontRenderer.getAtlasForSize(fontSize);
+            int width = 0;
+
+            for (char c : text.toCharArray()) {
+                FontTextureAtlas.Glyph glyph = atlas.getGlyph(c);
+                width += glyph.advance();
+            }
+
+            stringWidthCaches.get(fontSize).put(text, width);
+
+            return width;
+
         }
-
-        return width;
     }
 
     public static int getWidth(String text) {

@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public interface JsonSerializableUiElement { // for things such as positions and states of draggable ui elements - NOT to store actual config
+public interface JsonSerializableUiPart { // for things such as positions and states of draggable ui elements - NOT to store actual config
 
     @NotNull JsonObject serialize();
 

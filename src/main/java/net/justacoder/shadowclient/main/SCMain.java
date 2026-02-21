@@ -4,18 +4,15 @@ import net.justacoder.shadowclient.main.config.ConfigManager;
 import net.justacoder.shadowclient.main.events.KeyEvent;
 import net.justacoder.shadowclient.main.keybinds.Key;
 import net.justacoder.shadowclient.main.translation.TranslatableString;
-import net.justacoder.shadowclient.main.ui.parts.ClickGUIFrame;
-import net.justacoder.shadowclient.main.ui.parts.framechildren.SimpleFrameButton;
-import net.justacoder.shadowclient.main.ui.screens.ClickGUIScreen;
-import net.justacoder.shadowclient.main.ui.screens.GenericScreen;
+import net.justacoder.shadowclient.main.ui.elements.nochild.TextBoxElement;
+import net.justacoder.shadowclient.main.ui.elements.singlechild.CenterElement;
+import net.justacoder.shadowclient.main.ui.screens.SCScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 public abstract class SCMain {
 
@@ -43,34 +40,22 @@ public abstract class SCMain {
 
         KeyEvent.subscribe(data -> {
             if (OPEN_GUI_KEYBIND.matches(data.key) && data.action == GLFW.GLFW_PRESS && mc.canCurrentScreenInterruptOtherScreen()) {
-                if (mc.currentScreen instanceof ClickGUIScreen) {
+                if (mc.currentScreen instanceof SCScreen) { // TODO later change SCScreen to the main ClickGUI screen
                     mc.setScreen(null);
                 } else {
                     mc.setScreen(
-                            new ClickGUIScreen(Text.of("ShadowClient ClickGUI"), "clickgui-main", List.of(new ClickGUIFrame(
-                                    "clickguiframe-test01",
-                                    TranslatableString.of("ui.frame.test01"),
-                                    5,
-                                    5,
-                                    true,
-                                    200,
-                                    26,
-                                    List.of(new SimpleFrameButton(
-                                            "framebutton-test_button1",
-                                            TranslatableString.of("ui.frame.button.test"),
-                                            () -> mc.setScreen(new GenericScreen("genericscreen-testscreen", Text.of("GenericScreen with Containers"), List.of()))
-                                    ),
-                                            new SimpleFrameButton(
-                                            "framebutton-test_button2",
-                                            TranslatableString.of("ui.frame.button.test2"),
-                                            () -> info("test button 2 pressed!")
-                                    ),
-                                            new SimpleFrameButton(
-                                            "framebutton-test_button3",
-                                            TranslatableString.of("ui.frame.button.test3"),
-                                            () -> info("test button 3 pressed!")
-                                    ))
-                            )))
+                            new SCScreen(
+                                    "screen-testscreen",
+                                    Text.of("test screen"),
+                                    new CenterElement(
+                                            "center-testcenter",
+                                            new TextBoxElement(
+                                                    "textbox-testlabel",
+                                                    TranslatableString.of("testlabel_01"),
+                                                    -1
+                                            )
+                                    )
+                            )
                     );
                     // TODO later actually make method that constructs the ClickGUI with all the modules etc
                 }

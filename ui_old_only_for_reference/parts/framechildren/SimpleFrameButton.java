@@ -1,4 +1,4 @@
-package net.justacoder.shadowclient.main.ui.parts.framechildren;
+package net.justacoder.shadowclient.main.ui_old.parts.framechildren;
 
 import com.google.gson.JsonObject;
 import net.justacoder.shadowclient.main.render.font.Font;
