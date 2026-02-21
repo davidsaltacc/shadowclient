@@ -4,15 +4,19 @@ import net.justacoder.shadowclient.main.config.ConfigManager;
 import net.justacoder.shadowclient.main.events.KeyEvent;
 import net.justacoder.shadowclient.main.keybinds.Key;
 import net.justacoder.shadowclient.main.translation.TranslatableString;
+import net.justacoder.shadowclient.main.ui.elements.Properties;
+import net.justacoder.shadowclient.main.ui.elements.multiplechild.StackContainerElement;
 import net.justacoder.shadowclient.main.ui.elements.nochild.TextBoxElement;
 import net.justacoder.shadowclient.main.ui.elements.singlechild.CenterElement;
-import net.justacoder.shadowclient.main.ui.screens.SCScreen;
+import net.justacoder.shadowclient.main.ui.screens.GenericScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public abstract class SCMain {
 
@@ -40,19 +44,37 @@ public abstract class SCMain {
 
         KeyEvent.subscribe(data -> {
             if (OPEN_GUI_KEYBIND.matches(data.key) && data.action == GLFW.GLFW_PRESS && mc.canCurrentScreenInterruptOtherScreen()) {
-                if (mc.currentScreen instanceof SCScreen) { // TODO later change SCScreen to the main ClickGUI screen
+                if (mc.currentScreen instanceof GenericScreen) { // TODO later change SCScreen to the main ClickGUI screen
                     mc.setScreen(null);
                 } else {
                     mc.setScreen(
-                            new SCScreen(
+                            new GenericScreen(
                                     "screen-testscreen",
                                     Text.of("test screen"),
                                     new CenterElement(
                                             "center-testcenter",
-                                            new TextBoxElement(
-                                                    "textbox-testlabel",
-                                                    TranslatableString.of("testlabel_01"),
-                                                    -1
+                                            new StackContainerElement(
+                                                    "stackcontainer-testcontainer",
+                                                    List.of(
+                                                            new TextBoxElement(
+                                                                    "textbox-testlabel",
+                                                                    TranslatableString.of("testlabel_01"),
+                                                                    -1
+                                                            ),
+                                                            new TextBoxElement(
+                                                                    "textbox-testlabel1",
+                                                                    TranslatableString.of("testlabel_02"),
+                                                                    -1
+                                                            ),
+                                                            new TextBoxElement(
+                                                                    "textbox-testlabel2",
+                                                                    TranslatableString.of("testlabel_03"),
+                                                                    -1
+                                                            )
+                                                    ),
+                                                    Properties.Direction.VERTICAL,
+                                                    Properties.Size.FIT_CHILDREN,
+                                                    Properties.Size.FIT_CHILDREN
                                             )
                                     )
                             )

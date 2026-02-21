@@ -15,19 +15,19 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector2i;
 
-public class SCScreen extends Screen implements JsonSerializableUiPart {
+public class GenericScreen extends Screen implements JsonSerializableUiPart {
 
     protected final String id;
     protected UiElement child;
 
-    public SCScreen(String id, Text title, UiElement child) {
+    public GenericScreen(String id, Text title, UiElement child) {
         super(title);
         this.id = id;
         setChild(child);
     }
 
     public void setChild(UiElement child) {
-        SCScreen screen = this;
+        GenericScreen screen = this;
         this.child = new SingleChildUiElement(id + "-childwrapper", child) { // so even the root element has a parent whose width it can access
 
             @Override
