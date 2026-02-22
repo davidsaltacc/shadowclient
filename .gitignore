@@ -38,8 +38,3 @@ hs_err_*.log
 replay_*.log
 *.hprof
 *.jfr
-
-
-
-# TODO remove once ui fully rewritten
-ui_old_only_for_reference/
