@@ -1,11 +1,8 @@
 package net.justacoder.shadowclient.main.ui.elements.singlechild;
 
-import com.google.gson.JsonObject;
 import net.justacoder.shadowclient.main.ui.elements.Properties;
 import net.justacoder.shadowclient.main.ui.elements.SingleChildUiElement;
 import net.justacoder.shadowclient.main.ui.elements.UiElement;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Vector2i;
 
 // element of certain size containing a single child. no padding, no other shenanigans. can be used to constrain something (like a center)
@@ -15,7 +12,7 @@ public class FixedBoxElement extends SingleChildUiElement {
     private final Properties.Size sizeY;
 
     public FixedBoxElement(UiElement child, Properties.Size sizeX, Properties.Size sizeY) {
-        super(null, child);
+        super(child);
         this.sizeX = sizeX;
         this.sizeY = sizeY;
     }
@@ -57,16 +54,6 @@ public class FixedBoxElement extends SingleChildUiElement {
     @Override
     public boolean heightReliesOnChildHeights() {
         return sizeY.type == Properties.SizeType.FIT_CHILDREN;
-    }
-
-    @Override
-    public @NotNull JsonObject serialize() {
-        return child.serialize();
-    }
-
-    @Override
-    public void deserialize(@Nullable JsonObject in) {
-        child.deserialize(in);
     }
 
 }

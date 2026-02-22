@@ -1,10 +1,7 @@
 package net.justacoder.shadowclient.main.ui.elements.singlechild;
 
-import com.google.gson.JsonObject;
 import net.justacoder.shadowclient.main.ui.elements.SingleChildUiElement;
 import net.justacoder.shadowclient.main.ui.elements.UiElement;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Vector2i;
 import org.joml.Vector4i;
 
@@ -13,7 +10,7 @@ public class PaddingElement extends SingleChildUiElement {
     private final Vector4i padding;
 
     public PaddingElement(UiElement child, Vector4i paddingLTRB) {
-        super(null, child);
+        super(child);
         this.padding = paddingLTRB;
     }
 
@@ -43,16 +40,6 @@ public class PaddingElement extends SingleChildUiElement {
     @Override
     public boolean heightReliesOnChildHeights() {
         return true;
-    }
-
-    @Override
-    public @NotNull JsonObject serialize() {
-        return child.serialize();
-    }
-
-    @Override
-    public void deserialize(@Nullable JsonObject in) {
-        child.deserialize(in);
     }
 
 }

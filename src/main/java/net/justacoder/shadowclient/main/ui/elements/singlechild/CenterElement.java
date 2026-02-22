@@ -1,11 +1,8 @@
 package net.justacoder.shadowclient.main.ui.elements.singlechild;
 
-import com.google.gson.JsonObject;
 import net.justacoder.shadowclient.main.ui.elements.Properties;
 import net.justacoder.shadowclient.main.ui.elements.SingleChildUiElement;
 import net.justacoder.shadowclient.main.ui.elements.UiElement;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Vector2i;
 
 public class CenterElement extends SingleChildUiElement {
@@ -13,7 +10,7 @@ public class CenterElement extends SingleChildUiElement {
     private final Properties.CenterAxes axes;
 
     public CenterElement(UiElement child, Properties.CenterAxes axes) {
-        super(null, child);
+        super(child);
         this.axes = axes;
     }
 
@@ -105,16 +102,6 @@ public class CenterElement extends SingleChildUiElement {
     @Override
     public boolean heightReliesOnChildHeights() {
         return axes == Properties.CenterAxes.ONLY_X || axes == Properties.CenterAxes.ONLY_X_SAME_Y || parent.heightReliesOnChildHeights();
-    }
-
-    @Override
-    public @NotNull JsonObject serialize() {
-        return child.serialize();
-    }
-
-    @Override
-    public void deserialize(@Nullable JsonObject in) {
-        child.deserialize(in);
     }
 
 }

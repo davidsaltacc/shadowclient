@@ -1,11 +1,8 @@
 package net.justacoder.shadowclient.main.ui.elements.singlechild;
 
-import com.google.gson.JsonObject;
 import net.justacoder.shadowclient.main.ui.elements.SingleChildUiElement;
 import net.justacoder.shadowclient.main.ui.elements.UiElement;
 import net.minecraft.client.gui.DrawContext;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Vector2i;
 
 public class BackgroundElement extends SingleChildUiElement {
@@ -13,7 +10,7 @@ public class BackgroundElement extends SingleChildUiElement {
     private final int color;
 
     public BackgroundElement(UiElement child, int color) {
-        super(null, child);
+        super(child);
         this.color = color;
     }
 
@@ -46,16 +43,6 @@ public class BackgroundElement extends SingleChildUiElement {
     @Override
     public boolean heightReliesOnChildHeights() {
         return true;
-    }
-
-    @Override
-    public @NotNull JsonObject serialize() {
-        return child.serialize();
-    }
-
-    @Override
-    public void deserialize(@Nullable JsonObject in) {
-        child.deserialize(in);
     }
 
 }

@@ -1,13 +1,10 @@
 package net.justacoder.shadowclient.main.ui.elements.nochild;
 
-import com.google.gson.JsonObject;
 import net.justacoder.shadowclient.main.render.font.Font;
 import net.justacoder.shadowclient.main.translation.TranslatableString;
 import net.justacoder.shadowclient.main.ui.elements.UiElement;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class TextBoxElement extends UiElement {
 
@@ -15,7 +12,6 @@ public class TextBoxElement extends UiElement {
     private final int color;
 
     public TextBoxElement(TranslatableString content, int color) {
-        super(null);
         this.content = content;
         this.color = color;
     }
@@ -49,7 +45,7 @@ public class TextBoxElement extends UiElement {
     @Override public void mouseReleased(Click click) {}
     @Override public void mouseMoved(double mouseX, double mouseY) {}
     @Override public void mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {}
-    @Override public @NotNull JsonObject serialize() { return new JsonObject(); }
-    @Override public void deserialize(@Nullable JsonObject in) {}
+    @Override public void screenOpening() {}
+    @Override public void screenClosing() {}
 
 }

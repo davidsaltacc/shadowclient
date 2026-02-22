@@ -1,11 +1,8 @@
 package net.justacoder.shadowclient.main.ui.elements.multiplechild;
 
-import com.google.gson.JsonObject;
 import net.justacoder.shadowclient.main.ui.elements.MultipleChildrenUiElement;
 import net.justacoder.shadowclient.main.ui.elements.Properties;
 import net.justacoder.shadowclient.main.ui.elements.UiElement;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Vector2i;
 
 import java.util.ArrayList;
@@ -18,7 +15,7 @@ public class StackContainerElement extends MultipleChildrenUiElement {
     private final Properties.Size sizeY;
 
     public StackContainerElement(List<UiElement> children, Properties.Direction direction, Properties.Size sizeX, Properties.Size sizeY) {
-        super(null, children);
+        super(children);
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.direction = direction;
@@ -114,26 +111,6 @@ public class StackContainerElement extends MultipleChildrenUiElement {
             cachedHeightInvalid = false;
         }
         return height;
-    }
-
-    @Override
-    public @NotNull JsonObject serialize() {
-        JsonObject object = new JsonObject();
-        //children.forEach(child -> object.add(child.getId(), child.serialize()));
-        return object;
-    }
-
-    @Override
-    public void deserialize(@Nullable JsonObject in) {
-        if (in != null) {
-            in.keySet().forEach(key ->
-                    children.stream().filter(
-                            child -> child.getId().equals(key)
-                    ).findFirst().ifPresent(
-                            child -> child.deserialize(in.get(key).getAsJsonObject())
-                    )
-            );
-        }
     }
 
 }

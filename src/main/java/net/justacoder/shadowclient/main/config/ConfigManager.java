@@ -23,7 +23,7 @@ public class ConfigManager {
 
     public enum ConfigType {
 
-        UI_DATA("ui"),
+        UI_STATE("ui"),
         MODULE_SETTINGS("modules"),
         CLIENT_SETTINGS("settings"),
         CLIENT_METADATA("meta");

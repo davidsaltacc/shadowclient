@@ -1,22 +1,17 @@
 package net.justacoder.shadowclient.main.ui.elements;
 
-import net.justacoder.shadowclient.main.ui.JsonSerializableUiPart;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
-import org.jetbrains.annotations.NotNull;
 
-public abstract class UiElement implements JsonSerializableUiPart {
+public abstract class UiElement {
 
-    protected UiElement(String id) {
-        this.id = id;
-    }
+    protected UiElement() {}
 
     public abstract int getWidth();
     public abstract int getHeight();
     protected int x;
     protected int y;
     protected UiElement parent;
-    private final String id;
 
     public void updatePositioning(int newX, int newY) {
         this.x = newX;
@@ -29,11 +24,6 @@ public abstract class UiElement implements JsonSerializableUiPart {
                 mouseY > y && mouseY < y + getHeight();
     }
 
-    @Override
-    public @NotNull String getId() {
-        return id;
-    }
-
     // to solve issues with recursion, such as a center inside a stackContainer set to fit its children, as the stackContainer would adjust its size to the center, but the center would get its size from the stackContainer, and so on and on and on
     public abstract boolean widthReliesOnChildWidths();
     public abstract boolean heightReliesOnChildHeights();
@@ -43,5 +33,7 @@ public abstract class UiElement implements JsonSerializableUiPart {
     public abstract void mouseReleased(Click click); // same behavior as mouseClicked
     public abstract void mouseMoved(double mouseX, double mouseY);
     public abstract void mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount); // same behavior as mouseClicked
+    public abstract void screenOpening();
+    public abstract void screenClosing();
 
 }

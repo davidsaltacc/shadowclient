@@ -1,9 +1,6 @@
 package net.justacoder.shadowclient.main.ui.screens;
 
-import com.google.gson.JsonObject;
-import net.justacoder.shadowclient.main.config.ConfigManager;
 import net.justacoder.shadowclient.main.config.HopefullyLaterConfigurableSettings;
-import net.justacoder.shadowclient.main.ui.JsonSerializableUiPart;
 import net.justacoder.shadowclient.main.ui.elements.SingleChildUiElement;
 import net.justacoder.shadowclient.main.ui.elements.UiElement;
 import net.justacoder.shadowclient.main.util.UiUtils;
@@ -11,11 +8,9 @@ import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Vector2i;
 
-public class GenericScreen extends Screen implements JsonSerializableUiPart {
+public class GenericScreen extends Screen {
 
     protected final String id;
     protected UiElement child;
@@ -28,7 +23,7 @@ public class GenericScreen extends Screen implements JsonSerializableUiPart {
 
     public void setChild(UiElement child) {
         GenericScreen screen = this;
-        this.child = new SingleChildUiElement(id + "-childwrapper", child) { // so even the root element has a parent whose width it can access
+        this.child = new SingleChildUiElement(child) { // so even the root element has a parent whose width it can access
 
             @Override
             public Vector2i getNewChildPosition() {
@@ -51,53 +46,24 @@ public class GenericScreen extends Screen implements JsonSerializableUiPart {
             @Override
             public boolean heightReliesOnChildHeights() { return false; }
 
-            @Override
-            public @NotNull JsonObject serialize() {
-                return child.serialize();
-            }
-
-            @Override
-            public void deserialize(@Nullable JsonObject in) {
-                child.deserialize(in);
-            }
-
         };
     }
 
     @Override
     protected void init() {
-        this.deserialize(ConfigManager.getData(ConfigManager.ConfigType.UI_DATA, this.id));
         child.updatePositioning(0, 0);
+        child.screenOpening();
+    }
+
+    @Override
+    public void removed() {
+        child.screenClosing();
     }
 
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
         child.updatePositioning(0, 0);
-    }
-
-    @Override
-    public void removed() {
-        ConfigManager.setData(ConfigManager.ConfigType.UI_DATA, id, this.serialize());
-    }
-
-    @Override
-    public @NotNull JsonObject serialize() {
-        JsonObject object = new JsonObject();
-        object.add("root_child", child.serialize());
-        return object;
-    }
-
-    @Override
-    public void deserialize(@Nullable JsonObject in) {
-        if (in != null && !in.has("root_child")) {
-            child.deserialize(in.get("root_child").getAsJsonObject());
-        }
-    }
-
-    @Override
-    public @NotNull String getId() {
-        return id;
     }
 
     @Override

@@ -8,8 +8,7 @@ public abstract class SingleChildUiElement extends UiElement {
 
     protected UiElement child;
 
-    protected SingleChildUiElement(String id, UiElement child) {
-        super(id);
+    protected SingleChildUiElement(UiElement child) {
         this.child = child;
         this.child.parent = this;
     }
@@ -43,4 +42,13 @@ public abstract class SingleChildUiElement extends UiElement {
         child.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
     }
 
+    @Override
+    public void screenOpening() {
+        child.screenOpening();
+    }
+
+    @Override
+    public void screenClosing() {
+        child.screenClosing();
+    }
 }

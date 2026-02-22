@@ -10,8 +10,7 @@ public abstract class MultipleChildrenUiElement extends UiElement {
 
     protected List<UiElement> children;
 
-    protected MultipleChildrenUiElement(String id, List<UiElement> children) {
-        super(id);
+    protected MultipleChildrenUiElement(List<UiElement> children) {
         this.children = children;
         children.forEach(child -> child.parent = this); // TODO make an abstract allowChildren() method that verifies if children can be added (some elements may need specific amounts of children)
     }
@@ -46,6 +45,16 @@ public abstract class MultipleChildrenUiElement extends UiElement {
 
     public void mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         children.forEach(child -> child.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount));
+    }
+
+    @Override
+    public void screenOpening() {
+        children.forEach(UiElement::screenOpening);
+    }
+
+    @Override
+    public void screenClosing() {
+        children.forEach(UiElement::screenClosing);
     }
 
 }

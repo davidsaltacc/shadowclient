@@ -1,12 +1,9 @@
 package net.justacoder.shadowclient.main.ui.elements.singlechild;
 
-import com.google.gson.JsonObject;
 import net.justacoder.shadowclient.main.ui.elements.SingleChildUiElement;
 import net.justacoder.shadowclient.main.ui.elements.UiElement;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.cursor.Cursor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Vector2i;
 
 public class CursorElement extends SingleChildUiElement {
@@ -14,7 +11,7 @@ public class CursorElement extends SingleChildUiElement {
     private final Cursor cursor;
 
     public CursorElement(UiElement child, Cursor cursor) {
-        super(null, child);
+        super(child);
         this.cursor = cursor;
     }
 
@@ -51,16 +48,6 @@ public class CursorElement extends SingleChildUiElement {
     @Override
     public boolean heightReliesOnChildHeights() {
         return true;
-    }
-
-    @Override
-    public @NotNull JsonObject serialize() {
-        return child.serialize();
-    }
-
-    @Override
-    public void deserialize(@Nullable JsonObject in) {
-        child.deserialize(in);
     }
 
 }
