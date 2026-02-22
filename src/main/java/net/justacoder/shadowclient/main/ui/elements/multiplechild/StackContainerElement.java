@@ -17,8 +17,8 @@ public class StackContainerElement extends MultipleChildrenUiElement {
     private final Properties.Size sizeX;
     private final Properties.Size sizeY;
 
-    public StackContainerElement(String id, List<UiElement> children, Properties.Direction direction, Properties.Size sizeX, Properties.Size sizeY) {
-        super(id, children);
+    public StackContainerElement(List<UiElement> children, Properties.Direction direction, Properties.Size sizeX, Properties.Size sizeY) {
+        super(null, children);
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.direction = direction;
@@ -83,9 +83,22 @@ public class StackContainerElement extends MultipleChildrenUiElement {
     }
 
     @Override
+    public boolean widthReliesOnChildWidths() {
+        return sizeX.type == Properties.SizeType.FIT_CHILDREN;
+    }
+
+    @Override
+    public boolean heightReliesOnChildHeights() {
+        return sizeY.type == Properties.SizeType.FIT_CHILDREN;
+    }
+
+    @Override
     public int getWidth() {
+        if (sizeX.type == Properties.SizeType.FIXED_SIZE) {
+            return sizeX.length;
+        }
         if (cachedWidthInvalid) {
-            width = sizeX == Properties.Size.FILL_PARENT ? parent.getWidth() : (direction == Properties.Direction.VERTICAL ? maxChildWidth() : totalChildWidth());
+            width = sizeX.type == Properties.SizeType.FILL_PARENT ? parent.getWidth() : (direction == Properties.Direction.VERTICAL ? maxChildWidth() : totalChildWidth());
             cachedWidthInvalid = false;
         }
         return width;
@@ -93,8 +106,11 @@ public class StackContainerElement extends MultipleChildrenUiElement {
 
     @Override
     public int getHeight() {
+        if (sizeY.type == Properties.SizeType.FIXED_SIZE) {
+            return sizeY.length;
+        }
         if (cachedHeightInvalid) {
-            height = sizeY == Properties.Size.FILL_PARENT ? parent.getHeight() : (direction == Properties.Direction.HORIZONTAL ? maxChildHeight() : totalChildHeight());
+            height = sizeY.type == Properties.SizeType.FILL_PARENT ? parent.getHeight() : (direction == Properties.Direction.HORIZONTAL ? maxChildHeight() : totalChildHeight());
             cachedHeightInvalid = false;
         }
         return height;
@@ -103,7 +119,7 @@ public class StackContainerElement extends MultipleChildrenUiElement {
     @Override
     public @NotNull JsonObject serialize() {
         JsonObject object = new JsonObject();
-        children.forEach(child -> object.add(child.getId(), child.serialize()));
+        //children.forEach(child -> object.add(child.getId(), child.serialize()));
         return object;
     }
 

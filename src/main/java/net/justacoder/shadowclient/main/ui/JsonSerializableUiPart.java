@@ -10,7 +10,8 @@ public interface JsonSerializableUiPart { // for things such as positions and st
 
     // per-instance - if we have multiple serializable widgets of the same type, they still need different ids
     // possible useful naming convention - "type-id", like "button-something" or "clickgui-main" just to make it more readable
-    @NotNull String getId();
+    // can be null - just means that ui part doesn't need to get serialized
+    @Nullable String getId();
 
     void deserialize(@Nullable JsonObject in);
 

@@ -23,10 +23,20 @@ public abstract class UiElement implements JsonSerializableUiPart {
         this.y = newY;
     }
 
+    public boolean isHovered(int mouseX, int mouseY) {
+        return
+                mouseX > x && mouseX < x + getWidth() &&
+                mouseY > y && mouseY < y + getHeight();
+    }
+
     @Override
     public @NotNull String getId() {
         return id;
     }
+
+    // to solve issues with recursion, such as a center inside a stackContainer set to fit its children, as the stackContainer would adjust its size to the center, but the center would get its size from the stackContainer, and so on and on and on
+    public abstract boolean widthReliesOnChildWidths();
+    public abstract boolean heightReliesOnChildHeights();
 
     public abstract void render(DrawContext context, int mouseX, int mouseY, float deltaTicks);
     public abstract void mouseClicked(Click click, boolean doubled); // does always get fired, does not check if element is hovered

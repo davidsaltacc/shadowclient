@@ -15,7 +15,7 @@
             "net.justacoder.shadowclient.fabric.FabricLaunch"
         ],
         "preLaunch": [
-            "net.justacoder.shadowclient.fabric.FabricPreLaunch"
+            "net.justacoder.shadowclient.fabric.FabricLaunch"
         ]
     },
     "mixins": [

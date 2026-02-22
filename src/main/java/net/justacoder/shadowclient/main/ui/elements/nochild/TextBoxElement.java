@@ -11,11 +11,11 @@ import org.jetbrains.annotations.Nullable;
 
 public class TextBoxElement extends UiElement {
 
-    private TranslatableString content;
-    private int color;
+    private final TranslatableString content;
+    private final int color;
 
-    public TextBoxElement(String id, TranslatableString content, int color) {
-        super(id);
+    public TextBoxElement(TranslatableString content, int color) {
+        super(null);
         this.content = content;
         this.color = color;
     }
@@ -28,6 +28,16 @@ public class TextBoxElement extends UiElement {
     @Override
     public int getHeight() {
         return Font.getHeight();
+    }
+
+    @Override
+    public boolean widthReliesOnChildWidths() {
+        return false;
+    }
+
+    @Override
+    public boolean heightReliesOnChildHeights() {
+        return false;
     }
 
     @Override

@@ -46,6 +46,12 @@ public class GenericScreen extends Screen implements JsonSerializableUiPart {
             }
 
             @Override
+            public boolean widthReliesOnChildWidths() { return false; }
+
+            @Override
+            public boolean heightReliesOnChildHeights() { return false; }
+
+            @Override
             public @NotNull JsonObject serialize() {
                 return child.serialize();
             }

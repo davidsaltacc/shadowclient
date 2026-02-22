@@ -1,3 +1,9 @@
 just some personal notes to keep track of some things
 
 - ui ids should typically be "type-id"
+
+if ui element, as a parent, relies on children's size, these children ay not rely on the parents size for their own sizing
+-> as an ui element, always check when determining own size, does parent rely on my own size (.widthReliesOnChildWidths & same with height)? if so, do something other than relying on parent
+- children may safely rely on parent sizes, but parents need to be cautious relying on child sizes
+
+TODO rework json serialization thingy - most elements dont have states and dont need to be saved, so attaching ids is unnecessary extra work
