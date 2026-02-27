@@ -17,7 +17,7 @@ public class CursorElement extends SingleChildUiElement {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
-        if (isHovered(mouseX, mouseY)) {
+        if (isInBounds(mouseX, mouseY)) {
             context.setCursor(cursor);
         } else {
             context.setCursor(Cursor.DEFAULT);

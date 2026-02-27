@@ -5,3 +5,6 @@ just some personal notes to keep track of some things
 if ui element, as a parent, relies on children's size, these children ay not rely on the parents size for their own sizing
 -> as an ui element, always check when determining own size, does parent rely on my own size (.widthReliesOnChildWidths & same with height)? if so, do something other than relying on parent
 - children may safely rely on parent sizes, but parents need to be cautious relying on child sizes
+
+TODO create separate class, something like a "WrapperUiElement" that one can extend that just wraps the child adding functionality, adding nothing else - redirecting all calls and everything to the parent
+REASON: issues. trying to sketch it out, i actually realized it may or may not be possible that there aren't even any realistic issues with the current setup, but it cannot hurt to implement this idea anyway, as it will make lots of things easier.

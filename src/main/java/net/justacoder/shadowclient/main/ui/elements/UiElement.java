@@ -18,7 +18,7 @@ public abstract class UiElement {
         this.y = newY;
     }
 
-    public boolean isHovered(int mouseX, int mouseY) {
+    public boolean isInBounds(int mouseX, int mouseY) {
         return
                 mouseX > x && mouseX < x + getWidth() &&
                 mouseY > y && mouseY < y + getHeight();
