@@ -1,4 +1,4 @@
-package net.justacoder.shadowclient.main.ui.elements.singlechild;
+package net.justacoder.shadowclient.main.ui.elements.singlechild.positioning;
 
 import net.justacoder.shadowclient.main.ui.elements.SingleChildUiElement;
 import net.justacoder.shadowclient.main.ui.elements.UiElement;
